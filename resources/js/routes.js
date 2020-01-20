@@ -27,7 +27,7 @@ export const routes = [
    |--------------------------------------------------------------------------|
    */
   {
-    path:'/super/admin/welcome',
+    path:'/welcome',
     component:Welcome,
     name:'Welcome',
     meta:{
@@ -35,7 +35,7 @@ export const routes = [
     }
   },
   {
-    path:'/super/admin/register/admin',
+    path:'/registerAdmin',
     component:RegisterAdmin,
     name:'register-admin',
     meta:{
@@ -43,7 +43,7 @@ export const routes = [
     }
   },
   {
-    path:'/super/admin/controller/dependeci',
+    path:'/dependecies',
     component:ControllerDepenci,
     name:'controller-dependenci',
     meta:{
@@ -51,14 +51,14 @@ export const routes = [
     }
   },
   {
-    path:'/super/admin/register/visits',
+    path:'/registerVisits',
     component:RegisterVisits,
     name:'register-visits',
     meta:{
     }
   },
   {
-    path:'/super/admin/view/visits',
+    path:'/visits',
     component:ViewVisits,
     name:'view-visits',
     meta:{

@@ -18,21 +18,23 @@
     	<!-- start contenido de muestra -->
   <v-card class="d-inline-block mx-auto" color="#E24E42" >
     <v-container>
-    	<h1>control de dependencias</h1>
-    	<v-simple-table>
-		    <template v-slot:default>
-		      <thead>
-		        <tr>
-		          <th class="text-left">zona</th>
-		        </tr>
-		      </thead>
-		      <tbody>
-		        <tr v-for="(item,index) in zonas" :key="">
-		          <td>{{ item }}</td>
-		        </tr>
-		      </tbody>
-		    </template>
-		  </v-simple-table>
+      <!-- start hacemos el control delas dependecias -->
+      <h1>control de dependencias</h1>
+      <v-simple-table>
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left">zona</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item,index) in zonas" :key="">
+              <td>{{ item }}</td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+      <!-- end hacemos el control delas dependecias -->
     </v-container>
   </v-card>
 <!-- end contenido de muestra -->

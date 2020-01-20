@@ -26,11 +26,11 @@
   export default{
     methods: {
       cerrarSesion() {
-        axios.get('/api/sesion/cerrar').then(res => {
-          console.log(res.data);
-        }).catch(err => {
-          console.log(err);
-        });
+        // axios.get('/api/sesion/cerrar').then(res => {
+        //   console.log(res.data);
+        // }).catch(err => {
+        //   console.log(err);
+        // });
       }
     }
   }

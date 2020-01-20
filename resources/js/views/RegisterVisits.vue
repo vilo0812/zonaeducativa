@@ -24,76 +24,98 @@
 				posibles validaciones
 				v-validate="'required|max:10'" 
 				v-validate="'required|email'"-->
-				<v-text-field
+        <!-- start input nombre -->
+        <v-text-field
         color="dark"
-				v-model="nombre"
-				label="Nombre: "
-				required
-				></v-text-field>
-				<v-text-field
+        v-model="nombre"
+        label="Nombre: "
+        required
+        ></v-text-field>
+        <!-- end input nombre -->
+        <!-- start input apellido -->
+        <v-text-field
         color="dark"
-				v-model="apellido"
-				label="Apellido: "
-				required
-				></v-text-field>
-				<v-text-field
+        v-model="apellido"
+        label="Apellido: "
+        required
+        ></v-text-field>
+        <!-- end input apellido -->
+        <!-- start input cedula -->
+        <v-text-field
         color="dark"
-				v-model="cedula"
-				label="Cédula: "
-				required
-				></v-text-field>
-				<v-text-field
+        v-model="cedula"
+        label="Cédula: "
+        required
+        ></v-text-field>
+        <!-- end input cedula -->
+        <!-- start input telefono -->
+        <v-text-field
         color="dark"
-				v-model="telefono"
-				label="Teléfono: "
-				required
-				></v-text-field>
-				<v-text-field
+        v-model="telefono"
+        label="Teléfono: "
+        required
+        ></v-text-field>
+        <!-- end input telefono -->
+        <!-- start input correo -->
+        <v-text-field
         color="dark"
-				v-model="correo"
-				label="Correo"
-				required
-				></v-text-field>
-				<v-select
+        v-model="correo"
+        label="Correo"
+        required
+        ></v-text-field>
+        <!-- end input correo -->
+        <!-- start select zona educativa -->
+        <v-select
               v-model="zona"
               color="dark"
-		          :items="zonas"
-		          label="Zona: "
-		        ></v-select>
-				<v-select
+              :items="zonas"
+              label="Zona: "
+            ></v-select>
+        <!-- end select zona educativa -->
+        <!-- start select sector -->
+        <v-select
               v-model="sector"
               color="dark"
-		          :items="sectores"
-		          label="Sectores: "
-		        ></v-select>
-				<v-select
+              :items="sectores"
+              label="Sectores: "
+            ></v-select>
+        <!-- end select sector -->
+        <!-- start tipo de pase -->
+        <v-select
               v-model="pase"
               color="dark"
-		          :items="pases"
-		          label="Tipo de Pase: "
-		        ></v-select>
-		        <v-textarea
+              :items="pases"
+              label="Tipo de Pase: "
+            ></v-select>
+        <!-- end tipo de pase -->
+        <!-- start obvervaciones -->
+            <v-textarea
               v-model="observaciones"
               color="dark"
-		          outlined
-		          name="input-7-4"
-		          label="Observaciones: "
-		        ></v-textarea>
-		        <h3 class="text-center">¿El usuario tiene pertenencias?</h3>
-      			 <v-radio-group v-model="HasPertenencias" row>
+              outlined
+              name="input-7-4"
+              label="Observaciones: "
+            ></v-textarea>
+        <!-- end obvervaciones -->
+        <!-- start pertenencias -->
+            <h3 class="text-center">¿El usuario tiene pertenencias?</h3>
+             <v-radio-group v-model="HasPertenencias" row>
                 <v-radio label="no" color="dark"></v-radio>
                 <v-radio label="si" color="dark"></v-radio> 
           </v-radio-group>
-			    <v-textarea
+          <v-textarea
             v-model="pertenencias"
             color="dark"
-			      v-if="HasPertenencias"
-		          outlined
-		          name="input-7-4"
-		          label="Pertenencias: "
-		        ></v-textarea>
-				<v-btn class="mr-4" @click="submit">registrar</v-btn>
-				<v-btn @click="clear">clear</v-btn>
+            v-if="HasPertenencias"
+              outlined
+              name="input-7-4"
+              label="Pertenencias: "
+            ></v-textarea>
+        <!-- end pertenencias -->
+        <!-- start botones de registrar y limpiar -->
+        <v-btn class="mr-4" @click="submit">registrar</v-btn>
+        <v-btn @click="clear">clear</v-btn>
+        <!-- end botones de registrar y limpiar -->
 			</form>
     </v-container>
   </v-card>

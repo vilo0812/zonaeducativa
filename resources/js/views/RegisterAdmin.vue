@@ -24,33 +24,45 @@
 				posibles validaciones
 				v-validate="'required|max:10'" 
 				v-validate="'required|email'"-->
-				<v-text-field
-				v-model="nombre"
-				label="Nombre: "
-				required
-				></v-text-field>
-				<v-text-field
-				v-model="apellido"
-				label="Apellido: "
-				required
-				></v-text-field>
-				<v-text-field
-				v-model="cedula"
-				label="Cédula: "
-				required
-				></v-text-field>
-				<v-text-field
-				v-model="telefono"
-				label="Teléfono: "
-				required
-				></v-text-field>
-				<v-text-field
-				v-model="correo"
-				label="Correo"
-				required
-				></v-text-field>
-				<v-btn class="mr-4" @click="submit">registrar</v-btn>
-				<v-btn @click="clear">clear</v-btn>
+        <!-- start input nombre -->
+        <v-text-field
+        v-model="nombre"
+        label="Nombre: "
+        required
+        ></v-text-field>
+        <!-- end input nombre -->
+        <!-- start input apellido -->
+        <v-text-field
+        v-model="apellido"
+        label="Apellido: "
+        required
+        ></v-text-field>
+        <!-- end input apellido -->
+        <!-- start input cedula -->
+        <v-text-field
+        v-model="cedula"
+        label="Cédula: "
+        required
+        ></v-text-field>
+        <!-- end input cedula -->
+        <!-- start input telefono -->
+        <v-text-field
+        v-model="telefono"
+        label="Teléfono: "
+        required
+        ></v-text-field>
+        <!-- end input telefono -->
+        <!-- start input correo -->
+        <v-text-field
+        v-model="correo"
+        label="Correo"
+        required
+        ></v-text-field>
+        <!-- end input correo -->
+        <!-- start botoner de submit y clean -->
+        <v-btn class="mr-4" @click="submit">registrar</v-btn>
+        <v-btn @click="clear">clear</v-btn>
+        <!-- end botoner de submit y clean -->
 			</form>
     </v-container>
   </v-card>
@@ -82,7 +94,29 @@ import ContentCenter from '.././structures/Center.vue'
   	},
   	methods: {
   	  submit() {
-  	    
+        /*start llenamos nuestro objeto*/
+        let parametros={
+          'first_name':this.nombre,
+          'last_name':this.apellido,
+          'email':this.correo,
+          'identification_card':this.cedula,
+          'phone':this.telefono,
+        }
+        /*end llenamos nuestro objeto*/
+        /*start llamamos al api que permite registrar usuarios*/
+        axios.post('/api/registerAdmin',parametros).then(res => {
+          /*start anuncio si registro exitosamente*/
+         swal({
+            title:'Registro exitoso',
+            icon:'success',
+            closeOnClickOutside:false,
+            CloseOnEsc:false 
+          })
+        }).catch(err => {
+          console.log(err);
+          /*end anuncio si registro exitosamente*/
+        });
+        /*end llamamos al api que permite registrar usuarios*/
   	  },
   	  clear () {
         this.nombre = ''

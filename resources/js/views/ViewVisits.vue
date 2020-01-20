@@ -19,40 +19,44 @@
   <v-card class="d-inline-block mx-auto" color="#E24E42">
     <v-container>
 		    <h1 class="text-center">Visualizar Visitas</h1>
-    		<v-btn
-		      color="blue-grey darken-3"
-		      class="ma-2 white--text"
-		      @click="loader = 'loading3'"
-		    >
-		      Descargar Excel
-		      <v-icon right dark>mdi-cloud-upload</v-icon>
-		    </v-btn>
-    	<v-simple-table>
-		    <template v-slot:default>
-		      <thead>
-		        <tr>
-		          <th class="text-left">Nombre</th>
-		          <th class="text-left">Apellido</th>
-		          <th class="text-left">Cedula</th>
-		          <th class="text-left">teléfono</th>
-		          <th class="text-left">correo</th>
-		          <th class="text-left">llegada</th>
-		          <th class="text-left">salida</th>
-		        </tr>
-		      </thead>
-		      <tbody>
-		        <tr v-for="item in visits" :key="item.nombre">
-		          <td>{{ item.nombre }}</td>
-		          <td>{{ item.apellido }}</td>
-		          <td>{{ item.cedula }}</td>
-		          <td>{{ item.telefono }}</td>
-		          <td>{{ item.correo }}</td>
-		          <td>{{ item.horaLlegada }}</td>
-		          <td>{{ item.horaSalida }}</td>
-		        </tr>
-		      </tbody>
-		    </template>
-		  </v-simple-table>
+        <!-- start boton de descargar -->
+        <v-btn
+          color="blue-grey darken-3"
+          class="ma-2 white--text"
+          @click="loader = 'loading3'"
+        >
+          Descargar Excel
+          <v-icon right dark>mdi-cloud-upload</v-icon>
+        </v-btn>
+        <!-- end boton de descargar -->
+        <!-- start visualizacion de las visitas al edificio -->
+      <v-simple-table>
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left">Nombre</th>
+              <th class="text-left">Apellido</th>
+              <th class="text-left">Cedula</th>
+              <th class="text-left">teléfono</th>
+              <th class="text-left">correo</th>
+              <th class="text-left">llegada</th>
+              <th class="text-left">salida</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in visits" :key="item.nombre">
+              <td>{{ item.nombre }}</td>
+              <td>{{ item.apellido }}</td>
+              <td>{{ item.cedula }}</td>
+              <td>{{ item.telefono }}</td>
+              <td>{{ item.correo }}</td>
+              <td>{{ item.horaLlegada }}</td>
+              <td>{{ item.horaSalida }}</td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+        <!-- end visualizacion de las visitas al edificio -->
     </v-container>
   </v-card>
 <!-- end contenido de muestra -->

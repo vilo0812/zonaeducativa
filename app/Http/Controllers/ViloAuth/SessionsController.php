@@ -29,7 +29,7 @@ class SessionsController extends Controller
     }
     public function cerrarSesion(Request $request){
         // Auth::logout();
-        $correo = Auth::user()->email;
-        return response()->json($correo,200);
+        // $correo = Auth::user()->email;
+        return response()->json('cerrar sesion',200);
     }
 }

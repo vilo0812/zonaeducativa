@@ -14,6 +14,9 @@ Route::group(['prefix' => 'sesion'], function() {
 	/*end verificamos que tipo de usuario es*/
 });
 /*end apis de sesiones*/
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+/*start apis del super administrador*/
+
+	/*start api para registrar un administrador*/
+	Route::post('registerAdmin','SuperAdminController@store');
+	/*end api para registrar un administrador*/
+/*end apis del super administrador*/

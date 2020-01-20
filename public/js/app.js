@@ -2033,7 +2033,7 @@ __webpack_require__.r(__webpack_exports__);
 
             /*start redireccionamos a la pagina principal*/
             // location.reload();
-            window.location.href = "/super/admin/welcome"; // this.$route.router.go('Welcome');
+            window.location.href = "/welcome"; // this.$route.router.go('Welcome');
 
             /*end redireccionamos a la pagina principal*/
           }
@@ -2319,12 +2319,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
-    cerrarSesion: function cerrarSesion() {
-      axios.get('/api/sesion/cerrar').then(function (res) {
-        console.log(res.data);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+    cerrarSesion: function cerrarSesion() {// axios.get('/api/sesion/cerrar').then(res => {
+      //   console.log(res.data);
+      // }).catch(err => {
+      //   console.log(err);
+      // });
     }
   }
 });
@@ -2343,6 +2342,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_welcomeSuperAdmin_SideBar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! .././components/welcomeSuperAdmin/SideBar.vue */ "./resources/js/components/welcomeSuperAdmin/SideBar.vue");
 /* harmony import */ var _partials_welcome_NavBar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! .././partials/welcome/NavBar.vue */ "./resources/js/partials/welcome/NavBar.vue");
 /* harmony import */ var _structures_Center_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! .././structures/Center.vue */ "./resources/js/structures/Center.vue");
+//
+//
 //
 //
 //
@@ -2531,6 +2532,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2551,7 +2564,33 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    submit: function submit() {},
+    submit: function submit() {
+      /*start llenamos nuestro objeto*/
+      var parametros = {
+        'first_name': this.nombre,
+        'last_name': this.apellido,
+        'email': this.correo,
+        'identification_card': this.cedula,
+        'phone': this.telefono
+      };
+      /*end llenamos nuestro objeto*/
+
+      /*start llamamos al api que permite registrar usuarios*/
+
+      axios.post('/api/registerAdmin', parametros).then(function (res) {
+        /*start anuncio si registro exitosamente*/
+        swal({
+          title: 'Registro exitoso',
+          icon: 'success',
+          closeOnClickOutside: false,
+          CloseOnEsc: false
+        });
+      })["catch"](function (err) {
+        console.log(err);
+        /*end anuncio si registro exitosamente*/
+      });
+      /*end llamamos al api que permite registrar usuarios*/
+    },
     clear: function clear() {
       this.nombre = '';
       this.correo = '';
@@ -2579,6 +2618,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_welcomeSuperAdmin_SideBar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! .././components/welcomeSuperAdmin/SideBar.vue */ "./resources/js/components/welcomeSuperAdmin/SideBar.vue");
 /* harmony import */ var _partials_welcome_NavBar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! .././partials/welcome/NavBar.vue */ "./resources/js/partials/welcome/NavBar.vue");
 /* harmony import */ var _structures_Center_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! .././structures/Center.vue */ "./resources/js/structures/Center.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2745,6 +2806,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_welcomeSuperAdmin_SideBar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! .././components/welcomeSuperAdmin/SideBar.vue */ "./resources/js/components/welcomeSuperAdmin/SideBar.vue");
 /* harmony import */ var _partials_welcome_NavBar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! .././partials/welcome/NavBar.vue */ "./resources/js/partials/welcome/NavBar.vue");
 /* harmony import */ var _structures_Center_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! .././structures/Center.vue */ "./resources/js/structures/Center.vue");
+//
+//
+//
+//
 //
 //
 //
@@ -39642,7 +39707,7 @@ var render = function() {
                       }
                     },
                     [
-                      _vm._v("\n\t\t      Descargar Excel\n\t\t      "),
+                      _vm._v("\n          Descargar Excel\n          "),
                       _c("v-icon", { attrs: { right: "", dark: "" } }, [
                         _vm._v("mdi-cloud-upload")
                       ])
@@ -95350,33 +95415,33 @@ var routes = [
 |--------------------------------------------------------------------------|
 */
 {
-  path: '/super/admin/welcome',
+  path: '/welcome',
   component: _views_WelcomeSuperAdmin_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
   name: 'Welcome',
   meta: {
     authSuperAdmin: true
   }
 }, {
-  path: '/super/admin/register/admin',
+  path: '/registerAdmin',
   component: _views_RegisterAdmin_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
   name: 'register-admin',
   meta: {
     authSuperAdmin: true
   }
 }, {
-  path: '/super/admin/controller/dependeci',
+  path: '/dependecies',
   component: _views_ControllerDepenci_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
   name: 'controller-dependenci',
   meta: {
     authSuperAdmin: true
   }
 }, {
-  path: '/super/admin/register/visits',
+  path: '/registerVisits',
   component: _views_RegisterVisits_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
   name: 'register-visits',
   meta: {}
 }, {
-  path: '/super/admin/view/visits',
+  path: '/visits',
   component: _views_ViewVisits_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
   name: 'view-visits',
   meta: {}
@@ -95845,15 +95910,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************!*\
   !*** ./resources/js/views/ViewVisits.vue ***!
   \*******************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ViewVisits_vue_vue_type_template_id_5f29636c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ViewVisits.vue?vue&type=template&id=5f29636c& */ "./resources/js/views/ViewVisits.vue?vue&type=template&id=5f29636c&");
 /* harmony import */ var _ViewVisits_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ViewVisits.vue?vue&type=script&lang=js& */ "./resources/js/views/ViewVisits.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ViewVisits_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ViewVisits_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
@@ -95902,7 +95966,7 @@ component.options.__file = "resources/js/views/ViewVisits.vue"
 /*!********************************************************************!*\
   !*** ./resources/js/views/ViewVisits.vue?vue&type=script&lang=js& ***!
   \********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
