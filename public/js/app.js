@@ -2242,7 +2242,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    var _this = this;
+
+    /*start metemos los administradores registradors*/
+    axios.get('/api/viewAdmins').then(function (res) {
+      _this.administradores = res.data.admins;
+    })["catch"](function (err) {
+      console.log(err);
+    });
+    /*this.administradores.push(
+        { picture: 38, text: 'Erick' },
+        { picture: 48, text: 'Javier' },
+        { picture: 58, text: 'Franklin' },
+        { picture: 78, text: 'Truman' },
+        { picture: 28, text: 'Jose Gregorio' }
+        );*/
+
+    /*end metemos los administradores registradors*/
+  },
   data: function data() {
     return {
       items: [{
@@ -2262,22 +2283,7 @@ __webpack_require__.r(__webpack_exports__);
         text: 'visualizar Registros',
         direccion: 'view-visits'
       }],
-      items2: [{
-        picture: 28,
-        text: 'Jose Gregorio'
-      }, {
-        picture: 38,
-        text: 'Erick'
-      }, {
-        picture: 48,
-        text: 'Javier'
-      }, {
-        picture: 58,
-        text: 'Franklin'
-      }, {
-        picture: 78,
-        text: 'Truman'
-      }]
+      administradores: []
     };
   }
 });
@@ -2745,6 +2751,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2753,6 +2765,15 @@ __webpack_require__.r(__webpack_exports__);
     'side-bar': _components_welcomeSuperAdmin_SideBar_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     'nav-bar': _partials_welcome_NavBar_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     'content-center': _structures_Center_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/viewZones').then(function (res) {
+      _this.zonas = res.data.zones;
+    })["catch"](function (err) {
+      console.log(err);
+    });
   },
   data: function data() {
     return {
@@ -2763,9 +2784,9 @@ __webpack_require__.r(__webpack_exports__);
       cedula: '',
       telefono: '',
       zona: '',
-      zonas: ['despacho', 'piso 1'],
+      zonas: [],
       sector: '',
-      sectores: ['fundabit', 'escuelita'],
+      sectores: [],
       pase: '',
       pases: ['visitante', 'provisional', 'video conferencia'],
       observaciones: '',
@@ -2785,6 +2806,22 @@ __webpack_require__.r(__webpack_exports__);
       this.sector = '';
       this.pase = '';
       this.HasPertenencias = [];
+    },
+    viewSectors: function viewSectors() {
+      var _this2 = this;
+
+      /*vamos a trarnos todos los sectores dependiendo de cual es la zona que elijieron*/
+      var parametro = {
+        id: this.zona
+      };
+      /*start llenamos los sectore de la vista con los datos de la base de datos*/
+
+      axios.post('/api/viewSectors', parametro).then(function (res) {
+        _this2.sectores = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+      /*end llenamos los sectore de la vista con los datos de la base de datos*/
     }
   },
   created: function created() {
@@ -38824,76 +38861,24 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-list",
-            _vm._l(_vm.items2, function(item) {
+            _vm._l(_vm.administradores, function(item) {
               return _c(
                 "v-list-item",
-                { key: item.text, attrs: { link: "" } },
+                { key: item, attrs: { link: "" } },
                 [
                   _c("v-list-item-avatar", [
                     _c("img", {
-                      attrs: {
-                        src:
-                          "https://randomuser.me/api/portraits/men/" +
-                          item.picture +
-                          ".jpg",
-                        alt: ""
-                      }
+                      attrs: { src: "images/users/defect.jpg", alt: "" }
                     })
                   ]),
                   _vm._v(" "),
                   _c("v-list-item-title", {
-                    domProps: { textContent: _vm._s(item.text) }
+                    domProps: { textContent: _vm._s(item) }
                   })
                 ],
                 1
               )
             }),
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-list-item",
-            { staticClass: "mt-4", attrs: { link: "" } },
-            [
-              _c(
-                "v-list-item-action",
-                [
-                  _c("v-icon", { attrs: { color: "grey darken-1" } }, [
-                    _vm._v("mdi-plus-circle-outline")
-                  ])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-list-item-title",
-                { staticClass: "grey--text text--darken-1" },
-                [_vm._v("Browse Channels")]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-list-item",
-            { attrs: { link: "" } },
-            [
-              _c(
-                "v-list-item-action",
-                [
-                  _c("v-icon", { attrs: { color: "grey darken-1" } }, [
-                    _vm._v("mdi-settings")
-                  ])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-list-item-title",
-                { staticClass: "grey--text text--darken-1" },
-                [_vm._v("Manage Subscriptions")]
-              )
-            ],
             1
           )
         ],
@@ -39506,8 +39491,11 @@ var render = function() {
                       attrs: {
                         color: "dark",
                         items: _vm.zonas,
+                        "item-text": "zone",
+                        "item-value": "id",
                         label: "Zona: "
                       },
+                      on: { blur: _vm.viewSectors },
                       model: {
                         value: _vm.zona,
                         callback: function($$v) {
@@ -39518,10 +39506,20 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("v-select", {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.zona,
+                          expression: "zona"
+                        }
+                      ],
                       attrs: {
                         color: "dark",
                         items: _vm.sectores,
-                        label: "Sectores: "
+                        label: "Sectores: ",
+                        "item-text": "sector",
+                        "item-value": "pivot.sector_id"
                       },
                       model: {
                         value: _vm.sector,

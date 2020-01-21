@@ -69,16 +69,22 @@
               v-model="zona"
               color="dark"
               :items="zonas"
+              item-text="zone"
+              item-value="id"
               label="Zona: "
+              @blur="viewSectors"
             ></v-select>
         <!-- end select zona educativa -->
         <!-- start select sector -->
-        <v-select
+         <v-select
+              v-show="zona"
               v-model="sector"
               color="dark"
               :items="sectores"
               label="Sectores: "
-            ></v-select>
+              item-text="sector"
+              item-value="pivot.sector_id"
+            ></v-select> 
         <!-- end select sector -->
         <!-- start tipo de pase -->
         <v-select
@@ -135,6 +141,13 @@ import ContentCenter from '.././structures/Center.vue'
   		'nav-bar':Nav,
   		'content-center':ContentCenter,
   	},
+    mounted(){
+      axios.get('/api/viewZones').then(res => {
+      this.zonas=res.data.zones
+      }).catch(err => {
+        console.log(err);
+      });
+    },
   	data () {
   	  return {
   	    drawer: null,
@@ -144,15 +157,9 @@ import ContentCenter from '.././structures/Center.vue'
   	    cedula:'',
   	    telefono:'',
         zona:'',
-  	    zonas:[
-  	    'despacho',
-  	    'piso 1'
-  	    ],
+  	    zonas:[],
         sector:'',
-  	    sectores:[
-  	    'fundabit',
-  	    'escuelita'
-  	    ],
+  	    sectores:[],
         pase:'',
   	    pases:[
   	    'visitante',
@@ -178,6 +185,19 @@ import ContentCenter from '.././structures/Center.vue'
         this.sector=''
         this.pase=''
         this.HasPertenencias=[]
+    },
+    viewSectors(){
+      /*vamos a trarnos todos los sectores dependiendo de cual es la zona que elijieron*/
+      let parametro={
+        id:this.zona
+      }
+      /*start llenamos los sectore de la vista con los datos de la base de datos*/
+      axios.post('/api/viewSectors',parametro).then(res => {
+        this.sectores=res.data
+      }).catch(err => {
+        console.log(err);
+      });
+      /*end llenamos los sectore de la vista con los datos de la base de datos*/
     }
   	},
     created () {
