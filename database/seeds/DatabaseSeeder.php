@@ -1,5 +1,6 @@
 <?php
 
+use App\Handling_floor;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,7 +19,8 @@ class DatabaseSeeder extends Seeder
         'sectors',
         'zones',
         'sectors_zones',
-        'floors'
+        'floors',
+        'handling_floors'
         ]);
         $this->call(RolSeeder::class);
         $this->call(UserSeeder::class);
@@ -26,6 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ZoneSeeder::class);
         $this->call(Sectors_zonesSeeder::class);
         $this->call(FloorSeeder::class);
+        $this->call(Handling_floorsSeeder::class);
     }
     public function truncateTable(array $tables){
       DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
