@@ -28,6 +28,7 @@
         <v-text-field
         v-model="nombre"
         label="Nombre: "
+        prepend-icon="mdi-account"
         required
         ></v-text-field>
         <!-- end input nombre -->
@@ -36,6 +37,7 @@
         v-model="apellido"
         label="Apellido: "
         required
+        prepend-icon="mdi-account-settings"
         ></v-text-field>
         <!-- end input apellido -->
         <!-- start input cedula -->
@@ -43,6 +45,7 @@
         v-model="cedula"
         label="Cédula: "
         required
+        prepend-icon="mdi-account-card-details"
         ></v-text-field>
         <!-- end input cedula -->
         <!-- start input telefono -->
@@ -50,6 +53,7 @@
         v-model="telefono"
         label="Teléfono: "
         required
+        prepend-icon="mdi-cellphone"
         ></v-text-field>
         <!-- end input telefono -->
         <!-- start input correo -->
@@ -57,11 +61,18 @@
         v-model="correo"
         label="Correo"
         required
+        prepend-icon="mdi-email"
         ></v-text-field>
         <!-- end input correo -->
         <!-- start botoner de submit y clean -->
-        <v-btn class="mr-4" @click="submit">registrar</v-btn>
-        <v-btn @click="clear">clear</v-btn>
+        <v-btn @click="submit" class="mr-4 light-blue accent-4">
+        <span>Registrar</span>
+        <v-icon>mdi-account-multiple-plus</v-icon>
+        </v-btn>
+        <v-btn @click="clear" class="orange lighten-2">
+        <span>Clear</span>
+        <v-icon>mdi-eraser</v-icon>
+        </v-btn>
         <!-- end botoner de submit y clean -->
 			</form>
     </v-container>
@@ -73,9 +84,9 @@
 </template>
 
 <script>
-import Side from '.././components/welcomeSuperAdmin/SideBar.vue'
-import Nav from '.././partials/welcome/NavBar.vue'
-import ContentCenter from '.././structures/Center.vue'
+import Side from '../.././components/welcomeSuperAdmin/SideBar.vue'
+import Nav from '../.././partials/welcome/NavBar.vue'
+import ContentCenter from '../.././structures/Center.vue'
   export default {
   	components:{
   		'side-bar':Side,

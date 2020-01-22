@@ -2,10 +2,14 @@
 import Home from './views/Home.vue';
 import Welcome from './views/WelcomeSuperAdmin.vue';
 import WelcomeAdmin from './views/WelcomeAdmin.vue';
-import RegisterAdmin from './views/RegisterAdmin.vue';
 import ControllerDepenci from './views/ControllerDepenci.vue';
-import RegisterVisits from './views/RegisterVisits.vue';
 import ViewVisits from './views/ViewVisits.vue';
+import RegisterVisits from './views/RegisterVisits.vue';
+/*start componentes que gestionan a los administradores*/
+import RegisterAdmin from './views/managingAdmin/RegisterAdmin.vue';
+import ShowAdmin from './views/managingAdmin/ShowAdmin.vue';
+import EditingAdmin from './views/managingAdmin/EditingAdmin.vue';
+/*end componentes que gestionan a los administradores*/
 export const routes = [
   /*
    |--------------------------------------------------------------------------
@@ -35,14 +39,6 @@ export const routes = [
     }
   },
   {
-    path:'/registerAdmin',
-    component:RegisterAdmin,
-    name:'register-admin',
-    meta:{
-      authSuperAdmin:true
-    }
-  },
-  {
     path:'/dependecies',
     component:ControllerDepenci,
     name:'controller-dependenci',
@@ -64,7 +60,38 @@ export const routes = [
     meta:{
     }
   },
-  
+/*start manegador de administradores*/
+  /*start registrar administrador*/
+  {
+    path:'/registerAdmin',
+    component:RegisterAdmin,
+    name:'register-admin',
+    meta:{
+      authSuperAdmin:true
+    }
+  },
+  /*end registrar administrador*/
+  /*start mostrar el perfil de administrador*/
+  {
+    path:'/showAdmin/:id',
+    component:ShowAdmin,
+    name:'show-admin',
+    props: true,
+    meta:{
+    }
+  },
+  /*end mostrar el perfil de administrador*/
+  /*start editar el adiministrador*/
+  {
+    path:'/editingAdmin/:id',
+    component:EditingAdmin,
+    name:'editing-admin',
+    props: true,
+    meta:{
+    }
+  },
+  /*end editar el adiministrador*/
+/*end manegador de administradores*/
    /*
    |--------------------------------------------------------------------------
    | rutas para el administrador

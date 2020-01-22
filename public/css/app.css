@@ -6132,7 +6132,17 @@
 }
 .v-application--is-rtl .v-textarea.v-text-field--enclosed .v-text-field__slot textarea {
   padding-left: 12px;
-}.theme--light.v-application {
+}
+.redondo{
+border-radius:50%;
+}
+.black{
+	color:black;
+}
+.yellow-accent-4{
+	background-color:rgba(245,227,25,0.7);
+}
+.theme--light.v-application {
   background: #fafafa;
   color: rgba(0, 0, 0, 0.87);
 }

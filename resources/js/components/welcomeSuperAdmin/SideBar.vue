@@ -23,16 +23,17 @@
         <v-list>
           <v-list-item
             v-for="item in administradores"
-            :key="item"
+            :key="item.id"
             link
+            :to="{ name: 'show-admin', params: { id:item.id }}"
           >
             <v-list-item-avatar>
               <img
                 src="images/users/defect.jpg"
                 alt=""
-              >
+            >
             </v-list-item-avatar>
-            <v-list-item-title v-text="item" />
+            <v-list-item-title v-text="item.first_name" />
           </v-list-item>
         </v-list>
         <!-- end listamos a los administradores del sistema -->
