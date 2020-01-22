@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Floor;
+use App\Handling_floor;
 use App\Zone;
 use Illuminate\Http\Request;
 
@@ -15,9 +16,9 @@ class FloorController extends Controller
     }
     /*end ver los pisos disponibles*/
  /*start ver todas las zonas disponibles*/
-    public function viewZones(){
-    $zones=Zone::get(['id','zone']);
-    return response()->json(['zones'=>$zones],200);
+    public function viewZones(Request $request){
+    $pisos=Handling_floor::all()->where('floor_id',$request->id);
+    return response()->json($pisos,200);
     }
     /*end ver las zonas disponibles*/
     /*start ver todas los sectores segun su zona*/

@@ -73,6 +73,10 @@
               v-model="piso"
               color="dark"
               label="Piso: "
+              :items="pisos"
+              item-text="pisos.floor"
+              item-value="pisos.id"
+              @blur="viewZones"
               prepend-icon="mdi-grid"
             ></v-select>
         <!-- start select zona educativa -->
@@ -155,8 +159,8 @@ import ContentCenter from '.././structures/Center.vue'
   		'content-center':ContentCenter,
   	},
     mounted(){
-      axios.get('/api/viewZones').then(res => {
-      this.zonas=res.data.zones
+      axios.get('/api/viewFloors').then(res => {
+        this.pisos=res.data;
       }).catch(err => {
         console.log(err);
       });
@@ -200,6 +204,16 @@ import ContentCenter from '.././structures/Center.vue'
         this.sector=''
         this.pase=''
         this.HasPertenencias=[]
+    },
+    viewZones(){
+      let IdFloor={
+        'id':this.piso
+      }
+      axios.post('/api/viewZones',IdFloor).then(res => {
+      this.zonas=res.data.zones
+      }).catch(err => {
+        console.log(err);
+      });
     },
     viewSectors(){
       /*vamos a trarnos todos los sectores dependiendo de cual es la zona que elijieron*/

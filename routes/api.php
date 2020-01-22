@@ -37,7 +37,7 @@ Route::group(['prefix' => 'sesion'], function() {
 	Route::get('viewFloors','FloorController@viewFloors');
 	/*end api para ver a las zonas del edificio*/
 	/*start api para ver los pisos del edificio*/
-	Route::get('viewZones','FloorController@viewZones');
+	Route::post('viewZones','FloorController@viewZones');
 	/*end api para ver a las zonas del edificio*/
 	/*start api para ver los sectores que pertenecen a una zona en especifico del edificio*/
 	Route::post('viewSectors','FloorController@viewSectors');

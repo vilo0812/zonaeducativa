@@ -2626,6 +2626,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2638,8 +2642,8 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.get('/api/viewZones').then(function (res) {
-      _this.zonas = res.data.zones;
+    axios.get('/api/viewFloors').then(function (res) {
+      _this.pisos = res.data;
     })["catch"](function (err) {
       console.log(err);
     });
@@ -2678,8 +2682,20 @@ __webpack_require__.r(__webpack_exports__);
       this.pase = '';
       this.HasPertenencias = [];
     },
-    viewSectors: function viewSectors() {
+    viewZones: function viewZones() {
       var _this2 = this;
+
+      var IdFloor = {
+        'id': this.piso
+      };
+      axios.post('/api/viewZones', IdFloor).then(function (res) {
+        _this2.zonas = res.data.zones;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    viewSectors: function viewSectors() {
+      var _this3 = this;
 
       /*vamos a trarnos todos los sectores dependiendo de cual es la zona que elijieron*/
       var parametro = {
@@ -2688,7 +2704,7 @@ __webpack_require__.r(__webpack_exports__);
       /*start llenamos los sectore de la vista con los datos de la base de datos*/
 
       axios.post('/api/viewSectors', parametro).then(function (res) {
-        _this2.sectores = res.data;
+        _this3.sectores = res.data;
       })["catch"](function (err) {
         console.log(err);
       });
@@ -39851,8 +39867,12 @@ var render = function() {
                       attrs: {
                         color: "dark",
                         label: "Piso: ",
+                        items: _vm.pisos,
+                        "item-text": "pisos.floor",
+                        "item-value": "pisos.id",
                         "prepend-icon": "mdi-grid"
                       },
+                      on: { blur: _vm.viewZones },
                       model: {
                         value: _vm.piso,
                         callback: function($$v) {
