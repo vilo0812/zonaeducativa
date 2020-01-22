@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Floor;
 use App\Zone;
 use Illuminate\Http\Request;
 
 class FloorController extends Controller
 {
+     /*start ver todas los pisos disponibles*/
+    public function viewFloors(){
+    $floor=Floor::get(['id','floor']);
+    return response()->json($floor,200);
+    }
+    /*end ver los pisos disponibles*/
  /*start ver todas las zonas disponibles*/
     public function viewZones(){
     $zones=Zone::get(['id','zone']);

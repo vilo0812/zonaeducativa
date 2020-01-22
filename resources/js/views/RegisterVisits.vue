@@ -26,9 +26,9 @@
 				v-validate="'required|email'"-->
         <!-- start input nombre -->
         <v-text-field
-        color="dark"
         v-model="nombre"
         label="Nombre: "
+        prepend-icon="mdi-account"
         required
         ></v-text-field>
         <!-- end input nombre -->
@@ -38,6 +38,7 @@
         v-model="apellido"
         label="Apellido: "
         required
+        prepend-icon="mdi-account-settings"
         ></v-text-field>
         <!-- end input apellido -->
         <!-- start input cedula -->
@@ -45,6 +46,7 @@
         color="dark"
         v-model="cedula"
         label="Cédula: "
+        prepend-icon="mdi-account-card-details"
         required
         ></v-text-field>
         <!-- end input cedula -->
@@ -53,6 +55,7 @@
         color="dark"
         v-model="telefono"
         label="Teléfono: "
+        prepend-icon="mdi-cellphone"
         required
         ></v-text-field>
         <!-- end input telefono -->
@@ -61,9 +64,17 @@
         color="dark"
         v-model="correo"
         label="Correo"
+        prepend-icon="mdi-email"
         required
         ></v-text-field>
         <!-- end input correo -->
+        <!-- start input de el piso -->
+        <v-select
+              v-model="piso"
+              color="dark"
+              label="Piso: "
+              prepend-icon="mdi-grid"
+            ></v-select>
         <!-- start select zona educativa -->
         <v-select
               v-model="zona"
@@ -73,19 +84,21 @@
               item-value="id"
               label="Zona: "
               @blur="viewSectors"
+              prepend-icon="mdi-grid-large"
             ></v-select>
-        <!-- end select zona educativa -->
+        <!-- end select zona educativa mdi-grid-large -->
         <!-- start select sector -->
          <v-select
               v-show="zona"
               v-model="sector"
               color="dark"
               :items="sectores"
-              label="Sectores: "
+              label="Sector: "
               item-text="sector"
               item-value="pivot.sector_id"
+              prepend-icon="mdi-cube-unfolded"
             ></v-select> 
-        <!-- end select sector -->
+        <!-- end select sector mdi-cube-unfolded-->
         <!-- start tipo de pase -->
         <v-select
               v-model="pase"
@@ -156,6 +169,8 @@ import ContentCenter from '.././structures/Center.vue'
   	    correo:'',
   	    cedula:'',
   	    telefono:'',
+        piso:'',
+        pisos:[],
         zona:'',
   	    zonas:[],
         sector:'',

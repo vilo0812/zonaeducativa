@@ -33,7 +33,10 @@ Route::group(['prefix' => 'sesion'], function() {
 	/*start api para ver a los administrador*/
 	Route::get('viewAdmins','UserController@viewAdmins');
 	/*end api api para ver a los administrador*/
-	/*start api para ver a las zonas del edificio*/
+	/*start api para ver los pisos del edificio*/
+	Route::get('viewFloors','FloorController@viewFloors');
+	/*end api para ver a las zonas del edificio*/
+	/*start api para ver los pisos del edificio*/
 	Route::get('viewZones','FloorController@viewZones');
 	/*end api para ver a las zonas del edificio*/
 	/*start api para ver los sectores que pertenecen a una zona en especifico del edificio*/

@@ -76,7 +76,7 @@
 	data () {
   	  return {
   	    items: [
-        { icon: 'mdi-account', text: 'Registrar Administrador',direccion:'register-admin'},
+        { icon: 'mdi-account-edit', text: 'Registrar Administrador',direccion:'register-admin'},
         { icon: 'mdi-google-nearby', text: 'control de dependencias',direccion:'controller-dependenci'},
         { icon: 'mdi-pencil', text: 'registro de visita',direccion:'register-visits'},
         { icon: 'mdi-book-open-variant', text: 'visualizar Registros',direccion:'view-visits'},

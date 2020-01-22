@@ -2271,7 +2271,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       items: [{
-        icon: 'mdi-account',
+        icon: 'mdi-account-edit',
         text: 'Registrar Administrador',
         direccion: 'register-admin'
       }, {
@@ -2613,6 +2613,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2639,6 +2652,8 @@ __webpack_require__.r(__webpack_exports__);
       correo: '',
       cedula: '',
       telefono: '',
+      piso: '',
+      pisos: [],
       zona: '',
       zonas: [],
       sector: '',
@@ -39754,7 +39769,11 @@ var render = function() {
                   "form",
                   [
                     _c("v-text-field", {
-                      attrs: { color: "dark", label: "Nombre: ", required: "" },
+                      attrs: {
+                        label: "Nombre: ",
+                        "prepend-icon": "mdi-account",
+                        required: ""
+                      },
                       model: {
                         value: _vm.nombre,
                         callback: function($$v) {
@@ -39768,7 +39787,8 @@ var render = function() {
                       attrs: {
                         color: "dark",
                         label: "Apellido: ",
-                        required: ""
+                        required: "",
+                        "prepend-icon": "mdi-account-settings"
                       },
                       model: {
                         value: _vm.apellido,
@@ -39780,7 +39800,12 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("v-text-field", {
-                      attrs: { color: "dark", label: "Cédula: ", required: "" },
+                      attrs: {
+                        color: "dark",
+                        label: "Cédula: ",
+                        "prepend-icon": "mdi-account-card-details",
+                        required: ""
+                      },
                       model: {
                         value: _vm.cedula,
                         callback: function($$v) {
@@ -39794,6 +39819,7 @@ var render = function() {
                       attrs: {
                         color: "dark",
                         label: "Teléfono: ",
+                        "prepend-icon": "mdi-cellphone",
                         required: ""
                       },
                       model: {
@@ -39806,7 +39832,12 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("v-text-field", {
-                      attrs: { color: "dark", label: "Correo", required: "" },
+                      attrs: {
+                        color: "dark",
+                        label: "Correo",
+                        "prepend-icon": "mdi-email",
+                        required: ""
+                      },
                       model: {
                         value: _vm.correo,
                         callback: function($$v) {
@@ -39819,10 +39850,26 @@ var render = function() {
                     _c("v-select", {
                       attrs: {
                         color: "dark",
+                        label: "Piso: ",
+                        "prepend-icon": "mdi-grid"
+                      },
+                      model: {
+                        value: _vm.piso,
+                        callback: function($$v) {
+                          _vm.piso = $$v
+                        },
+                        expression: "piso"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("v-select", {
+                      attrs: {
+                        color: "dark",
                         items: _vm.zonas,
                         "item-text": "zone",
                         "item-value": "id",
-                        label: "Zona: "
+                        label: "Zona: ",
+                        "prepend-icon": "mdi-grid-large"
                       },
                       on: { blur: _vm.viewSectors },
                       model: {
@@ -39846,9 +39893,10 @@ var render = function() {
                       attrs: {
                         color: "dark",
                         items: _vm.sectores,
-                        label: "Sectores: ",
+                        label: "Sector: ",
                         "item-text": "sector",
-                        "item-value": "pivot.sector_id"
+                        "item-value": "pivot.sector_id",
+                        "prepend-icon": "mdi-cube-unfolded"
                       },
                       model: {
                         value: _vm.sector,
