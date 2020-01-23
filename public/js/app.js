@@ -2630,6 +2630,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2647,6 +2651,13 @@ __webpack_require__.r(__webpack_exports__);
     })["catch"](function (err) {
       console.log(err);
     });
+    axios.get('/api/viewTickets').then(function (res) {
+      _this.pases = res.data;
+    })["catch"](function (err) {
+      console.log(err);
+    }); //  {id:1,pase:'visitante'},
+    //   {id:2,pase:'provisional'},
+    //   {id:3,pase:'video conferencia'},
   },
   data: function data() {
     return {
@@ -2663,7 +2674,7 @@ __webpack_require__.r(__webpack_exports__);
       sector: '',
       sectores: [],
       pase: '',
-      pases: ['visitante', 'provisional', 'video conferencia'],
+      pases: [],
       observaciones: '',
       HasPertenencias: null,
       pertenencias: ''
@@ -39932,6 +39943,14 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("v-select", {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.piso,
+                          expression: "piso"
+                        }
+                      ],
                       attrs: {
                         color: "dark",
                         items: _vm.zonas,
@@ -39964,7 +39983,7 @@ var render = function() {
                         items: _vm.sectores,
                         label: "Sector: ",
                         "item-text": "sector",
-                        "item-value": "pivot.sector_id",
+                        "item-value": "id",
                         "prepend-icon": "mdi-cube-unfolded"
                       },
                       model: {
@@ -39980,7 +39999,10 @@ var render = function() {
                       attrs: {
                         color: "dark",
                         items: _vm.pases,
-                        label: "Tipo de Pase: "
+                        "item-text": "ticket",
+                        "item-value": "id",
+                        label: "Tipo de Pase: ",
+                        "prepend-icon": "mdi-ticket-account"
                       },
                       model: {
                         value: _vm.pase,

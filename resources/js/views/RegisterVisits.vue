@@ -81,6 +81,7 @@
             ></v-select>
         <!-- start select zona educativa -->
         <v-select
+              v-show="piso"
               v-model="zona"
               color="dark"
               :items="zonas"
@@ -99,7 +100,7 @@
               :items="sectores"
               label="Sector: "
               item-text="sector"
-              item-value="pivot.sector_id"
+              item-value="id"
               prepend-icon="mdi-cube-unfolded"
             ></v-select> 
         <!-- end select sector mdi-cube-unfolded-->
@@ -108,7 +109,10 @@
               v-model="pase"
               color="dark"
               :items="pases"
+              item-text="ticket"
+              item-value="id"
               label="Tipo de Pase: "
+              prepend-icon="mdi-ticket-account"
             ></v-select>
         <!-- end tipo de pase -->
         <!-- start obvervaciones -->
@@ -164,6 +168,14 @@ import ContentCenter from '.././structures/Center.vue'
       }).catch(err => {
         console.log(err);
       });
+      axios.get('/api/viewTickets').then(res => {
+        this.pases=res.data
+      }).catch(err => {
+        console.log(err);
+      });
+      //  {id:1,pase:'visitante'},
+      //   {id:2,pase:'provisional'},
+      //   {id:3,pase:'video conferencia'},
     },
   	data () {
   	  return {
@@ -180,11 +192,7 @@ import ContentCenter from '.././structures/Center.vue'
         sector:'',
   	    sectores:[],
         pase:'',
-  	    pases:[
-  	    'visitante',
-  	    'provisional',
-  	    'video conferencia'
-  	    ],
+  	    pases:[],
         observaciones:'',
   	    HasPertenencias:null,
         pertenencias:''

@@ -42,4 +42,10 @@ Route::group(['prefix' => 'sesion'], function() {
 	/*start api para ver los sectores que pertenecen a una zona en especifico del edificio*/
 	Route::post('viewSectors','DirectionController@viewSectors');
 	/*end api para ver los sectores que pertenecen a una zona en especifico del edificio*/
-/*end apis del super administrador*/
+	/*start api para ver los pases permitidos de la zona*/
+	Route::get('viewTickets','TicketController@viewTickets');
+	/*end api para ver los pases permitidos de la zona*/
+	/*start api para registrar cada visita en el edificio*/
+	Route::post('storeVisit','VisitorController@store');
+	/*end api para registrar cada visita en el edificio*/
+/*end apis del super administrador StoreVisit*/
