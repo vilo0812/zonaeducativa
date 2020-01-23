@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSectorsZonesTable extends Migration
+class CreateDirectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSectorsZonesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sectors_zones', function (Blueprint $table) {
+        Schema::create('directions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateSectorsZonesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sectors_zones');
+        Schema::dropIfExists('directions');
     }
 }

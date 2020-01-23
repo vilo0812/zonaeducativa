@@ -2683,19 +2683,17 @@ __webpack_require__.r(__webpack_exports__);
       this.HasPertenencias = [];
     },
     viewZones: function viewZones() {
-      var _this2 = this;
-
       var IdFloor = {
         'id': this.piso
       };
-      axios.post('/api/viewZones', IdFloor).then(function (res) {
-        _this2.zonas = res.data.zones;
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      this.zonas = this.zoneOfFloor; // axios.post('/api/viewZones',IdFloor).then(res => {
+      // this.zonas=res.data.zones
+      // }).catch(err => {
+      //   console.log(err);
+      // });
     },
     viewSectors: function viewSectors() {
-      var _this3 = this;
+      var _this2 = this;
 
       /*vamos a trarnos todos los sectores dependiendo de cual es la zona que elijieron*/
       var parametro = {
@@ -2704,11 +2702,57 @@ __webpack_require__.r(__webpack_exports__);
       /*start llenamos los sectore de la vista con los datos de la base de datos*/
 
       axios.post('/api/viewSectors', parametro).then(function (res) {
-        _this3.sectores = res.data;
+        _this2.sectores = res.data;
       })["catch"](function (err) {
         console.log(err);
       });
       /*end llenamos los sectore de la vista con los datos de la base de datos*/
+    }
+  },
+  computed: {
+    zoneOfFloor: function zoneOfFloor() {
+      if (this.piso == 1) {
+        return [{
+          zona: 'Zona 1',
+          id: 1
+        }, {
+          zona: 'Zona 2',
+          id: 2
+        }];
+      } else if (this.piso == 2) {
+        return [{
+          zona: 'Zona A',
+          id: 3
+        }, {
+          zona: 'Zona B',
+          id: 4
+        }, {
+          zona: 'Zona C',
+          id: 5
+        }];
+      } else if (this.piso == 3) {
+        return [{
+          zona: 'Despacho',
+          id: 6
+        }, {
+          zona: 'Zona A',
+          id: 3
+        }, {
+          zona: 'Zona B',
+          id: 4
+        }];
+      } else if (this.piso == 4) {
+        return [{
+          zona: 'Zona A',
+          id: 3
+        }, {
+          zona: 'Zona B',
+          id: 4
+        }, {
+          zona: 'Zona C',
+          id: 5
+        }];
+      }
     }
   },
   created: function created() {
@@ -3409,6 +3453,10 @@ __webpack_require__.r(__webpack_exports__);
           icon: 'success',
           closeOnClickOutside: false,
           CloseOnEsc: false
+        }).then(function (select) {
+          if (select) {
+            location.reload();
+          }
         });
       })["catch"](function (err) {
         console.log(err);
@@ -39868,8 +39916,8 @@ var render = function() {
                         color: "dark",
                         label: "Piso: ",
                         items: _vm.pisos,
-                        "item-text": "pisos.floor",
-                        "item-value": "pisos.id",
+                        "item-text": "floor",
+                        "item-value": "id",
                         "prepend-icon": "mdi-grid"
                       },
                       on: { blur: _vm.viewZones },
@@ -39886,7 +39934,7 @@ var render = function() {
                       attrs: {
                         color: "dark",
                         items: _vm.zonas,
-                        "item-text": "zone",
+                        "item-text": "zona",
                         "item-value": "id",
                         label: "Zona: ",
                         "prepend-icon": "mdi-grid-large"

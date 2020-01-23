@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddZoneIdToSectorsZonesTable extends Migration
+class AddZoneIdToDirectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddZoneIdToSectorsZonesTable extends Migration
      */
     public function up()
     {
-        Schema::table('sectors_zones', function (Blueprint $table) {
+        Schema::table('directions', function (Blueprint $table) {
             $table->bigInteger('zone_id')->unsigned()->nullable();
             $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade');
         });
@@ -26,7 +26,7 @@ class AddZoneIdToSectorsZonesTable extends Migration
      */
     public function down()
     {
-        Schema::table('sectors_zones', function (Blueprint $table) {
+        Schema::table('directions', function (Blueprint $table) {
             $table->dropForeign(['zone_id']);
             $table->dropColumn('zone_id');
         });

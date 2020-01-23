@@ -7,7 +7,7 @@ class ZoneSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
+     *ee
      * @return void
      */
     /*start crearemos las zonas de la zona educativa*/

@@ -2,20 +2,20 @@
 
 namespace App;
 
+use App\Floor;
 use App\Sector;
-use App\Sectors_zones;
 use Illuminate\Database\Eloquent\Model;
 
 class Zone extends Model
 {
-	/*start relacion entre zones_sectors*/
-	public function zones_sectors(){
-        return $this->hasMany(Sectors_zones::class);
+    /*start relacion entre zones y floors*/
+    public function floors(){
+        return $this->belongsToMany(Floor::class,'directions');
     }
-    /*start relacion entre zones_sectors*/
-	/*start traaemos el id y el nombre de los sectores*/
+    /*start relacion entre zones y floors*/
+    /*start relacion entre zones y sectores*/
     public function sectors(){
-        return $this->belongsToMany(Sector::class,'sectors_zones');
+        return $this->belongsToMany(Sector::class,'directions');
     }
-	/*endtraaemos el id y el nombre de los sectores*/
+    /*start relacion entre zones y sectores*/
 }

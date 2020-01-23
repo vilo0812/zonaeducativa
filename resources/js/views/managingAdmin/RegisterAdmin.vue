@@ -122,7 +122,11 @@ import ContentCenter from '../.././structures/Center.vue'
             icon:'success',
             closeOnClickOutside:false,
             CloseOnEsc:false 
-          })
+          }).then(select=>{
+          if(select){
+            location.reload();
+          }
+          });
         }).catch(err => {
           console.log(err);
           /*end anuncio si registro exitosamente*/

@@ -18,17 +18,15 @@ class DatabaseSeeder extends Seeder
         'users',
         'sectors',
         'zones',
-        'sectors_zones',
         'floors',
-        'handling_floors'
+        'directions'
         ]);
         $this->call(RolSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(SectorSeeder::class);
         $this->call(ZoneSeeder::class);
-        $this->call(Sectors_zonesSeeder::class);
         $this->call(FloorSeeder::class);
-        $this->call(Handling_floorsSeeder::class);
+        $this->call(DirectionsSeeder::class);
     }
     public function truncateTable(array $tables){
       DB::statement('SET FOREIGN_KEY_CHECKS = 0;');

@@ -74,8 +74,8 @@
               color="dark"
               label="Piso: "
               :items="pisos"
-              item-text="pisos.floor"
-              item-value="pisos.id"
+              item-text="floor"
+              item-value="id"
               @blur="viewZones"
               prepend-icon="mdi-grid"
             ></v-select>
@@ -84,7 +84,7 @@
               v-model="zona"
               color="dark"
               :items="zonas"
-              item-text="zone"
+              item-text="zona"
               item-value="id"
               label="Zona: "
               @blur="viewSectors"
@@ -160,7 +160,7 @@ import ContentCenter from '.././structures/Center.vue'
   	},
     mounted(){
       axios.get('/api/viewFloors').then(res => {
-        this.pisos=res.data;
+        this.pisos=res.data
       }).catch(err => {
         console.log(err);
       });
@@ -209,11 +209,12 @@ import ContentCenter from '.././structures/Center.vue'
       let IdFloor={
         'id':this.piso
       }
-      axios.post('/api/viewZones',IdFloor).then(res => {
-      this.zonas=res.data.zones
-      }).catch(err => {
-        console.log(err);
-      });
+      this.zonas=this.zoneOfFloor
+      // axios.post('/api/viewZones',IdFloor).then(res => {
+      // this.zonas=res.data.zones
+      // }).catch(err => {
+      //   console.log(err);
+      // });
     },
     viewSectors(){
       /*vamos a trarnos todos los sectores dependiendo de cual es la zona que elijieron*/
@@ -229,6 +230,34 @@ import ContentCenter from '.././structures/Center.vue'
       /*end llenamos los sectore de la vista con los datos de la base de datos*/
     }
   	},
+    computed: {
+      zoneOfFloor () {
+        if(this.piso==1){
+        return [
+        {zona:'Zona 1',id:1},
+        {zona:'Zona 2',id:2}
+        ];
+        }else if(this.piso==2){
+          return[
+          {zona:'Zona A',id:3},
+          {zona:'Zona B',id:4},
+          {zona:'Zona C',id:5},
+          ];
+        }else if(this.piso==3){
+          return[
+          {zona:'Despacho',id:6},
+          {zona:'Zona A',id:3},
+          {zona:'Zona B',id:4},
+          ];
+        }else if(this.piso==4){
+          return[
+          {zona:'Zona A',id:3},
+          {zona:'Zona B',id:4},
+          {zona:'Zona C',id:5},
+          ]
+        }
+      }
+    },
     created () {
       this.$vuetify.theme.dark = true
     },
