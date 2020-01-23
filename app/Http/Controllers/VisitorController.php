@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Direction;
 use App\Handling_time;
+use App\User;
+use App\Visitor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -35,21 +37,47 @@ class VisitorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    /*start iniciamos la api que permite registrar visitas*/
     public function store(Request $request)
     {
-    	$time= new Handling_time();
-    	$time->input=Carbon::now();
-    	$info=[
-    	$request->idFloor,
-    	$request->idZone,
-    	$request->idSector,
-    	$request->ticket_id,
-    	$time
-    	];
-    	$direccion = Direction::where([['floor_id',$request->idFloor],['zone_id',$request->idZone],['sector_id',$request->idSector]])->get();
-    	$Handling_tickets
-    	return response()->json($info,200);
+        // $time=Carbon::now()->format('h:i');
+        $time=Carbon::now();
+        $direccion = Direction::where([['floor_id',$request->idFloor],['zone_id',$request->idZone],['sector_id',$request->idSector]])->select('id')->get();
+        $user=User::create([
+            'first_name'=>$request['first_name'],
+            'last_name'=>$request['last_name'],
+            'identification_card'=>$request['identification_card'],
+            'email'=>$request['email'],
+            'phone'=>$request['phone'],
+            'rol_id'=>3
+        ]);
+        $time=Handling_time::create([
+            'input'=>Carbon::now()
+        ]);
+        $visit=Visitor::create([
+        'user_id'=>$user->id,
+        'handling_time_id'=>$time->id,
+        'ticket_id'=>$request->ticket_id,
+        'direction_id'=>$direccion[0]->id,
+        'belongings'=>$request->belogings,
+        'observation'=>$request->observation,
+        ]);
+        // $info=[
+        // $request['first_name'],
+        // $request['last_name'],
+        // $request['identification_card'],
+        // $request['email'],
+        // $request['phone'],
+        // $time->id,
+        // $user->id,
+        // $request->ticket_id,
+        // $direccion[0]->id,
+        // $request->belogings,
+        // $request->observation,
+        // ];
+         return response()->json(['mensaje'=>'Registro exitoso'],200);
     }
+    /*end iniciamos la api que permite registrar visitas*/
 
     /**
      * Display the specified resource.

@@ -42,6 +42,9 @@ Route::group(['prefix' => 'sesion'], function() {
 	/*start api para ver los sectores que pertenecen a una zona en especifico del edificio*/
 	Route::post('viewSectors','DirectionController@viewSectors');
 	/*end api para ver los sectores que pertenecen a una zona en especifico del edificio*/
+	/*start api sacar el id de la direccion segun 3 id*/
+	Route::post('directionId','DirectionController@directionId');
+	/*end api sacar el id de la direccion segun 3 id*/
 	/*start api para ver los pases permitidos de la zona*/
 	Route::get('viewTickets','TicketController@viewTickets');
 	/*end api para ver los pases permitidos de la zona*/

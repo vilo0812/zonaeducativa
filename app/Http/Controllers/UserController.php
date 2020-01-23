@@ -15,6 +15,19 @@ class UserController extends Controller
         /*end sacamos solo a los usuarios administradores y los mandamos a la vista*/
     }
     /*end api que permita visualizar a los administradores trayendo solo el id y el nombre*/
+    /*start api que permite registart un usuario normales que visitan el edificio*/
+    public function store($first_name,$last_name,$identification_card,$email,$phone){
+        User::create([
+            'first_name'=>$first_name,
+            'last_name'=>$last_name,
+            'identification_card'=>$identification_card,
+            'email'=>$email,
+            'phone'=>$phone,
+            'rol_id'=>3
+        ]);
+        return 'registro exitoso';
+    }
+    /*end api que permite registart un usuario*/
     /*start api que me permita sacar la informacion de un solo usuario*/
     public function show(Request $request){
      $user = User::findOrFail($request->id);

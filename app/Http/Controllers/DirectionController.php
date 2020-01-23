@@ -28,4 +28,10 @@ class DirectionController extends Controller
     // return response()->json($sectors,200);
     }
     /*end ver todas los sectores segun su zona*/
+    /*start sacar el id de la direction*/
+    public function directionId(Request $request){
+        $direction=Direction::where([['floor_id',$request->idFloor],['zone_id',$request->idZone],['sector_id',$request->idSector]])->select('id')->get();
+        return $direction;
+    }
+    /*start sacar el id de la direction*/
 }

@@ -15,8 +15,8 @@ class CreateHandlingTimesTable extends Migration
     {
         Schema::create('handling_times', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('input');
-            $table->date('output');
+            $table->timestamp('input')->nullable();
+            $table->timestamp('output')->nullable();
             $table->timestamps();
         });
     }

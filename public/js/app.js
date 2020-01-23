@@ -2329,7 +2329,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
-    cerrarSesion: function cerrarSesion() {// axios.get('/api/sesion/cerrar').then(res => {
+    cerrarSesion: function cerrarSesion() {
+      this.$router.push({
+        name: 'Home'
+      }); // axios.get('/api/sesion/cerrar').then(res => {
       //   console.log(res.data);
       // }).catch(err => {
       //   console.log(err);
@@ -2681,7 +2684,38 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    submit: function submit() {},
+    submit: function submit() {
+      var _this2 = this;
+
+      var params = {
+        'idFloor': this.piso,
+        'idZone': this.zona,
+        'idSector': this.sector,
+        'first_name': this.nombre,
+        'last_name': this.apellido,
+        'email': this.correo,
+        'phone': this.telefono,
+        'ticket_id': this.pase,
+        'belogings': this.pertenencias,
+        'observation': this.observaciones
+      };
+      axios.post('/api/storeVisit', params).then(function (res) {
+        swal({
+          title: res.data.mensaje,
+          icon: 'success',
+          closeOnClickOutside: false,
+          CloseOnEsc: false
+        }).then(function (select) {
+          if (select) {
+            _this2.$router.push({
+              name: 'Welcome'
+            });
+          }
+        });
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
     clear: function clear() {
       this.nombre = '';
       this.correo = '';
@@ -2704,7 +2738,7 @@ __webpack_require__.r(__webpack_exports__);
       // });
     },
     viewSectors: function viewSectors() {
-      var _this2 = this;
+      var _this3 = this;
 
       /*vamos a trarnos todos los sectores dependiendo de cual es la zona que elijieron*/
       var parametro = {
@@ -2714,7 +2748,7 @@ __webpack_require__.r(__webpack_exports__);
       /*start llenamos los sectore de la vista con los datos de la base de datos*/
 
       axios.post('/api/viewSectors', parametro).then(function (res) {
-        _this2.sectores = res.data;
+        _this3.sectores = res.data;
       })["catch"](function (err) {
         console.log(err);
       });
@@ -96869,14 +96903,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************!*\
   !*** ./resources/js/views/RegisterVisits.vue ***!
   \***********************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _RegisterVisits_vue_vue_type_template_id_29dab66a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RegisterVisits.vue?vue&type=template&id=29dab66a& */ "./resources/js/views/RegisterVisits.vue?vue&type=template&id=29dab66a&");
 /* harmony import */ var _RegisterVisits_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RegisterVisits.vue?vue&type=script&lang=js& */ "./resources/js/views/RegisterVisits.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _RegisterVisits_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _RegisterVisits_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
@@ -96930,7 +96965,7 @@ component.options.__file = "resources/js/views/RegisterVisits.vue"
 /*!************************************************************************!*\
   !*** ./resources/js/views/RegisterVisits.vue?vue&type=script&lang=js& ***!
   \************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

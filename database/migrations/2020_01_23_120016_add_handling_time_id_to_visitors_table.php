@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddHandlingTimeIdToHandlingTicketsTable extends Migration
+class AddHandlingTimeIdToVisitorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddHandlingTimeIdToHandlingTicketsTable extends Migration
      */
     public function up()
     {
-        Schema::table('handling_tickets', function (Blueprint $table) {
-            $table->bigInteger('handling_time_id')->unsigned()->nullable();
+        Schema::table('visitors', function (Blueprint $table) {
+            $table->bigInteger('handling_time_id')->after('user_id')->unsigned()->nullable();
             $table->foreign('handling_time_id')->references('id')->on('handling_times')->onDelete('cascade');
         });
     }
@@ -26,7 +26,7 @@ class AddHandlingTimeIdToHandlingTicketsTable extends Migration
      */
     public function down()
     {
-        Schema::table('handling_tickets', function (Blueprint $table) {
+        Schema::table('visitors', function (Blueprint $table) {
             $table->dropForeign(['handling_time_id']);
             $table->dropColumn('handling_time_id');
         });

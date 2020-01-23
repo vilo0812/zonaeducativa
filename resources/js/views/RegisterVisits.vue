@@ -200,7 +200,34 @@ import ContentCenter from '.././structures/Center.vue'
   	},
   	methods: {
   	  submit() {
-  	    
+  	    let params={
+
+        'idFloor':this.piso,
+        'idZone':this.zona,
+        'idSector':this.sector,
+        'first_name':this.nombre,
+        'last_name':this.apellido,
+        'email':this.correo,
+        'phone':this.telefono,
+        'ticket_id':this.pase,
+        'belogings':this.pertenencias,
+        'observation':this.observaciones,
+        }
+        
+        axios.post('/api/storeVisit',params).then(res => {
+        swal({
+            title:res.data.mensaje,
+            icon:'success',
+            closeOnClickOutside:false,
+            CloseOnEsc:false 
+          }).then(select=>{
+            if(select){
+              this.$router.push({ name: 'Welcome'})
+            }
+          });
+        }).catch(err => {
+          console.log(err);
+        });
   	  },
   	  clear () {
         this.nombre = ''
