@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Direction;
 use App\Floor;
 use App\Zone;
 use Illuminate\Http\Request;
@@ -21,8 +22,10 @@ class DirectionController extends Controller
     /*end ver las zonas disponibles*/
     /*start ver todas los sectores segun su zona*/
     public function viewSectors(Request $request){/*esta mal*/
-    $sectors=Zone::find($request->id)->sectors()->get(['sector']);
-    return response()->json($sectors,200);
+        $sector =new Direction ();
+        return $sector->sectorOfZoneFloor($request->idFloor,$request->idZone);
+    // $sectors=Zone::find($request->id)->sectors()->get(['sector']);
+    // return response()->json($sectors,200);
     }
     /*end ver todas los sectores segun su zona*/
 }

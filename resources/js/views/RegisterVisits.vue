@@ -219,7 +219,8 @@ import ContentCenter from '.././structures/Center.vue'
     viewSectors(){
       /*vamos a trarnos todos los sectores dependiendo de cual es la zona que elijieron*/
       let parametro={
-        id:this.zona
+        idZone:this.zona,
+        idFloor:this.piso
       }
       /*start llenamos los sectore de la vista con los datos de la base de datos*/
       axios.post('/api/viewSectors',parametro).then(res => {

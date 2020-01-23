@@ -2697,7 +2697,8 @@ __webpack_require__.r(__webpack_exports__);
 
       /*vamos a trarnos todos los sectores dependiendo de cual es la zona que elijieron*/
       var parametro = {
-        id: this.zona
+        idZone: this.zona,
+        idFloor: this.piso
       };
       /*start llenamos los sectore de la vista con los datos de la base de datos*/
 
