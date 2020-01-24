@@ -44,14 +44,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in visits" :key="item.nombre">
-              <td>{{ item.nombre }}</td>
-              <td>{{ item.apellido }}</td>
-              <td>{{ item.cedula }}</td>
-              <td>{{ item.telefono }}</td>
-              <td>{{ item.correo }}</td>
-              <td>{{ item.horaLlegada }}</td>
-              <td>{{ item.horaSalida }}</td>
+            <tr v-for="item in visitas" :key="item.id">
+              <td>{{ item.first_name }}</td>
+              <td>{{ item.last_name }}</td>
+              <td>{{ item.identification_card }}</td>
+              <td>{{ item.phone }}</td>
+              <td>{{ item.email }}</td>
+              <td>{{ item.input }}</td>
+              <td>{{ item.output }}</td>
             </tr>
           </tbody>
         </template>
@@ -70,6 +70,13 @@ import Side from '.././components/welcomeSuperAdmin/SideBar.vue'
 import Nav from '.././partials/welcome/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
   export default {
+    mounted(){
+    axios.get('/api/showVisits').then(res => {
+        this.visitas=res.data
+      }).catch(err => {
+        console.log(err);
+      });
+    },
   	components:{
   		'side-bar':Side,
   		'nav-bar':Nav,
@@ -78,6 +85,7 @@ import ContentCenter from '.././structures/Center.vue'
   	data () {
   	  return {
   	    drawer: null,
+        visitas:[],
   	    visits:[
   	    {nombre:'gabriel Antonio',apellido:'Viloria Aparicio',cedula:'27167028',telefono:'0414-9017184',correo:'gabriel.viloria0812@mail.com',horaLlegada:'2020-01-10 10:00',horaSalida:'2020-01-10 10:30'},
   	    {nombre:'Miguel',apellido:'Miguelito',cedula:'2623128',telefono:'0414-1232484',correo:'Miguel0812@mail.com',horaLlegada:'2020-01-10 10:00',horaSalida:'2020-01-10 10:30'},

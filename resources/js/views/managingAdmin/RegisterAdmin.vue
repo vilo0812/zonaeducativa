@@ -70,7 +70,7 @@
         <v-icon>mdi-account-multiple-plus</v-icon>
         </v-btn>
         <v-btn @click="clear" class="orange lighten-2">
-        <span>Clear</span>
+        <span>Limpiar</span>
         <v-icon>mdi-eraser</v-icon>
         </v-btn>
         <!-- end botoner de submit y clean -->

@@ -85,10 +85,12 @@ class VisitorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    /*start api que me permite ver los registros inmediatos de todas las visitas*/
+    public function show()
     {
-        //
+        return response()->json(Visitor::showVisits(),200);
     }
+    /*end api que me permite ver los registros inmediatos de todas las visitas*/
 
     /**
      * Show the form for editing the specified resource.

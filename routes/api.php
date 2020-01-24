@@ -29,7 +29,16 @@ Route::group(['prefix' => 'sesion'], function() {
 	Route::post('deleteAdmin','UserController@destroy');
 	/*end api para eliminar el administrador*/
 /*end apis que el super administrador usa para manejar a los administradores*/
-/*end apis que el super administrador usa para manejar a los administradores*/
+/*start apis que tienen que ver con el modulo de visitas*/
+	/*start api para registrar cada visita en el edificio*/
+	Route::post('storeVisit','VisitorController@store');
+	/*end api para registrar cada visita en el edificio*/
+	/*start api para ver todas las visitas en el edificio*/
+	Route::get('showVisits','VisitorController@show');
+	/*start api para ver todas las visitas en el edificio*/
+/*end apis que tienen que ver con el modulo de visitas*/
+/*end apis del super administrador StoreVisit*/
+/*start apis para sacar informacines especificas*/
 	/*start api para ver a los administrador*/
 	Route::get('viewAdmins','UserController@viewAdmins');
 	/*end api api para ver a los administrador*/
@@ -48,7 +57,4 @@ Route::group(['prefix' => 'sesion'], function() {
 	/*start api para ver los pases permitidos de la zona*/
 	Route::get('viewTickets','TicketController@viewTickets');
 	/*end api para ver los pases permitidos de la zona*/
-	/*start api para registrar cada visita en el edificio*/
-	Route::post('storeVisit','VisitorController@store');
-	/*end api para registrar cada visita en el edificio*/
-/*end apis del super administrador StoreVisit*/
+/*end apis para sacar informacines especificas*/

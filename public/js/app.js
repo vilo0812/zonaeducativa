@@ -2637,6 +2637,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2694,6 +2700,7 @@ __webpack_require__.r(__webpack_exports__);
         'first_name': this.nombre,
         'last_name': this.apellido,
         'email': this.correo,
+        'identification_card': this.cedula,
         'phone': this.telefono,
         'ticket_id': this.pase,
         'belogings': this.pertenencias,
@@ -2891,6 +2898,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/showVisits').then(function (res) {
+      _this.visitas = res.data;
+    })["catch"](function (err) {
+      console.log(err);
+    });
+  },
   components: {
     'side-bar': _components_welcomeSuperAdmin_SideBar_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     'nav-bar': _partials_welcome_NavBar_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2899,6 +2915,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       drawer: null,
+      visitas: [],
       visits: [{
         nombre: 'gabriel Antonio',
         apellido: 'Viloria Aparicio',
@@ -40109,11 +40126,31 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "v-btn",
-                      { staticClass: "mr-4", on: { click: _vm.submit } },
-                      [_vm._v("registrar")]
+                      {
+                        staticClass: "mr-4 light-blue accent-4",
+                        on: { click: _vm.submit }
+                      },
+                      [
+                        _c("span", [_vm._v("Registrar")]),
+                        _vm._v(" "),
+                        _c("v-icon", [_vm._v("mdi-account-multiple-plus")])
+                      ],
+                      1
                     ),
                     _vm._v(" "),
-                    _c("v-btn", { on: { click: _vm.clear } }, [_vm._v("clear")])
+                    _c(
+                      "v-btn",
+                      {
+                        staticClass: "orange lighten-2",
+                        on: { click: _vm.clear }
+                      },
+                      [
+                        _c("span", [_vm._v("Limpiar")]),
+                        _vm._v(" "),
+                        _c("v-icon", [_vm._v("mdi-eraser")])
+                      ],
+                      1
+                    )
                   ],
                   1
                 )
@@ -40255,21 +40292,23 @@ var render = function() {
                             _vm._v(" "),
                             _c(
                               "tbody",
-                              _vm._l(_vm.visits, function(item) {
-                                return _c("tr", { key: item.nombre }, [
-                                  _c("td", [_vm._v(_vm._s(item.nombre))]),
+                              _vm._l(_vm.visitas, function(item) {
+                                return _c("tr", { key: item.id }, [
+                                  _c("td", [_vm._v(_vm._s(item.first_name))]),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(item.apellido))]),
+                                  _c("td", [_vm._v(_vm._s(item.last_name))]),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(item.cedula))]),
+                                  _c("td", [
+                                    _vm._v(_vm._s(item.identification_card))
+                                  ]),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(item.telefono))]),
+                                  _c("td", [_vm._v(_vm._s(item.phone))]),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(item.correo))]),
+                                  _c("td", [_vm._v(_vm._s(item.email))]),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(item.horaLlegada))]),
+                                  _c("td", [_vm._v(_vm._s(item.input))]),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(item.horaSalida))])
+                                  _c("td", [_vm._v(_vm._s(item.output))])
                                 ])
                               }),
                               0
@@ -40983,7 +41022,7 @@ var render = function() {
                         on: { click: _vm.clear }
                       },
                       [
-                        _c("span", [_vm._v("Clear")]),
+                        _c("span", [_vm._v("Limpiar")]),
                         _vm._v(" "),
                         _c("v-icon", [_vm._v("mdi-eraser")])
                       ],
@@ -96903,25 +96942,25 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************!*\
   !*** ./resources/js/views/RegisterVisits.vue ***!
   \***********************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _RegisterVisits_vue_vue_type_template_id_29dab66a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RegisterVisits.vue?vue&type=template&id=29dab66a& */ "./resources/js/views/RegisterVisits.vue?vue&type=template&id=29dab66a&");
 /* harmony import */ var _RegisterVisits_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RegisterVisits.vue?vue&type=script&lang=js& */ "./resources/js/views/RegisterVisits.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _RegisterVisits_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _RegisterVisits_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
-/* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
-/* harmony import */ var vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VRadioGroup */ "./node_modules/vuetify/lib/components/VRadioGroup/index.js");
-/* harmony import */ var vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VSelect */ "./node_modules/vuetify/lib/components/VSelect/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
-/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
+/* harmony import */ var vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VRadioGroup */ "./node_modules/vuetify/lib/components/VRadioGroup/index.js");
+/* harmony import */ var vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VSelect */ "./node_modules/vuetify/lib/components/VSelect/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/index.js");
 
 
 
@@ -96951,7 +96990,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VContainer"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_7__["VNavigationDrawer"],VRadio: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_8__["VRadio"],VRadioGroup: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_8__["VRadioGroup"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_9__["VSelect"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__["VTextField"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_11__["VTextarea"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_7__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_8__["VNavigationDrawer"],VRadio: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_9__["VRadio"],VRadioGroup: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_9__["VRadioGroup"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_10__["VSelect"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__["VTextField"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_12__["VTextarea"]})
 
 
 /* hot reload */
@@ -96965,7 +97005,7 @@ component.options.__file = "resources/js/views/RegisterVisits.vue"
 /*!************************************************************************!*\
   !*** ./resources/js/views/RegisterVisits.vue?vue&type=script&lang=js& ***!
   \************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

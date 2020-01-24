@@ -140,8 +140,14 @@
             ></v-textarea>
         <!-- end pertenencias -->
         <!-- start botones de registrar y limpiar -->
-        <v-btn class="mr-4" @click="submit">registrar</v-btn>
-        <v-btn @click="clear">clear</v-btn>
+        <v-btn @click="submit" class="mr-4 light-blue accent-4">
+        <span>Registrar</span>
+        <v-icon>mdi-account-multiple-plus</v-icon>
+        </v-btn>
+        <v-btn @click="clear" class="orange lighten-2">
+        <span>Limpiar</span>
+        <v-icon>mdi-eraser</v-icon>
+        </v-btn>
         <!-- end botones de registrar y limpiar -->
 			</form>
     </v-container>
@@ -208,6 +214,7 @@ import ContentCenter from '.././structures/Center.vue'
         'first_name':this.nombre,
         'last_name':this.apellido,
         'email':this.correo,
+        'identification_card':this.cedula,
         'phone':this.telefono,
         'ticket_id':this.pase,
         'belogings':this.pertenencias,
