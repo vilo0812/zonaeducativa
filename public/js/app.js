@@ -2894,6 +2894,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -40236,15 +40244,25 @@ var render = function() {
                     "v-btn",
                     {
                       staticClass: "ma-2 white--text",
-                      attrs: { color: "blue-grey darken-3" },
-                      on: {
-                        click: function($event) {
-                          _vm.loader = "loading3"
-                        }
-                      }
+                      attrs: { color: "purple", href: "/showVisits" }
                     },
                     [
-                      _vm._v("\n          Descargar Excel\n          "),
+                      _vm._v("\n          Visualizar PDF\n          "),
+                      _c("v-icon", { attrs: { right: "", dark: "" } }, [
+                        _vm._v("mdi-file-pdf")
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      staticClass: "ma-2 white--text",
+                      attrs: { color: "blue", href: "api/pdfVisits" }
+                    },
+                    [
+                      _vm._v("\n          Descargar PDF\n          "),
                       _c("v-icon", { attrs: { right: "", dark: "" } }, [
                         _vm._v("mdi-cloud-upload")
                       ])
@@ -40277,7 +40295,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("th", { staticClass: "text-left" }, [
-                                  _vm._v("correo")
+                                  _vm._v("sector")
                                 ]),
                                 _vm._v(" "),
                                 _c("th", { staticClass: "text-left" }, [
@@ -40304,7 +40322,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(item.phone))]),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(item.email))]),
+                                  _c("td", [_vm._v(_vm._s(item.sector))]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(item.input))]),
                                   _vm._v(" "),

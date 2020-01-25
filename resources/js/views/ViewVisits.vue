@@ -21,11 +21,19 @@
 		    <h1 class="text-center">Visualizar Visitas</h1>
         <!-- start boton de descargar -->
         <v-btn
-          color="blue-grey darken-3"
+          color="purple"
           class="ma-2 white--text"
-          @click="loader = 'loading3'"
+          href="/showVisits"
         >
-          Descargar Excel
+          Visualizar PDF
+          <v-icon right dark>mdi-file-pdf</v-icon>
+        </v-btn>
+        <v-btn
+          color="blue"
+          class="ma-2 white--text"
+          href="api/pdfVisits"
+        >
+          Descargar PDF
           <v-icon right dark>mdi-cloud-upload</v-icon>
         </v-btn>
         <!-- end boton de descargar -->
@@ -38,7 +46,7 @@
               <th class="text-left">Apellido</th>
               <th class="text-left">Cedula</th>
               <th class="text-left">teléfono</th>
-              <th class="text-left">correo</th>
+              <th class="text-left">sector</th>
               <th class="text-left">llegada</th>
               <th class="text-left">salida</th>
             </tr>
@@ -49,7 +57,7 @@
               <td>{{ item.last_name }}</td>
               <td>{{ item.identification_card }}</td>
               <td>{{ item.phone }}</td>
-              <td>{{ item.email }}</td>
+              <td>{{ item.sector }}</td>
               <td>{{ item.input }}</td>
               <td>{{ item.output }}</td>
             </tr>

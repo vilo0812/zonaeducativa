@@ -36,6 +36,11 @@ Route::group(['prefix' => 'sesion'], function() {
 	/*start api para ver todas las visitas en el edificio*/
 	Route::get('showVisits','VisitorController@show');
 	/*start api para ver todas las visitas en el edificio*/
+	/*start api que manejan los PDFs de la aplicacion*/
+		/*start api que me permite descargar todas las visitas que se han hecho en el edificio*/
+		Route::get('pdfVisits','Pdf\PdfController@download');
+		/*end api que me permite descargar todas las visitas que se han hecho en el edificio*/
+	/*end api que manejan los PDFs de la aplicacion*/
 /*end apis que tienen que ver con el modulo de visitas*/
 /*end apis del super administrador StoreVisit*/
 /*start apis para sacar informacines especificas*/
