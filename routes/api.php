@@ -36,6 +36,12 @@ Route::group(['prefix' => 'sesion'], function() {
 	/*start api para ver todas las visitas en el edificio*/
 	Route::get('showVisits','VisitorController@show');
 	/*start api para ver todas las visitas en el edificio*/
+	/*start api que me permite mostrar solo a los usuarios que no han salido del edificio en un lapso de 2 semanas*/
+	Route::get('showOnlyNotTargetVisits','VisitorController@showOnlyNotTargetVisits');
+	/*start api que me permite mostrar solo a los usuarios que no han salido del edificio en un lapso de 2 semanas*/
+	/*start api que permite marcar la hora de salida de los visitantes*/
+	Route::patch('targetVisit','VisitorController@update');
+	/*start api que permite marcar la hora de salida de los visitantes*/
 	/*start api que manejan los PDFs de la aplicacion*/
 		/*start api que me permite descargar todas las visitas que se han hecho en el edificio*/
 		Route::get('pdfVisits','Pdf\PdfController@download');

@@ -1,6 +1,6 @@
 //importamos las vistas del Home
 import Home from './views/Home.vue';
-import Welcome from './views/WelcomeSuperAdmin.vue';
+import GestionVisits from './views/GestionVisits.vue';
 import WelcomeAdmin from './views/WelcomeAdmin.vue';
 import ControllerDepenci from './views/ControllerDepenci.vue';
 import ViewVisits from './views/ViewVisits.vue';
@@ -31,9 +31,9 @@ export const routes = [
    |--------------------------------------------------------------------------|
    */
   {
-    path:'/welcome',
-    component:Welcome,
-    name:'Welcome',
+    path:'/Gestion',
+    component:GestionVisits,
+    name:'Gestion',
     meta:{
       authSuperAdmin:true
     }

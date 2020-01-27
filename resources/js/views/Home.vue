@@ -25,7 +25,6 @@
 import Nav from '.././partials/home/NavBar.vue'
 import Log from '.././components/home/Login.vue'
 export default {
-
   name: 'Home',
 	components:{
 			'nav-bar':Nav,
@@ -35,7 +34,10 @@ export default {
     return {
 
     }
-  }
+  },
+	created () {
+      this.$vuetify.theme.dark = true
+    },
 }
 </script>
 

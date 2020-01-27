@@ -82,7 +82,7 @@ export default{
 	      			/*end llamamos al api que determina que tipo de usuario soy*/
 	      			/*start redireccionamos a la pagina principal*/
 	      			// location.reload();
-	      			this.$router.push({ name: 'Welcome'})
+	      			this.$router.push({ name: 'Gestion'})
 	      			// this.$route.router.go('Welcome');
 	      			/*end redireccionamos a la pagina principal*/
 	      		}

@@ -76,6 +76,7 @@
 	data () {
   	  return {
   	    items: [
+        { icon: 'mdi-star', text: 'Gestion de Visitas', direccion:'Gestion'},
         { icon: 'mdi-account-edit', text: 'Registrar Administrador',direccion:'register-admin'},
         { icon: 'mdi-google-nearby', text: 'control de dependencias',direccion:'controller-dependenci'},
         { icon: 'mdi-pencil', text: 'registro de visita',direccion:'register-visits'},

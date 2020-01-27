@@ -91,6 +91,11 @@ class VisitorController extends Controller
         return response()->json(Visitor::showVisits(),200);
     }
     /*end api que me permite ver los registros inmediatos de todas las visitas*/
+    /*start api que me permite ver las visitas que no han sido marcadas en un lapso de 2 semanas*/
+    public function showOnlyNotTargetVisits(){
+        return response()->json(Visitor::showOnlyNotTargetVisits(),200);
+    }
+    /*end api que me permite ver las visitas que no han sido marcadas en un lapso de 2 semanas*/
 
     /**
      * Show the form for editing the specified resource.
@@ -110,10 +115,16 @@ class VisitorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    /*start api que me permite actualizar las visitas marcando su hora de salida*/
+    public function update(Request $request)
     {
-        //
+        $visit = Visitor::findOrFail($request->id);
+        $visit=$visit->handling_time;
+        $visit->output=Carbon::now();
+        $visit->save();
+        return response()->json('actualizado con exito',200);;
     }
+    /*end api que me permite actualizar las visitas marcando su hora de salida*/
 
     /**
      * Remove the specified resource from storage.
