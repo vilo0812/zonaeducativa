@@ -16,7 +16,8 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
       <!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" width="1000" color="#E24E42">
+  <v-card class="d-inline-block mx-auto" width="1000" color="green darken-1">
+  <!--color="#EB6E80" color="#E9B000" -->
     <v-container>
         <h1 class="text-center">Gestionar Visitas</h1>
         <!-- start visualizacion de las visitas al edificio -->
@@ -41,7 +42,12 @@
               <td>{{ item.phone }}</td>
               <td>{{ item.sector }}</td>
               <td>{{ item.input }}</td>
-              <td><v-btn color="purple" @click="target(item.id)">marcar salida</v-btn></td>
+              <td>
+                <v-btn color="orange lighten-2" @click="target(item.id)">
+                <span>marcar salida</span>
+                <v-icon>mdi-run</v-icon>
+                </v-btn>
+              </td>
             </tr>
           </tbody>
         </template>

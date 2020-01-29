@@ -16,7 +16,7 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
     	<!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" color="#E24E42" width="450px">
+  <v-card class="d-inline-block mx-auto" color="green darken-1" width="450px">
     <v-container>
       	<h1 class="text-center">Registrar Visitante</h1>
 			<form>
@@ -229,7 +229,7 @@ import ContentCenter from '.././structures/Center.vue'
             CloseOnEsc:false 
           }).then(select=>{
             if(select){
-              this.$router.push({ name: 'Welcome'})
+              this.$router.push({ name: 'controller-dependenci'})
             }
           });
         }).catch(err => {

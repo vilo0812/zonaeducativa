@@ -16,7 +16,7 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
     	<!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" color="#E24E42" width="450px">
+  <v-card class="d-inline-block mx-auto" color="green darken-1" width="450px">
     <v-container>
       	<h1 class="text-center">Registrar Administrador</h1>
 			<form>
@@ -28,6 +28,8 @@
         <v-text-field
         v-model="nombre"
         label="Nombre: "
+        :rules="nombreRules"
+        :counter="50"
         prepend-icon="mdi-account"
         required
         ></v-text-field>
@@ -36,6 +38,8 @@
         <v-text-field
         v-model="apellido"
         label="Apellido: "
+        :rules="apellidoRules"
+        :counter="50"
         required
         prepend-icon="mdi-account-settings"
         ></v-text-field>
@@ -43,7 +47,10 @@
         <!-- start input cedula -->
         <v-text-field
         v-model="cedula"
-        label="Cédula: "
+        type="number"
+        label="Cédula: Ej: 27167029"
+        :rules="cedulaRules"
+        :counter="13"
         required
         prepend-icon="mdi-account-card-details"
         ></v-text-field>
@@ -51,15 +58,21 @@
         <!-- start input telefono -->
         <v-text-field
         v-model="telefono"
-        label="Teléfono: "
+        type="number"
+        label="Teléfono: Ej: 04149017185"
         required
         prepend-icon="mdi-cellphone"
+        :rules="tlfRules"
+        :counter="100"
         ></v-text-field>
         <!-- end input telefono -->
         <!-- start input correo -->
         <v-text-field
+        type="email"
         v-model="correo"
-        label="Correo"
+        label="Correo: Ej: example@example.com"
+        :rules="emailRules"
+        :counter="100"
         required
         prepend-icon="mdi-email"
         ></v-text-field>
@@ -100,7 +113,23 @@ import ContentCenter from '../.././structures/Center.vue'
   	    apellido:'',
   	    correo:'',
   	    cedula:'',
-  	    telefono:''
+  	    telefono:'',
+        nombreRules:[
+        v => !!v || 'el nombre debe ser obligatoria',
+        ],
+        apellidoRules:[
+        v => !!v || 'el apellido debe ser obligatoria',
+        ],
+        cedulaRules:[
+        v => !!v || 'la cedula debe ser obligatoria',
+        ],
+        tlfRules:[
+        v => !!v || 'el telefono es obligatorio',
+        ],
+        emailRules: [
+        v => !!v || 'el correo electrónico es obligatorio',
+        v => /.+@.+\..+/.test(v) || 'el correo electrónico debe ser valido',
+      ]
   	  };
   	},
   	methods: {

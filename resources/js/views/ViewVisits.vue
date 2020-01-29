@@ -16,7 +16,7 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
     	<!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" color="#E24E42">
+  <v-card class="d-inline-block mx-auto" color="green darken-1">
     <v-container>
 		    <h1 class="text-center">Visualizar Visitas</h1>
         <!-- start boton de descargar -->

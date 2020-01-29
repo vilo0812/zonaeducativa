@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Direction extends Model
 {
+
+    protected $fillable=[
+        'dependence'
+    ];
         /*start hacemos la consulta que me permite ver todos los sectores de ese piso y zona*/
     public function sectorOfZoneFloor($floor,$zone){
         $sector = static::join("sectors","directions.sector_id","=","sectors.id")
@@ -22,7 +26,7 @@ class Direction extends Model
         $sector = static::join("sectors","directions.sector_id","=","sectors.id")
         ->join("zones","directions.zone_id","=","zones.id")
         ->where([["directions.floor_id",$Floor_id]])
-        ->select('directions.id','sectors.sector','zones.zone')
+        ->select('directions.id','sectors.sector','zones.zone','directions.dependence')
         ->get();
         return $sector;
     }

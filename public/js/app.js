@@ -2433,11 +2433,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -2494,7 +2489,18 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         console.log(err);
       });
-      console.log('muestra las zonas wey :v');
+    },
+    stateDependence: function stateDependence(id, index) {
+      var _this3 = this;
+
+      var param = {
+        'id': id
+      };
+      axios.post('/api/stateDependence', param).then(function (res) {
+        _this3.zonesSector[index].dependence = !_this3.zonesSector[index].dependence;
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   },
   created: function created() {
@@ -2516,6 +2522,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_welcomeSuperAdmin_SideBar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! .././components/welcomeSuperAdmin/SideBar.vue */ "./resources/js/components/welcomeSuperAdmin/SideBar.vue");
 /* harmony import */ var _partials_welcome_NavBar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! .././partials/welcome/NavBar.vue */ "./resources/js/partials/welcome/NavBar.vue");
 /* harmony import */ var _structures_Center_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! .././structures/Center.vue */ "./resources/js/structures/Center.vue");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2912,7 +2924,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (select) {
           if (select) {
             _this2.$router.push({
-              name: 'Welcome'
+              name: 'controller-dependenci'
             });
           }
         });
@@ -3575,6 +3587,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3591,7 +3616,24 @@ __webpack_require__.r(__webpack_exports__);
       apellido: '',
       correo: '',
       cedula: '',
-      telefono: ''
+      telefono: '',
+      nombreRules: [function (v) {
+        return !!v || 'el nombre debe ser obligatoria';
+      }],
+      apellidoRules: [function (v) {
+        return !!v || 'el apellido debe ser obligatoria';
+      }],
+      cedulaRules: [function (v) {
+        return !!v || 'la cedula debe ser obligatoria';
+      }],
+      tlfRules: [function (v) {
+        return !!v || 'el telefono es obligatorio';
+      }],
+      emailRules: [function (v) {
+        return !!v || 'el correo electrónico es obligatorio';
+      }, function (v) {
+        return /.+@.+\..+/.test(v) || 'el correo electrónico debe ser valido';
+      }]
     };
   },
   methods: {
@@ -39850,7 +39892,7 @@ var render = function() {
             "v-card",
             {
               staticClass: "d-inline-block mx-auto",
-              attrs: { "min-width": "700", color: "#E24E42" }
+              attrs: { "min-width": "700", color: "green darken-1" }
             },
             [
               _c(
@@ -39921,7 +39963,10 @@ var render = function() {
                                   _vm._v(" "),
                                   _c(
                                     "tbody",
-                                    _vm._l(_vm.zonesSector, function(item) {
+                                    _vm._l(_vm.zonesSector, function(
+                                      item,
+                                      index
+                                    ) {
                                       return _c("tr", [
                                         _c("td", [
                                           _vm._v("zona: " + _vm._s(item.zone))
@@ -39947,19 +39992,52 @@ var render = function() {
                                                 },
                                                 on: {
                                                   click: function($event) {
-                                                    _vm.dependencia = !_vm.dependencia
+                                                    return _vm.stateDependence(
+                                                      item.id,
+                                                      index
+                                                    )
                                                   }
                                                 }
                                               },
                                               [
                                                 _c(
-                                                  "v-icon",
+                                                  "transition",
                                                   {
                                                     attrs: {
-                                                      color: _vm.iconoColor
+                                                      name: "aparecer",
+                                                      appear: ""
                                                     }
                                                   },
-                                                  [_vm._v(_vm._s(_vm.icono))]
+                                                  [
+                                                    item.dependence
+                                                      ? _c(
+                                                          "v-icon",
+                                                          {
+                                                            attrs: {
+                                                              color: "blue"
+                                                            }
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "mdi-ray-end"
+                                                            )
+                                                          ]
+                                                        )
+                                                      : _c(
+                                                          "v-icon",
+                                                          {
+                                                            attrs: {
+                                                              color: "red"
+                                                            }
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "mdi-ray-start"
+                                                            )
+                                                          ]
+                                                        )
+                                                  ],
+                                                  1
                                                 )
                                               ],
                                               1
@@ -39978,7 +40056,7 @@ var render = function() {
                           ],
                           null,
                           false,
-                          505426788
+                          158514173
                         )
                       })
                     : _c("h4", [_vm._v("no hay piso seleccionado")])
@@ -40052,7 +40130,7 @@ var render = function() {
             "v-card",
             {
               staticClass: "d-inline-block mx-auto",
-              attrs: { width: "1000", color: "#E24E42" }
+              attrs: { width: "1000", color: "green darken-1" }
             },
             [
               _c(
@@ -40124,14 +40202,19 @@ var render = function() {
                                       _c(
                                         "v-btn",
                                         {
-                                          attrs: { color: "purple" },
+                                          attrs: { color: "orange lighten-2" },
                                           on: {
                                             click: function($event) {
                                               return _vm.target(item.id)
                                             }
                                           }
                                         },
-                                        [_vm._v("marcar salida")]
+                                        [
+                                          _c("span", [_vm._v("marcar salida")]),
+                                          _vm._v(" "),
+                                          _c("v-icon", [_vm._v("mdi-run")])
+                                        ],
+                                        1
                                       )
                                     ],
                                     1
@@ -40264,7 +40347,7 @@ var render = function() {
             "v-card",
             {
               staticClass: "d-inline-block mx-auto",
-              attrs: { color: "#E24E42", width: "450px" }
+              attrs: { color: "green darken-1", width: "450px" }
             },
             [
               _c("v-container", [
@@ -40602,7 +40685,7 @@ var render = function() {
             "v-card",
             {
               staticClass: "d-inline-block mx-auto",
-              attrs: { color: "#E24E42" }
+              attrs: { color: "green darken-1" }
             },
             [
               _c(
@@ -41139,7 +41222,7 @@ var render = function() {
             "v-card",
             {
               staticClass: "d-inline-block mx-auto",
-              attrs: { color: "#E24E42", width: "450px" }
+              attrs: { color: "green darken-1", width: "450px" }
             },
             [
               _c("v-container", [
@@ -41153,6 +41236,8 @@ var render = function() {
                     _c("v-text-field", {
                       attrs: {
                         label: "Nombre: ",
+                        rules: _vm.nombreRules,
+                        counter: 50,
                         "prepend-icon": "mdi-account",
                         required: ""
                       },
@@ -41168,6 +41253,8 @@ var render = function() {
                     _c("v-text-field", {
                       attrs: {
                         label: "Apellido: ",
+                        rules: _vm.apellidoRules,
+                        counter: 50,
                         required: "",
                         "prepend-icon": "mdi-account-settings"
                       },
@@ -41182,7 +41269,10 @@ var render = function() {
                     _vm._v(" "),
                     _c("v-text-field", {
                       attrs: {
-                        label: "Cédula: ",
+                        type: "number",
+                        label: "Cédula: Ej: 27167029",
+                        rules: _vm.cedulaRules,
+                        counter: 13,
                         required: "",
                         "prepend-icon": "mdi-account-card-details"
                       },
@@ -41197,9 +41287,12 @@ var render = function() {
                     _vm._v(" "),
                     _c("v-text-field", {
                       attrs: {
-                        label: "Teléfono: ",
+                        type: "number",
+                        label: "Teléfono: Ej: 04149017185",
                         required: "",
-                        "prepend-icon": "mdi-cellphone"
+                        "prepend-icon": "mdi-cellphone",
+                        rules: _vm.tlfRules,
+                        counter: 100
                       },
                       model: {
                         value: _vm.telefono,
@@ -41212,7 +41305,10 @@ var render = function() {
                     _vm._v(" "),
                     _c("v-text-field", {
                       attrs: {
-                        label: "Correo",
+                        type: "email",
+                        label: "Correo: Ej: example@example.com",
+                        rules: _vm.emailRules,
+                        counter: 100,
                         required: "",
                         "prepend-icon": "mdi-email"
                       },
@@ -97002,14 +97098,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************!*\
   !*** ./resources/js/views/ControllerDepenci.vue ***!
   \**************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ControllerDepenci_vue_vue_type_template_id_b3a227da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ControllerDepenci.vue?vue&type=template&id=b3a227da& */ "./resources/js/views/ControllerDepenci.vue?vue&type=template&id=b3a227da&");
 /* harmony import */ var _ControllerDepenci_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ControllerDepenci.vue?vue&type=script&lang=js& */ "./resources/js/views/ControllerDepenci.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _ControllerDepenci_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ControllerDepenci.vue?vue&type=style&index=0&lang=css& */ "./resources/js/views/ControllerDepenci.vue?vue&type=style&index=0&lang=css&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ControllerDepenci_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ControllerDepenci_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _ControllerDepenci_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ControllerDepenci.vue?vue&type=style&index=0&lang=css& */ "./resources/js/views/ControllerDepenci.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__);
@@ -97063,7 +97160,7 @@ component.options.__file = "resources/js/views/ControllerDepenci.vue"
 /*!***************************************************************************!*\
   !*** ./resources/js/views/ControllerDepenci.vue?vue&type=script&lang=js& ***!
   \***************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -97125,8 +97222,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
-/* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
-/* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
+/* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
 
 
 
@@ -97153,7 +97251,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_8__["VNavigationDrawer"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_9__["VSimpleTable"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VSimpleTable"]})
 
 
 /* hot reload */

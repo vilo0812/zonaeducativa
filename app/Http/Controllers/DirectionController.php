@@ -40,4 +40,12 @@ class DirectionController extends Controller
         return $direction;
     }
     /*start sacar el id de la direction*/
+    /*start metodo que me permite cambiar el estado de la pendencia de disponible a no disponible*/
+    public function changeStateDependence(Request $request){
+        $dir = Direction::findOrFail($request->id);
+        $dir->dependence=!$dir->dependence;
+        $dir->save();
+        return response()->json('actualizado correctamente',200);
+    }
+    /*end metodo que me permite cambiar el estado de la pendencia de disponible a no disponible*/
 }

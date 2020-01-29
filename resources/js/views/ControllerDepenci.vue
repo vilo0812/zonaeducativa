@@ -16,7 +16,7 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
     	<!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" min-width="700" color="#E24E42">
+  <v-card class="d-inline-block mx-auto" min-width="700" color="green darken-1">
     <v-container>
       <!-- start hacemos el control delas dependecias -->
       <h1 class="text-center">control de dependencias</h1>
@@ -44,21 +44,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in zonesSector">
+            <tr v-for="(item,index) in zonesSector">
               <td>zona: {{item.zone}}</td>
               <td>Sector: {{item.sector}}</td>
               <td>
-                <!-- mdi-ray-start -->
-                <!-- start transicion con css con vue 
-
-                  class="mr-4 light-blue accent-4"
-
-                  class="mr-4 red">
-                -->
-                <v-btn @click="dependencia=!dependencia" class="ma-2" text icon color="dark">
-                  <v-icon :color="iconoColor">{{icono}}</v-icon>
+                <v-btn @click="stateDependence(item.id,index)" class="ma-2" text icon color="dark">
+                  <transition name="aparecer" appear>
+                  <v-icon v-if="item.dependence" color="blue">mdi-ray-end</v-icon>
+                  <v-icon v-else color="red">mdi-ray-start</v-icon>
+                  </transition>
                 </v-btn>
-                <!-- end transicion con css con vue -->
               </td>
             </tr>
           </tbody>
@@ -134,7 +129,16 @@ import ContentCenter from '.././structures/Center.vue'
         }).catch(err => {
           console.log(err);
         });
-      console.log('muestra las zonas wey :v')
+      },
+      stateDependence(id,index){
+        let param = {
+          'id':id
+        }
+        axios.post('/api/stateDependence',param).then(res => {
+          this.zonesSector[index].dependence=!this.zonesSector[index].dependence
+        }).catch(err => {
+          console.log(err);
+        });
       }
     },
     created () {
