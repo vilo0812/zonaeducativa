@@ -248,15 +248,7 @@ import ContentCenter from '.././structures/Center.vue'
         this.HasPertenencias=[]
     },
     viewZones(){
-      let IdFloor={
-        'id':this.piso
-      }
       this.zonas=this.zoneOfFloor
-      // axios.post('/api/viewZones',IdFloor).then(res => {
-      // this.zonas=res.data.zones
-      // }).catch(err => {
-      //   console.log(err);
-      // });
     },
     viewSectors(){
       /*vamos a trarnos todos los sectores dependiendo de cual es la zona que elijieron*/

@@ -16,24 +16,58 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
     	<!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" color="#E24E42" >
+  <v-card class="d-inline-block mx-auto" min-width="700" color="#E24E42">
     <v-container>
       <!-- start hacemos el control delas dependecias -->
-      <h1>control de dependencias</h1>
-      <v-simple-table>
+      <h1 class="text-center">control de dependencias</h1>
+      <v-row>
+      <v-select
+        class="ml-3"
+        v-model="piso"
+        color="dark"
+        label="Seleccione el piso a verificar: "
+        :items="pisos"
+        item-text="floor"
+        item-value="id"
+        prepend-icon="mdi-grid"
+      ></v-select>
+      <v-btn color="primary" class="mt-3 mx-5" @click="viewZonesAndSectors">Ver</v-btn>
+      </v-row>
+      <!-- start se mostrara solos si el selector de pisos es seleccionado -->
+      <v-simple-table v-if="zonesSector">
         <template v-slot:default>
           <thead>
             <tr>
               <th class="text-left">zona</th>
+              <th class="text-left">Sector</th>
+              <th class="text-left">Disponibilidad</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item,index) in zonas" :key="">
-              <td>{{ item }}</td>
+            <tr v-for="item in zonesSector">
+              <td>zona: {{item.zone}}</td>
+              <td>Sector: {{item.sector}}</td>
+              <td>
+                <!-- mdi-ray-start -->
+                <!-- start transicion con css con vue 
+
+                  class="mr-4 light-blue accent-4"
+
+                  class="mr-4 red">
+                -->
+                <v-btn @click="dependencia=!dependencia" class="ma-2" text icon color="dark">
+                  <v-icon :color="iconoColor">{{icono}}</v-icon>
+                </v-btn>
+                <!-- end transicion con css con vue -->
+              </td>
             </tr>
           </tbody>
         </template>
       </v-simple-table>
+      <!-- end se mostrara solos si el selector de pisos es seleccionado -->
+      <!-- start mostramos cuando no se haya mostrado nada todavia por pantalla -->
+      <h4 v-else>no hay piso seleccionado</h4>
+      <!-- end mostramos cuando no se haya mostrado nada todavia por pantalla -->
       <!-- end hacemos el control delas dependecias -->
     </v-container>
   </v-card>
@@ -55,6 +89,10 @@ import ContentCenter from '.././structures/Center.vue'
   	},
   	data () {
   	  return {
+        dependencia:true,
+        piso:'',
+        pisos:[],
+        zonesSector:'',
   	    drawer: null,
   	    	zonas:[
   	    	'despacho',
@@ -63,8 +101,67 @@ import ContentCenter from '.././structures/Center.vue'
   	    	],
   	  };
   	},
+    computed: {
+      icono () {
+        if(this.dependencia){
+          return "mdi-ray-end";
+        }else{
+        return "mdi-ray-start";
+        }
+      },
+      iconoColor(){
+        if(this.dependencia){
+          return "primary";
+        }else{
+        return "red";
+        }
+      }
+    },
+    mounted(){
+      axios.get('/api/viewFloors').then(res => {
+        this.pisos=res.data
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+    methods: {
+      viewZonesAndSectors(){
+        let id={
+          'id':this.piso
+        }
+        axios.post('/api/viewZonesAndSectors',id).then(res => {
+          this.zonesSector=res.data;
+        }).catch(err => {
+          console.log(err);
+        });
+      console.log('muestra las zonas wey :v')
+      }
+    },
     created () {
       this.$vuetify.theme.dark = true
     },
   }
 </script>
+<style>
+  /*start Transiciones CSS con Vue*/
+  /*start animacion de entrada*/
+  /*esta animacion sera la de entrada*/
+    .aparecer-enter{
+    opacity: 0 
+    }
+  /*desde 0 a 1 habra una transicion de 1 s de velocidad*/
+    .aparecer-enter-active{
+      transition: opacity .1s
+    }
+  /*end animacion de entrada*/
+  /*start animacion de salida*/
+  /*ahora configuramos la salida*/
+    .aparecer-leave-to{
+      opacity: 0
+    }
+    .aparecer-leave-active {
+      transition: opacity .1s
+    }
+  /*end animacion de salida*/
+  /*end Transiciones CSS con Vue*/
+</style>

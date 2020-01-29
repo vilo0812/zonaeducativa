@@ -4724,7 +4724,128 @@
       display: block;
     }
   }
-}.theme--light.v-navigation-drawer {
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*start Transiciones CSS con Vue*/
+/*start animacion de entrada*/
+/*esta animacion sera la de entrada*/
+.aparecer-enter{
+  opacity: 0
+}
+/*desde 0 a 1 habra una transicion de 1 s de velocidad*/
+.aparecer-enter-active{
+    -webkit-transition: opacity .5s;
+    transition: opacity .5s
+}
+/*end animacion de entrada*/
+/*start animacion de salida*/
+/*ahora configuramos la salida*/
+.aparecer-leave-to{
+    opacity: 0
+}
+.aparecer-leave-active {
+    -webkit-transition: opacity .5s;
+    transition: opacity .5s
+}
+/*end animacion de salida*/
+/*end Transiciones CSS con Vue*/
+.theme--light.v-navigation-drawer {
   background-color: #FFFFFF;
 }
 .theme--light.v-navigation-drawer:not(.v-navigation-drawer--floating) .v-navigation-drawer__border {
@@ -5881,7 +6002,175 @@
   width: 100%;
   height: 100%;
   overflow-x: auto;
-}.theme--light.v-input--selection-controls.v-input--is-disabled:not(.v-input--indeterminate) .v-icon {
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*start Transiciones CSS con Vue*/
+/*start animacion de entrada*/
+/*esta animacion sera la de entrada*/
+.aparecer-enter{
+  opacity: 0
+}
+/*desde 0 a 1 habra una transicion de 1 s de velocidad*/
+.aparecer-enter-active{
+    -webkit-transition: opacity .1s;
+    transition: opacity .1s
+}
+/*end animacion de entrada*/
+/*start animacion de salida*/
+/*ahora configuramos la salida*/
+.aparecer-leave-to{
+    opacity: 0
+}
+.aparecer-leave-active {
+    -webkit-transition: opacity .1s;
+    transition: opacity .1s
+}
+/*end animacion de salida*/
+/*end Transiciones CSS con Vue*/
+.theme--light.v-input--selection-controls.v-input--is-disabled:not(.v-input--indeterminate) .v-icon {
   color: rgba(0, 0, 0, 0.26) !important;
 }
 

@@ -56,6 +56,9 @@ Route::group(['prefix' => 'sesion'], function() {
 	/*start api para ver los pisos del edificio*/
 	Route::get('viewFloors','DirectionController@viewFloors');
 	/*end api para ver a las zonas del edificio*/
+	/*start api para ver las zonas y sectores de un sector*/
+	Route::post('viewZonesAndSectors','DirectionController@viewZonesAndSectors');
+	/*end api para ver a las zonas y sectores de un sector*/
 	/*start api para ver los pisos del edificio*/
 	Route::post('viewZones','DirectionController@viewZones');
 	/*end api para ver a las zonas del edificio*/

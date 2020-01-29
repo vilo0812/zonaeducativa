@@ -15,6 +15,12 @@ class DirectionController extends Controller
     return response()->json($floor,200);
     }
     /*end ver los pisos disponibles*/
+    /*start api que me perite sacar la zona y el sector solo con el id de el piso*/
+    public function viewZonesAndSectors(Request $request){
+    $dir= Direction::viewZonesAndSectors($request->id);
+    return response()->json($dir,200);
+    }
+    /*ends api que me perite sacar la zona y el sector solo con el id de el piso*/
  /*start ver todas las zonas disponibles*/
     public function viewZones(Request $request){/*esta mal*/
     return response()->json('todo bien',200);

@@ -16,7 +16,7 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
       <!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" color="#E24E42">
+  <v-card class="d-inline-block mx-auto" width="1000" color="#E24E42">
     <v-container>
         <h1 class="text-center">Gestionar Visitas</h1>
         <!-- start visualizacion de las visitas al edificio -->
@@ -95,3 +95,26 @@ import ContentCenter from '.././structures/Center.vue'
     },
   }
 </script>
+<style>
+  /*start Transiciones CSS con Vue*/
+  /*start animacion de entrada*/
+  /*esta animacion sera la de entrada*/
+    .aparecer-enter{
+    opacity: 0
+    }
+  /*desde 0 a 1 habra una transicion de 1 s de velocidad*/
+    .aparecer-enter-active{
+      transition: opacity .5s
+    }
+  /*end animacion de entrada*/
+  /*start animacion de salida*/
+  /*ahora configuramos la salida*/
+    .aparecer-leave-to{
+      opacity: 0
+    }
+    .aparecer-leave-active {
+      transition: opacity .5s
+    }
+  /*end animacion de salida*/
+  /*end Transiciones CSS con Vue*/
+</style>
