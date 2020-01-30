@@ -2852,6 +2852,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2880,26 +2915,122 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       drawer: null,
+      usuario: [],
       nombre: '',
+      nombreError: false,
       apellido: '',
+      apellidoError: false,
       correo: '',
       cedula: '',
+      cedulaError: false,
       telefono: '',
+      tlfError: false,
       piso: '',
+      pisoError: false,
       pisos: [],
       zona: '',
+      zonaError: false,
       zonas: [],
       sector: '',
+      sectorError: false,
       sectores: [],
       pase: '',
+      paseError: false,
       pases: [],
       observaciones: '',
       HasPertenencias: null,
-      pertenencias: ''
+      pertenencias: '',
+      provenance: '',
+      nombreRules: [function (v) {
+        return !!v || 'el nombre es obligatorio';
+      }],
+      apellidoRules: [function (v) {
+        return !!v || 'el apellido es obligatorio';
+      }],
+      cedulaRules: [function (v) {
+        return !!v || 'la cedula es obligatoria';
+      }],
+      tlfRules: [function (v) {
+        return !!v || 'el telefono es obligatorio';
+      }],
+      pisoRules: [function (v) {
+        return !!v || 'el piso es obligatorio';
+      }],
+      zonaRules: [function (v) {
+        return !!v || 'zona es obligatoria';
+      }],
+      sectorRules: [function (v) {
+        return !!v || 'el sector es obligatorio';
+      }],
+      paseRules: [function (v) {
+        return !!v || 'el pase es obligatorio';
+      }]
     };
   },
   methods: {
     submit: function submit() {
+      this.nombreError = false;
+      this.apellidoError = false;
+      this.cedulaError = false;
+      this.tlfError = false;
+      this.pisoError = false;
+      this.zonaError = false;
+      this.sectorError = false;
+      this.paseError = false;
+
+      if (this.nombre.trim() == '') {
+        this.nombreError = true;
+      }
+
+      if (this.nombre.length > 50) {
+        this.nombreError = true;
+      }
+
+      if (this.apellido.trim() == '') {
+        this.apellidoError = true;
+      }
+
+      if (this.apellido.length > 50) {
+        this.apellidoError = true;
+      }
+
+      if (this.cedula.trim() == '') {
+        this.cedulaError = true;
+      }
+
+      if (this.cedula.length > 13) {
+        this.cedulaError = true;
+      }
+
+      if (this.telefono.trim() == '') {
+        this.tlfError = true;
+      }
+
+      if (this.telefono.length > 13) {
+        this.tlfError = true;
+      }
+
+      if (this.piso == '') {
+        this.pisoError = true;
+      }
+
+      if (this.zona == '') {
+        this.zonaError = true;
+      }
+
+      if (this.sector == '') {
+        this.sectorError = true;
+      }
+
+      if (this.pase == '') {
+        this.paseError = true;
+      }
+
+      if (this.nombreError == false && this.apellidoError == false && this.cedulaError == false && this.tlfError == false && this.pisoError == false && this.zonaError == false && this.sectorError == false && this.paseError == false) {
+        this.registrar();
+      }
+    },
+    registrar: function registrar() {
       var _this2 = this;
 
       var params = {
@@ -2924,7 +3055,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (select) {
           if (select) {
             _this2.$router.push({
-              name: 'controller-dependenci'
+              name: 'Gestion'
             });
           }
         });
@@ -2962,6 +3093,24 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err);
       });
       /*end llenamos los sectore de la vista con los datos de la base de datos*/
+    },
+    checkUser: function checkUser() {
+      var _this4 = this;
+
+      var identification_card = {
+        'identification_card': this.cedula
+      };
+      axios.post('/api/showUser', identification_card).then(function (res) {
+        var user = res.data;
+        _this4.nombre = user[0].first_name;
+        _this4.apellido = user[0].last_name;
+        _this4.cedula = user[0].identification_card;
+        _this4.correo = user[0].email;
+        _this4.telefono = user[0].phone;
+        _this4.provenance = user[0].municipality;
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   },
   computed: {
@@ -3600,6 +3749,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -3613,18 +3766,23 @@ __webpack_require__.r(__webpack_exports__);
     return {
       drawer: null,
       nombre: '',
+      nombreError: false,
       apellido: '',
+      apellidoError: false,
       correo: '',
+      emailError: false,
       cedula: '',
+      cedulaError: false,
       telefono: '',
+      tlfError: false,
       nombreRules: [function (v) {
-        return !!v || 'el nombre debe ser obligatoria';
+        return !!v || 'el nombre es obligatorio';
       }],
       apellidoRules: [function (v) {
-        return !!v || 'el apellido debe ser obligatoria';
+        return !!v || 'el apellido es obligatorio';
       }],
       cedulaRules: [function (v) {
-        return !!v || 'la cedula debe ser obligatoria';
+        return !!v || 'la cedula es obligatoria';
       }],
       tlfRules: [function (v) {
         return !!v || 'el telefono es obligatorio';
@@ -3638,6 +3796,57 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submit: function submit() {
+      this.nombreError = false;
+      this.apellidoError = false;
+      this.cedulaError = false;
+      this.tlfError = false;
+      this.emailError = false;
+
+      if (this.nombre.trim() == '') {
+        this.nombreError = true;
+      }
+
+      if (this.nombre.length > 50) {
+        this.nombreError = true;
+      }
+
+      if (this.apellido.trim() == '') {
+        this.apellidoError = true;
+      }
+
+      if (this.apellido.length > 50) {
+        this.apellidoError = true;
+      }
+
+      if (this.cedula.trim() == '') {
+        this.cedulaError = true;
+      }
+
+      if (this.cedula.length > 13) {
+        this.cedulaError = true;
+      }
+
+      if (this.telefono.trim() == '') {
+        this.tlfError = true;
+      }
+
+      if (this.telefono.length > 13) {
+        this.tlfError = true;
+      }
+
+      if (this.correo.trim() == '') {
+        this.emailError = true;
+      }
+
+      if (this.correo.length > 100) {
+        this.emailError = true;
+      }
+
+      if (this.nombreError == false && this.apellidoError == false && this.cedulaError == false && this.tlfError == false && this.emailError == false) {
+        this.registrar();
+      }
+    },
+    registrar: function registrar() {
       /*start llenamos nuestro objeto*/
       var parametros = {
         'first_name': this.nombre,
@@ -40360,7 +40569,48 @@ var render = function() {
                   [
                     _c("v-text-field", {
                       attrs: {
+                        color: "dark",
+                        type: "number",
+                        label: "Cédula: ",
+                        error: _vm.cedulaError,
+                        rules: _vm.cedulaRules,
+                        counter: 13,
+                        "prepend-icon": "mdi-account-card-details",
+                        required: ""
+                      },
+                      on: {
+                        blur: _vm.checkUser,
+                        keyup: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.checkUser($event)
+                        }
+                      },
+                      model: {
+                        value: _vm.cedula,
+                        callback: function($$v) {
+                          _vm.cedula = $$v
+                        },
+                        expression: "cedula"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("v-text-field", {
+                      attrs: {
                         label: "Nombre: ",
+                        error: _vm.nombreError,
+                        rules: _vm.nombreRules,
+                        counter: 50,
                         "prepend-icon": "mdi-account",
                         required: ""
                       },
@@ -40377,6 +40627,9 @@ var render = function() {
                       attrs: {
                         color: "dark",
                         label: "Apellido: ",
+                        error: _vm.apellidoError,
+                        rules: _vm.apellidoRules,
+                        counter: 50,
                         required: "",
                         "prepend-icon": "mdi-account-settings"
                       },
@@ -40392,23 +40645,11 @@ var render = function() {
                     _c("v-text-field", {
                       attrs: {
                         color: "dark",
-                        label: "Cédula: ",
-                        "prepend-icon": "mdi-account-card-details",
-                        required: ""
-                      },
-                      model: {
-                        value: _vm.cedula,
-                        callback: function($$v) {
-                          _vm.cedula = $$v
-                        },
-                        expression: "cedula"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-text-field", {
-                      attrs: {
-                        color: "dark",
+                        type: "number",
                         label: "Teléfono: ",
+                        error: _vm.tlfError,
+                        rules: _vm.tlfRules,
+                        counter: 13,
                         "prepend-icon": "mdi-cellphone",
                         required: ""
                       },
@@ -40424,7 +40665,8 @@ var render = function() {
                     _c("v-text-field", {
                       attrs: {
                         color: "dark",
-                        label: "Correo",
+                        label: "Correo: ",
+                        counter: 100,
                         "prepend-icon": "mdi-email",
                         required: ""
                       },
@@ -40437,8 +40679,27 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
+                    _c("v-text-field", {
+                      attrs: {
+                        color: "dark",
+                        label: "Procedencia: ",
+                        counter: 100,
+                        "prepend-icon": "mdi-google-maps",
+                        required: ""
+                      },
+                      model: {
+                        value: _vm.provenance,
+                        callback: function($$v) {
+                          _vm.provenance = $$v
+                        },
+                        expression: "provenance"
+                      }
+                    }),
+                    _vm._v(" "),
                     _c("v-select", {
                       attrs: {
+                        error: _vm.pisoError,
+                        rules: _vm.pisoRules,
                         color: "dark",
                         label: "Piso: ",
                         items: _vm.pisos,
@@ -40466,6 +40727,8 @@ var render = function() {
                         }
                       ],
                       attrs: {
+                        error: _vm.zonaError,
+                        rules: _vm.zonaRules,
                         color: "dark",
                         items: _vm.zonas,
                         "item-text": "zona",
@@ -40493,6 +40756,8 @@ var render = function() {
                         }
                       ],
                       attrs: {
+                        error: _vm.sectorError,
+                        rules: _vm.sectorRules,
                         color: "dark",
                         items: _vm.sectores,
                         label: "Sector: ",
@@ -40512,6 +40777,8 @@ var render = function() {
                     _c("v-select", {
                       attrs: {
                         color: "dark",
+                        error: _vm.paseError,
+                        rules: _vm.paseRules,
                         items: _vm.pases,
                         "item-text": "ticket",
                         "item-value": "id",
@@ -40532,7 +40799,7 @@ var render = function() {
                         color: "dark",
                         outlined: "",
                         name: "input-7-4",
-                        label: "Observaciones: "
+                        label: "Motivo de Visita: "
                       },
                       model: {
                         value: _vm.observaciones,
@@ -41225,133 +41492,141 @@ var render = function() {
               attrs: { color: "green darken-1", width: "450px" }
             },
             [
-              _c("v-container", [
-                _c("h1", { staticClass: "text-center" }, [
-                  _vm._v("Registrar Administrador")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "form",
-                  [
-                    _c("v-text-field", {
-                      attrs: {
-                        label: "Nombre: ",
-                        rules: _vm.nombreRules,
-                        counter: 50,
-                        "prepend-icon": "mdi-account",
-                        required: ""
+              _c(
+                "v-container",
+                [
+                  _c("h1", { staticClass: "text-center" }, [
+                    _vm._v("Registrar Administrador")
+                  ]),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    attrs: {
+                      label: "Nombre: ",
+                      error: _vm.nombreError,
+                      rules: _vm.nombreRules,
+                      counter: 50,
+                      "prepend-icon": "mdi-account",
+                      required: ""
+                    },
+                    model: {
+                      value: _vm.nombre,
+                      callback: function($$v) {
+                        _vm.nombre = $$v
                       },
-                      model: {
-                        value: _vm.nombre,
-                        callback: function($$v) {
-                          _vm.nombre = $$v
-                        },
-                        expression: "nombre"
+                      expression: "nombre"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    attrs: {
+                      label: "Apellido: ",
+                      error: _vm.apellidoError,
+                      rules: _vm.apellidoRules,
+                      counter: 50,
+                      required: "",
+                      "prepend-icon": "mdi-account-settings"
+                    },
+                    model: {
+                      value: _vm.apellido,
+                      callback: function($$v) {
+                        _vm.apellido = $$v
+                      },
+                      expression: "apellido"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    attrs: {
+                      type: "number",
+                      label: "Cédula: Ej: 27167029",
+                      error: _vm.cedulaError,
+                      rules: _vm.cedulaRules,
+                      counter: 13,
+                      required: "",
+                      "prepend-icon": "mdi-account-card-details"
+                    },
+                    model: {
+                      value: _vm.cedula,
+                      callback: function($$v) {
+                        _vm.cedula = $$v
+                      },
+                      expression: "cedula"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    attrs: {
+                      type: "number",
+                      label: "Teléfono: Ej: 04149017185",
+                      required: "",
+                      "prepend-icon": "mdi-cellphone",
+                      error: _vm.tlfError,
+                      rules: _vm.tlfRules,
+                      counter: 13
+                    },
+                    model: {
+                      value: _vm.telefono,
+                      callback: function($$v) {
+                        _vm.telefono = $$v
+                      },
+                      expression: "telefono"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    staticClass: "mb-4",
+                    attrs: {
+                      type: "email",
+                      label: "Correo: Ej: example@example.com",
+                      error: _vm.emailError,
+                      rules: _vm.emailRules,
+                      counter: 100,
+                      required: "",
+                      "prepend-icon": "mdi-email"
+                    },
+                    model: {
+                      value: _vm.correo,
+                      callback: function($$v) {
+                        _vm.correo = $$v
+                      },
+                      expression: "correo"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      staticClass: "mr-4 light-blue accent-4",
+                      on: {
+                        click: function($event) {
+                          return _vm.submit()
+                        }
                       }
-                    }),
-                    _vm._v(" "),
-                    _c("v-text-field", {
-                      attrs: {
-                        label: "Apellido: ",
-                        rules: _vm.apellidoRules,
-                        counter: 50,
-                        required: "",
-                        "prepend-icon": "mdi-account-settings"
-                      },
-                      model: {
-                        value: _vm.apellido,
-                        callback: function($$v) {
-                          _vm.apellido = $$v
-                        },
-                        expression: "apellido"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-text-field", {
-                      attrs: {
-                        type: "number",
-                        label: "Cédula: Ej: 27167029",
-                        rules: _vm.cedulaRules,
-                        counter: 13,
-                        required: "",
-                        "prepend-icon": "mdi-account-card-details"
-                      },
-                      model: {
-                        value: _vm.cedula,
-                        callback: function($$v) {
-                          _vm.cedula = $$v
-                        },
-                        expression: "cedula"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-text-field", {
-                      attrs: {
-                        type: "number",
-                        label: "Teléfono: Ej: 04149017185",
-                        required: "",
-                        "prepend-icon": "mdi-cellphone",
-                        rules: _vm.tlfRules,
-                        counter: 100
-                      },
-                      model: {
-                        value: _vm.telefono,
-                        callback: function($$v) {
-                          _vm.telefono = $$v
-                        },
-                        expression: "telefono"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-text-field", {
-                      attrs: {
-                        type: "email",
-                        label: "Correo: Ej: example@example.com",
-                        rules: _vm.emailRules,
-                        counter: 100,
-                        required: "",
-                        "prepend-icon": "mdi-email"
-                      },
-                      model: {
-                        value: _vm.correo,
-                        callback: function($$v) {
-                          _vm.correo = $$v
-                        },
-                        expression: "correo"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "v-btn",
-                      {
-                        staticClass: "mr-4 light-blue accent-4",
-                        on: { click: _vm.submit }
-                      },
-                      [
-                        _c("span", [_vm._v("Registrar")]),
-                        _vm._v(" "),
-                        _c("v-icon", [_vm._v("mdi-account-multiple-plus")])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "v-btn",
-                      {
-                        staticClass: "orange lighten-2",
-                        on: { click: _vm.clear }
-                      },
-                      [
-                        _c("span", [_vm._v("Limpiar")]),
-                        _vm._v(" "),
-                        _c("v-icon", [_vm._v("mdi-eraser")])
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ])
+                    },
+                    [
+                      _c("span", [_vm._v("Registrar")]),
+                      _vm._v(" "),
+                      _c("v-icon", [_vm._v("mdi-account-multiple-plus")])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      staticClass: "orange lighten-2",
+                      on: { click: _vm.clear }
+                    },
+                    [
+                      _c("span", [_vm._v("Limpiar")]),
+                      _vm._v(" "),
+                      _c("v-icon", [_vm._v("mdi-eraser")])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
             ],
             1
           )
@@ -97098,15 +97373,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************!*\
   !*** ./resources/js/views/ControllerDepenci.vue ***!
   \**************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ControllerDepenci_vue_vue_type_template_id_b3a227da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ControllerDepenci.vue?vue&type=template&id=b3a227da& */ "./resources/js/views/ControllerDepenci.vue?vue&type=template&id=b3a227da&");
 /* harmony import */ var _ControllerDepenci_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ControllerDepenci.vue?vue&type=script&lang=js& */ "./resources/js/views/ControllerDepenci.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ControllerDepenci_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ControllerDepenci_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _ControllerDepenci_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ControllerDepenci.vue?vue&type=style&index=0&lang=css& */ "./resources/js/views/ControllerDepenci.vue?vue&type=style&index=0&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _ControllerDepenci_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ControllerDepenci.vue?vue&type=style&index=0&lang=css& */ "./resources/js/views/ControllerDepenci.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__);
@@ -97160,7 +97434,7 @@ component.options.__file = "resources/js/views/ControllerDepenci.vue"
 /*!***************************************************************************!*\
   !*** ./resources/js/views/ControllerDepenci.vue?vue&type=script&lang=js& ***!
   \***************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

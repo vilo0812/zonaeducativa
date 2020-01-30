@@ -151,7 +151,7 @@ import ContentCenter from '.././structures/Center.vue'
   /*start animacion de entrada*/
   /*esta animacion sera la de entrada*/
     .aparecer-enter{
-    opacity: 0 
+    opacity: 0
     }
   /*desde 0 a 1 habra una transicion de 1 s de velocidad*/
     .aparecer-enter-active{

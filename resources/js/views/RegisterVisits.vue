@@ -20,14 +20,32 @@
     <v-container>
       	<h1 class="text-center">Registrar Visitante</h1>
 			<form>
-				<!-- 
+				<!--
 				posibles validaciones
-				v-validate="'required|max:10'" 
+				v-validate="'required|max:10'"
 				v-validate="'required|email'"-->
+        <!-- start input cedula -->
+        <v-text-field
+        color="dark"
+        type="number"
+        v-model="cedula"
+        label="Cédula: "
+        :error="cedulaError"
+        :rules="cedulaRules"
+        :counter="13"
+        @blur="checkUser"
+        @keyup.enter="checkUser"
+        prepend-icon="mdi-account-card-details"
+        required
+        ></v-text-field>
+        <!-- end input cedula -->
         <!-- start input nombre -->
         <v-text-field
         v-model="nombre"
         label="Nombre: "
+        :error="nombreError"
+        :rules="nombreRules"
+        :counter="50"
         prepend-icon="mdi-account"
         required
         ></v-text-field>
@@ -37,24 +55,22 @@
         color="dark"
         v-model="apellido"
         label="Apellido: "
+        :error="apellidoError"
+        :rules="apellidoRules"
+        :counter="50"
         required
         prepend-icon="mdi-account-settings"
         ></v-text-field>
         <!-- end input apellido -->
-        <!-- start input cedula -->
-        <v-text-field
-        color="dark"
-        v-model="cedula"
-        label="Cédula: "
-        prepend-icon="mdi-account-card-details"
-        required
-        ></v-text-field>
-        <!-- end input cedula -->
         <!-- start input telefono -->
         <v-text-field
         color="dark"
+        type="number"
         v-model="telefono"
         label="Teléfono: "
+        :error="tlfError"
+        :rules="tlfRules"
+        :counter="13"
         prepend-icon="mdi-cellphone"
         required
         ></v-text-field>
@@ -63,14 +79,27 @@
         <v-text-field
         color="dark"
         v-model="correo"
-        label="Correo"
+        label="Correo: "
+        :counter="100"
         prepend-icon="mdi-email"
         required
         ></v-text-field>
         <!-- end input correo -->
+        <!-- start input procedencia -->
+        <v-text-field
+        color="dark"
+        v-model="provenance"
+        label="Procedencia: "
+        :counter="100"
+        prepend-icon="mdi-google-maps"
+        required
+        ></v-text-field>
+        <!-- end input procedencia -->
         <!-- start input de el piso -->
         <v-select
               v-model="piso"
+              :error="pisoError"
+              :rules="pisoRules"
               color="dark"
               label="Piso: "
               :items="pisos"
@@ -83,6 +112,8 @@
         <v-select
               v-show="piso"
               v-model="zona"
+              :error="zonaError"
+              :rules="zonaRules"
               color="dark"
               :items="zonas"
               item-text="zona"
@@ -96,18 +127,22 @@
          <v-select
               v-show="zona"
               v-model="sector"
+              :error="sectorError"
+              :rules="sectorRules"
               color="dark"
               :items="sectores"
               label="Sector: "
               item-text="sector"
               item-value="id"
               prepend-icon="mdi-cube-unfolded"
-            ></v-select> 
+            ></v-select>
         <!-- end select sector mdi-cube-unfolded-->
         <!-- start tipo de pase -->
         <v-select
               v-model="pase"
               color="dark"
+              :error="paseError"
+              :rules="paseRules"
               :items="pases"
               item-text="ticket"
               item-value="id"
@@ -121,14 +156,14 @@
               color="dark"
               outlined
               name="input-7-4"
-              label="Observaciones: "
+              label="Motivo de Visita: "
             ></v-textarea>
         <!-- end obvervaciones -->
         <!-- start pertenencias -->
             <h3 class="text-center">¿El usuario tiene pertenencias?</h3>
              <v-radio-group v-model="HasPertenencias" row>
                 <v-radio label="no" color="dark"></v-radio>
-                <v-radio label="si" color="dark"></v-radio> 
+                <v-radio label="si" color="dark"></v-radio>
           </v-radio-group>
           <v-textarea
             v-model="pertenencias"
@@ -186,26 +221,116 @@ import ContentCenter from '.././structures/Center.vue'
   	data () {
   	  return {
   	    drawer: null,
+        usuario:[],
   	    nombre:'',
+        nombreError:false,
   	    apellido:'',
+        apellidoError:false,
   	    correo:'',
   	    cedula:'',
+        cedulaError:false,
   	    telefono:'',
+        tlfError:false,
         piso:'',
+        pisoError:false,
         pisos:[],
         zona:'',
+        zonaError:false,
   	    zonas:[],
         sector:'',
+        sectorError:false,
   	    sectores:[],
         pase:'',
+        paseError:false,
   	    pases:[],
         observaciones:'',
   	    HasPertenencias:null,
-        pertenencias:''
+        pertenencias:'',
+        provenance:'',
+        nombreRules:[
+        v => !!v || 'el nombre es obligatorio',
+        ],
+        apellidoRules:[
+        v => !!v || 'el apellido es obligatorio',
+        ],
+        cedulaRules:[
+        v => !!v || 'la cedula es obligatoria',
+        ],
+        tlfRules:[
+        v => !!v || 'el telefono es obligatorio',
+        ],
+        pisoRules:[
+        v => !!v || 'el piso es obligatorio',
+        ],
+        zonaRules:[
+        v => !!v || 'zona es obligatoria',
+        ],
+        sectorRules:[
+        v => !!v || 'el sector es obligatorio',
+        ],
+        paseRules:[
+        v => !!v || 'el pase es obligatorio',
+        ],
   	  };
   	},
   	methods: {
-  	  submit() {
+      submit(){
+            this.nombreError=false
+            this.apellidoError=false
+            this.cedulaError=false
+            this.tlfError=false
+            this.pisoError=false
+            this.zonaError=false
+            this.sectorError=false
+            this.paseError=false
+            if(this.nombre.trim() == ''){
+            this.nombreError=true;
+            }
+            if(this.nombre.length > 50){
+            this.nombreError=true;
+            }
+            if(this.apellido.trim() == ''){
+            this.apellidoError=true;
+            }
+            if(this.apellido.length > 50){
+            this.apellidoError=true;
+            }
+            if(this.cedula.trim() == ''){
+            this.cedulaError=true;
+            }
+            if(this.cedula.length > 13){
+            this.cedulaError=true;
+            }
+            if(this.telefono.trim() == ''){
+            this.tlfError=true;
+            }
+            if(this.telefono.length > 13){
+            this.tlfError=true;
+            }
+            if(this.piso == ''){
+            this.pisoError=true;
+            }
+            if(this.zona == ''){
+            this.zonaError=true;
+            }
+            if(this.sector == ''){
+            this.sectorError=true;
+            }
+            if(this.pase == ''){
+            this.paseError=true;
+            }
+            if(this.nombreError==false &&
+             this.apellidoError==false &&
+             this.cedulaError==false &&
+             this.tlfError==false &&
+             this.pisoError==false &&
+             this.zonaError== false &&
+             this.sectorError==false &&
+             this.paseError==false){
+            this.registrar();
+            }
+      },
+  	  registrar() {
   	    let params={
 
         'idFloor':this.piso,
@@ -220,16 +345,16 @@ import ContentCenter from '.././structures/Center.vue'
         'belogings':this.pertenencias,
         'observation':this.observaciones,
         }
-        
+
         axios.post('/api/storeVisit',params).then(res => {
         swal({
             title:res.data.mensaje,
             icon:'success',
             closeOnClickOutside:false,
-            CloseOnEsc:false 
+            CloseOnEsc:false
           }).then(select=>{
             if(select){
-              this.$router.push({ name: 'controller-dependenci'})
+              this.$router.push({ name: 'Gestion'})
             }
           });
         }).catch(err => {
@@ -241,7 +366,7 @@ import ContentCenter from '.././structures/Center.vue'
         this.correo = ''
         this.apellido = ''
         this.cedula=''
-        this.telefono=''  
+        this.telefono=''
         this.zona=''
         this.sector=''
         this.pase=''
@@ -263,6 +388,22 @@ import ContentCenter from '.././structures/Center.vue'
         console.log(err);
       });
       /*end llenamos los sectore de la vista con los datos de la base de datos*/
+    },
+    checkUser(){
+      let identification_card={
+        'identification_card':this.cedula
+      };
+      axios.post('/api/showUser',identification_card).then(res => {
+        let user=res.data;
+        this.nombre=user[0].first_name;
+        this.apellido=user[0].last_name;
+        this.cedula=user[0].identification_card;
+        this.correo=user[0].email;
+        this.telefono=user[0].phone;
+        this.provenance=user[0].municipality;
+      }).catch(err => {
+        console.log(err);
+      });
     }
   	},
     computed: {

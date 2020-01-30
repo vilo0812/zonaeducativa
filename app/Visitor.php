@@ -22,6 +22,7 @@ class Visitor extends Model
         ->join('directions',"visitors.direction_id","=","directions.id")
         ->join('sectors',"directions.sector_id","=","sectors.id")
         ->select('visitors.id','first_name','last_name','identification_card','phone','sector','input','output')
+        ->orderBy('visitors.id', 'DESC')
         ->get();
         return $registro;
     }
@@ -34,6 +35,7 @@ class Visitor extends Model
         ->join('sectors',"directions.sector_id","=","sectors.id")
         ->select('visitors.id','first_name','last_name','identification_card','phone','sector','input')
         ->where('output','=',null)
+        ->orderBy('visitors.id', 'DESC')
         ->get();
         return $registro;
     }

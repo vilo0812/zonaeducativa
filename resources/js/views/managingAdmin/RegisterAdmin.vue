@@ -19,15 +19,15 @@
   <v-card class="d-inline-block mx-auto" color="green darken-1" width="450px">
     <v-container>
       	<h1 class="text-center">Registrar Administrador</h1>
-			<form>
-				<!-- 
+				<!--
 				posibles validaciones
-				v-validate="'required|max:10'" 
+				v-validate="'required|max:10'"
 				v-validate="'required|email'"-->
         <!-- start input nombre -->
         <v-text-field
         v-model="nombre"
         label="Nombre: "
+        :error="nombreError"
         :rules="nombreRules"
         :counter="50"
         prepend-icon="mdi-account"
@@ -38,6 +38,7 @@
         <v-text-field
         v-model="apellido"
         label="Apellido: "
+        :error="apellidoError"
         :rules="apellidoRules"
         :counter="50"
         required
@@ -49,6 +50,7 @@
         v-model="cedula"
         type="number"
         label="Cédula: Ej: 27167029"
+        :error="cedulaError"
         :rules="cedulaRules"
         :counter="13"
         required
@@ -62,15 +64,18 @@
         label="Teléfono: Ej: 04149017185"
         required
         prepend-icon="mdi-cellphone"
+        :error="tlfError"
         :rules="tlfRules"
-        :counter="100"
+        :counter="13"
         ></v-text-field>
         <!-- end input telefono -->
         <!-- start input correo -->
         <v-text-field
+        class="mb-4"
         type="email"
         v-model="correo"
         label="Correo: Ej: example@example.com"
+        :error="emailError"
         :rules="emailRules"
         :counter="100"
         required
@@ -78,7 +83,7 @@
         ></v-text-field>
         <!-- end input correo -->
         <!-- start botoner de submit y clean -->
-        <v-btn @click="submit" class="mr-4 light-blue accent-4">
+        <v-btn @click="submit()" class="mr-4 light-blue accent-4">
         <span>Registrar</span>
         <v-icon>mdi-account-multiple-plus</v-icon>
         </v-btn>
@@ -87,7 +92,6 @@
         <v-icon>mdi-eraser</v-icon>
         </v-btn>
         <!-- end botoner de submit y clean -->
-			</form>
     </v-container>
   </v-card>
 <!-- end contenido de muestra -->
@@ -110,18 +114,23 @@ import ContentCenter from '../.././structures/Center.vue'
   	  return {
   	    drawer: null,
   	    nombre:'',
+        nombreError:false,
   	    apellido:'',
+        apellidoError:false,
   	    correo:'',
+        emailError:false,
   	    cedula:'',
+        cedulaError:false,
   	    telefono:'',
+        tlfError:false,
         nombreRules:[
-        v => !!v || 'el nombre debe ser obligatoria',
+        v => !!v || 'el nombre es obligatorio',
         ],
         apellidoRules:[
-        v => !!v || 'el apellido debe ser obligatoria',
+        v => !!v || 'el apellido es obligatorio',
         ],
         cedulaRules:[
-        v => !!v || 'la cedula debe ser obligatoria',
+        v => !!v || 'la cedula es obligatoria',
         ],
         tlfRules:[
         v => !!v || 'el telefono es obligatorio',
@@ -133,7 +142,47 @@ import ContentCenter from '../.././structures/Center.vue'
   	  };
   	},
   	methods: {
-  	  submit() {
+      submit(){
+            this.nombreError=false
+            this.apellidoError=false
+            this.cedulaError=false
+            this.tlfError=false
+            this.emailError=false
+            if(this.nombre.trim() == ''){
+            this.nombreError=true;
+            }
+            if(this.nombre.length > 50){
+            this.nombreError=true;
+            }
+            if(this.apellido.trim() == ''){
+            this.apellidoError=true;
+            }
+            if(this.apellido.length > 50){
+            this.apellidoError=true;
+            }
+            if(this.cedula.trim() == ''){
+            this.cedulaError=true;
+            }
+            if(this.cedula.length > 13){
+            this.cedulaError=true;
+            }
+            if(this.telefono.trim() == ''){
+            this.tlfError=true;
+            }
+            if(this.telefono.length > 13){
+            this.tlfError=true;
+            }
+            if(this.correo.trim() == ''){
+            this.emailError=true;
+            }
+            if(this.correo.length > 100){
+            this.emailError=true;
+            }
+            if(this.nombreError==false && this.apellidoError==false && this.cedulaError==false && this.tlfError==false && this.emailError==false){
+            this.registrar();
+            }
+      },
+  	  registrar() {
         /*start llenamos nuestro objeto*/
         let parametros={
           'first_name':this.nombre,
@@ -150,7 +199,7 @@ import ContentCenter from '../.././structures/Center.vue'
             title:'Registro exitoso',
             icon:'success',
             closeOnClickOutside:false,
-            CloseOnEsc:false 
+            CloseOnEsc:false
           }).then(select=>{
           if(select){
             location.reload();
@@ -167,7 +216,7 @@ import ContentCenter from '../.././structures/Center.vue'
         this.correo = ''
         this.apellido = ''
         this.cedula=''
-        this.telefono=''   
+        this.telefono=''
     }
   	},
     created () {

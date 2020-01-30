@@ -54,4 +54,10 @@ class UserController extends Controller
         return response()->json(['mensaje'=>'usuario eliminado exitosamente'],200);
     }
     /*end api para actualizar a un usuario*/
+    /*start api que me permite ver al usuario segun el numero de cedula*/
+    public function showByIdentificationCard(Request $request){
+       $user = User::where('identification_card',"=",$request->identification_card)->get(['first_name','last_name','identification_card','email','phone','municipality']);
+       return response()->json($user,200);
+    }
+    /*end api que me permite ver al usuario segun el numero de cedula*/
 }
