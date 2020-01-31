@@ -1,12 +1,9 @@
 <template>
   <div>
-  	<v-card-text dark>
-  		<h2 class="text-purple">Iniciar sesión</h2>
-  	
-	<!-- start formulario del login -->
-	<form>
+  	<!-- <v-card-text dark > -->
 		<!-- start input de ingresar email -->
 		<v-text-field
+		class="mb-5"
 		type="email"
 		append-icon="mdi-account"
 		:error="errorEmail"
@@ -19,6 +16,7 @@
 		<!-- end input de ingresar email -->
 		<!-- start input de igresar la contraseña -->
 		<v-text-field
+		class="mb-5"
 		type="password"
 		append-icon="mdi-lock-open"
 		:error="errorClave"
@@ -29,8 +27,7 @@
 		></v-text-field>
 		<!-- end input de igresar la contraseña -->
 		<v-btn block color="primary" class="mr-4 block pb-3" @click="iniciarSesion()">iniciar sesión</v-btn>
-	</form>
-	</v-card-text>
+	<!-- </v-card-text> -->
   </div>
 	<!-- end formulario del login -->
 </template>
@@ -71,7 +68,7 @@ export default{
 	      		text:response.data,
 	      		icon:'success',
 	      		closeOnClickOutside:false,
-	      		CloseOnEsc:false 
+	      		CloseOnEsc:false
 	      	}).then(select=>{
 	      		if(select){
 	      			/*start llamamos al api que determina que tipo de usuario soy*/
@@ -109,12 +106,12 @@ export default{
 	      	}
 	      	swal('Error',mensaje,'error');
 	      	/*end errores*/
-	      });	     
+	      });
 	    /*end iniciamos sesion*/
 	  }
 	}
 }
 </script>
 <style type="text/css">
-  
+
 </style>

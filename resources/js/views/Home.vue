@@ -1,22 +1,39 @@
 <template>
 	<div>
 		<!-- start nav bar -->
-		<nav-bar></nav-bar>
+		<!-- <nav-bar></nav-bar> -->
 		<!-- end nav bar -->
 		<!-- start imagen de fondo -->
 		<!-- src="images/background/vibrante vintage.png"> -->
-		<v-parallax 
+		<v-parallax
 		src="images/background/fondo.jpg"
+		height="720"
 		>
-			<!-- start contenido de la pagina principal -->
-  			<h1 class="display-4 text-center">sistema de seguridad de la zona educativa</h1>	
-  			<!-- start llamamos al componente de iniciar sesion -->
-  			<v-card width="500px" class="ma-auto">
-  				<iniciar-sesion></iniciar-sesion>
-  			</v-card>
-  			<!-- end llamamos al componente de iniciar sesion -->
-			<!-- end contenido de la pagina principal -->
+				<v-col cols="12" >
+					 <v-row
+			          :align="stretch"
+			          :justify="space-between">
+			       	<v-col cols="7" class="d-flex justify-center align-start">
+			       		<img src="images/icons/zeg.png" alt="" width="500" class="mt-5">
+			       	</v-col>
+			       	<v-col cols="5">
+			       		<v-card height="720" class="grey lighten-4 d-flex justify-center align-center" >
+			       			<v-col class="mx-7">
+								<h1 class="text-center display-2 mb-5 font-weight-black">Iniciar Sesión</h1>
+								<iniciar-sesion></iniciar-sesion>
+			       			</v-col>
+			       		</v-card>
+			  			<!-- <v-card height="800"> -->
+			  			<!-- <h1 class="text-center display-2">Iniciar Sesión</h1> -->
+			  			<!-- start llamamos al componente de iniciar sesion -->
+			  				<!-- <iniciar-sesion></iniciar-sesion> -->
+			  			<!-- end llamamos al componente de iniciar sesion -->
+			  			<!-- </v-card> -->
+			       	</v-col>
+			       	</v-row>
+				</v-col>
 		</v-parallax>
+
 		<!-- end imagen de fondo -->
 	</div>
 </template>
@@ -35,9 +52,6 @@ export default {
 
     }
   },
-	created () {
-      this.$vuetify.theme.dark = true
-    },
 }
 </script>
 

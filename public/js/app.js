@@ -1976,9 +1976,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2664,6 +2661,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2674,9 +2688,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {};
-  },
-  created: function created() {
-    this.$vuetify.theme.dark = true;
   }
 });
 
@@ -39582,66 +39593,58 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("v-card-text", { attrs: { dark: "" } }, [
-        _c("h2", { staticClass: "text-purple" }, [_vm._v("Iniciar sesión")]),
-        _vm._v(" "),
-        _c(
-          "form",
-          [
-            _c("v-text-field", {
-              attrs: {
-                type: "email",
-                "append-icon": "mdi-account",
-                error: _vm.errorEmail,
-                counter: 100,
-                required: "",
-                rules: _vm.emailRules,
-                label: "Correo: "
-              },
-              model: {
-                value: _vm.email,
-                callback: function($$v) {
-                  _vm.email = $$v
-                },
-                expression: "email"
-              }
-            }),
-            _vm._v(" "),
-            _c("v-text-field", {
-              attrs: {
-                type: "password",
-                "append-icon": "mdi-lock-open",
-                error: _vm.errorClave,
-                rules: _vm.claveRules,
-                required: "",
-                label: "Contraseña: "
-              },
-              model: {
-                value: _vm.clave,
-                callback: function($$v) {
-                  _vm.clave = $$v
-                },
-                expression: "clave"
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "v-btn",
-              {
-                staticClass: "mr-4 block pb-3",
-                attrs: { block: "", color: "primary" },
-                on: {
-                  click: function($event) {
-                    return _vm.iniciarSesion()
-                  }
-                }
-              },
-              [_vm._v("iniciar sesión")]
-            )
-          ],
-          1
-        )
-      ])
+      _c("v-text-field", {
+        staticClass: "mb-5",
+        attrs: {
+          type: "email",
+          "append-icon": "mdi-account",
+          error: _vm.errorEmail,
+          counter: 100,
+          required: "",
+          rules: _vm.emailRules,
+          label: "Correo: "
+        },
+        model: {
+          value: _vm.email,
+          callback: function($$v) {
+            _vm.email = $$v
+          },
+          expression: "email"
+        }
+      }),
+      _vm._v(" "),
+      _c("v-text-field", {
+        staticClass: "mb-5",
+        attrs: {
+          type: "password",
+          "append-icon": "mdi-lock-open",
+          error: _vm.errorClave,
+          rules: _vm.claveRules,
+          required: "",
+          label: "Contraseña: "
+        },
+        model: {
+          value: _vm.clave,
+          callback: function($$v) {
+            _vm.clave = $$v
+          },
+          expression: "clave"
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "v-btn",
+        {
+          staticClass: "mr-4 block pb-3",
+          attrs: { block: "", color: "primary" },
+          on: {
+            click: function($event) {
+              return _vm.iniciarSesion()
+            }
+          }
+        },
+        [_vm._v("iniciar sesión")]
+      )
     ],
     1
   )
@@ -40514,20 +40517,80 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("nav-bar"),
-      _vm._v(" "),
       _c(
         "v-parallax",
-        { attrs: { src: "images/background/fondo.jpg" } },
+        { attrs: { src: "images/background/fondo.jpg", height: "720" } },
         [
-          _c("h1", { staticClass: "display-4 text-center" }, [
-            _vm._v("sistema de seguridad de la zona educativa")
-          ]),
-          _vm._v(" "),
           _c(
-            "v-card",
-            { staticClass: "ma-auto", attrs: { width: "500px" } },
-            [_c("iniciar-sesion")],
+            "v-col",
+            { attrs: { cols: "12" } },
+            [
+              _c(
+                "v-row",
+                {
+                  attrs: {
+                    align: _vm.stretch,
+                    justify: _vm.space - _vm.between
+                  }
+                },
+                [
+                  _c(
+                    "v-col",
+                    {
+                      staticClass: "d-flex justify-center align-start",
+                      attrs: { cols: "7" }
+                    },
+                    [
+                      _c("img", {
+                        staticClass: "mt-5",
+                        attrs: {
+                          src: "images/icons/zeg.png",
+                          alt: "",
+                          width: "500"
+                        }
+                      })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "5" } },
+                    [
+                      _c(
+                        "v-card",
+                        {
+                          staticClass:
+                            "grey lighten-4 d-flex justify-center align-center",
+                          attrs: { height: "720" }
+                        },
+                        [
+                          _c(
+                            "v-col",
+                            { staticClass: "mx-7" },
+                            [
+                              _c(
+                                "h1",
+                                {
+                                  staticClass:
+                                    "text-center display-2 mb-5 font-weight-black"
+                                },
+                                [_vm._v("Iniciar Sesión")]
+                              ),
+                              _vm._v(" "),
+                              _c("iniciar-sesion")
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
             1
           )
         ],
@@ -96750,8 +96813,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
-/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -96774,8 +96836,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_6__["VTextField"]})
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_5__["VTextField"]})
 
 
 /* hot reload */
@@ -97638,7 +97699,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
-/* harmony import */ var vuetify_lib_components_VParallax__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VParallax */ "./node_modules/vuetify/lib/components/VParallax/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VParallax__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VParallax */ "./node_modules/vuetify/lib/components/VParallax/index.js");
 
 
 
@@ -97661,7 +97723,9 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_4__["VCard"],VParallax: vuetify_lib_components_VParallax__WEBPACK_IMPORTED_MODULE_5__["VParallax"]})
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_4__["VCard"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__["VCol"],VParallax: vuetify_lib_components_VParallax__WEBPACK_IMPORTED_MODULE_6__["VParallax"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__["VRow"]})
 
 
 /* hot reload */
