@@ -48,7 +48,7 @@
               <td>zona: {{item.zone}}</td>
               <td>Sector: {{item.sector}}</td>
               <td>
-                <v-btn @click="stateDependence(item.id,index)" class="ma-2" text icon color="dark">
+                <v-btn @click="changeStateDependence(item.id,index)" class="ma-2" text icon color="dark">
                   <transition name="aparecer" appear>
                   <v-icon v-if="item.dependence" color="blue">mdi-ray-end</v-icon>
                   <v-icon v-else color="red">mdi-ray-start</v-icon>
@@ -130,11 +130,11 @@ import ContentCenter from '.././structures/Center.vue'
           console.log(err);
         });
       },
-      stateDependence(id,index){
+      changeStateDependence(id,index){
         let param = {
           'id':id
         }
-        axios.post('/api/stateDependence',param).then(res => {
+        axios.post('/api/changeStateDependence',param).then(res => {
           this.zonesSector[index].dependence=!this.zonesSector[index].dependence
         }).catch(err => {
           console.log(err);

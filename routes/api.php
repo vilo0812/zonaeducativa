@@ -48,9 +48,12 @@ Route::group(['prefix' => 'sesion'], function() {
 		/*end api que me permite descargar todas las visitas que se han hecho en el edificio*/
 	/*end api que manejan los PDFs de la aplicacion*/
 /*end apis que tienen que ver con el modulo de visitas*/
-/*start api para manejar la disponibilidad de las dependencias*/
-	Route::post('stateDependence','DirectionController@changeStateDependence');
-/*end api para manejar la disponibilidad de las dependencias*/
+/*start api para cambiar la disponibilidad de las dependencias*/
+	Route::post('changeStateDependence','DirectionController@changeStateDependence');
+/*end api para cambiar la disponibilidad de las dependencias*/
+/*start api para ver la disponibilidad de las dependencias*/
+	Route::post('stateDependence','DirectionController@stateDependence');
+/*end api para ver la disponibilidad de las dependencias*/
 /*end apis del super administrador StoreVisit*/
 /*start apis para sacar informacines especificas*/
 	/*start api para ver a los administrador*/

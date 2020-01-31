@@ -35,7 +35,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in visitas" :key="item.id">
+            <tr v-for="(item,index) in visitas" :key="item.id">
               <td>{{ item.first_name }}</td>
               <td>{{ item.last_name }}</td>
               <td>{{ item.identification_card }}</td>
@@ -43,7 +43,7 @@
               <td>{{ item.sector }}</td>
               <td>{{ item.input }}</td>
               <td>
-                <v-btn color="orange lighten-2" @click="target(item.id)">
+                <v-btn color="orange lighten-2" @click="target(item.id,index)">
                 <span>marcar salida</span>
                 <v-icon>mdi-run</v-icon>
                 </v-btn>
@@ -85,12 +85,12 @@ import ContentCenter from '.././structures/Center.vue'
       };
     },
     methods: {
-      target (index) {
+      target (idItem,index) {
         let id={
-          'id':index
+          'id':idItem
         }
         axios.patch('/api/targetVisit',id).then(res => {
-          location.reload();
+          this.visitas.splice(index,1);
         }).catch(err => {
           console.log(err);
         });

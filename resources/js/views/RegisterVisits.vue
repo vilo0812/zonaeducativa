@@ -134,6 +134,7 @@
               label="Sector: "
               item-text="sector"
               item-value="id"
+              @blur="checkDependence"
               prepend-icon="mdi-cube-unfolded"
             ></v-select>
         <!-- end select sector mdi-cube-unfolded-->
@@ -222,6 +223,7 @@ import ContentCenter from '.././structures/Center.vue'
   	  return {
   	    drawer: null,
         usuario:[],
+        id:'',
   	    nombre:'',
         nombreError:false,
   	    apellido:'',
@@ -332,7 +334,7 @@ import ContentCenter from '.././structures/Center.vue'
       },
   	  registrar() {
   	    let params={
-
+        'id':this.id,
         'idFloor':this.piso,
         'idZone':this.zona,
         'idSector':this.sector,
@@ -341,6 +343,7 @@ import ContentCenter from '.././structures/Center.vue'
         'email':this.correo,
         'identification_card':this.cedula,
         'phone':this.telefono,
+        'provenance':this.provenance,
         'ticket_id':this.pase,
         'belogings':this.pertenencias,
         'observation':this.observaciones,
@@ -367,6 +370,7 @@ import ContentCenter from '.././structures/Center.vue'
         this.apellido = ''
         this.cedula=''
         this.telefono=''
+        this.piso=''
         this.zona=''
         this.sector=''
         this.pase=''
@@ -395,12 +399,40 @@ import ContentCenter from '.././structures/Center.vue'
       };
       axios.post('/api/showUser',identification_card).then(res => {
         let user=res.data;
+        this.id=user[0].id;
         this.nombre=user[0].first_name;
         this.apellido=user[0].last_name;
         this.cedula=user[0].identification_card;
         this.correo=user[0].email;
         this.telefono=user[0].phone;
-        this.provenance=user[0].municipality;
+        this.provenance=user[0].provenance;
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+    checkDependence(){
+      let params={
+        'idFloor':this.piso,
+        'idZone':this.zona,
+        'idSector':this.sector,
+      }
+      axios.post('/api/stateDependence',params).then(res => {
+        console.log(res.data[0].dependence);
+        if(!res.data[0].dependence){
+          swal({
+            title:'No disponible',
+            text:'la dependencia que desea acudir no se encuentra diponible',
+            icon:'warning',
+            closeOnClickOutside:false,
+            CloseOnEsc:false
+          }).then(select=>{
+            if(select){
+              this.piso=''
+              this.zona=''
+              this.sector=''
+            }
+          });
+        }
       }).catch(err => {
         console.log(err);
       });

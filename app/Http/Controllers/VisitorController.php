@@ -43,38 +43,31 @@ class VisitorController extends Controller
         // $time=Carbon::now()->format('h:i');
         $time=Carbon::now();
         $direccion = Direction::where([['floor_id',$request->idFloor],['zone_id',$request->idZone],['sector_id',$request->idSector]])->select('id')->get();
+        if(!$request['id']){
         $user=User::create([
             'first_name'=>$request['first_name'],
             'last_name'=>$request['last_name'],
             'identification_card'=>$request['identification_card'],
             'email'=>$request['email'],
             'phone'=>$request['phone'],
+            'provenance'=>$request['provenance'],
             'rol_id'=>3
         ]);
+        $id=$user->id;
+        }else{
+        $id=$request['id'];
+        }
         $time=Handling_time::create([
             'input'=>Carbon::now()
         ]);
         $visit=Visitor::create([
-        'user_id'=>$user->id,
+        'user_id'=>$id,
         'handling_time_id'=>$time->id,
         'ticket_id'=>$request->ticket_id,
         'direction_id'=>$direccion[0]->id,
         'belongings'=>$request->belogings,
         'observation'=>$request->observation,
         ]);
-        // $info=[
-        // $request['first_name'],
-        // $request['last_name'],
-        // $request['identification_card'],
-        // $request['email'],
-        // $request['phone'],
-        // $time->id,
-        // $user->id,
-        // $request->ticket_id,
-        // $direccion[0]->id,
-        // $request->belogings,
-        // $request->observation,
-        // ];
          return response()->json(['mensaje'=>'Registro exitoso'],200);
     }
     /*end iniciamos la api que permite registrar visitas*/

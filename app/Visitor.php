@@ -27,6 +27,19 @@ class Visitor extends Model
         return $registro;
     }
     /*end metodo que me permite ver los datos de la visita */
+    /*start metodo que me permite ver las visitas que iran en el PDF*/
+    static public function showVisitsPdf(){
+        $registro = static::leftJoin("users","visitors.user_id","=","users.id")
+        ->join('handling_times',"visitors.handling_time_id","=","handling_times.id")
+        ->join('directions',"visitors.direction_id","=","directions.id")
+        ->join('sectors',"directions.sector_id","=","sectors.id")
+        ->join('tickets','visitors.ticket_id','=','tickets.id')
+        ->select('visitors.id','first_name','last_name','identification_card','phone','sector','input','output','provenance','observation','ticket')
+        ->orderBy('visitors.id', 'DESC')
+        ->get();
+        return $registro;
+    }
+    /*end metodo que me permie ver las visitas que iran en el PDF */
     /*start metodo que me permite ver los datos de la visita */
     static public function showOnlyNotTargetVisits(){
         $registro = static::leftJoin("users","visitors.user_id","=","users.id")

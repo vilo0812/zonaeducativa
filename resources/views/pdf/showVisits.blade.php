@@ -82,6 +82,7 @@
 			    <th>procedencia</th>
 			    <th>sector</th>
 			    <th>pase</th>
+                <th>observación</th>
 			    <th>llegada</th>
 			    <th>salida</th>
 			  </tr>
@@ -91,10 +92,11 @@
 			    <td>{{$item['last_name']}}</td>
 			    <td>{{$item['identification_card']}}</td>
 			    <td>{{$item['phone']}}</td>
-			    <td>procedencia</td>
+			    <td>{{$item['provenance']}}</td>
 			    <td>{{$item['sector']}}</td>
-			    <td>pase</td>
-			    <td>{{$item['input']}}</td>
+			    <td>{{$item['ticket']}}</td>
+                <td>{{$item['observation']}}</td>
+                <td>{{$item['input']}}</td>
 			    <td>{{$item['output']}}</td>
 			  </tr>
           	  @endforeach

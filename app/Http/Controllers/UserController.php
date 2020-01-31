@@ -56,7 +56,7 @@ class UserController extends Controller
     /*end api para actualizar a un usuario*/
     /*start api que me permite ver al usuario segun el numero de cedula*/
     public function showByIdentificationCard(Request $request){
-       $user = User::where('identification_card',"=",$request->identification_card)->get(['first_name','last_name','identification_card','email','phone','municipality']);
+       $user = User::where('identification_card',"=",$request->identification_card)->get(['id','first_name','last_name','identification_card','email','phone','provenance']);
        return response()->json($user,200);
     }
     /*end api que me permite ver al usuario segun el numero de cedula*/

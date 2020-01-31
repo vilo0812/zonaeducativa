@@ -2288,7 +2288,7 @@ __webpack_require__.r(__webpack_exports__);
         direccion: 'register-visits'
       }, {
         icon: 'mdi-book-open-variant',
-        text: 'visualizar Registros',
+        text: 'visualizar Visitas',
         direccion: 'view-visits'
       }],
       administradores: []
@@ -2490,13 +2490,13 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err);
       });
     },
-    stateDependence: function stateDependence(id, index) {
+    changeStateDependence: function changeStateDependence(id, index) {
       var _this3 = this;
 
       var param = {
         'id': id
       };
-      axios.post('/api/stateDependence', param).then(function (res) {
+      axios.post('/api/changeStateDependence', param).then(function (res) {
         _this3.zonesSector[index].dependence = !_this3.zonesSector[index].dependence;
       })["catch"](function (err) {
         console.log(err);
@@ -2610,12 +2610,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    target: function target(index) {
+    target: function target(idItem, index) {
+      var _this2 = this;
+
       var id = {
-        'id': index
+        'id': idItem
       };
       axios.patch('/api/targetVisit', id).then(function (res) {
-        location.reload();
+        _this2.visitas.splice(index, 1);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -2887,6 +2889,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2916,6 +2919,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       drawer: null,
       usuario: [],
+      id: '',
       nombre: '',
       nombreError: false,
       apellido: '',
@@ -3034,6 +3038,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       var params = {
+        'id': this.id,
         'idFloor': this.piso,
         'idZone': this.zona,
         'idSector': this.sector,
@@ -3042,6 +3047,7 @@ __webpack_require__.r(__webpack_exports__);
         'email': this.correo,
         'identification_card': this.cedula,
         'phone': this.telefono,
+        'provenance': this.provenance,
         'ticket_id': this.pase,
         'belogings': this.pertenencias,
         'observation': this.observaciones
@@ -3069,6 +3075,7 @@ __webpack_require__.r(__webpack_exports__);
       this.apellido = '';
       this.cedula = '';
       this.telefono = '';
+      this.piso = '';
       this.zona = '';
       this.sector = '';
       this.pase = '';
@@ -3102,12 +3109,43 @@ __webpack_require__.r(__webpack_exports__);
       };
       axios.post('/api/showUser', identification_card).then(function (res) {
         var user = res.data;
+        _this4.id = user[0].id;
         _this4.nombre = user[0].first_name;
         _this4.apellido = user[0].last_name;
         _this4.cedula = user[0].identification_card;
         _this4.correo = user[0].email;
         _this4.telefono = user[0].phone;
-        _this4.provenance = user[0].municipality;
+        _this4.provenance = user[0].provenance;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    checkDependence: function checkDependence() {
+      var _this5 = this;
+
+      var params = {
+        'idFloor': this.piso,
+        'idZone': this.zona,
+        'idSector': this.sector
+      };
+      axios.post('/api/stateDependence', params).then(function (res) {
+        console.log(res.data[0].dependence);
+
+        if (!res.data[0].dependence) {
+          swal({
+            title: 'No disponible',
+            text: 'la dependencia que desea acudir no se encuentra diponible',
+            icon: 'warning',
+            closeOnClickOutside: false,
+            CloseOnEsc: false
+          }).then(function (select) {
+            if (select) {
+              _this5.piso = '';
+              _this5.zona = '';
+              _this5.sector = '';
+            }
+          });
+        }
       })["catch"](function (err) {
         console.log(err);
       });
@@ -40201,7 +40239,7 @@ var render = function() {
                                                 },
                                                 on: {
                                                   click: function($event) {
-                                                    return _vm.stateDependence(
+                                                    return _vm.changeStateDependence(
                                                       item.id,
                                                       index
                                                     )
@@ -40265,7 +40303,7 @@ var render = function() {
                           ],
                           null,
                           false,
-                          158514173
+                          3969627579
                         )
                       })
                     : _c("h4", [_vm._v("no hay piso seleccionado")])
@@ -40389,7 +40427,7 @@ var render = function() {
                             _vm._v(" "),
                             _c(
                               "tbody",
-                              _vm._l(_vm.visitas, function(item) {
+                              _vm._l(_vm.visitas, function(item, index) {
                                 return _c("tr", { key: item.id }, [
                                   _c("td", [_vm._v(_vm._s(item.first_name))]),
                                   _vm._v(" "),
@@ -40414,7 +40452,7 @@ var render = function() {
                                           attrs: { color: "orange lighten-2" },
                                           on: {
                                             click: function($event) {
-                                              return _vm.target(item.id)
+                                              return _vm.target(item.id, index)
                                             }
                                           }
                                         },
@@ -40765,6 +40803,7 @@ var render = function() {
                         "item-value": "id",
                         "prepend-icon": "mdi-cube-unfolded"
                       },
+                      on: { blur: _vm.checkDependence },
                       model: {
                         value: _vm.sector,
                         callback: function($$v) {

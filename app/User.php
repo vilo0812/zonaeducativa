@@ -16,8 +16,8 @@ class User extends Authenticatable
        'identification_card',
        'email',
       'phone',
-      'municipality',
       'password',
+      'provenance',
       'rol_id'
     ];
     protected $guarded = [];

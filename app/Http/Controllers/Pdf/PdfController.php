@@ -9,16 +9,17 @@ use Illuminate\Support\Facades\App;
 class PdfController extends Controller
 {
     public function index(){
-    	$data=Visitor::showVisits();
+    	$data=Visitor::showVisitsPdf();
     	$pdf = App::make('dompdf.wrapper');
-
+        $pdf->setPaper('a4', 'landscape');
     	$pdf->loadView('pdf.showVisits',compact('data'));
 
     	return $pdf->stream();
     }
     public function download(){
-    	$data=Visitor::showVisits();
+    	$data=Visitor::showVisitsPdf();
     	$pdf = App::make('dompdf.wrapper');
+        $pdf->setPaper('a4', 'landscape');
     	$pdf->loadView('pdf.showVisits',compact('data'));
     	return $pdf->download();
     }

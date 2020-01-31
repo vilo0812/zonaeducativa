@@ -48,4 +48,10 @@ class DirectionController extends Controller
         return response()->json('actualizado correctamente',200);
     }
     /*end metodo que me permite cambiar el estado de la pendencia de disponible a no disponible*/
+    /*start metodo que me permite ver el estado de las dependencias*/
+    public function stateDependence(Request $request){
+        $direction = Direction::where([['floor_id',$request->idFloor],['zone_id',$request->idZone],['sector_id',$request->idSector]])->select('dependence')->get();
+        return response()->json($direction,200);
+    }
+    /*end metodo que me permite cambiar el estado de la pendencia de disponible a no disponible*/
 }

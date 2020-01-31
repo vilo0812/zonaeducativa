@@ -20,8 +20,8 @@ class UserSeeder extends Seeder
     		"last_name"=>"Viloria Aparicio",
     		"identification_card"=>"27167028",
     		"email"=>"gabriel.viloria0812@gmail.com",
-			"phone"=>"0414-9017184",
-			"municipality"=>"Roscio",
+			"phone"=>"04149017184",
+			"provenance"=>"Roscio",
 			"password"=>bcrypt("1234"),
 			"rol_id"=>1
     	]);
