@@ -9,7 +9,8 @@
 
         <!-- Fonts -->
         <link rel="icon" type="image/png" href="images/icons/zeg.png" sizes="32x32">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+        <link rel="stylesheet" href="animate.min.css">
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     </head>
     <body>

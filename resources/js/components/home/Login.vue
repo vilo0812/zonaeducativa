@@ -3,7 +3,8 @@
   	<!-- <v-card-text dark > -->
 		<!-- start input de ingresar email -->
 		<v-text-field
-		class="mb-5"
+		class="mb-5 "
+		:class="{' animated tada' :correoA}"
 		type="email"
 		append-icon="mdi-account"
 		:error="errorEmail"
@@ -12,11 +13,13 @@
 		:rules="emailRules"
 		v-model="email"
 		label="Correo: "
+		@click="correoA=!correoA"
 		></v-text-field>
 		<!-- end input de ingresar email -->
 		<!-- start input de igresar la contraseña -->
 		<v-text-field
-		class="mb-5"
+		class="mb-5 "
+		:class="{' animated tada' :claveA}"
 		type="password"
 		append-icon="mdi-lock-open"
 		:error="errorClave"
@@ -24,6 +27,7 @@
 		:rules="claveRules"
 		required
 		label="Contraseña: "
+		@click="claveA=!claveA"
 		></v-text-field>
 		<!-- end input de igresar la contraseña -->
 		<v-btn block color="primary" class="mr-4 block pb-3" @click="iniciarSesion()">iniciar sesión</v-btn>
@@ -35,6 +39,8 @@
 export default{
 	data () {
 	  return {
+	  	correoA:null,
+	  	claveA:null,
 	    email:'',
 	    clave:'',
 	    errorEmail:false,

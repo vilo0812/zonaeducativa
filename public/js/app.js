@@ -1976,9 +1976,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      correoA: null,
+      claveA: null,
       email: '',
       clave: '',
       errorEmail: false,
@@ -2638,6 +2644,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _partials_home_NavBar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! .././partials/home/NavBar.vue */ "./resources/js/partials/home/NavBar.vue");
 /* harmony import */ var _components_home_Login_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! .././components/home/Login.vue */ "./resources/js/components/home/Login.vue");
+//
+//
+//
 //
 //
 //
@@ -39594,7 +39603,8 @@ var render = function() {
     "div",
     [
       _c("v-text-field", {
-        staticClass: "mb-5",
+        staticClass: "mb-5 ",
+        class: { " animated tada": _vm.correoA },
         attrs: {
           type: "email",
           "append-icon": "mdi-account",
@@ -39603,6 +39613,11 @@ var render = function() {
           required: "",
           rules: _vm.emailRules,
           label: "Correo: "
+        },
+        on: {
+          click: function($event) {
+            _vm.correoA = !_vm.correoA
+          }
         },
         model: {
           value: _vm.email,
@@ -39614,7 +39629,8 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("v-text-field", {
-        staticClass: "mb-5",
+        staticClass: "mb-5 ",
+        class: { " animated tada": _vm.claveA },
         attrs: {
           type: "password",
           "append-icon": "mdi-lock-open",
@@ -39622,6 +39638,11 @@ var render = function() {
           rules: _vm.claveRules,
           required: "",
           label: "Contraseña: "
+        },
+        on: {
+          click: function($event) {
+            _vm.claveA = !_vm.claveA
+          }
         },
         model: {
           value: _vm.clave,
@@ -40519,7 +40540,7 @@ var render = function() {
     [
       _c(
         "v-parallax",
-        { attrs: { src: "images/background/fondo.jpg", height: "720" } },
+        { attrs: { src: "images/background/fondo.jpg", height: "700" } },
         [
           _c(
             "v-col",
@@ -40527,12 +40548,6 @@ var render = function() {
             [
               _c(
                 "v-row",
-                {
-                  attrs: {
-                    align: _vm.stretch,
-                    justify: _vm.space - _vm.between
-                  }
-                },
                 [
                   _c(
                     "v-col",
@@ -40541,15 +40556,28 @@ var render = function() {
                       attrs: { cols: "7" }
                     },
                     [
-                      _c("img", {
-                        staticClass: "mt-5",
-                        attrs: {
-                          src: "images/icons/zeg.png",
-                          alt: "",
-                          width: "500"
-                        }
-                      })
-                    ]
+                      _c(
+                        "transition",
+                        {
+                          attrs: {
+                            name: "animate.css",
+                            "enter-active-class": "animated fadeInLeftBig",
+                            appear: ""
+                          }
+                        },
+                        [
+                          _c("img", {
+                            staticClass: "mt-5",
+                            attrs: {
+                              src: "images/icons/zeg.png",
+                              alt: "",
+                              width: "500"
+                            }
+                          })
+                        ]
+                      )
+                    ],
+                    1
                   ),
                   _vm._v(" "),
                   _c(
@@ -40561,7 +40589,7 @@ var render = function() {
                         {
                           staticClass:
                             "grey lighten-4 d-flex justify-center align-center",
-                          attrs: { height: "720" }
+                          attrs: { height: "700" }
                         },
                         [
                           _c(

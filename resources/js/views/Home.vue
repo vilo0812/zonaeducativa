@@ -7,17 +7,20 @@
 		<!-- src="images/background/vibrante vintage.png"> -->
 		<v-parallax
 		src="images/background/fondo.jpg"
-		height="720"
+		height="700"
 		>
 				<v-col cols="12" >
-					 <v-row
-			          :align="stretch"
-			          :justify="space-between">
+					 <v-row>
 			       	<v-col cols="7" class="d-flex justify-center align-start">
-			       		<img src="images/icons/zeg.png" alt="" width="500" class="mt-5">
+			       		<transition
+			       				name="animate.css"
+								enter-active-class="animated fadeInLeftBig"
+								appear>
+			       			<img src="images/icons/zeg.png" alt="" width="500" class="mt-5">
+						</transition>
 			       	</v-col>
 			       	<v-col cols="5">
-			       		<v-card height="720" class="grey lighten-4 d-flex justify-center align-center" >
+			       		<v-card height="700" class="grey lighten-4 d-flex justify-center align-center" >
 			       			<v-col class="mx-7">
 								<h1 class="text-center display-2 mb-5 font-weight-black">Iniciar Sesión</h1>
 								<iniciar-sesion></iniciar-sesion>

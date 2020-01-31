@@ -30,6 +30,7 @@
         "@mdi/font": "^4.5.95"
     },
     "dependencies": {
+        "animate.css": "^3.7.2",
         "sweetalert": "^2.1.2"
     }
 }
