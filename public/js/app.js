@@ -2687,6 +2687,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -40548,12 +40549,13 @@ var render = function() {
             [
               _c(
                 "v-row",
+                { staticClass: "d-flex flex-column flex-md-row" },
                 [
                   _c(
                     "v-col",
                     {
-                      staticClass: "d-flex justify-center align-start",
-                      attrs: { cols: "7" }
+                      staticClass: "d-flex justify-center align-start ",
+                      attrs: { "sm-cols": "12", "md-cols": "7", height: "700" }
                     },
                     [
                       _c(
@@ -40567,7 +40569,6 @@ var render = function() {
                         },
                         [
                           _c("img", {
-                            staticClass: "mt-5",
                             attrs: {
                               src: "images/icons/zeg.png",
                               alt: "",
@@ -40582,7 +40583,7 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "v-col",
-                    { attrs: { cols: "5" } },
+                    { attrs: { "sm-cols": "12", "md-cols": "5" } },
                     [
                       _c(
                         "v-card",

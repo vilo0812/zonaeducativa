@@ -10,16 +10,17 @@
 		height="700"
 		>
 				<v-col cols="12" >
-					 <v-row>
-			       	<v-col cols="7" class="d-flex justify-center align-start">
+					 <v-row class="d-flex flex-column flex-md-row">
+			       	<v-col sm-cols="12" md-cols="7" class="d-flex justify-center align-start " height="700">
 			       		<transition
 			       				name="animate.css"
 								enter-active-class="animated fadeInLeftBig"
-								appear>
-			       			<img src="images/icons/zeg.png" alt="" width="500" class="mt-5">
+								appear
+								>
+			       			<img src="images/icons/zeg.png" alt="" width="500"  >
 						</transition>
 			       	</v-col>
-			       	<v-col cols="5">
+			       	<v-col  sm-cols="12" md-cols="5">
 			       		<v-card height="700" class="grey lighten-4 d-flex justify-center align-center" >
 			       			<v-col class="mx-7">
 								<h1 class="text-center display-2 mb-5 font-weight-black">Iniciar Sesión</h1>
