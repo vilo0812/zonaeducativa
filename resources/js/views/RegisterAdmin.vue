@@ -125,9 +125,9 @@
 </template>
 
 <script>
-import Side from '../.././components/welcomeSuperAdmin/SideBar.vue'
-import Nav from '../.././partials/welcome/NavBar.vue'
-import ContentCenter from '../.././structures/Center.vue'
+import Side from '.././components/welcomeSuperAdmin/SideBar.vue'
+import Nav from '.././partials/welcome/NavBar.vue'
+import ContentCenter from '.././structures/Center.vue'
   export default {
   	components:{
   		'side-bar':Side,
@@ -286,8 +286,5 @@ import ContentCenter from '../.././structures/Center.vue'
   }
 </script>
 <style>
-  .fondo{
-    background-image: url(../../../../public/images/background/fondo2.jpg);
-    min-height: 700px;
-  }
+
 </style>

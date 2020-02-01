@@ -6,9 +6,9 @@ import ControllerDepenci from './views/ControllerDepenci.vue';
 import ViewVisits from './views/ViewVisits.vue';
 import RegisterVisits from './views/RegisterVisits.vue';
 /*start componentes que gestionan a los administradores*/
-import RegisterAdmin from './views/managingAdmin/RegisterAdmin.vue';
-import ShowAdmin from './views/managingAdmin/ShowAdmin.vue';
-import EditingAdmin from './views/managingAdmin/EditingAdmin.vue';
+import RegisterAdmin from './views/RegisterAdmin.vue';
+import ShowAdmin from './views/ShowAdmin.vue';
+import EditingAdmin from './views/EditingAdmin.vue';
 /*end componentes que gestionan a los administradores*/
 export const routes = [
   /*

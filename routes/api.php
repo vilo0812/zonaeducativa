@@ -75,6 +75,6 @@ Route::group(['prefix' => 'sesion'], function() {
 	Route::get('showTickets','TicketController@show');
 	/*end api para ver los pases permitidos de la zona*/
 	/*start api para ver la información de una usuario*/
-	Route::get('showUser/{id}','UserController@showByIdentificationCard');
+	Route::get('showUserByIc/{id}','UserController@showByIdentificationCard');
 	/*end api para ver la información de una usuario*/
 /*end apis para sacar informacines especificas*/

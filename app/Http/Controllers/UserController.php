@@ -37,6 +37,7 @@ class UserController extends Controller
             'identification_card'=>$request['identification_card'],
             'email'=>$request['email'],
             'phone'=>$request['phone'],
+            'password'=>bcrypt($request['password']),
             'rol_id'=>2
         ]);
         return response()->json(['mensaje'=>'registro exitoso'],200);

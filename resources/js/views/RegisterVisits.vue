@@ -391,7 +391,7 @@ import ContentCenter from '.././structures/Center.vue'
       /*end llenamos los sectore de la vista con los datos de la base de datos*/
     },
     checkUser(){
-      let url='/api/showUser/' + this.cedula;
+      let url='/api/showUserByIc/' + this.cedula;
       axios.get(url).then(res => {
         let user=res.data;
         this.id=user[0].id;

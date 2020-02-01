@@ -9,7 +9,7 @@
       app
       clipped
     >	<!-- start llamamos al side var del super administrador -->
-    	<side-bar></side-bar>
+    	<side-bar v-on:update="go"></side-bar>
     	<!-- end llamamos al side var del super administrador -->
     </v-navigation-drawer>
     <!-- end cuadro que se mantiene oculto y solo aparecera si drawer es true -->
@@ -97,9 +97,9 @@
 </template>
 
 <script>
-import Side from '../.././components/welcomeSuperAdmin/SideBar.vue'
-import Nav from '../.././partials/welcome/NavBar.vue'
-import ContentCenter from '../.././structures/Center.vue'
+import Side from '.././components/welcomeSuperAdmin/SideBar2.vue'
+import Nav from '.././partials/welcome/NavBar.vue'
+import ContentCenter from '.././structures/Center.vue'
 export default {
 	data () {
 	  return {
@@ -115,7 +115,7 @@ export default {
   },
   mounted(){
   	/*start llamamos al api que nos trae toda la informacion de este usuario*/
-  	let url=`/api/showUser/17`;
+  	let url=`/api/showUser/` + this.id;
   	axios.get(url).then(res => {
   	  this.administrador=res.data.user
   	}).catch(err => {
@@ -124,6 +124,16 @@ export default {
   	/*end llamamos al api que nos trae toda la informacion de este usuario*/
   },
   methods: {
+    go(){
+      /*start llamamos al api que nos trae toda la informacion de este usuario*/
+    let url=`/api/showUser/` + this.id;
+    axios.get(url).then(res => {
+      this.administrador=res.data.user
+    }).catch(err => {
+      console.log(err);
+    });
+    /*end llamamos al api que nos trae toda la informacion de este usuario*/
+    },
     editing () {
       this.$router.push({ name: 'editing-admin', params: {id:this.administrador.id}})
     },
@@ -181,10 +191,10 @@ export default {
 }
 </script>
 <style>
-  .fondo{
+  /*.fondo{
     background-image: url(../../../../public/images/background/fondo2.jpg);
     min-height: 700px;
-  }
+  }*/
 .redondo{
 border-radius:50%;
 }
