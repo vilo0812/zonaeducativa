@@ -64,11 +64,10 @@ export default{
 	    /*end creamos las variables que mandaremos*/
 	    /*usamos axios para mandar la información al api*/
 	    /*start iniciamos sesion*/
-	      axios.post('/api/sesion/iniciar',params)
+	      axios.post('/api/sesion/login',params)
 	      .then(response=>{
 	      	/*start accion si todo funciono perfectamente*/
-	      	// console.log(response);
-	      	console.log(response.data)
+	      	// console.log(response.data)
 	      	swal({
 	      		title:'Has iniciado sesion',
 	      		text:response.data,
@@ -93,7 +92,7 @@ export default{
 	      	/*end accion si todo funciono perfectamente*/
 	      }).catch(error=>{
 	      	/*start errores*/
-	      	console.log(error.response.data);
+	      	// console.log(error.response.data);
 	      	let er = error.response.data.errors;
 	      	let mensaje="Error no identificado";
 	      	if(er.hasOwnProperty('email')){
@@ -105,9 +104,6 @@ export default{
 	      	}else if(er.hasOwnProperty('loginEmail')){
 	      		mensaje=er.loginEmail[0];
 	      		this.errorEmail=true;
-	      	}
-	      	else if(er.hasOwnProperty('loginClave')){
-	      		mensaje=er.loginClave[0];
 	      		this.errorClave=true;
 	      	}
 	      	swal('Error',mensaje,'error');

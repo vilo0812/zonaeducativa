@@ -1,5 +1,5 @@
 <template>
-  <div id="inspire">
+  <div id="inspire" class="fondo">
 	<!-- start Nav Bar -->
 	<nav-bar v-on:showSideBar="drawer = !drawer"></nav-bar><!-- recordar que este nav bar es capaz de mostrar el side bar que se mantiene oculto -->
 	<!-- end Nav Bar -->
@@ -16,7 +16,7 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
     	<!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" color="green darken-1" width="450px">
+  <v-card class="d-inline-block mx-auto" color="purple" width="450px">
     <v-container>
       	<h1 class="text-center">Registrar Visitante</h1>
 			<form>
@@ -119,7 +119,7 @@
               item-text="zona"
               item-value="id"
               label="Zona: "
-              @blur="viewSectors"
+              @blur="showSectors"
               prepend-icon="mdi-grid-large"
             ></v-select>
         <!-- end select zona educativa mdi-grid-large -->
@@ -210,7 +210,7 @@ import ContentCenter from '.././structures/Center.vue'
       }).catch(err => {
         console.log(err);
       });
-      axios.get('/api/viewTickets').then(res => {
+      axios.get('/api/showTickets').then(res => {
         this.pases=res.data
       }).catch(err => {
         console.log(err);
@@ -379,14 +379,11 @@ import ContentCenter from '.././structures/Center.vue'
     viewZones(){
       this.zonas=this.zoneOfFloor
     },
-    viewSectors(){
+    showSectors(){
       /*vamos a trarnos todos los sectores dependiendo de cual es la zona que elijieron*/
-      let parametro={
-        idZone:this.zona,
-        idFloor:this.piso
-      }
+      let url='/api/showSectors/' + this.piso + '/' + this.zona ;
       /*start llenamos los sectore de la vista con los datos de la base de datos*/
-      axios.post('/api/viewSectors',parametro).then(res => {
+      axios.get(url).then(res => {
         this.sectores=res.data
       }).catch(err => {
         console.log(err);
@@ -394,10 +391,8 @@ import ContentCenter from '.././structures/Center.vue'
       /*end llenamos los sectore de la vista con los datos de la base de datos*/
     },
     checkUser(){
-      let identification_card={
-        'identification_card':this.cedula
-      };
-      axios.post('/api/showUser',identification_card).then(res => {
+      let url='/api/showUser/' + this.cedula;
+      axios.get(url).then(res => {
         let user=res.data;
         this.id=user[0].id;
         this.nombre=user[0].first_name;
@@ -411,13 +406,9 @@ import ContentCenter from '.././structures/Center.vue'
       });
     },
     checkDependence(){
-      let params={
-        'idFloor':this.piso,
-        'idZone':this.zona,
-        'idSector':this.sector,
-      }
-      axios.post('/api/stateDependence',params).then(res => {
-        console.log(res.data[0].dependence);
+      let url='/api/stateDependence/'+this.piso+'/'+this.zona+'/'+this.sector;
+      axios.get(url).then(res => {
+        // console.log(res.data[0].dependence);
         if(!res.data[0].dependence){
           swal({
             title:'No disponible',
@@ -436,7 +427,10 @@ import ContentCenter from '.././structures/Center.vue'
       }).catch(err => {
         console.log(err);
       });
-    }
+    },
+    mode(){
+      this.$vuetify.theme.dark = false;
+    },
   	},
     computed: {
       zoneOfFloor () {
@@ -471,3 +465,9 @@ import ContentCenter from '.././structures/Center.vue'
     },
   }
 </script>
+<style>
+  .fondo{
+    background-image: url(../../../public/images/background/fondo2.jpg);
+    min-height: 700px;
+  }
+</style>

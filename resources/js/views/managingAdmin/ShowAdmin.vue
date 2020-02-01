@@ -1,5 +1,5 @@
 <template>
-  <div id="inspire">
+  <div id="inspire" class="fondo">
 	<!-- start Nav Bar -->
 	<nav-bar v-on:showSideBar="drawer = !drawer"></nav-bar><!-- recordar que este nav bar es capaz de mostrar el side bar que se mantiene oculto -->
 	<!-- end Nav Bar -->
@@ -16,7 +16,7 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
     	<!-- start perfil del administrador -->
-    	<v-card class="d-inline-block mx-auto" color="#E24E42" width="600px">
+    	<v-card class="d-inline-block mx-auto" color="purple" width="600px">
 <v-container fluid>
 	<!-- start imagen, nombre y correo -->
       <v-img :aspect-ratio="16/9" src="/images/users/defect.jpg">
@@ -115,10 +115,8 @@ export default {
   },
   mounted(){
   	/*start llamamos al api que nos trae toda la informacion de este usuario*/
-  	let id={
-  		id:this.id
-  	}
-  	axios.post('/api/showAdmin',id).then(res => {
+  	let url=`/api/showUser/`+ this.id;
+  	axios.get(url).then(res => {
   	  this.administrador=res.data.user
   	}).catch(err => {
   	  console.log(err);
@@ -138,7 +136,7 @@ export default {
 	      		dangerMode: true,
 	      		buttons: ["cancelar", "eliminar"],
 	      		closeOnClickOutside:false,
-	      		CloseOnEsc:false 
+	      		CloseOnEsc:false
 	      	}).then((willDelete) => {
 	      		/*start las dos pantallas que se pueden mostrar en caso de que decida eliminar o no*/
 			  if (willDelete) {
@@ -152,19 +150,21 @@ export default {
     },
     deleteAdmin(){
     	/*start eliminamos al usuario de la base de datos*/
-			  	let parametros={
-			  		'id':this.id
-			  	}
-			  	axios.post('/api/deleteAdmin',parametros).then(res => {
+			  	// let parametros={
+			  	// 	'id':this.id
+			  	// }
+			  	// axios.delete('/api/deleteAdmin',parametros).then(res => {
+            let url=`/api/deleteAdmin/` + this.id;
+            axios.delete(url).then(res => {
 			  	  /*start pantalla que informa que se elimino correctamente*/
 			  	  swal("su usuario ha sido eliminado!", {
 			      icon: "success",
 			      closeOnClickOutside:false,
-	      		  CloseOnEsc:false 
+	      		  CloseOnEsc:false
 			    }).then(select=>{
 			    	/*start si el usuario pulsa el boton sera redirijido al welcome*/
 			    	if(select){
-			    	this.$router.push({ name: 'Welcome'})
+			    	this.$router.push({ name: 'controller-dependenci'})
 			    	}
 			    	/*end si el usuario pulsa el boton sera redirijido al welcome*/
 			    });
@@ -181,6 +181,10 @@ export default {
 }
 </script>
 <style>
+  .fondo{
+    background-image: url(../../../../public/images/background/fondo2.jpg);
+    min-height: 700px;
+  }
 .redondo{
 border-radius:50%;
 }

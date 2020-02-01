@@ -1,5 +1,5 @@
 <template>
-  <div id="inspire">
+  <div id="inspire" class="fondo">
   <!-- start Nav Bar -->
   <nav-bar v-on:showSideBar="drawer = !drawer"></nav-bar><!-- recordar que este nav bar es capaz de mostrar el side bar que se mantiene oculto -->
   <!-- end Nav Bar -->
@@ -8,6 +8,7 @@
       v-model="drawer"
       app
       clipped
+      dark
     > <!-- start llamamos al side var del super administrador -->
       <side-bar></side-bar>
       <!-- end llamamos al side var del super administrador -->
@@ -16,7 +17,7 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
       <!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" width="1000" color="green darken-1">
+  <v-card class="d-inline-block mx-auto" width="1000" color="purple">
   <!--color="#EB6E80" color="#E9B000" -->
     <v-container>
         <h1 class="text-center">Gestionar Visitas</h1>
@@ -34,7 +35,13 @@
               <th class="text-left">Marcar Salida</th>
             </tr>
           </thead>
+          <transition
+                    name="animate.css"
+                enter-active-class="animated fadeInDownBig"
+                appear
+                >
           <tbody>
+
             <tr v-for="(item,index) in visitas" :key="item.id">
               <td>{{ item.first_name }}</td>
               <td>{{ item.last_name }}</td>
@@ -50,6 +57,7 @@
               </td>
             </tr>
           </tbody>
+            </transition>
         </template>
       </v-simple-table>
         <!-- end visualizacion de las visitas al edificio -->
@@ -94,7 +102,10 @@ import ContentCenter from '.././structures/Center.vue'
         }).catch(err => {
           console.log(err);
         });
-      }
+      },
+      mode(){
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+    },
     },
     created () {
       this.$vuetify.theme.dark = true
@@ -102,6 +113,10 @@ import ContentCenter from '.././structures/Center.vue'
   }
 </script>
 <style>
+  .fondo{
+    background-image: url(../../../public/images/background/fondo2.jpg);
+    min-height: 700px;
+  }
   /*start Transiciones CSS con Vue*/
   /*start animacion de entrada*/
   /*esta animacion sera la de entrada*/

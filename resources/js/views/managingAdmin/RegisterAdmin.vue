@@ -1,5 +1,5 @@
 <template>
-  <div id="inspire">
+  <div id="inspire" class="fondo">
 	<!-- start Nav Bar -->
 	<nav-bar v-on:showSideBar="drawer = !drawer"></nav-bar><!-- recordar que este nav bar es capaz de mostrar el side bar que se mantiene oculto -->
 	<!-- end Nav Bar -->
@@ -16,7 +16,7 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
     	<!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" color="green darken-1" width="450px">
+  <v-card class="d-inline-block mx-auto" color="purple" width="450px">
     <v-container>
       	<h1 class="text-center">Registrar Administrador</h1>
 				<!--
@@ -82,6 +82,28 @@
         prepend-icon="mdi-email"
         ></v-text-field>
         <!-- end input correo -->
+        <!-- start input clave -->
+        <v-row class="d-flex">
+          <v-text-field
+          class="mb-4"
+          :type="mostrar"
+          v-model="clave"
+          label="Clave: Ej: kfc2020$"
+          :counter="50"
+          required
+          prepend-icon="mdi-key"
+          >
+          </v-text-field>
+          <v-tooltip bottom @click="viewPass=true">
+            <template v-slot:activator="{ on }">
+            <v-btn v-on="on" @click="show" icon class="mt-5">
+              <v-icon >{{mostrarIcono}}</v-icon>
+            </v-btn>
+            </template>
+            <span>{{mostrarMensaje}}</span>
+          </v-tooltip>
+        </v-row>
+        <!-- end input clave -->
         <!-- start botoner de submit y clean -->
         <v-btn @click="submit()" class="mr-4 light-blue accent-4">
         <span>Registrar</span>
@@ -121,6 +143,9 @@ import ContentCenter from '../.././structures/Center.vue'
         emailError:false,
   	    cedula:'',
         cedulaError:false,
+        clave:'',
+        claveShow:false,
+        viewPass:false,
   	    telefono:'',
         tlfError:false,
         nombreRules:[
@@ -142,6 +167,9 @@ import ContentCenter from '../.././structures/Center.vue'
   	  };
   	},
   	methods: {
+      show(){
+        this.claveShow=!this.claveShow
+      },
       submit(){
             this.nombreError=false
             this.apellidoError=false
@@ -193,7 +221,7 @@ import ContentCenter from '../.././structures/Center.vue'
         }
         /*end llenamos nuestro objeto*/
         /*start llamamos al api que permite registrar usuarios*/
-        axios.post('/api/registerAdmin',parametros).then(res => {
+        axios.post('/api/storeAdmin',parametros).then(res => {
           /*start anuncio si registro exitosamente*/
          swal({
             title:'Registro exitoso',
@@ -219,8 +247,37 @@ import ContentCenter from '../.././structures/Center.vue'
         this.telefono=''
     }
   	},
+    computed: {
+      mostrar () {
+        if(this.claveShow){
+        return 'text';
+        }else{
+        return 'password';
+        }
+      },
+      mostrarIcono(){
+        if(this.claveShow){
+        return 'mdi-star';
+        }else{
+        return 'mdi-eye';
+        }
+      },
+      mostrarMensaje(){
+        if(this.claveShow){
+        return 'ocultar contraseña';
+        }else{
+        return 'mostrar contraseña';
+        }
+      }
+    },
     created () {
       this.$vuetify.theme.dark = true
     },
   }
 </script>
+<style>
+  .fondo{
+    background-image: url(../../../../public/images/background/fondo2.jpg);
+    min-height: 700px;
+  }
+</style>

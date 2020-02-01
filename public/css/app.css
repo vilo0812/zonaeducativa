@@ -4725,109 +4725,10 @@
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.fondo{
+  background-image: url(/images/fondo2.jpg?f843d08e4e1b7fd411a50a4d997c9268);
+  min-height: 700px;
+}
 /*start Transiciones CSS con Vue*/
 /*start animacion de entrada*/
 /*esta animacion sera la de entrada*/
@@ -6009,177 +5910,43 @@
   height: 100%;
   overflow-x: auto;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*start Transiciones CSS con Vue*/
-/*start animacion de entrada*/
-/*esta animacion sera la de entrada*/
+.fondo{
+    background-image: url(/images/fondo2.jpg?f843d08e4e1b7fd411a50a4d997c9268);
+    min-height: 700px;
+}
+  /*start Transiciones CSS con Vue*/
+  /*start animacion de entrada*/
+  /*esta animacion sera la de entrada*/
 .aparecer-enter{
-  opacity: 0
-}
-/*desde 0 a 1 habra una transicion de 1 s de velocidad*/
-.aparecer-enter-active{
-    -webkit-transition: opacity .1s;
-    transition: opacity .1s
-}
-/*end animacion de entrada*/
-/*start animacion de salida*/
-/*ahora configuramos la salida*/
-.aparecer-leave-to{
     opacity: 0
 }
-.aparecer-leave-active {
-    -webkit-transition: opacity .1s;
-    transition: opacity .1s
+  /*desde 0 a 1 habra una transicion de 1 s de velocidad*/
+.aparecer-enter-active{
+      -webkit-transition: opacity .1s;
+      transition: opacity .1s
 }
-/*end animacion de salida*/
-/*end Transiciones CSS con Vue*/
+  /*end animacion de entrada*/
+  /*start animacion de salida*/
+  /*ahora configuramos la salida*/
+.aparecer-leave-to{
+      opacity: 0
+}
+.aparecer-leave-active {
+      -webkit-transition: opacity .1s;
+      transition: opacity .1s
+}
+  /*end animacion de salida*/
+  /*end Transiciones CSS con Vue*/
+
+.fondo{
+  background-image: url(/images/fondo2.jpg?f843d08e4e1b7fd411a50a4d997c9268);
+  min-height: 700px;
+}
+
+.fondo{
+  background-image: url(/images/fondo2.jpg?f843d08e4e1b7fd411a50a4d997c9268);
+  min-height: 700px;
+}
 .theme--light.v-input--selection-controls.v-input--is-disabled:not(.v-input--indeterminate) .v-icon {
   color: rgba(0, 0, 0, 0.26) !important;
 }
@@ -6432,6 +6199,15 @@
 .v-application--is-rtl .v-textarea.v-text-field--enclosed .v-text-field__slot textarea {
   padding-left: 12px;
 }
+.fondo{
+  background-image: url(/images/fondo2.jpg?f843d08e4e1b7fd411a50a4d997c9268);
+  min-height: 700px;
+}
+
+.fondo{
+    background-image: url(/images/fondo2.jpg?f843d08e4e1b7fd411a50a4d997c9268);
+    min-height: 700px;
+}
 .redondo{
 border-radius:50%;
 }
@@ -6440,6 +6216,11 @@ border-radius:50%;
 }
 .yellow-accent-4{
 	background-color:rgba(245,227,25,0.7);
+}
+
+.fondo{
+  background-image: url(/images/fondo2.jpg?f843d08e4e1b7fd411a50a4d997c9268);
+  min-height: 700px;
 }
 .theme--light.v-application {
   background: #fafafa;

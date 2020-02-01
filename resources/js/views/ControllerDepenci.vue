@@ -1,5 +1,5 @@
 <template>
-  <div id="inspire">
+  <div id="inspire" class="fondo">
 	<!-- start Nav Bar -->
 	<nav-bar v-on:showSideBar="drawer = !drawer"></nav-bar><!-- recordar que este nav bar es capaz de mostrar el side bar que se mantiene oculto -->
 	<!-- end Nav Bar -->
@@ -8,6 +8,7 @@
       v-model="drawer"
       app
       clipped
+      dark
     >	<!-- start llamamos al side var del super administrador -->
     	<side-bar></side-bar>
     	<!-- end llamamos al side var del super administrador -->
@@ -16,7 +17,7 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
     	<!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" min-width="700" color="green darken-1">
+  <v-card class="d-inline-block mx-auto px-5" color="purple" lighted>
     <v-container>
       <!-- start hacemos el control delas dependecias -->
       <h1 class="text-center">control de dependencias</h1>
@@ -31,10 +32,10 @@
         item-value="id"
         prepend-icon="mdi-grid"
       ></v-select>
-      <v-btn color="primary" class="mt-3 mx-5" @click="viewZonesAndSectors">Ver</v-btn>
+      <v-btn color="primary" class="mt-3 mx-5" @click="showZonesAndSectors">Ver</v-btn>
       </v-row>
       <!-- start se mostrara solos si el selector de pisos es seleccionado -->
-      <v-simple-table v-if="zonesSector">
+      <v-simple-table v-if="zonesSector" >
         <template v-slot:default>
           <thead>
             <tr>
@@ -43,6 +44,11 @@
               <th class="text-left">Disponibilidad</th>
             </tr>
           </thead>
+          <transition
+                    name="animate.css"
+                enter-active-class="animated fadeInDownBig"
+                appear
+                >
           <tbody>
             <tr v-for="(item,index) in zonesSector">
               <td>zona: {{item.zone}}</td>
@@ -57,6 +63,7 @@
               </td>
             </tr>
           </tbody>
+        </transition>
         </template>
       </v-simple-table>
       <!-- end se mostrara solos si el selector de pisos es seleccionado -->
@@ -120,11 +127,9 @@ import ContentCenter from '.././structures/Center.vue'
       });
     },
     methods: {
-      viewZonesAndSectors(){
-        let id={
-          'id':this.piso
-        }
-        axios.post('/api/viewZonesAndSectors',id).then(res => {
+      showZonesAndSectors(){
+        let url = '/api/showZonesAndSectors/'+this.piso;
+        axios.get(url).then(res => {
           this.zonesSector=res.data;
         }).catch(err => {
           console.log(err);
@@ -147,6 +152,10 @@ import ContentCenter from '.././structures/Center.vue'
   }
 </script>
 <style>
+.fondo{
+    background-image: url(../../../public/images/background/fondo2.jpg);
+    min-height: 700px;
+  }
   /*start Transiciones CSS con Vue*/
   /*start animacion de entrada*/
   /*esta animacion sera la de entrada*/

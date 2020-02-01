@@ -1,17 +1,12 @@
 <template>
 	<div>
-		<!-- start nav bar -->
-		<!-- <nav-bar></nav-bar> -->
-		<!-- end nav bar -->
-		<!-- start imagen de fondo -->
-		<!-- src="images/background/vibrante vintage.png"> -->
 		<v-parallax
 		src="images/background/fondo.jpg"
 		height="700"
 		>
 				<v-col cols="12" >
 					 <v-row class="d-flex flex-column flex-md-row">
-			       	<v-col sm-cols="12" md-cols="7" class="d-flex justify-center align-start " height="700">
+			       	<v-col sm="12" md="8" class="d-flex justify-center align-start " height="700">
 			       		<transition
 			       				name="animate.css"
 								enter-active-class="animated fadeInLeftBig"
@@ -20,19 +15,13 @@
 			       			<img src="images/icons/zeg.png" alt="" width="500"  >
 						</transition>
 			       	</v-col>
-			       	<v-col  sm-cols="12" md-cols="5">
+			       	<v-col  sm="12" md="4">
 			       		<v-card height="700" class="grey lighten-4 d-flex justify-center align-center" >
 			       			<v-col class="mx-7">
 								<h1 class="text-center display-2 mb-5 font-weight-black">Iniciar Sesión</h1>
 								<iniciar-sesion></iniciar-sesion>
 			       			</v-col>
 			       		</v-card>
-			  			<!-- <v-card height="800"> -->
-			  			<!-- <h1 class="text-center display-2">Iniciar Sesión</h1> -->
-			  			<!-- start llamamos al componente de iniciar sesion -->
-			  				<!-- <iniciar-sesion></iniciar-sesion> -->
-			  			<!-- end llamamos al componente de iniciar sesion -->
-			  			<!-- </v-card> -->
 			       	</v-col>
 			       	</v-row>
 				</v-col>
@@ -56,6 +45,9 @@ export default {
 
     }
   },
+  created () {
+      this.$vuetify.theme.dark = false
+    },
 }
 </script>
 

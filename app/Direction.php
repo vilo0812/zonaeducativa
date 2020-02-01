@@ -22,7 +22,7 @@ class Direction extends Model
     }
         /*end hacemos la consulta que me permite ver todos los sectores de ese piso y zona*/
         /*start api que permite ver las zonas y sectores dependiendo de el id del piso*/
-    static public function viewZonesAndSectors($Floor_id){
+    static public function showZonesAndSectors($Floor_id){
         $sector = static::join("sectors","directions.sector_id","=","sectors.id")
         ->join("zones","directions.zone_id","=","zones.id")
         ->where([["directions.floor_id",$Floor_id]])

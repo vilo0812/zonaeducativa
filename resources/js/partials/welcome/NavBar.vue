@@ -2,14 +2,15 @@
 	<v-app-bar
       app
       clipped-left
-      color="#E24E42"
+      color="#2E00A2"
       dense
+      dark
     >
-      <v-app-bar-nav-icon 
+      <v-app-bar-nav-icon
       @click.stop="$emit('showSideBar')"/>
       <v-icon class="mx-4">mdi-crown</v-icon>
       <v-toolbar-title class="mr-12 align-center">
-        <span class="title">FUNDABIT</span>
+        <span class="title font-weight-black">Zona Educativa</span>
       </v-toolbar-title>
       <v-spacer />
       <v-tooltip bottom>

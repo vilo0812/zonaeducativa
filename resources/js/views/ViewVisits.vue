@@ -1,5 +1,5 @@
 <template>
-  <div id="inspire">
+  <div id="inspire" class="fondo">
 	<!-- start Nav Bar -->
 	<nav-bar v-on:showSideBar="drawer = !drawer"></nav-bar><!-- recordar que este nav bar es capaz de mostrar el side bar que se mantiene oculto -->
 	<!-- end Nav Bar -->
@@ -16,12 +16,12 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
     	<!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" color="green darken-1">
+  <v-card class="d-inline-block mx-auto" color="purple">
     <v-container>
 		    <h1 class="text-center">Visualizar Visitas</h1>
         <!-- start boton de descargar -->
         <v-btn
-          color="purple"
+          color="orange darken-1"
           class="ma-2 white--text"
           href="/showVisits"
         >
@@ -51,6 +51,11 @@
               <th class="text-left">salida</th>
             </tr>
           </thead>
+          <transition
+                    name="animate.css"
+                enter-active-class="animated fadeInDownBig"
+                appear
+                >
           <tbody>
             <tr v-for="item in visitas" :key="item.id">
               <td>{{ item.first_name }}</td>
@@ -62,6 +67,7 @@
               <td>{{ item.output }}</td>
             </tr>
           </tbody>
+        </transition>
         </template>
       </v-simple-table>
         <!-- end visualizacion de las visitas al edificio -->
@@ -107,3 +113,9 @@ import ContentCenter from '.././structures/Center.vue'
     },
   }
 </script>
+<style>
+  .fondo{
+    background-image: url(../../../public/images/background/fondo2.jpg);
+    min-height: 700px;
+  }
+</style>

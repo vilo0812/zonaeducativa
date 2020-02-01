@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
-    public function viewTickets(){
+    public function show(){
     	return Ticket::get(['id','ticket']);
     }
 }

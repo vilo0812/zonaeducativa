@@ -28,9 +28,24 @@ class UserController extends Controller
         return 'registro exitoso';
     }
     /*end api que permite registart un usuario*/
+    /*start api que me permita registrar a nuevos administradores*/
+    public function storeAdmin(Request $request){
+
+        User::create([
+            'first_name'=>$request['first_name'],
+            'last_name'=>$request['last_name'],
+            'identification_card'=>$request['identification_card'],
+            'email'=>$request['email'],
+            'phone'=>$request['phone'],
+            'rol_id'=>2
+        ]);
+        return response()->json(['mensaje'=>'registro exitoso'],200);
+
+    }
+    /*end api que me permita registrar a nuevos administradores*/
     /*start api que me permita sacar la informacion de un solo usuario*/
-    public function show(Request $request){
-     $user = User::findOrFail($request->id);
+    public function show($id){
+     $user = User::findOrFail($id);
      return response()->json(['user'=>$user], 200);
     // return response()->json('ruta funcional', 200);
     }
@@ -48,16 +63,17 @@ class UserController extends Controller
     }
     /*end api para actualizar a un usuario*/
     /*start api para actualizar a un usuario*/
-    public function destroy(Request $request){
-        $user = User::findOrFail($request->id);
+    public function destroy($id){
+        $user = User::findOrFail($id);
         $user->delete();
         return response()->json(['mensaje'=>'usuario eliminado exitosamente'],200);
     }
     /*end api para actualizar a un usuario*/
     /*start api que me permite ver al usuario segun el numero de cedula*/
-    public function showByIdentificationCard(Request $request){
-       $user = User::where('identification_card',"=",$request->identification_card)->get(['id','first_name','last_name','identification_card','email','phone','provenance']);
-       return response()->json($user,200);
+    // public function showByIdentificationCard($ic){
+    public function showByIdentificationCard($id){
+        $user = User::where('identification_card',"=",$id)->get(['id','first_name','last_name','identification_card','email','phone','provenance']);
+     return response()->json($user,200);
     }
     /*end api que me permite ver al usuario segun el numero de cedula*/
 }

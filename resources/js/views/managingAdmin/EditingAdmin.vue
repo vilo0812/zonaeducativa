@@ -1,5 +1,5 @@
 <template>
-  <div id="inspire">
+  <div id="inspire" class="fondo">
 	<!-- start Nav Bar -->
 	<nav-bar v-on:showSideBar="drawer = !drawer"></nav-bar><!-- recordar que este nav bar es capaz de mostrar el side bar que se mantiene oculto -->
 	<!-- end Nav Bar -->
@@ -16,13 +16,13 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
     	<!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" color="#E24E42" width="600px">
+  <v-card class="d-inline-block mx-auto" color="purple" width="600px">
     <v-container>
       	<h1 class="text-center">Actualizar Administrador</h1>
 			<form>
-				<!-- 
+				<!--
 				posibles validaciones
-				v-validate="'required|max:10'" 
+				v-validate="'required|max:10'"
 				v-validate="'required|email'"-->
         <!-- start input nombre -->
         <v-text-field
@@ -160,7 +160,7 @@ import ContentCenter from '../.././structures/Center.vue'
       		text:res.data.mensaje,
       		icon:'success',
       		closeOnClickOutside:false,
-      		CloseOnEsc:false 
+      		CloseOnEsc:false
       	}).then(select=>{
       		if(select){
       		this.$router.push({ name: 'show-admin', params: {id:this.administrador.id}})
@@ -180,7 +180,7 @@ import ContentCenter from '../.././structures/Center.vue'
         this.correo = ''
         this.apellido = ''
         this.cedula=''
-        this.telefono=''   
+        this.telefono=''
     }
   	},
     created () {
@@ -188,3 +188,9 @@ import ContentCenter from '../.././structures/Center.vue'
     },
   }
 </script>
+<style>
+  .fondo{
+    background-image: url(../../../../public/images/background/fondo2.jpg);
+    min-height: 700px;
+  }
+</style>

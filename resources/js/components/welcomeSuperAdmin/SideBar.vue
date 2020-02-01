@@ -28,30 +28,15 @@
             :to="{ name: 'show-admin', params: { id:item.id }}"
           >
             <v-list-item-avatar>
-              <img
+              <v-img
                 src="images/users/defect.jpg"
                 alt=""
-            >
+              ></v-img>
             </v-list-item-avatar>
             <v-list-item-title v-text="item.first_name" />
           </v-list-item>
         </v-list>
         <!-- end listamos a los administradores del sistema -->
-      <!--   <v-list-item
-          class="mt-4"
-          link
-        >
-          <v-list-item-action>
-            <v-icon color="grey darken-1">mdi-plus-circle-outline</v-icon>
-          </v-list-item-action>
-          <v-list-item-title class="grey--text text--darken-1">Browse Channels</v-list-item-title>
-        </v-list-item>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon color="grey darken-1">mdi-settings</v-icon>
-          </v-list-item-action>
-          <v-list-item-title class="grey--text text--darken-1">Manage Subscriptions</v-list-item-title>
-        </v-list-item> -->
       </v-list>
 	</div>
 </template>
@@ -64,23 +49,15 @@
     }).catch(err => {
       console.log(err);
     });
-    /*this.administradores.push(
-        { picture: 38, text: 'Erick' },
-        { picture: 48, text: 'Javier' },
-        { picture: 58, text: 'Franklin' },
-        { picture: 78, text: 'Truman' },
-        { picture: 28, text: 'Jose Gregorio' }
-        );*/
-    /*end metemos los administradores registradors*/
   },
 	data () {
   	  return {
   	    items: [
-        { icon: 'mdi-star', text: 'Gestion de Visitas', direccion:'Gestion'},
         { icon: 'mdi-account-edit', text: 'Registrar Administrador',direccion:'register-admin'},
-        { icon: 'mdi-google-nearby', text: 'control de dependencias',direccion:'controller-dependenci'},
-        { icon: 'mdi-pencil', text: 'registro de visita',direccion:'register-visits'},
-        { icon: 'mdi-book-open-variant', text: 'visualizar Visitas',direccion:'view-visits'},
+        { icon: 'mdi-google-nearby', text: 'Control de Dependencias',direccion:'controller-dependenci'},
+        { icon: 'mdi-pencil', text: 'Registrar Visita',direccion:'register-visits'},
+        { icon: 'mdi-star', text: 'Gestion de Visitas', direccion:'Gestion'},
+        { icon: 'mdi-book-open-variant', text: 'Visualizar Visitas',direccion:'view-visits'},
       ],
       administradores: []
   	  };
