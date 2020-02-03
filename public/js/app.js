@@ -97814,7 +97814,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_RegisterVisits_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/RegisterVisits.vue */ "./resources/js/views/RegisterVisits.vue");
 /* harmony import */ var _views_RegisterAdmin_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/RegisterAdmin.vue */ "./resources/js/views/RegisterAdmin.vue");
 /* harmony import */ var _views_ShowAdmin_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./views/ShowAdmin.vue */ "./resources/js/views/ShowAdmin.vue");
-/* harmony import */ var _views_EditingAdmin_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./views/EditingAdmin.vue */ "./resources/js/views/EditingAdmin.vue");
+/* harmony import */ var _views_EditingAdmin_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./views/EditingAdmin.vue */ "./resources/js/views/EditingAdmin.vue");
 //importamos las vistas del Home
 
 
@@ -97899,7 +97899,7 @@ var routes = [
 /*start editar el adiministrador*/
 {
   path: '/editingAdmin/:id',
-  component: _views_EditingAdmin_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
+  component: _views_EditingAdmin_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
   name: 'editing-admin',
   props: true,
   meta: {}
