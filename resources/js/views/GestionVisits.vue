@@ -1,5 +1,5 @@
 <template>
-  <div id="inspire" class="fondo">
+  <div id="inspire" class="fondo-2">
   <!-- start Nav Bar -->
   <nav-bar v-on:showSideBar="drawer = !drawer"></nav-bar><!-- recordar que este nav bar es capaz de mostrar el side bar que se mantiene oculto -->
   <!-- end Nav Bar -->
@@ -17,7 +17,7 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
       <!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" width="1000" color="purple">
+  <v-card class="d-inline-block mx-auto" width="1000" color="grey darken-2">
   <!--color="#EB6E80" color="#E9B000" -->
     <v-container>
         <h1 class="text-center">Gestionar Visitas</h1>
@@ -50,7 +50,7 @@
               <td>{{ item.sector }}</td>
               <td>{{ item.input }}</td>
               <td>
-                <v-btn color="orange lighten-2" @click="target(item.id,index)">
+                <v-btn color="green darken-2" @click="target(item.id,index)">
                 <span>marcar salida</span>
                 <v-icon>mdi-run</v-icon>
                 </v-btn>
@@ -113,8 +113,8 @@ import ContentCenter from '.././structures/Center.vue'
   }
 </script>
 <style>
-  .fondo{
-    background-image: url(../../../public/images/background/fondo2.jpg);
+  .fondo-2{
+    background: #EEEEEE;
     min-height: 700px;
   }
   /*start Transiciones CSS con Vue*/

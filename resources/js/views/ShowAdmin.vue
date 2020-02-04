@@ -16,12 +16,12 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
     	<!-- start perfil del administrador -->
-    	<v-card class="d-inline-block mx-auto" color="purple" width="600px">
+    	<v-card class="d-inline-block mx-auto" color="grey darken-2" width="600px">
 <v-container fluid>
 	<!-- start imagen, nombre y correo -->
       <v-img :aspect-ratio="16/9" src="/images/users/defect.jpg">
         <v-row align="end" class="lightbox white--text pa-2 fill-height">
-          <v-col class="yellow-accent-4 col-6" border>
+          <v-col class="primary  col-6" border>
           	<!-- start mostramos los datos del nombre y el correo -->
             <h1 v-text="administrador.first_name"></h1>
             <p v-text="administrador.email"></p>
@@ -35,7 +35,7 @@
 	    class="mx-auto"
 	    max-width=""
 	    tile
-	    color="light-blue accent-4"
+	    color="success accent-4"
 	  >
 	<!-- start nombre,apellido,cedula,telefono,municipio -->
       <v-list-item >
@@ -76,7 +76,7 @@
 	<!-- end nombre,apellido,cedula,telefono,municipio -->
 	<!-- start botones de editar y eliminar red lighten-1-->
 	<v-card-actions>
-      <v-btn @click="editing" class="orange lighten-2">
+      <v-btn @click="editing" class="primary">
         <span>Editar</span>
         <v-icon>mdi-account-edit</v-icon>
       </v-btn>
@@ -191,10 +191,10 @@ export default {
 }
 </script>
 <style>
-  /*.fondo{
-    background-image: url(../../../../public/images/background/fondo2.jpg);
+.fondo{
+    background: #EEEEEE;
     min-height: 700px;
-  }*/
+  }
 .redondo{
 border-radius:50%;
 }

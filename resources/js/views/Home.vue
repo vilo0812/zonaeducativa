@@ -1,12 +1,12 @@
 <template>
 	<div>
 		<v-parallax
-		src="images/background/fondo.jpg"
+		src="images/background/triangulorojo.png"
 		height="700"
 		>
 				<v-col cols="12" >
-					 <v-row class="d-flex flex-column flex-md-row">
-			       	<v-col sm="12" md="8" class="d-flex justify-center align-start " height="700">
+					<v-row class="d-flex flex-column flex-md-row">
+			       	<v-col sm="12" md="6" class="d-flex justify-center align-start " height="700">
 			       		<transition
 			       				name="animate.css"
 								enter-active-class="animated fadeInLeftBig"
@@ -15,7 +15,7 @@
 			       			<img src="images/icons/zeg.png" alt="" width="500"  >
 						</transition>
 			       	</v-col>
-			       	<v-col  sm="12" md="4">
+			       	<v-col  sm="12" md="5">
 			       		<v-card height="700" class="grey lighten-4 d-flex justify-center align-center" >
 			       			<v-col class="mx-7">
 								<h1 class="text-center display-2 mb-5 font-weight-black">Iniciar Sesión</h1>

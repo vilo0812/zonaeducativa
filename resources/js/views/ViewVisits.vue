@@ -16,12 +16,12 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
     	<!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" color="purple">
+  <v-card class="d-inline-block mx-auto" color="grey darken-2">
     <v-container>
 		    <h1 class="text-center">Visualizar Visitas</h1>
         <!-- start boton de descargar -->
         <v-btn
-          color="orange darken-1"
+          color="success"
           class="ma-2 white--text"
           href="/showVisits"
         >
@@ -115,7 +115,7 @@ import ContentCenter from '.././structures/Center.vue'
 </script>
 <style>
   .fondo{
-    background-image: url(../../../public/images/background/fondo2.jpg);
+    background: #EEEEEE;
     min-height: 700px;
   }
 </style>

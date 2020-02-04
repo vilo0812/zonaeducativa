@@ -16,7 +16,7 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
     	<!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" color="purple" width="600px">
+  <v-card class="d-inline-block mx-auto" color="grey darken-2" width="600px">
     <v-container>
       	<h1 class="text-center">Actualizar Administrador</h1>
 			<form>
@@ -75,7 +75,7 @@
         ></v-text-field>
         <!-- end input correo -->
         <!-- start botoner de submit y clean -->
-        <v-btn @click="update" class="orange lighten-2">
+        <v-btn @click="update" class="primary">
         <span>Actualizar</span>
         <v-icon>mdi-account-edit</v-icon>
       </v-btn>
@@ -187,4 +187,8 @@ import ContentCenter from '.././structures/Center.vue'
   }
 </script>
 <style>
+.fondo{
+    background: #EEEEEE;
+    min-height: 700px;
+  }
 </style>

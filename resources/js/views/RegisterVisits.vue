@@ -1,5 +1,5 @@
 <template>
-  <div id="inspire" class="fondo">
+  <div id="inspire" class="fondo-2">
 	<!-- start Nav Bar -->
 	<nav-bar v-on:showSideBar="drawer = !drawer"></nav-bar><!-- recordar que este nav bar es capaz de mostrar el side bar que se mantiene oculto -->
 	<!-- end Nav Bar -->
@@ -16,7 +16,7 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
     	<!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" color="purple" width="450px">
+  <v-card class="d-inline-block mx-auto" color="grey darken-2" width="450px">
     <v-container>
       	<h1 class="text-center">Registrar Visitante</h1>
 			<form>
@@ -466,8 +466,8 @@ import ContentCenter from '.././structures/Center.vue'
   }
 </script>
 <style>
-  .fondo{
-    background-image: url(../../../public/images/background/fondo2.jpg);
+  .fondo-2{
+    background: #EEEEEE;
     min-height: 700px;
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="inspire" class="fondo">
+  <div id="inspire" class="fondo-2">
 	<!-- start Nav Bar -->
 	<nav-bar v-on:showSideBar="drawer = !drawer"></nav-bar><!-- recordar que este nav bar es capaz de mostrar el side bar que se mantiene oculto -->
 	<!-- end Nav Bar -->
@@ -17,7 +17,7 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
     	<!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto px-5" color="purple" lighted>
+  <v-card class="d-inline-block mx-auto px-5" color="grey darken-2" lighted>
     <v-container>
       <!-- start hacemos el control delas dependecias -->
       <h1 class="text-center">control de dependencias</h1>
@@ -152,8 +152,8 @@ import ContentCenter from '.././structures/Center.vue'
   }
 </script>
 <style>
-.fondo{
-    background-image: url(../../../public/images/background/fondo2.jpg);
+.fondo-2{
+    background: #EEEEEE;
     min-height: 700px;
   }
   /*start Transiciones CSS con Vue*/

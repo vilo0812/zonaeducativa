@@ -7,6 +7,7 @@
         :key="item.text"
         link
         :to="{ name: item.direccion}"
+        color="darkgray"
         >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>

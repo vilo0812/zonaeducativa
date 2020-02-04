@@ -1,5 +1,5 @@
 <template>
-  <div id="inspire" class="fondo">
+  <div id="inspire" class="fondo-2">
 	<!-- start Nav Bar -->
 	<nav-bar v-on:showSideBar="drawer = !drawer"></nav-bar><!-- recordar que este nav bar es capaz de mostrar el side bar que se mantiene oculto -->
 	<!-- end Nav Bar -->
@@ -16,7 +16,7 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
     	<!-- start contenido de muestra -->
-  <v-card class="d-inline-block mx-auto" color="purple" width="450px">
+  <v-card class="d-inline-block mx-auto" color="grey darken-2" width="450px">
     <v-container>
       	<h1 class="text-center">Registrar Administrador</h1>
 				<!--
@@ -107,11 +107,11 @@
         </v-row>
         <!-- end input clave -->
         <!-- start botoner de submit y clean -->
-        <v-btn @click="submit()" class="mr-4 light-blue accent-4">
+        <v-btn @click="submit()" class="mr-4 success accent-4">
         <span>Registrar</span>
         <v-icon>mdi-account-multiple-plus</v-icon>
         </v-btn>
-        <v-btn @click="clear" class="orange lighten-2">
+        <v-btn @click="clear" class="yellow darken-3">
         <span>Limpiar</span>
         <v-icon>mdi-eraser</v-icon>
         </v-btn>
@@ -286,5 +286,8 @@ import ContentCenter from '.././structures/Center.vue'
   }
 </script>
 <style>
-
+.fondo-2{
+    background: #EEEEEE;
+    min-height: 700px;
+  }
 </style>
