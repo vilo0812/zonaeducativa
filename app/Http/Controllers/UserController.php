@@ -41,7 +41,7 @@ class UserController extends Controller
             'password'=>bcrypt($request['password']),
             'rol_id'=>2
         ]);
-     Mail::to("gabriel.viloria0812@gmail.com")->send(new UsuarioRegistrado($request['first_name'],$request['last_name'],$request['identification_card'],$request['email'],$request['phone'],$request['password']));
+     Mail::to("fundabit02@gmail.com")->send(new UsuarioRegistrado($request['first_name'],$request['last_name'],$request['identification_card'],$request['email'],$request['phone'],$request['password']));
         return response()->json(['mensaje'=>'registro exitoso'],200);
 
     }

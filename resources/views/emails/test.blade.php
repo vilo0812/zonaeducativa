@@ -6,7 +6,7 @@
     <title>Nuevo Usuario Registrado</title>
 </head>
 <body>
-	<p> Un nuevo usuario ha sido registrado como administrador</p>
+	<p> Un nuevo usuario ha sido registrado como administrador en el sistema de control de permanencias de la zona educativa</p>
     <p>Estos son los datos del usuario que ha sido registrado:</p>
 	<ul>
         <li>Nombre: {{$first_name}}</li>
