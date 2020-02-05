@@ -107,7 +107,7 @@
         </v-row>
         <!-- end input clave -->
         <!-- start botoner de submit y clean -->
-        <v-btn @click="submit()" class="mr-4 success accent-4">
+        <v-btn @click="registrar()" class="mr-4 success accent-4">
         <span>Registrar</span>
         <v-icon>mdi-account-multiple-plus</v-icon>
         </v-btn>

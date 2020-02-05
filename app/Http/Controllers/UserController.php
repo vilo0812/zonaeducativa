@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Mail;
+use App\Mail\UsuarioRegistrado;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -41,19 +41,7 @@ class UserController extends Controller
             'password'=>bcrypt($request['password']),
             'rol_id'=>2
         ]);
-        $datos=[
-        "titulo"=>"Nuevo Usuario Registrado",
-        "contenido"=>"un nuevo usuario se ha registrado como administrador el Sistema de control de permanencias de la zona educativa",
-            'first_name'=>$request['first_name'],
-            'last_name'=>$request['last_name'],
-            'identification_card'=>$request['identification_card'],
-            'email'=>$request['email'],
-            'phone'=>$request['phone'],
-            'password'=>$request['password'],
-        ];
-        Mail::send("emails.test", $datos,function($mensaje){
-        $mensaje->to("fundabit02@gmail.com","fundabit")->subject("Registro de adiminstrador");
-        });
+     Mail::to("gabriel.viloria0812@gmail.com")->send(new UsuarioRegistrado($request['first_name'],$request['last_name'],$request['identification_card'],$request['email'],$request['phone'],$request['password']));
         return response()->json(['mensaje'=>'registro exitoso'],200);
 
     }

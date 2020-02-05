@@ -41436,7 +41436,7 @@ var render = function() {
                       staticClass: "mr-4 success accent-4",
                       on: {
                         click: function($event) {
-                          return _vm.submit()
+                          return _vm.registrar()
                         }
                       }
                     },
