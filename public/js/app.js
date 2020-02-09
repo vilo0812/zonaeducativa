@@ -1997,6 +1997,19 @@ __webpack_require__.r(__webpack_exports__);
     iniciarSesion: function iniciarSesion() {
       var _this = this;
 
+      this.errorEmail = false;
+      this.errorClave = false;
+
+      if (this.email.trim() == '') {
+        this.errorEmail = true;
+        return;
+      }
+
+      if (this.password.trim() == '') {
+        this.errorClave = true;
+        return;
+      }
+
       var params = {
         'email': this.email,
         'password': this.password
@@ -2030,22 +2043,14 @@ __webpack_require__.r(__webpack_exports__);
         /*end accion si todo funciono perfectamente*/
       })["catch"](function (error) {
         /*start errores*/
-        // console.log(error.response.data);
-        var er = error.response.data.errors;
-        var mensaje = "Error no identificado";
+        _this.errorEmail = true;
+        _this.errorClave = true;
 
-        if (er.hasOwnProperty('email')) {
-          mensaje = er.email[0];
-          _this.errorEmail = true;
-        } else if (er.hasOwnProperty('clave')) {
-          mensaje = er.clave[0];
-          _this.errorClave = true;
-        } else if (er.hasOwnProperty('loginEmail')) {
-          mensaje = er.loginEmail[0];
-          _this.errorEmail = true;
-          _this.errorClave = true;
-        }
+        _this.$store.commit("loginFailed", {
+          error: error
+        });
 
+        var mensaje = "correo o contraseña invalida";
         swal('Error', mensaje, 'error');
         /*end errores*/
       });
@@ -97982,6 +97987,10 @@ var user = Object(_helpers_auth_js__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])
         token: payload.access_token
       });
       localStorage.setItem("user", JSON.stringify(state.currentUser));
+    },
+    loginFailed: function loginFailed(state, payload) {
+      state.loading = false;
+      state.auth_error = payload.error;
     }
   },
   getters: {},

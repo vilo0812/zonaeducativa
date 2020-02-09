@@ -50,6 +50,16 @@ export default{
 	},
 	methods: {
 	  iniciarSesion() {
+		this.errorEmail=false
+        this.errorClave=false
+        if(this.email.trim() == ''){
+            this.errorEmail=true;
+            return;
+            }
+        if(this.password.trim() == ''){
+            this.errorClave=true;
+            return;
+            }
 	  	let params={
 	  		'email':this.email,
 	  		'password':this.password,
@@ -77,21 +87,11 @@ export default{
 	      	/*end accion si todo funciono perfectamente*/
 	      }).catch(error=>{
 	      	/*start errores*/
-	      	// console.log(error.response.data);
-	      	let er = error.response.data.errors;
-	      	let mensaje="Error no identificado";
-	      	if(er.hasOwnProperty('email')){
-	      		mensaje = er.email[0];
-	      		this.errorEmail=true;
-	      	}else if(er.hasOwnProperty('clave')){
-	      		mensaje=er.clave[0];
-	      		this.errorClave=true;
-	      	}else if(er.hasOwnProperty('loginEmail')){
-	      		mensaje=er.loginEmail[0];
 	      		this.errorEmail=true;
 	      		this.errorClave=true;
-	      	}
-	      	swal('Error',mensaje,'error');
+	      		this.$store.commit("loginFailed",{error});
+	      		let mensaje="correo o contraseña invalida";
+	      			swal('Error',mensaje,'error');
 	      	/*end errores*/
 	      });
 	    /*end iniciamos sesion*/
