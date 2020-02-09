@@ -80,12 +80,12 @@
 </template>
 
 <script>
-import Side from '.././components/welcomeSuperAdmin/SideBar.vue'
-import Nav from '.././partials/welcome/NavBar.vue'
+import Side from '.././components/SuperAdmin/SideBar.vue'
+import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
   export default {
   	components:{
-  		'side-bar':Side,
+      'side-bar':Side,
   		'nav-bar':Nav,
   		'content-center':ContentCenter,
   	},

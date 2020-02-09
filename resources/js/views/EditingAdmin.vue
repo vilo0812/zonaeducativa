@@ -8,9 +8,14 @@
       v-model="drawer"
       app
       clipped
-    >	<!-- start llamamos al side var del super administrador -->
-    	<side-bar></side-bar>
-    	<!-- end llamamos al side var del super administrador -->
+    >
+    <!-- start seleccionamos el side bar dependiendo del tipo de usuario -->
+     <!-- start llamamos al side var del  administrador -->
+      <side-bar v-if="rol == 1"></side-bar>
+      <!-- end llamamos al side var del administrador -->
+      <!-- start llamamos al side var del super administrador -->
+      <side-bar-admin v-if="rol == 2"></side-bar-admin>
+      <!-- end llamamos al side var del super administrador -->
     </v-navigation-drawer>
     <!-- end cuadro que se mantiene oculto y solo aparecera si drawer es true -->
     <!-- start el main donde ira el contenido principal -->
@@ -94,13 +99,15 @@
 </template>
 
 <script>
-import Side from '.././components/welcomeSuperAdmin/SideBar2.vue'
-import Nav from '.././partials/welcome/NavBar.vue'
+import Side from '.././components/SuperAdmin/SideBar2.vue'
+import Side2 from '.././components/Admin/SideBar.vue'
+import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
   export default {
   props:['id'],
   	components:{
   		'side-bar':Side,
+      'side-bar-admin':Side2,
   		'nav-bar':Nav,
   		'content-center':ContentCenter,
   	},
@@ -181,6 +188,11 @@ import ContentCenter from '.././structures/Center.vue'
         this.telefono=''
     }
   	},
+    computed: {
+      rol() {
+        return this.$store.state.currentUser.rol_id;
+      }
+    },
     created () {
       this.$vuetify.theme.dark = true
     },

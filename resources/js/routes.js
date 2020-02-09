@@ -1,7 +1,6 @@
 //importamos las vistas del Home
 import Home from './views/Home.vue';
 import GestionVisits from './views/GestionVisits.vue';
-import WelcomeAdmin from './views/WelcomeAdmin.vue';
 import ControllerDepenci from './views/ControllerDepenci.vue';
 import ViewVisits from './views/ViewVisits.vue';
 import RegisterVisits from './views/RegisterVisits.vue';
@@ -39,14 +38,6 @@ export const routes = [
     }
   },
   {
-    path:'/dependecies',
-    component:ControllerDepenci,
-    name:'controller-dependenci',
-    meta:{
-      requiresAuth: true
-    }
-  },
-  {
     path:'/registerVisits',
     component:RegisterVisits,
     name:'register-visits',
@@ -69,7 +60,17 @@ export const routes = [
     component:RegisterAdmin,
     name:'register-admin',
     meta:{
-      requiresAuth: true
+      requiresAuth: true,
+      requiresAuthSuperAdmin: true,
+    }
+  },
+  {
+    path:'/dependecies',
+    component:ControllerDepenci,
+    name:'controller-dependenci',
+    meta:{
+      requiresAuth: true,
+      requiresAuthSuperAdmin: true,
     }
   },
   /*end registrar administrador*/
@@ -95,5 +96,5 @@ export const routes = [
     }
   },
   /*end editar el adiministrador*/
-
+/*manejador de administradores*/
 ]
