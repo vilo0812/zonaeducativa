@@ -4,7 +4,6 @@
 		<!-- start input de ingresar email -->
 		<v-text-field
 		class="mb-5 "
-		:class="{' animated tada' :correoA}"
 		type="email"
 		append-icon="mdi-account"
 		:error="errorEmail"
@@ -13,21 +12,18 @@
 		:rules="emailRules"
 		v-model="email"
 		label="Correo: "
-		@click="correoA=!correoA"
 		></v-text-field>
 		<!-- end input de ingresar email -->
 		<!-- start input de igresar la contraseña -->
 		<v-text-field
 		class="mb-5 "
-		:class="{' animated tada' :claveA}"
 		type="password"
 		append-icon="mdi-lock-open"
 		:error="errorClave"
-		v-model="clave"
+		v-model="password"
 		:rules="claveRules"
 		required
 		label="Contraseña: "
-		@click="claveA=!claveA"
 		></v-text-field>
 		<!-- end input de igresar la contraseña -->
 		<v-btn block color="primary" class="mr-4 block pb-3" @click="iniciarSesion()">iniciar sesión</v-btn>
@@ -39,10 +35,8 @@
 export default{
 	data () {
 	  return {
-	  	correoA:null,
-	  	claveA:null,
 	    email:'',
-	    clave:'',
+	    password:'',
 	    errorEmail:false,
 	    errorClave:false,
 	    emailRules: [
@@ -56,37 +50,28 @@ export default{
 	},
 	methods: {
 	  iniciarSesion() {
-	    /*start creamos las variables que mandaremos*/
-	     const params = {
-	        email: this.email,
-	        clave: this.clave
-	      }
-	    /*end creamos las variables que mandaremos*/
+	  	let params={
+	  		'email':this.email,
+	  		'password':this.password,
+	  	}
 	    /*usamos axios para mandar la información al api*/
 	    /*start iniciamos sesion*/
+	    	this.$store.commit('login');
 	      axios.post('/api/sesion/login',params)
 	      .then(response=>{
+	      	/*start funcion muy importante ya que me guarda los datos en el localstorage y me llena una variable llamada currentUser con los datos de el usuario*/
+	      	this.$store.commit("loginSuccess",response.data);
+	      	/*end funcion muy importante ya que me guarda los datos en el localstorage y me llena una variable llamada currentUser con los datos de el usuario*/
 	      	/*start accion si todo funciono perfectamente*/
 	      	// console.log(response.data)
 	      	swal({
 	      		title:'Has iniciado sesion',
-	      		text:response.data,
 	      		icon:'success',
 	      		closeOnClickOutside:false,
 	      		CloseOnEsc:false
 	      	}).then(select=>{
 	      		if(select){
-	      			/*start llamamos al api que determina que tipo de usuario soy*/
-	      			// axios.get('/api/sesion/rol')
-	      			// .them(response=>{
-	      			// 	console.log(response.data);
-	      			// })
-	      			/*end llamamos al api que determina que tipo de usuario soy*/
-	      			/*start redireccionamos a la pagina principal*/
-	      			// location.reload();
 	      			this.$router.push({ name: 'Gestion'})
-	      			// this.$route.router.go('Welcome');
-	      			/*end redireccionamos a la pagina principal*/
 	      		}
 	      	});
 	      	/*end accion si todo funciono perfectamente*/

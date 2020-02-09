@@ -25,14 +25,14 @@ class LoginFormRequest extends FormRequest
     {
         return [
             'email'=>'required|email',
-            'clave'=>'required'
+            'password'=>'required'
         ];
     }
     public function messages(){
         return[
             'email.required' => 'El campo correo electrónico es obligatorio',
             'email.email' => 'El correo electrónico no corresponde con una dirección de correo electrónico válida',
-            'clave.required' => 'La contraseña es obligatoria',
+            'password.required' => 'La contraseña es obligatoria',
         ];
     }
 }

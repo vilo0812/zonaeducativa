@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginFormRequest;
+use App\User;
 use App\Visitor;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -21,17 +22,32 @@ class Controller extends BaseController
     /*end api que lanza el SPA*/
     /*start api para iniciar sesión*/
     public function login(LoginFormRequest $request){
+        $credentials = request(['email', 'password']);
         /*start login personalizado*/
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->clave], false)) {
-            // Session::put('email', $request->email);
-            $correo= Session('email');//iniciamos la sesión
-             return response()->json('has iniciado sesión'.$correo, 200);
-            }else{
-            return response()->json(['errors'=>['loginEmail'=>['El correo o la contraseña es invalida']]],422);
-            }
-            /*end login personalizado*/
+        if (!$token = auth('api')->attempt($credentials)) {
+        return response()->json(['error' => ['loginEmail'=>['El correo o la contraseña es invalida']]], 401);//disparamos un error por si acaso el usuario se equivoca
+        }else{
+        return $this->respondWithToken($token);//llamamos a una funcion que arma todo lo que yo necesito en mi sesion :3
+        }
+        /*end login personalizado*/
     }
     /*end api para iniciar sesión*/
+    /*start funcion que me crea los datos que van para la sesion*/
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'user' => $this->guard()->user(),
+            'token_type' => 'bearer',
+            'expires_in' => auth('api')->factory()->getTTL() * 60
+        ]);
+    }
+    /*end funcion que me crea los datos que van para la sesion*/
+    /*start funcion que me trae los datos del usuario*/
+    public function guard(){
+        return \Auth::Guard('api');
+    }
+    /*end funcion que me trae los datos del usuario*/
     /*api que me permite visualizar los pdfs*/
     public function showVisitsPdf(){
     	$data=Visitor::showVisitsPdf();

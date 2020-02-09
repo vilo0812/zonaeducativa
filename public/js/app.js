@@ -1976,17 +1976,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      correoA: null,
-      claveA: null,
       email: '',
-      clave: '',
+      password: '',
       errorEmail: false,
       errorClave: false,
       emailRules: [function (v) {
@@ -2003,44 +1997,34 @@ __webpack_require__.r(__webpack_exports__);
     iniciarSesion: function iniciarSesion() {
       var _this = this;
 
-      /*start creamos las variables que mandaremos*/
       var params = {
-        email: this.email,
-        clave: this.clave
+        'email': this.email,
+        'password': this.password
       };
-      /*end creamos las variables que mandaremos*/
-
       /*usamos axios para mandar la información al api*/
 
       /*start iniciamos sesion*/
 
+      this.$store.commit('login');
       axios.post('/api/sesion/login', params).then(function (response) {
+        /*start funcion muy importante ya que me guarda los datos en el localstorage y me llena una variable llamada currentUser con los datos de el usuario*/
+        _this.$store.commit("loginSuccess", response.data);
+        /*end funcion muy importante ya que me guarda los datos en el localstorage y me llena una variable llamada currentUser con los datos de el usuario*/
+
         /*start accion si todo funciono perfectamente*/
         // console.log(response.data)
+
+
         swal({
           title: 'Has iniciado sesion',
-          text: response.data,
           icon: 'success',
           closeOnClickOutside: false,
           CloseOnEsc: false
         }).then(function (select) {
           if (select) {
-            /*start llamamos al api que determina que tipo de usuario soy*/
-            // axios.get('/api/sesion/rol')
-            // .them(response=>{
-            // 	console.log(response.data);
-            // })
-
-            /*end llamamos al api que determina que tipo de usuario soy*/
-
-            /*start redireccionamos a la pagina principal*/
-            // location.reload();
             _this.$router.push({
               name: 'Gestion'
-            }); // this.$route.router.go('Welcome');
-
-            /*end redireccionamos a la pagina principal*/
-
+            });
           }
         });
         /*end accion si todo funciono perfectamente*/
@@ -2408,7 +2392,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     cerrarSesion: function cerrarSesion() {
       this.$router.push({
-        name: 'Home'
+        name: 'Login'
       }); // axios.get('/api/sesion/cerrar').then(res => {
       //   console.log(res.data);
       // }).catch(err => {
@@ -39815,7 +39799,6 @@ var render = function() {
     [
       _c("v-text-field", {
         staticClass: "mb-5 ",
-        class: { " animated tada": _vm.correoA },
         attrs: {
           type: "email",
           "append-icon": "mdi-account",
@@ -39824,11 +39807,6 @@ var render = function() {
           required: "",
           rules: _vm.emailRules,
           label: "Correo: "
-        },
-        on: {
-          click: function($event) {
-            _vm.correoA = !_vm.correoA
-          }
         },
         model: {
           value: _vm.email,
@@ -39841,7 +39819,6 @@ var render = function() {
       _vm._v(" "),
       _c("v-text-field", {
         staticClass: "mb-5 ",
-        class: { " animated tada": _vm.claveA },
         attrs: {
           type: "password",
           "append-icon": "mdi-lock-open",
@@ -39850,17 +39827,12 @@ var render = function() {
           required: "",
           label: "Contraseña: "
         },
-        on: {
-          click: function($event) {
-            _vm.claveA = !_vm.claveA
-          }
-        },
         model: {
-          value: _vm.clave,
+          value: _vm.password,
           callback: function($$v) {
-            _vm.clave = $$v
+            _vm.password = $$v
           },
-          expression: "clave"
+          expression: "password"
         }
       }),
       _vm._v(" "),
@@ -97635,6 +97607,30 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/helpers/auth.js":
+/*!**************************************!*\
+  !*** ./resources/js/helpers/auth.js ***!
+  \**************************************/
+/*! exports provided: getLocalUser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLocalUser", function() { return getLocalUser; });
+/*start funcion que me devuelve el usuario de el local storage si es que existe*/
+function getLocalUser() {
+  var userStr = localStorage.getItem("user");
+
+  if (!userStr) {
+    return null;
+  }
+
+  return JSON.parse(userStr);
+}
+/*start funcion que me devuelve el usuario de el local storage si es que existe*/
+
+/***/ }),
+
 /***/ "./resources/js/partials/home/NavBar.vue":
 /*!***********************************************!*\
   !*** ./resources/js/partials/home/NavBar.vue ***!
@@ -97866,9 +97862,10 @@ var routes = [
   path: '*',
   component: _views_Home_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
 }, {
-  path: '/home',
+  //ruta para hacer login
+  path: '/login',
   component: _views_Home_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-  name: 'Home'
+  name: 'Login'
 },
 /*
 |--------------------------------------------------------------------------
@@ -97876,7 +97873,7 @@ var routes = [
 |--------------------------------------------------------------------------|
 */
 {
-  path: '/Gestion',
+  path: '/',
   component: _views_GestionVisits_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
   name: 'Gestion',
   meta: {
@@ -97958,27 +97955,33 @@ var routes = [
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helpers_auth_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/auth.js */ "./resources/js/helpers/auth.js");
+/*start traemos al usaurio de el local storage si es que existe*/
+
+var user = Object(_helpers_auth_js__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])();
+/*end traemos al usaurio de el local storage si es que existe*/
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
-    //variables del home
-    registrar: false,
-    login: true,
-    recuperar: false
+    currentUser: user,
+    isLoggedIn: !!user,
+    loading: false,
+    auth_error: null,
+    customers: []
   },
   mutations: {
-    //mutaciones del home
-    ActivarRegistrar: function ActivarRegistrar(state) {
-      state.registrar = true;
-      state.login = false;
+    login: function login(state) {
+      state.loading = true;
+      state.auth_error = null;
     },
-    ActivarLogin: function ActivarLogin(state) {
-      state.registrar = false;
-      state.recuperar = false;
-      state.login = true;
-    },
-    ActivarRecuperar: function ActivarRecuperar(state) {
-      state.login = false;
-      state.recuperar = true;
+    loginSuccess: function loginSuccess(state, payload) {
+      state.auth_error = null;
+      state.isLoggedIn = true;
+      state.loading = false;
+      state.currentUser = Object.assign({}, payload.user, {
+        token: payload.access_token
+      });
+      localStorage.setItem("user", JSON.stringify(state.currentUser));
     }
   },
   getters: {},

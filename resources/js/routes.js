@@ -20,10 +20,10 @@ export const routes = [
     path:'*',
     component:Home,
   },
-  {
-    path:'/home',
+  {//ruta para hacer login
+    path:'/login',
     component:Home,
-    name:'Home'
+    name:'Login'
   },
    /*
    |--------------------------------------------------------------------------
@@ -31,7 +31,7 @@ export const routes = [
    |--------------------------------------------------------------------------|
    */
   {
-    path:'/Gestion',
+    path:'/',
     component:GestionVisits,
     name:'Gestion',
     meta:{
