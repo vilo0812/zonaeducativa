@@ -31,11 +31,11 @@ export const routes = [
    |--------------------------------------------------------------------------|
    */
   {
-    path:'/',
+    path:'/gestions',
     component:GestionVisits,
     name:'Gestion',
     meta:{
-      authSuperAdmin:true
+      requiresAuth: true
     }
   },
   {
@@ -43,7 +43,7 @@ export const routes = [
     component:ControllerDepenci,
     name:'controller-dependenci',
     meta:{
-      authSuperAdmin:true
+      requiresAuth: true
     }
   },
   {
@@ -51,6 +51,7 @@ export const routes = [
     component:RegisterVisits,
     name:'register-visits',
     meta:{
+      requiresAuth: true
     }
   },
   {
@@ -58,6 +59,7 @@ export const routes = [
     component:ViewVisits,
     name:'view-visits',
     meta:{
+      requiresAuth: true
     }
   },
 /*start manegador de administradores*/
@@ -67,7 +69,7 @@ export const routes = [
     component:RegisterAdmin,
     name:'register-admin',
     meta:{
-      authSuperAdmin:true
+      requiresAuth: true
     }
   },
   /*end registrar administrador*/
@@ -78,6 +80,7 @@ export const routes = [
     name:'show-admin',
     props: true,
     meta:{
+      requiresAuth: true
     }
   },
   /*end mostrar el perfil de administrador*/
@@ -88,21 +91,9 @@ export const routes = [
     name:'editing-admin',
     props: true,
     meta:{
+      requiresAuth: true
     }
   },
   /*end editar el adiministrador*/
-/*end manegador de administradores*/
-   /*
-   |--------------------------------------------------------------------------
-   | rutas para el administrador
-   |--------------------------------------------------------------------------|
-   */
-  {
-    path:'/admin/welcome',
-    component:WelcomeAdmin,
-    name:'WelcomeAdmin',
-    meta:{
-    }
-  },
 
 ]

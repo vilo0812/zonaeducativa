@@ -28,12 +28,8 @@
   export default{
     methods: {
       cerrarSesion() {
-        this.$router.push({ name: 'Login'})
-        // axios.get('/api/sesion/cerrar').then(res => {
-        //   console.log(res.data);
-        // }).catch(err => {
-        //   console.log(err);
-        // });
+       this.$store.commit('logout');
+        this.$router.push('/login');
       }
     }
   }

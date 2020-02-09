@@ -2396,13 +2396,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     cerrarSesion: function cerrarSesion() {
-      this.$router.push({
-        name: 'Login'
-      }); // axios.get('/api/sesion/cerrar').then(res => {
-      //   console.log(res.data);
-      // }).catch(err => {
-      //   console.log(err);
-      // });
+      this.$store.commit('logout');
+      this.$router.push('/login');
     }
   }
 });
@@ -97166,8 +97161,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _plugins_vuetify__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./plugins/vuetify */ "./resources/js/plugins/vuetify.js");
 /* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
-/* harmony import */ var sweetalert__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! sweetalert */ "./node_modules/sweetalert/dist/sweetalert.min.js");
-/* harmony import */ var sweetalert__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(sweetalert__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _helpers_general__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./helpers/general */ "./resources/js/helpers/general.js");
+/* harmony import */ var sweetalert__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! sweetalert */ "./node_modules/sweetalert/dist/sweetalert.min.js");
+/* harmony import */ var sweetalert__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(sweetalert__WEBPACK_IMPORTED_MODULE_9__);
 
 
 
@@ -97175,6 +97171,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+/*start funciones generales*/
+
+
+/*end funciones generales*/
 
 /*start otras librerias*/
 
@@ -97189,27 +97190,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]({
   routes: _routes__WEBPACK_IMPORTED_MODULE_4__["routes"],
   mode: 'history'
 });
-router.beforeEach(function (to, from, next) {
-  var autorizacion = to.matched.some(function (record) {
-    return record.meta.authSuperAdmin;
-  });
-
-  if (autorizacion) {
-    next();
-  } else {
-    next();
-  } // let autorizacion = to.matched.some(record => record.meta.auth);
-  // let usuario = admin;
-  // let autorizacion = to.matched.some(record => record.meta.autentificado);
-  // if(autorizacion && !usuario){
-  // 	next('/')
-  // } else if(!autorizacion && usuario){
-  // 	next('/')
-  // }else{
-  // 	next()
-  // }
-
-});
+Object(_helpers_general__WEBPACK_IMPORTED_MODULE_8__["initialize"])(store, router);
 var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   router: router,
   store: store,
@@ -97636,6 +97617,66 @@ function getLocalUser() {
 
 /***/ }),
 
+/***/ "./resources/js/helpers/general.js":
+/*!*****************************************!*\
+  !*** ./resources/js/helpers/general.js ***!
+  \*****************************************/
+/*! exports provided: initialize */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initialize", function() { return initialize; });
+/*start funcion que hace la autenticacion de cada ruta*/
+function initialize(store, router) {
+  router.beforeEach(function (to, from, next) {
+    //funcion que exije vue routes y que no entiendo muy bien
+    var requiresAuth = to.matched.some(function (record) {
+      return record.meta.requiresAuth;
+    }); //devuelve true si la ruta tiene activado el meta requiresAuth
+
+    var currentUser = store.state.currentUser; //devulve el usuario de la sesion
+
+    if (requiresAuth && !currentUser) {
+      //comparamos si la ruta necesita autorizacion, pero no hay usuario sera redirigido a /login
+      next('/login');
+    } else if (to.path == '/login' && currentUser) {
+      //siii, intenta ir a login, pero el ya inicio sesion entonces lo mandamos a la pagina principal dentro del sistema
+      next('/');
+    } else {
+      //de otro modo puede entrar a la ruta normalmente
+      next();
+    }
+  });
+  /*end funcion que hace la autenticacion de cada ruta*/
+
+  /*start funciones basicas de el axios*/
+
+  /*start funcion que me mandara al login si se acaba la sesion y intento utilizar un axios*/
+
+  axios.interceptors.response.use(null, function (error) {
+    if (error.response.status == 401) {
+      store.commit('logout');
+      router.push('/login');
+    }
+
+    return Promise.reject(error);
+  });
+  /*end funcion que me mandara al login si se acaba la sesion y intento utilizar un axios*/
+
+  /*start funcion que le coloca a cada peticion axios que yo realiza en el sistema un token creando todas las apis protegidas*/
+
+  if (store.getters.currentUser) {
+    axios.defaults.headers.common["authorization"] = "Bearer ".concat(store.getters.currentUser.token);
+  }
+  /*end funcion que le coloca a cada peticion axios que yo realiza en el sistema un token creando todas las apis protegidas*/
+
+  /*end funciones basicas de el axios*/
+
+}
+
+/***/ }),
+
 /***/ "./resources/js/partials/home/NavBar.vue":
 /*!***********************************************!*\
   !*** ./resources/js/partials/home/NavBar.vue ***!
@@ -97878,29 +97919,33 @@ var routes = [
 |--------------------------------------------------------------------------|
 */
 {
-  path: '/',
+  path: '/gestions',
   component: _views_GestionVisits_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
   name: 'Gestion',
   meta: {
-    authSuperAdmin: true
+    requiresAuth: true
   }
 }, {
   path: '/dependecies',
   component: _views_ControllerDepenci_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
   name: 'controller-dependenci',
   meta: {
-    authSuperAdmin: true
+    requiresAuth: true
   }
 }, {
   path: '/registerVisits',
   component: _views_RegisterVisits_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
   name: 'register-visits',
-  meta: {}
+  meta: {
+    requiresAuth: true
+  }
 }, {
   path: '/visits',
   component: _views_ViewVisits_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
   name: 'view-visits',
-  meta: {}
+  meta: {
+    requiresAuth: true
+  }
 },
 /*start manegador de administradores*/
 
@@ -97910,7 +97955,7 @@ var routes = [
   component: _views_RegisterAdmin_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
   name: 'register-admin',
   meta: {
-    authSuperAdmin: true
+    requiresAuth: true
   }
 },
 /*end registrar administrador*/
@@ -97921,7 +97966,9 @@ var routes = [
   component: _views_ShowAdmin_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
   name: 'show-admin',
   props: true,
-  meta: {}
+  meta: {
+    requiresAuth: true
+  }
 },
 /*end mostrar el perfil de administrador*/
 
@@ -97931,23 +97978,12 @@ var routes = [
   component: _views_EditingAdmin_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
   name: 'editing-admin',
   props: true,
-  meta: {}
-},
+  meta: {
+    requiresAuth: true
+  }
+}
 /*end editar el adiministrador*/
-
-/*end manegador de administradores*/
-
-/*
-|--------------------------------------------------------------------------
-| rutas para el administrador
-|--------------------------------------------------------------------------|
-*/
-{
-  path: '/admin/welcome',
-  component: _views_WelcomeAdmin_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-  name: 'WelcomeAdmin',
-  meta: {}
-}];
+];
 
 /***/ }),
 
@@ -97970,9 +98006,7 @@ var user = Object(_helpers_auth_js__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])
   state: {
     currentUser: user,
     isLoggedIn: !!user,
-    loading: false,
-    auth_error: null,
-    customers: []
+    loading: false
   },
   mutations: {
     login: function login(state) {
@@ -97991,9 +98025,24 @@ var user = Object(_helpers_auth_js__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])
     loginFailed: function loginFailed(state, payload) {
       state.loading = false;
       state.auth_error = payload.error;
+    },
+    logout: function logout(state) {
+      localStorage.removeItem("user");
+      state.isLoggedIn = false;
+      state.currentUser = null;
     }
   },
-  getters: {},
+  getters: {
+    isLoading: function isLoading(state) {
+      return state.loading;
+    },
+    isLoggedIn: function isLoggedIn(state) {
+      return state.isLoggedIn;
+    },
+    currentUser: function currentUser(state) {
+      return state.currentUser;
+    }
+  },
   actions: {}
 });
 

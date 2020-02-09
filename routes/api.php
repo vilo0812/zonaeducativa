@@ -13,6 +13,9 @@ Route::group(['prefix' => 'sesion'], function() {
 	// Route::get('rol','ViloAuth\SessionsController@rol');
 	/*end verificamos que tipo de usuario es*/
 });
+Route::group([
+    'middleware' => 'jwt.auth',
+], function ($router) {
 /*end apis de sesiones*/
 /*start apis del super administrador*/
 /*start apis que el super administrador usa para manejar a los administradores*/
@@ -78,3 +81,4 @@ Route::group(['prefix' => 'sesion'], function() {
 	Route::get('showUserByIc/{id}','UserController@showByIdentificationCard');
 	/*end api para ver la información de una usuario*/
 /*end apis para sacar informacines especificas*/
+});

@@ -7,8 +7,6 @@ export default{
         currentUser:user,
         isLoggedIn: !!user,
         loading:false,
-        auth_error:null,
-        customers:[]
     },
     mutations:{
       login(state){
@@ -26,7 +24,22 @@ export default{
             state.loading = false;
             state.auth_error = payload.error;
         }
+        ,logout(state){
+            localStorage.removeItem("user");
+            state.isLoggedIn = false;
+            state.currentUser = null;
+        }
     },
-    getters:{},
+    getters:{
+        isLoading(state){
+            return state.loading;
+        },
+        isLoggedIn(state){
+            return state.isLoggedIn;
+        },
+        currentUser(state){
+            return state.currentUser;
+        },
+    },
     actions:{}
 }
