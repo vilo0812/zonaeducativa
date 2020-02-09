@@ -1,4 +1,5 @@
 //importamos las vistas del Home
+import NotFound from './views/NotFound.vue';
 import Home from './views/Home.vue';
 import GestionVisits from './views/GestionVisits.vue';
 import ControllerDepenci from './views/ControllerDepenci.vue';
@@ -17,7 +18,7 @@ export const routes = [
    */
    {
     path:'*',
-    component:Home,
+    component:NotFound,
   },
   {//ruta para hacer login
     path:'/',
