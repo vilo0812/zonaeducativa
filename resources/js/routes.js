@@ -20,7 +20,7 @@ export const routes = [
     component:Home,
   },
   {//ruta para hacer login
-    path:'/login',
+    path:'/',
     component:Home,
     name:'Login'
   },

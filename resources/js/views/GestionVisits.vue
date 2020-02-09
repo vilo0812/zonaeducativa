@@ -80,6 +80,7 @@ import Side from '.././components/SuperAdmin/SideBar.vue'
 import Side2 from '.././components/Admin/SideBar.vue'
 import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
+import {initialize} from '.././helpers/general';
   export default {
     mounted(){
     axios.get('/api/showOnlyNotTargetVisits').then(res => {
@@ -121,7 +122,8 @@ import ContentCenter from '.././structures/Center.vue'
       }
     },
     created () {
-      this.$vuetify.theme.dark = true
+      this.$vuetify.theme.dark = true;
+      initialize(this.$store,this.$router);
     },
   }
 </script>

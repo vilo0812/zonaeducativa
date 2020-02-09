@@ -5,12 +5,12 @@ router.beforeEach((to,from,next) =>{//funcion que exije vue routes y que no enti
 	const requiresAuthSuperAdmin = to.matched.some(record => record.meta.requiresAuthSuperAdmin);//devuelve true si la ruta tiene activado el meta requiresAuth
 	const currentUser = store.state.currentUser;//devulve el usuario de la sesion
 	if(requiresAuth && !currentUser){//comparamos si la ruta necesita autorizacion, pero no hay usuario sera redirigido a /login
-		next('/login');
+		next('/');
 	}
 	else if(requiresAuthSuperAdmin && currentUser.rol_id != 1){//comparamos si la ruta si fue logeado y ademas es super admin,
-		next('/login');
+		next('/');
 	}
-	else if (to.path == '/login' && currentUser){//siii, intenta ir a login, pero el ya inicio sesion entonces lo mandamos a la pagina principal dentro del sistema
+	else if (to.path == '/' && currentUser){//siii, intenta ir a login, pero el ya inicio sesion entonces lo mandamos a la pagina principal dentro del sistema
 		next('/gestions');
 	}else{//de otro modo puede entrar a la ruta normalmente
 		next();

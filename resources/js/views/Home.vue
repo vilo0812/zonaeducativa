@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import Nav from '.././partials/home/NavBar.vue'
+import Nav from '.././partials/NavBar.vue'
 import Log from '.././components/home/Login.vue'
 export default {
   name: 'Home',
