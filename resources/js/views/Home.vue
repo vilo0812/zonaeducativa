@@ -18,8 +18,8 @@
 			       	<v-col  sm="12" md="5">
 			       		<v-card height="700" class="grey lighten-4 d-flex justify-center align-center" >
 			       			<v-col class="mx-7">
-								<h1 class="text-center display-2 mb-5 font-weight-black">Iniciar Sesión</h1>
-								<iniciar-sesion></iniciar-sesion>
+								<router-view/>
+								<!-- <iniciar-sesion></iniciar-sesion> -->
 			       			</v-col>
 			       		</v-card>
 			       	</v-col>

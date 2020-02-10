@@ -267,7 +267,7 @@ import ContentCenter from '.././structures/Center.vue'
       },
       mostrarIcono(){
         if(this.claveShow){
-        return 'mdi-star';
+        return 'mdi-eye-off';
         }else{
         return 'mdi-eye';
         }

@@ -1,6 +1,10 @@
 //importamos las vistas del Home
 import NotFound from './views/NotFound.vue';
 import Home from './views/Home.vue';
+import Login from './components/home/Login.vue';
+import PasswordRecover from './components/home/PasswordRecover.vue';
+import Code from './components/home/Code.vue';
+import newPassword from './components/home/NewPassword.vue';
 import GestionVisits from './views/GestionVisits.vue';
 import ControllerDepenci from './views/ControllerDepenci.vue';
 import ViewVisits from './views/ViewVisits.vue';
@@ -23,7 +27,29 @@ export const routes = [
   {//ruta para hacer login
     path:'/',
     component:Home,
-    name:'Login'
+    name:'Home',
+    children:[
+      {
+      path:'/',
+      component: Login,
+      name:'Login',
+      },
+      {
+      path:'/passwordRecover',
+      component: PasswordRecover,
+      name:'PasswordRecover',
+      },
+      {
+      path:'/code',
+      component: Code,
+      name:'Code',
+      },
+      {
+      path:'/newPassword',
+      component: newPassword,
+      name:'newPassword',
+      }
+    ]
   },
    /*
    |--------------------------------------------------------------------------

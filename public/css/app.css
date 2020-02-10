@@ -4108,7 +4108,11 @@
   -webkit-box-pack: center;
           justify-content: center;
   padding: 0 1rem;
-}.v-list.primary > .v-list-item, .v-list.secondary > .v-list-item, .v-list.accent > .v-list-item, .v-list.success > .v-list-item, .v-list.error > .v-list-item, .v-list.warning > .v-list-item, .v-list.info > .v-list-item {
+}
+.err{
+	color:red;
+}
+.v-list.primary > .v-list-item, .v-list.secondary > .v-list-item, .v-list.accent > .v-list-item, .v-list.success > .v-list-item, .v-list.error > .v-list-item, .v-list.warning > .v-list-item, .v-list.info > .v-list-item {
   color: #FFFFFF;
 }
 

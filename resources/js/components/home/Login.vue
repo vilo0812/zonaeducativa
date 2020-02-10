@@ -1,6 +1,7 @@
 <template>
   <div>
   	<!-- <v-card-text dark > -->
+		<h1 class="text-center display-2 mb-5 font-weight-black">Iniciar Sesión</h1>
 		<!-- start input de ingresar email -->
 		<v-text-field
 		class="mb-5 "
@@ -25,8 +26,11 @@
 		required
 		label="Contraseña: "
 		></v-text-field>
+		<v-btn :to="{ name: 'PasswordRecover'}">recuperar contraseña</v-btn>
 		<!-- end input de igresar la contraseña -->
+		<!-- start botones -->
 		<v-btn block color="primary" class="mr-4 block pb-3" @click="iniciarSesion()">iniciar sesión</v-btn>
+		<!-- end botones -->
 	<!-- </v-card-text> -->
   </div>
 	<!-- end formulario del login -->
