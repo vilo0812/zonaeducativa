@@ -7,6 +7,7 @@ export default{
         currentUser:user,
         isLoggedIn: !!user,
         loading:false,
+        email:''
     },
     mutations:{
       login(state){
@@ -28,6 +29,12 @@ export default{
             localStorage.removeItem("user");
             state.isLoggedIn = false;
             state.currentUser = null;
+        },
+        passwordRecover(state, payload){
+            state.email = payload;
+        },
+        emailNull(state){
+            state.email = null;
         }
     },
     getters:{

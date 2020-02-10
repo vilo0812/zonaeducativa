@@ -22,7 +22,7 @@ router.beforeEach((to,from,next) =>{//funcion que exije vue routes y que no enti
 axios.interceptors.response.use(null,(error)=>{
 	if(error.response.status == 401){
 		store.commit('logout');
-		router.push('/login');
+		router.push('/');
 	}
 	return Promise.reject(error);
 });

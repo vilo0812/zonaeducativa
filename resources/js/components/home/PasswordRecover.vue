@@ -39,7 +39,11 @@ export default{
             return;
         }
         if(this.errorEmail == false ){
-        		swal({
+          let params = {
+          'email':this.email
+        }
+        axios.post('/api/sesion/recoverPassword',params).then(res => {
+            swal({
             title:'Envio exitoso',
             icon:'success',
             text:'se ha enviado un correo a su cuenta con el codigo para cambiar su contraseña',
@@ -47,11 +51,23 @@ export default{
             CloseOnEsc:false
           }).then(select=>{
           if(select){
-          	this.$router.push('/code');
+            this.$store.commit('passwordRecover',this.email);
+            this.$router.push({name:'Code'});
           }
           }).catch(err => {
           console.log(err);
-       		 });
+           });
+        }).catch(error => {
+          let er = error.response.data.mensaje;
+          if(er.hasOwnProperty('email')){
+            let mensaje = er.email[0];
+            swal('Error',mensaje,'error');
+          } else if(er.hasOwnProperty('emailWrong')){
+            let mensaje = er.emailWrong[0];
+            swal('Error',mensaje,'error');
+          }
+        });
+
             }
 
     }

@@ -26,10 +26,12 @@
 		required
 		label="Contraseña: "
 		></v-text-field>
-		<v-btn :to="{ name: 'PasswordRecover'}">recuperar contraseña</v-btn>
+		<v-btn block text small color="primary" class="my-5" :to="{ name: 'PasswordRecover'}">recuperar contraseña
+			<v-icon small class="mx-2">mdi-key-change</v-icon>
+		</v-btn>
 		<!-- end input de igresar la contraseña -->
 		<!-- start botones -->
-		<v-btn block color="primary" class="mr-4 block pb-3" @click="iniciarSesion()">iniciar sesión</v-btn>
+		<v-btn block color="primary" class="mr-4 block pb-3" @click.stop="iniciarSesion">iniciar sesión</v-btn>
 		<!-- end botones -->
 	<!-- </v-card-text> -->
   </div>
@@ -91,11 +93,11 @@ export default{
 	      	/*end accion si todo funciono perfectamente*/
 	      }).catch(error=>{
 	      	/*start errores*/
-	      		this.errorEmail=true;
-	      		this.errorClave=true;
-	      		this.$store.commit("loginFailed",{error});
-	      		let mensaje="correo o contraseña invalida";
-	      			swal('Error',mensaje,'error');
+	      	this.errorEmail=true;
+	      	this.errorClave=true;
+	      	this.$store.commit("loginFailed",{error});
+	      	let mensaje="correo o contraseña invalida";
+	      	swal('Error',mensaje,'error');
 	      	/*end errores*/
 	      });
 	    /*end iniciamos sesion*/

@@ -2342,21 +2342,42 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
+      var params = {
+        "token": this.code,
+        "email": this.email
+      };
+
       if (this.errorClave == false) {
-        swal({
-          title: 'Codigo exitoso',
-          icon: 'success',
-          text: 'su codigo es correcto, por favor seleccione su nueva contraseña',
-          closeOnClickOutside: false,
-          CloseOnEsc: false
-        }).then(function (select) {
-          if (select) {
-            _this.$router.push('/newPassword');
+        axios.post('/api/sesion/code', params).then(function (res) {
+          swal({
+            title: 'Codigo exitoso',
+            icon: 'success',
+            text: 'su codigo es correcto, por favor seleccione su nueva contraseña',
+            closeOnClickOutside: false,
+            CloseOnEsc: false
+          }).then(function (select) {
+            if (select) {
+              _this.$router.push({
+                name: 'newPassword'
+              });
+            }
+          })["catch"](function (err) {
+            console.log(err);
+          });
+        })["catch"](function (error) {
+          var er = error.response.data.mensaje;
+
+          if (er.hasOwnProperty('token')) {
+            var mensaje = er.token[0];
+            swal('Error', mensaje, 'error');
           }
-        })["catch"](function (err) {
-          console.log(err);
         });
       }
+    }
+  },
+  computed: {
+    email: function email() {
+      return this.$store.state.email;
     }
   }
 });
@@ -2372,6 +2393,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -2593,6 +2616,9 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         return 'mostrar contraseña';
       }
+    },
+    email: function email() {
+      return this.$store.state.email;
     }
   },
   methods: {
@@ -2618,18 +2644,35 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (this.repetirError == false && this.claveError == false && this.repetirClaveError == false) {
-        swal({
-          title: 'Registro exitoso',
-          icon: 'success',
-          text: 'su contraseña ha sido cambiada correctamente, por favor inicie sesión',
-          closeOnClickOutside: false,
-          CloseOnEsc: false
-        }).then(function (select) {
-          if (select) {
-            _this.$router.push('/');
-          }
+        var data = {
+          "email": this.email,
+          "password": this.clave
+        };
+        axios.post('/api/sesion/newPassword', data).then(function (res) {
+          swal({
+            title: 'Registro exitoso',
+            icon: 'success',
+            text: 'su contraseña ha sido cambiada correctamente, por favor inicie sesión',
+            closeOnClickOutside: false,
+            CloseOnEsc: false
+          }).then(function (select) {
+            if (select) {
+              _this.$store.commit('emailNull');
+
+              _this.$router.push('/');
+            }
+          })["catch"](function (err) {
+            console.log(err);
+          });
         })["catch"](function (err) {
-          console.log(err);
+          var mensaje = "ha ocurrido un error";
+          swal('Error', mensaje, 'error').then(function (select) {
+            if (select) {
+              _this.$router.push({
+                name: 'PasswordRecover'
+              });
+            }
+          });
         });
       }
     },
@@ -2695,18 +2738,37 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (this.errorEmail == false) {
-        swal({
-          title: 'Envio exitoso',
-          icon: 'success',
-          text: 'se ha enviado un correo a su cuenta con el codigo para cambiar su contraseña',
-          closeOnClickOutside: false,
-          CloseOnEsc: false
-        }).then(function (select) {
-          if (select) {
-            _this.$router.push('/code');
+        var params = {
+          'email': this.email
+        };
+        axios.post('/api/sesion/recoverPassword', params).then(function (res) {
+          swal({
+            title: 'Envio exitoso',
+            icon: 'success',
+            text: 'se ha enviado un correo a su cuenta con el codigo para cambiar su contraseña',
+            closeOnClickOutside: false,
+            CloseOnEsc: false
+          }).then(function (select) {
+            if (select) {
+              _this.$store.commit('passwordRecover', _this.email);
+
+              _this.$router.push({
+                name: 'Code'
+              });
+            }
+          })["catch"](function (err) {
+            console.log(err);
+          });
+        })["catch"](function (error) {
+          var er = error.response.data.mensaje;
+
+          if (er.hasOwnProperty('email')) {
+            var mensaje = er.email[0];
+            swal('Error', mensaje, 'error');
+          } else if (er.hasOwnProperty('emailWrong')) {
+            var _mensaje = er.emailWrong[0];
+            swal('Error', _mensaje, 'error');
           }
-        })["catch"](function (err) {
-          console.log(err);
         });
       }
     }
@@ -40708,9 +40770,26 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("v-btn", { attrs: { to: { name: "PasswordRecover" } } }, [
-        _vm._v("recuperar contraseña")
-      ]),
+      _c(
+        "v-btn",
+        {
+          staticClass: "my-5",
+          attrs: {
+            block: "",
+            text: "",
+            small: "",
+            color: "primary",
+            to: { name: "PasswordRecover" }
+          }
+        },
+        [
+          _vm._v("recuperar contraseña\n\t\t\t"),
+          _c("v-icon", { staticClass: "mx-2", attrs: { small: "" } }, [
+            _vm._v("mdi-key-change")
+          ])
+        ],
+        1
+      ),
       _vm._v(" "),
       _c(
         "v-btn",
@@ -40719,7 +40798,8 @@ var render = function() {
           attrs: { block: "", color: "primary" },
           on: {
             click: function($event) {
-              return _vm.iniciarSesion()
+              $event.stopPropagation()
+              return _vm.iniciarSesion($event)
             }
           }
         },
@@ -98251,7 +98331,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -98274,7 +98355,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_5__["VTextField"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_5__["VIcon"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_6__["VTextField"]})
 
 
 /* hot reload */
@@ -98571,7 +98653,7 @@ function initialize(store, router) {
   axios.interceptors.response.use(null, function (error) {
     if (error.response.status == 401) {
       store.commit('logout');
-      router.push('/login');
+      router.push('/');
     }
 
     return Promise.reject(error);
@@ -98879,7 +98961,8 @@ var user = Object(_helpers_auth_js__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])
   state: {
     currentUser: user,
     isLoggedIn: !!user,
-    loading: false
+    loading: false,
+    email: ''
   },
   mutations: {
     login: function login(state) {
@@ -98903,6 +98986,12 @@ var user = Object(_helpers_auth_js__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])
       localStorage.removeItem("user");
       state.isLoggedIn = false;
       state.currentUser = null;
+    },
+    passwordRecover: function passwordRecover(state, payload) {
+      state.email = payload;
+    },
+    emailNull: function emailNull(state) {
+      state.email = null;
     }
   },
   getters: {

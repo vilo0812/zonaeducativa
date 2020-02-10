@@ -6,12 +6,15 @@ Route::group(['prefix' => 'sesion'], function() {
 	/*start api para iniciar sesion*/
 	Route::post('login','Controller@login');
 	/*end api para iniciar sesion*/
-	/*start api para cerrar sesion*/
-	// Route::get('cerrar','ViloAuth\SessionsController@cerrarSesion');
-	/*end api para cerrar sesion*/
-	/*start verificamos que tipo de usuario es*/
-	// Route::get('rol','ViloAuth\SessionsController@rol');
-	/*end verificamos que tipo de usuario es*/
+	/*start api para recuperar la contraseña*/
+	Route::post('recoverPassword','Controller@recoverPassword');
+	/*end api para recuperar la contraseña*/
+	/*start api para verificar el codigo de cambio de contraseña*/
+	Route::post('code','Controller@code');
+	/*end api para verificar el codigo de cambio de contraseña*/
+	/*start api para cambiar la contraseña*/
+	Route::post('newPassword','Controller@newPassword');
+	/*end api para cambiar la contraseña*/
 });
 Route::group([
     'middleware' => 'jwt.auth',

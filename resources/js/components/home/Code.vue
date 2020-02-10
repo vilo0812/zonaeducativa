@@ -36,23 +36,41 @@
             this.errorClave=true;
             return;
         }
+        let params={
+        	"token":this.code,
+        	"email":this.email
+        }
         if(this.errorClave == false ){
-        		swal({
-            title:'Codigo exitoso',
-            icon:'success',
-            text:'su codigo es correcto, por favor seleccione su nueva contraseña',
-            closeOnClickOutside:false,
-            CloseOnEsc:false
-          }).then(select=>{
-          if(select){
-          	this.$router.push('/newPassword');
-          }
-          }).catch(err => {
-          console.log(err);
-       		 });
-            }
+        	axios.post('/api/sesion/code',params).then(res => {
+        	  swal({
+	            title:'Codigo exitoso',
+	            icon:'success',
+	            text:'su codigo es correcto, por favor seleccione su nueva contraseña',
+	            closeOnClickOutside:false,
+	            CloseOnEsc:false
+	          }).then(select=>{
+	          if(select){
+	          	this.$router.push({name:'newPassword'});
+	          }
+	          }).catch(err => {
+	          console.log(err);
+	       		 });
+        	}).catch(error => {
+        	  let er = error.response.data.mensaje;
+	          if(er.hasOwnProperty('token')){
+	            let mensaje = er.token[0];
+	            swal('Error',mensaje,'error');
+	          }
+        	});
+           }
+
 
     }
-  }
+  },
+  computed: {
+      email() {
+        return this.$store.state.email;
+      }
+    }
 	}
 </script>

@@ -89,8 +89,11 @@
         }else{
         return 'mostrar contraseña';
         }
+      },
+    email() {
+        return this.$store.state.email;
       }
-		},
+    },
 
 		methods: {
 			passwordRecover(){
@@ -107,19 +110,34 @@
             this.repetirError=true;
             }
             if(this.repetirError == false && this.claveError==false && this.repetirClaveError==false ){
-        		swal({
-            title:'Registro exitoso',
-            icon:'success',
-            text:'su contraseña ha sido cambiada correctamente, por favor inicie sesión',
-            closeOnClickOutside:false,
-            CloseOnEsc:false
-          }).then(select=>{
-          if(select){
-          	this.$router.push('/');
-          }
-          }).catch(err => {
-          console.log(err);
-       		 });
+              let data={
+                "email":this.email,
+                "password":this.clave
+              }
+              axios.post('/api/sesion/newPassword',data).then(res => {
+                swal({
+                  title:'Registro exitoso',
+                  icon:'success',
+                  text:'su contraseña ha sido cambiada correctamente, por favor inicie sesión',
+                  closeOnClickOutside:false,
+                  CloseOnEsc:false
+                }).then(select=>{
+                if(select){
+                  this.$store.commit('emailNull');
+                  this.$router.push('/');
+                }
+                }).catch(err => {
+                console.log(err);
+                 });
+              }).catch(err => {
+                  let mensaje = "ha ocurrido un error";
+                    swal('Error',mensaje,'error')
+                    .then(select=>{
+                    if(select){
+                      this.$router.push({name:'PasswordRecover'});
+                    }
+                    })
+              });
             }
 			},
 		  show(){
