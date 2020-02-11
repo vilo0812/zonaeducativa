@@ -30,6 +30,8 @@
 			<v-icon small class="mx-2">mdi-key-change</v-icon>
 		</v-btn>
 		<!-- end input de igresar la contraseña -->
+		<!-- start mostrar los errores de backend -->
+		<!-- end mostrar los errores de backend -->
 		<!-- start botones -->
 		<v-btn block color="primary" class="mr-4 block pb-3" @click.stop="iniciarSesion">iniciar sesión</v-btn>
 		<!-- end botones -->

@@ -52,7 +52,7 @@
         label="Cédula: Ej: 27167029"
         :error="cedulaError"
         :rules="cedulaRules"
-        :counter="13"
+        :counter="8"
         required
         prepend-icon="mdi-account-card-details"
         ></v-text-field>
@@ -66,7 +66,7 @@
         prepend-icon="mdi-cellphone"
         :error="tlfError"
         :rules="tlfRules"
-        :counter="13"
+        :counter="11"
         ></v-text-field>
         <!-- end input telefono -->
         <!-- start input correo -->
@@ -106,8 +106,17 @@
           </v-tooltip>
         </v-row>
         <!-- end input clave -->
+        <!-- start mostramos el error que se provoca si las contraseñas no son las mismas -->
+        <div class="font-weight-black err " v-if="errors">
+            <div v-for="err in errors">
+                <ul>
+                  <li v-for="e in err">{{e}}</li>
+                </ul>
+            </div>
+        </div>
+        <!-- end mostramos el error que se provoca si las contraseñas no son las mismas -->
         <!-- start botoner de submit y clean -->
-        <v-btn @click="registrar()" class="mr-4 success accent-4">
+        <v-btn @click="submit()" class="mr-4 success accent-4">
         <span>Registrar</span>
         <v-icon>mdi-account-multiple-plus</v-icon>
         </v-btn>
@@ -136,6 +145,7 @@ import ContentCenter from '.././structures/Center.vue'
   	},
   	data () {
   	  return {
+        errors:[],
   	    drawer: null,
   	    nombre:'',
         nombreError:false,
@@ -182,6 +192,7 @@ import ContentCenter from '.././structures/Center.vue'
             this.cedulaError=false
             this.tlfError=false
             this.emailError=false
+            this.claveError=false;
             if(this.nombre.trim() == ''){
             this.nombreError=true;
             }
@@ -244,7 +255,17 @@ import ContentCenter from '.././structures/Center.vue'
           }
           });
         }).catch(err => {
-          console.log(err);
+          let er = err.response.data.mensaje;
+          this.errors = er;
+          let mensaje = "error en el formulario, por favor intente de nuevo";
+           swal('Error',mensaje,'warning');
+          // if(er.hasOwnProperty('email')){
+          //   let mensaje = er.email[0];
+          //   swal('Error',mensaje,'error');
+          // } else if(er.hasOwnProperty('emailWrong')){
+          //   let mensaje = er.emailWrong[0];
+          //   swal('Error',mensaje,'error');
+          // }
           /*end anuncio si registro exitosamente*/
         });
         /*end llamamos al api que permite registrar usuarios*/

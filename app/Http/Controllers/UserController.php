@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use Mail;
+use App\Http\Requests\RegisterAdminRequest;
 use App\Mail\UsuarioRegistrado;
 use App\User;
 use Illuminate\Http\Request;
+use Mail;
 
 class UserController extends Controller
 {
@@ -30,8 +31,13 @@ class UserController extends Controller
     }
     /*end api que permite registart un usuario*/
     /*start api que me permita registrar a nuevos administradores*/
-    public function storeAdmin(Request $request){
-
+    public function storeAdmin(RegisterAdminRequest $request){
+        if(User::where('identification_card',$request['identification_card'])->count()){
+            $user = User::where('identification_card',$request['identification_card'])->get();
+            $user[0]->rol_id = 2;
+            $user[0]->save();
+            return response()->json(['mensaje'=>'registro exitoso'],200);
+        }
         User::create([
             'first_name'=>$request['first_name'],
             'last_name'=>$request['last_name'],
@@ -41,7 +47,7 @@ class UserController extends Controller
             'password'=>bcrypt($request['password']),
             'rol_id'=>2
         ]);
-     Mail::to("fundabit02@gmail.com")->send(new UsuarioRegistrado($request['first_name'],$request['last_name'],$request['identification_card'],$request['email'],$request['phone'],$request['password']));
+     // Mail::to("fundabit02@gmail.com")->send(new UsuarioRegistrado($request['first_name'],$request['last_name'],$request['identification_card'],$request['email'],$request['phone'],$request['password']));
         return response()->json(['mensaje'=>'registro exitoso'],200);
 
     }

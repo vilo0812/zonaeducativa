@@ -2432,6 +2432,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3615,6 +3617,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3626,6 +3637,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      errors: [],
       drawer: null,
       nombre: '',
       nombreError: false,
@@ -3673,6 +3685,7 @@ __webpack_require__.r(__webpack_exports__);
       this.cedulaError = false;
       this.tlfError = false;
       this.emailError = false;
+      this.claveError = false;
 
       if (this.nombre.trim() == '') {
         this.nombreError = true;
@@ -3723,6 +3736,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     registrar: function registrar() {
+      var _this = this;
+
       /*start llenamos nuestro objeto*/
       var parametros = {
         'first_name': this.nombre,
@@ -3749,7 +3764,17 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       })["catch"](function (err) {
-        console.log(err);
+        var er = err.response.data.mensaje;
+        _this.errors = er;
+        var mensaje = "error en el formulario, por favor intente de nuevo";
+        swal('Error', mensaje, 'warning'); // if(er.hasOwnProperty('email')){
+        //   let mensaje = er.email[0];
+        //   swal('Error',mensaje,'error');
+        // } else if(er.hasOwnProperty('emailWrong')){
+        //   let mensaje = er.emailWrong[0];
+        //   swal('Error',mensaje,'error');
+        // }
+
         /*end anuncio si registro exitosamente*/
       });
       /*end llamamos al api que permite registrar usuarios*/
@@ -42062,7 +42087,7 @@ var render = function() {
                       label: "Cédula: Ej: 27167029",
                       error: _vm.cedulaError,
                       rules: _vm.cedulaRules,
-                      counter: 13,
+                      counter: 8,
                       required: "",
                       "prepend-icon": "mdi-account-card-details"
                     },
@@ -42083,7 +42108,7 @@ var render = function() {
                       "prepend-icon": "mdi-cellphone",
                       error: _vm.tlfError,
                       rules: _vm.tlfRules,
-                      counter: 13
+                      counter: 11
                     },
                     model: {
                       value: _vm.telefono,
@@ -42184,13 +42209,32 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
+                  _vm.errors
+                    ? _c(
+                        "div",
+                        { staticClass: "font-weight-black err " },
+                        _vm._l(_vm.errors, function(err) {
+                          return _c("div", [
+                            _c(
+                              "ul",
+                              _vm._l(err, function(e) {
+                                return _c("li", [_vm._v(_vm._s(e))])
+                              }),
+                              0
+                            )
+                          ])
+                        }),
+                        0
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c(
                     "v-btn",
                     {
                       staticClass: "mr-4 success accent-4",
                       on: {
                         click: function($event) {
-                          return _vm.registrar()
+                          return _vm.submit()
                         }
                       }
                     },
