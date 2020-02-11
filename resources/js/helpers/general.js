@@ -20,6 +20,10 @@ router.beforeEach((to,from,next) =>{//funcion que exije vue routes y que no enti
 /*start funciones basicas de el axios*/
 /*start funcion que me mandara al login si se acaba la sesion y intento utilizar un axios*/
 axios.interceptors.response.use(null,(error)=>{
+	if(error.response.status == 404){
+		store.commit('logout');
+		router.push('/');
+	}
 	if(error.response.status == 401){
 		store.commit('logout');
 		router.push('/');

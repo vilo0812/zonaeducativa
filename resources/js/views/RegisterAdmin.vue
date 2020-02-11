@@ -255,20 +255,14 @@ import ContentCenter from '.././structures/Center.vue'
           }
           });
         }).catch(err => {
+          /*start en caso de algun error llenamos la variable error*/
           let er = err.response.data.mensaje;
           this.errors = er;
           let mensaje = "error en el formulario, por favor intente de nuevo";
            swal('Error',mensaje,'warning');
-          // if(er.hasOwnProperty('email')){
-          //   let mensaje = er.email[0];
-          //   swal('Error',mensaje,'error');
-          // } else if(er.hasOwnProperty('emailWrong')){
-          //   let mensaje = er.emailWrong[0];
-          //   swal('Error',mensaje,'error');
-          // }
           /*end anuncio si registro exitosamente*/
         });
-        /*end llamamos al api que permite registrar usuarios*/
+        /*end en caso de algun error llenamos la variable error*/
   	  },
   	  clear () {
         this.nombre = ''

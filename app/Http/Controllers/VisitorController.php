@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Direction;
 use App\Handling_time;
+use App\Http\Requests\RegisterVisitorRequest;
 use App\User;
 use App\Visitor;
 use Carbon\Carbon;
@@ -38,7 +39,7 @@ class VisitorController extends Controller
      * @return \Illuminate\Http\Response
      */
     /*start iniciamos la api que permite registrar visitas*/
-    public function store(Request $request)
+    public function store(RegisterVisitorRequest $request)
     {
         // $time=Carbon::now()->format('h:i');
         $time=Carbon::now();

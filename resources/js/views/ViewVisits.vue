@@ -35,7 +35,7 @@
         <v-btn
           color="blue"
           class="ma-2 white--text"
-          href="api/pdfVisits"
+          href="/pdfVisits"
         >
           Descargar PDF
           <v-icon right dark>mdi-cloud-upload</v-icon>

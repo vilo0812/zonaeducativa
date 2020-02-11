@@ -49,9 +49,6 @@ Route::group([
 	Route::patch('targetVisit','VisitorController@update');
 	/*start api que permite marcar la hora de salida de los visitantes*/
 	/*start api que manejan los PDFs de la aplicacion*/
-		/*start api que me permite descargar todas las visitas que se han hecho en el edificio*/
-		Route::get('pdfVisits','Controller@downloadPdf');
-		/*end api que me permite descargar todas las visitas que se han hecho en el edificio*/
 	/*end api que manejan los PDFs de la aplicacion*/
 /*end apis que tienen que ver con el modulo de visitas*/
 /*start api para cambiar la disponibilidad de las dependencias*/

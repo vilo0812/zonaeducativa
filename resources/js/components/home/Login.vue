@@ -13,6 +13,7 @@
 		:rules="emailRules"
 		v-model="email"
 		label="Correo: "
+		@keyup.enter="iniciarSesion"
 		></v-text-field>
 		<!-- end input de ingresar email -->
 		<!-- start input de igresar la contraseña -->
@@ -25,6 +26,7 @@
 		:rules="claveRules"
 		required
 		label="Contraseña: "
+		@keyup.enter="iniciarSesion"
 		></v-text-field>
 		<v-btn block text small color="primary" class="my-5" :to="{ name: 'PasswordRecover'}">recuperar contraseña
 			<v-icon small class="mx-2">mdi-key-change</v-icon>

@@ -2434,6 +2434,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3764,20 +3766,14 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       })["catch"](function (err) {
+        /*start en caso de algun error llenamos la variable error*/
         var er = err.response.data.mensaje;
         _this.errors = er;
         var mensaje = "error en el formulario, por favor intente de nuevo";
-        swal('Error', mensaje, 'warning'); // if(er.hasOwnProperty('email')){
-        //   let mensaje = er.email[0];
-        //   swal('Error',mensaje,'error');
-        // } else if(er.hasOwnProperty('emailWrong')){
-        //   let mensaje = er.emailWrong[0];
-        //   swal('Error',mensaje,'error');
-        // }
-
+        swal('Error', mensaje, 'warning');
         /*end anuncio si registro exitosamente*/
       });
-      /*end llamamos al api que permite registrar usuarios*/
+      /*end en caso de algun error llenamos la variable error*/
     },
     clear: function clear() {
       this.nombre = '';
@@ -4030,6 +4026,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4059,6 +4064,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      errors: [],
       drawer: null,
       usuario: [],
       id: '',
@@ -4208,8 +4214,14 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       })["catch"](function (err) {
-        console.log(err);
+        /*start en caso de algun error llenamos la variable error*/
+        var er = err.response.data.mensaje;
+        _this2.errors = er;
+        var mensaje = "error en el formulario, por favor intente de nuevo";
+        swal('Error', mensaje, 'warning');
+        /*end anuncio si registro exitosamente*/
       });
+      /*end en caso de algun error llenamos la variable error*/
     },
     clear: function clear() {
       this.nombre = '';
@@ -40767,6 +40779,17 @@ var render = function() {
           rules: _vm.emailRules,
           label: "Correo: "
         },
+        on: {
+          keyup: function($event) {
+            if (
+              !$event.type.indexOf("key") &&
+              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+            ) {
+              return null
+            }
+            return _vm.iniciarSesion($event)
+          }
+        },
         model: {
           value: _vm.email,
           callback: function($$v) {
@@ -40785,6 +40808,17 @@ var render = function() {
           rules: _vm.claveRules,
           required: "",
           label: "Contraseña: "
+        },
+        on: {
+          keyup: function($event) {
+            if (
+              !$event.type.indexOf("key") &&
+              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+            ) {
+              return null
+            }
+            return _vm.iniciarSesion($event)
+          }
         },
         model: {
           value: _vm.password,
@@ -42632,6 +42666,25 @@ var render = function() {
                         })
                       : _vm._e(),
                     _vm._v(" "),
+                    _vm.errors
+                      ? _c(
+                          "div",
+                          { staticClass: "font-weight-black err " },
+                          _vm._l(_vm.errors, function(err) {
+                            return _c("div", [
+                              _c(
+                                "ul",
+                                _vm._l(err, function(e) {
+                                  return _c("li", [_vm._v(_vm._s(e))])
+                                }),
+                                0
+                              )
+                            ])
+                          }),
+                          0
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
                     _c(
                       "v-btn",
                       {
@@ -43029,7 +43082,7 @@ var render = function() {
                     "v-btn",
                     {
                       staticClass: "ma-2 white--text",
-                      attrs: { color: "blue", href: "api/pdfVisits" }
+                      attrs: { color: "blue", href: "/pdfVisits" }
                     },
                     [
                       _vm._v("\n          Descargar PDF\n          "),
@@ -98695,6 +98748,11 @@ function initialize(store, router) {
   /*start funcion que me mandara al login si se acaba la sesion y intento utilizar un axios*/
 
   axios.interceptors.response.use(null, function (error) {
+    if (error.response.status == 404) {
+      store.commit('logout');
+      router.push('/');
+    }
+
     if (error.response.status == 401) {
       store.commit('logout');
       router.push('/');

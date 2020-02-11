@@ -179,6 +179,15 @@
               label="Pertenencias: "
             ></v-textarea>
         <!-- end pertenencias -->
+        <!-- start mostramos el error que se provoca si las contraseñas no son las mismas -->
+        <div class="font-weight-black err " v-if="errors">
+            <div v-for="err in errors">
+                <ul>
+                  <li v-for="e in err">{{e}}</li>
+                </ul>
+            </div>
+        </div>
+        <!-- end mostramos el error que se provoca si las contraseñas no son las mismas -->
         <!-- start botones de registrar y limpiar -->
         <v-btn @click="submit" class="mr-4 light-blue accent-4">
         <span>Registrar</span>
@@ -227,6 +236,7 @@ import ContentCenter from '.././structures/Center.vue'
     },
   	data () {
   	  return {
+        errors:[],
   	    drawer: null,
         usuario:[],
         id:'',
@@ -367,8 +377,14 @@ import ContentCenter from '.././structures/Center.vue'
             }
           });
         }).catch(err => {
-          console.log(err);
+          /*start en caso de algun error llenamos la variable error*/
+          let er = err.response.data.mensaje;
+          this.errors = er;
+          let mensaje = "error en el formulario, por favor intente de nuevo";
+           swal('Error',mensaje,'warning');
+          /*end anuncio si registro exitosamente*/
         });
+        /*end en caso de algun error llenamos la variable error*/
   	  },
   	  clear () {
         this.nombre = ''
