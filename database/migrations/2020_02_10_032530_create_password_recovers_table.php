@@ -28,6 +28,6 @@ class CreatePasswordRecoversTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('password_recover');
+        Schema::dropIfExists('password_recovers');
     }
 }

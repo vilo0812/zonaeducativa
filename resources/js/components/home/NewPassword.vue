@@ -26,6 +26,7 @@
           </v-tooltip>
           <!-- end ojo que muestra la contraseña -->
         </v-row>
+        <!-- start input de la segunda contraseña -->
         <v-text-field
           class="mb-4"
           :type="mostrar"
@@ -38,6 +39,8 @@
           prepend-icon="mdi-key"
           >
           </v-text-field>
+                  <!-- end input de la segunda contraseña -->
+
           <!-- start mostramos el error que se provoca si las contraseñas no son las mismas -->
 
 		<p class="font-weight-black err" v-if="repetirError">las contraseñas deben ser iguales</p>

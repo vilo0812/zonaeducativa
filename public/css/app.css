@@ -6203,6 +6203,9 @@
 .v-application--is-rtl .v-textarea.v-text-field--enclosed .v-text-field__slot textarea {
   padding-left: 12px;
 }
+.err{
+  color:red;
+}
 .fondo-2{
     background: #EEEEEE;
     min-height: 700px;

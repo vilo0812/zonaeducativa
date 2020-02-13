@@ -51,7 +51,6 @@ class VisitorController extends Controller
             'identification_card'=>$request['identification_card'],
             'email'=>$request['email'],
             'phone'=>$request['phone'],
-            'provenance'=>$request['provenance'],
             'rol_id'=>3
         ]);
         $id=$user->id;
@@ -66,6 +65,7 @@ class VisitorController extends Controller
         'handling_time_id'=>$time->id,
         'ticket_id'=>$request->ticket_id,
         'direction_id'=>$direccion[0]->id,
+        'provenance'=>$request['provenance'],
         'belongings'=>$request->belogings,
         'observation'=>$request->observation,
         ]);

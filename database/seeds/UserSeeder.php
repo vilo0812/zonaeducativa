@@ -21,7 +21,6 @@ class UserSeeder extends Seeder
     		"identification_card"=>"27167028",
     		"email"=>"gabriel.viloria0812@gmail.com",
 			"phone"=>"04149017184",
-			"provenance"=>"Roscio",
 			"password"=>bcrypt("1234"),
 			"rol_id"=>1
     	]);

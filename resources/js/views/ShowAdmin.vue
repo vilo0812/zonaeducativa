@@ -68,14 +68,14 @@
           <v-icon>mdi-cellphone</v-icon>
         </v-list-item-icon>
 
-        <v-list-item-title>Cedula: {{administrador.phone}}</v-list-item-title>
+        <v-list-item-title>Teléfono: {{administrador.phone}}</v-list-item-title>
       </v-list-item>
       <v-list-item >
         <v-list-item-icon>
           <v-icon>mdi-email</v-icon>
         </v-list-item-icon>
 
-        <v-list-item-title>Cedula: {{administrador.email}}</v-list-item-title>
+        <v-list-item-title>Correo: {{administrador.email}}</v-list-item-title>
       </v-list-item>
 	<!-- end nombre,apellido,cedula,telefono,municipio -->
 	<!-- start botones de editar y eliminar red lighten-1-->

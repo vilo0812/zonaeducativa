@@ -2581,6 +2581,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3628,6 +3631,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3639,6 +3652,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      repetirError: false,
       errors: [],
       drawer: null,
       nombre: '',
@@ -3651,6 +3665,8 @@ __webpack_require__.r(__webpack_exports__);
       cedulaError: false,
       clave: '',
       claveError: false,
+      repetirClave: '',
+      repetirClaveError: false,
       claveShow: false,
       viewPass: false,
       telefono: '',
@@ -3674,6 +3690,9 @@ __webpack_require__.r(__webpack_exports__);
       }],
       claveRules: [function (v) {
         return !!v || 'la clave es obligatoria';
+      }],
+      repetirClaveRules: [function (v) {
+        return !!v || 'repetir la clave es obligatorio';
       }]
     };
   },
@@ -3688,6 +3707,8 @@ __webpack_require__.r(__webpack_exports__);
       this.tlfError = false;
       this.emailError = false;
       this.claveError = false;
+      this.repetirError = false;
+      this.repetirClaveError = false;
 
       if (this.nombre.trim() == '') {
         this.nombreError = true;
@@ -3731,6 +3752,12 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.clave.trim() == '') {
         this.claveError = true;
+      }
+
+      if (this.clave != this.repetirClave) {
+        this.repetirClaveError = true;
+        this.claveError = true;
+        this.repetirError = true;
       }
 
       if (this.nombreError == false && this.apellidoError == false && this.cedulaError == false && this.tlfError == false && this.emailError == false && this.claveError == false) {
@@ -42243,23 +42270,30 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _vm.errors
-                    ? _c(
-                        "div",
-                        { staticClass: "font-weight-black err " },
-                        _vm._l(_vm.errors, function(err) {
-                          return _c("div", [
-                            _c(
-                              "ul",
-                              _vm._l(err, function(e) {
-                                return _c("li", [_vm._v(_vm._s(e))])
-                              }),
-                              0
-                            )
-                          ])
-                        }),
-                        0
-                      )
+                  _c("v-text-field", {
+                    staticClass: "mb-4",
+                    attrs: {
+                      type: _vm.mostrar,
+                      label: "Clave: Ej: kfc2020$",
+                      error: _vm.repetirClaveError,
+                      rules: _vm.repetirClaveRules,
+                      counter: 50,
+                      required: "",
+                      "prepend-icon": "mdi-key"
+                    },
+                    model: {
+                      value: _vm.repetirClave,
+                      callback: function($$v) {
+                        _vm.repetirClave = $$v
+                      },
+                      expression: "repetirClave"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.repetirError
+                    ? _c("p", { staticClass: "font-weight-black err" }, [
+                        _vm._v("las contraseñas deben ser iguales")
+                      ])
                     : _vm._e(),
                   _vm._v(" "),
                   _c(
@@ -42919,7 +42953,9 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("v-list-item-title", [
-                            _vm._v("Cedula: " + _vm._s(_vm.administrador.phone))
+                            _vm._v(
+                              "Teléfono: " + _vm._s(_vm.administrador.phone)
+                            )
                           ])
                         ],
                         1
@@ -42935,7 +42971,7 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("v-list-item-title", [
-                            _vm._v("Cedula: " + _vm._s(_vm.administrador.email))
+                            _vm._v("Correo: " + _vm._s(_vm.administrador.email))
                           ])
                         ],
                         1

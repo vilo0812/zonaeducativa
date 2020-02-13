@@ -105,16 +105,26 @@
             <span>{{mostrarMensaje}}</span>
           </v-tooltip>
         </v-row>
-        <!-- end input clave -->
-        <!-- start mostramos el error que se provoca si las contraseñas no son las mismas -->
-        <div class="font-weight-black err " v-if="errors">
-            <div v-for="err in errors">
-                <ul>
-                  <li v-for="e in err">{{e}}</li>
-                </ul>
-            </div>
-        </div>
-        <!-- end mostramos el error que se provoca si las contraseñas no son las mismas -->
+        <!-- end input clave --><!-- start input de la segunda contraseña -->
+        <v-text-field
+          class="mb-4"
+          :type="mostrar"
+          v-model="repetirClave"
+          label="Clave: Ej: kfc2020$"
+          :error="repetirClaveError"
+           :rules="repetirClaveRules"
+          :counter="50"
+          required
+          prepend-icon="mdi-key"
+          >
+          </v-text-field>
+                  <!-- end input de la segunda contraseña -->
+
+          <!-- start mostramos el error que se provoca si las contraseñas no son las mismas -->
+
+            <p class="font-weight-black err" v-if="repetirError">las contraseñas deben ser iguales</p>
+
+          <!-- end mostramos el error que se provoca si las contraseñas no son las mismas -->
         <!-- start botoner de submit y clean -->
         <v-btn @click="submit()" class="mr-4 success accent-4">
         <span>Registrar</span>
@@ -145,6 +155,7 @@ import ContentCenter from '.././structures/Center.vue'
   	},
   	data () {
   	  return {
+        repetirError:false,
         errors:[],
   	    drawer: null,
   	    nombre:'',
@@ -157,6 +168,8 @@ import ContentCenter from '.././structures/Center.vue'
         cedulaError:false,
         clave:'',
         claveError:false,
+        repetirClave:'',
+        repetirClaveError:false,
         claveShow:false,
         viewPass:false,
   	    telefono:'',
@@ -179,7 +192,10 @@ import ContentCenter from '.././structures/Center.vue'
       ],
         claveRules:[
         v => !!v || 'la clave es obligatoria',
-        ]
+        ],
+        repetirClaveRules:[
+      v => !!v || 'repetir la clave es obligatorio',
+      ]
   	  };
   	},
   	methods: {
@@ -193,6 +209,8 @@ import ContentCenter from '.././structures/Center.vue'
             this.tlfError=false
             this.emailError=false
             this.claveError=false;
+            this.repetirError=false;
+            this.repetirClaveError=false;
             if(this.nombre.trim() == ''){
             this.nombreError=true;
             }
@@ -225,6 +243,11 @@ import ContentCenter from '.././structures/Center.vue'
             }
             if(this.clave.trim() == ''){
             this.claveError=true;
+            }
+            if(this.clave != this.repetirClave){
+            this.repetirClaveError=true;
+            this.claveError=true;
+            this.repetirError=true;
             }
             if(this.nombreError==false && this.apellidoError==false && this.cedulaError==false && this.tlfError==false && this.emailError==false && this.claveError==false){
             this.registrar();
@@ -301,6 +324,9 @@ import ContentCenter from '.././structures/Center.vue'
   }
 </script>
 <style>
+.err{
+  color:red;
+}
 .fondo-2{
     background: #EEEEEE;
     min-height: 700px;
