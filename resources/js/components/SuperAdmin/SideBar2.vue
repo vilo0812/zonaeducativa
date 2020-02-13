@@ -54,7 +54,9 @@
   },
 	data () {
   	  return {
-  	    items: [
+        items: [
+        { icon: 'mdi-account-edit', text: 'Registrar Jefe de Zona',direccion:'register-leader-zone'},
+        { icon: 'mdi-account-edit', text: 'Ver Jefes de Zona',direccion:'view-leader-zone'},
         { icon: 'mdi-account-edit', text: 'Registrar Administrador',direccion:'register-admin'},
         { icon: 'mdi-google-nearby', text: 'Control de Dependencias',direccion:'controller-dependenci'},
         { icon: 'mdi-pencil', text: 'Registrar Visita',direccion:'register-visits'},

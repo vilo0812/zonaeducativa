@@ -29,7 +29,7 @@
         <!-- start input de la segunda contraseña -->
         <v-text-field
           class="mb-4"
-          :type="mostrar"
+          type="password"
           v-model="repetirClave"
           label="Clave: Ej: kfc2020$"
           :error="repetirClaveError"

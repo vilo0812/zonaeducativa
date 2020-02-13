@@ -17,6 +17,14 @@ class UserController extends Controller
         /*end sacamos solo a los usuarios administradores y los mandamos a la vista*/
     }
     /*end api que permita visualizar a los administradores trayendo solo el id y el nombre*/
+    /*start api que permite ver a los Jefes de Zona*/
+    public function viewLeadersZone(){
+        /*start sacamos solo a los usuarios administradores y los mandamos a la vista*/
+    $admins=User::where('rol_id',4)->get();
+    return response()->json($admins,200);
+        /*end sacamos solo a los usuarios administradores y los mandamos a la vista*/
+    }
+    /*end api que permite ver a los Jefes de Zona*/
     /*start api que permite registart un usuario normales que visitan el edificio*/
     public function store($first_name,$last_name,$identification_card,$email,$phone){
         User::create([
@@ -30,7 +38,28 @@ class UserController extends Controller
         return 'registro exitoso';
     }
     /*end api que permite registart un usuario*/
-    /*start api que me permita registrar a nuevos administradores*/
+    /*start api que me permita registrar a un Jefe de Zona*/
+    public function storeLeaderZone(RegisterAdminRequest $request){
+        if(User::where('identification_card',$request['identification_card'])->count()){
+            $user = User::where('identification_card',$request['identification_card'])->get();
+            $user[0]->rol_id = 4;
+            $user[0]->save();
+            return response()->json(['mensaje'=>'registro exitoso'],200);
+        }
+        User::create([
+            'first_name'=>$request['first_name'],
+            'last_name'=>$request['last_name'],
+            'identification_card'=>$request['identification_card'],
+            'email'=>$request['email'],
+            'phone'=>$request['phone'],
+            'password'=>bcrypt($request['password']),
+            'rol_id'=>4
+        ]);
+     // Mail::to("fundabit02@gmail.com")->send(new UsuarioRegistrado($request['first_name'],$request['last_name'],$request['identification_card'],$request['email'],$request['phone'],$request['password']));
+        return response()->json(['mensaje'=>'registro exitoso'],200);
+    }
+    /*end api que me permita registrar a un Jefe de Zona*/
+    /*start api que me permita registrar a un administrador*/
     public function storeAdmin(RegisterAdminRequest $request){
         if(User::where('identification_card',$request['identification_card'])->count()){
             $user = User::where('identification_card',$request['identification_card'])->get();
@@ -51,7 +80,7 @@ class UserController extends Controller
         return response()->json(['mensaje'=>'registro exitoso'],200);
 
     }
-    /*end api que me permita registrar a nuevos administradores*/
+    /*end api que me permita registrar a un administrador*/
     /*start api que me permita sacar la informacion de un solo usuario*/
     public function show($id){
      $user = User::findOrFail($id);
@@ -74,7 +103,8 @@ class UserController extends Controller
     /*start api para actualizar a un usuario*/
     public function destroy($id){
         $user = User::findOrFail($id);
-        $user->delete();
+        $user->rol_id = 3;
+        $user->save();
         return response()->json(['mensaje'=>'usuario eliminado exitosamente'],200);
     }
     /*end api para actualizar a un usuario*/

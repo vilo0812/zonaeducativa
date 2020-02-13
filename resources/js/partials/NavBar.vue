@@ -9,7 +9,6 @@
     >
       <v-app-bar-nav-icon
       @click.stop="$emit('showSideBar')"/>
-      <v-icon class="mx-4">mdi-crown</v-icon>
       <v-toolbar-title class="mr-12 align-center">
         <span class="title font-weight-black">Zona Educativa</span>
       </v-toolbar-title>

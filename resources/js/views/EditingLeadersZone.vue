@@ -168,7 +168,7 @@ import ContentCenter from '.././structures/Center.vue'
       		CloseOnEsc:false
       	}).then(select=>{
       		if(select){
-      		this.$router.push({ name: 'show-admin', params: {id:this.administrador.id}})
+      		this.$router.push({ name: 'view-leader-zone'})
       		}
 		});
         /*end anuncio que afirma que se ha registrado correctamente*/
@@ -177,7 +177,7 @@ import ContentCenter from '.././structures/Center.vue'
   	  },
   	  cancel(){
   	  	/*start metodo que permite volver a la vista de showAdmin*/
-  	  this.$router.push({ name: 'show-admin', params: {id:this.administrador.id}})
+  	  this.$router.push({ name: 'view-leader-zone'})
   	  	/*end metodo que permite volver a la vista de showAdmin*/
   	  },
   	  clear () {

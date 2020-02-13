@@ -25,9 +25,14 @@ class RolSeeder extends Seeder
         /*end creamos el super admin*/
         /*start creamos el visitante*/
         Rol::create([
-        	"rol"=>"visitante"
+            "rol"=>"visitante"
         ]);
         /*end creamos el visitante*/
+        /*start creamos el Jefe de Zona*/
+        Rol::create([
+            "rol"=>"Jefe de Zona"
+        ]);
+        /*end creamos el Jefe de Zona*/
     }
     /*end roles de los usuarios//super admin//admin//visitante//*/
 }

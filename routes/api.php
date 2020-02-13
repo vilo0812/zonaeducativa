@@ -25,14 +25,17 @@ Route::group([
 	/*start api para registrar un administrador*/
 	Route::post('storeAdmin','UserController@storeAdmin');
 	/*end api para registrar un administrador*/
+	/*start api para registrar un jefe de zona*/
+	Route::post('storeLeaderZone','UserController@storeLeaderZone');
+	/*end api para registrar un jefe de zona*/
 	/*start api para ver un solo administrador*/
 	Route::get('showUser/{id}','UserController@show');
 	/*end api para ver un solo administrador*/
 	/*start api para actualizar el administrador*/
-	Route::put('updateAdmin','UserController@update');
+	Route::put('updateUser','UserController@update');
 	/*end api para actualizar el administrador*/
 	/*start api para eliminar el administrador*/
-	Route::delete('deleteAdmin/{id}','UserController@destroy');
+	Route::delete('deleteUser/{id}','UserController@destroy');
 	/*end api para eliminar el administrador*/
 /*end apis que el super administrador usa para manejar a los administradores*/
 /*start apis que tienen que ver con el modulo de visitas*/
@@ -62,6 +65,9 @@ Route::group([
 	/*start api para ver a los administrador*/
 	Route::get('viewAdmins','UserController@viewAdmins');
 	/*end api api para ver a los administrador*/
+	/*start api para ver a los Jefes de Zona*/
+	Route::get('viewLeadersZone','UserController@viewLeadersZone');
+	/*end api api para ver a los Jefes de Zona*/
 	/*start api para ver los pisos del edificio*/
 	Route::get('viewFloors','DirectionController@viewFloors');
 	/*end api para ver a las zonas del edificio*/

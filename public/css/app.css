@@ -6212,6 +6212,24 @@
 }
 
 .fondo{
+  background: #EEEEEE;
+  min-height: 700px;
+}
+
+.fondo{
+    background: #EEEEEE;
+    min-height: 700px;
+}
+
+.err{
+  color:red;
+}
+.fondo-2{
+    background: #EEEEEE;
+    min-height: 700px;
+}
+
+.fondo{
     background: #EEEEEE;
     min-height: 700px;
 }

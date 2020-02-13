@@ -170,7 +170,7 @@ export default {
 			  	// 	'id':this.id
 			  	// }
 			  	// axios.delete('/api/deleteAdmin',parametros).then(res => {
-            let url=`/api/deleteAdmin/` + this.id;
+            let url=`/api/deleteUser/` + this.id;
             axios.delete(url).then(res => {
 			  	  /*start pantalla que informa que se elimino correctamente*/
 			  	  swal("su usuario ha sido eliminado!", {
@@ -180,7 +180,7 @@ export default {
 			    }).then(select=>{
 			    	/*start si el usuario pulsa el boton sera redirijido al welcome*/
 			    	if(select){
-			    	this.$router.push({ name: 'controller-dependenci'})
+			    	this.$router.push({ name: 'Gestion'})
 			    	}
 			    	/*end si el usuario pulsa el boton sera redirijido al welcome*/
 			    });
