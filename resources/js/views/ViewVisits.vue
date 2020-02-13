@@ -8,13 +8,10 @@
       v-model="drawer"
       app
       clipped
-    >	<!-- start seleccionamos el side bar dependiendo del tipo de usuario -->
-     <!-- start llamamos al side var del  administrador -->
-      <side-bar v-if="rol == 1"></side-bar>
-      <!-- end llamamos al side var del administrador -->
-      <!-- start llamamos al side var del super administrador -->
-      <side-bar-admin v-if="rol == 2"></side-bar-admin>
-      <!-- end llamamos al side var del super administrador -->
+    >
+    <!-- start side bar -->
+      <side-bar></side-bar>
+      <!-- end side  bar -->
     </v-navigation-drawer>
     <!-- end cuadro que se mantiene oculto y solo aparecera si drawer es true -->
     <!-- start el main donde ira el contenido principal -->
@@ -61,6 +58,7 @@
                 appear
                 >
           <tbody>
+            <template v-if="visitas.length">
             <tr v-for="item in visitas" :key="item.id">
               <td>{{ item.first_name }}</td>
               <td>{{ item.last_name }}</td>
@@ -70,6 +68,10 @@
               <td>{{ item.input }}</td>
               <td>{{ item.output }}</td>
             </tr>
+          </template>
+          <template v-else>
+              <h2 class="text-center">no hay registros...</h2>
+          </template>
           </tbody>
         </transition>
         </template>
@@ -84,8 +86,7 @@
 </template>
 
 <script>
-import Side from '.././components/SuperAdmin/SideBar.vue'
-import Side2 from '.././components/Admin/SideBar.vue'
+import Side from '.././partials/SideBar.vue'
 import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
   export default {
@@ -98,7 +99,6 @@ import ContentCenter from '.././structures/Center.vue'
     },
   	components:{
   		'side-bar':Side,
-      'side-bar-admin':Side2,
   		'nav-bar':Nav,
   		'content-center':ContentCenter,
   	},

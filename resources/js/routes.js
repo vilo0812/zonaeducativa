@@ -12,10 +12,9 @@ import RegisterVisits from './views/RegisterVisits.vue';
 /*start componentes que gestionan a los administradores*/
 import RegisterLeaderZone from './views/RegisterLeaderZone.vue';
 import ViewLeadersZone from './views/ViewLeadersZone.vue';
-import EditingLeadersZone from './views/EditingLeadersZone.vue';
 import RegisterAdmin from './views/RegisterAdmin.vue';
 import ShowAdmin from './views/ShowAdmin.vue';
-import EditingAdmin from './views/EditingAdmin.vue';
+import EditUser from './views/EditUser.vue';
 /*end componentes que gestionan a los administradores*/
 export const routes = [
   /*
@@ -104,16 +103,6 @@ export const routes = [
     }
   },
   {
-    path:'/editingLeadersZone/:id',
-    component:EditingLeadersZone,
-    props: true,
-    name:'editing-leader-zone',
-    meta:{
-      requiresAuth: true,
-      requiresAuthSuperAdmin: true,
-    }
-  },
-  {
     path:'/registerAdmin',
     component:RegisterAdmin,
     name:'register-admin',
@@ -140,21 +129,19 @@ export const routes = [
     props: true,
     meta:{
       requiresAuth: true,
-      requiresAuthSuperAdmin: true,
     }
   },
   /*end mostrar el perfil de administrador*/
-  /*start editar el adiministrador*/
+  /*start editar usuario*/
   {
-    path:'/editingAdmin/:id',
-    component:EditingAdmin,
-    name:'editing-admin',
+    path:'/EditUser/:id',
+    component:EditUser,
+    name:'edit-user',
     props: true,
     meta:{
       requiresAuth: true,
-      requiresAuthSuperAdmin: true,
     }
   },
-  /*end editar el adiministrador*/
+  /*end editar usuario*/
 /*manejador de administradores*/
 ]

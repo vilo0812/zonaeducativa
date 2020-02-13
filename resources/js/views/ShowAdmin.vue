@@ -8,13 +8,10 @@
       v-model="drawer"
       app
       clipped
-    >	<!-- start seleccionamos el side bar dependiendo del tipo de usuario -->
-     <!-- start llamamos al side var del  administrador -->
-      <side-bar v-on:update="go" v-if="rol == 1"></side-bar>
-      <!-- end llamamos al side var del administrador -->
-      <!-- start llamamos al side var del super administrador -->
-      <side-bar-admin v-on:update="go" v-if="rol == 2"></side-bar-admin>
-      <!-- end llamamos al side var del super administrador -->
+    >
+      <!-- start side bar -->
+      <side-bar v-on:update="go"></side-bar>
+      <!-- end side  bar -->
     </v-navigation-drawer>
     <!-- end cuadro que se mantiene oculto y solo aparecera si drawer es true -->
     <!-- start el main donde ira el contenido principal -->
@@ -86,7 +83,7 @@
       </v-btn>
       <v-btn @click="remove" class="red lighten-1">
         <span>Eliminar</span>
-        <v-icon>mdi-account-remove</v-icon>
+        <v-icon>mdi-delete</v-icon>
       </v-btn>
     </v-card-actions>
 	<!-- end botones de editar y eliminar -->
@@ -101,8 +98,7 @@
 </template>
 
 <script>
-import Side from '.././components/SuperAdmin/SideBar2.vue'
-import Side2 from '.././components/Admin/SideBar2.vue'
+import Side from '.././partials/SideBar.vue'
 import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
 export default {
@@ -115,7 +111,6 @@ export default {
   props:['id'],
   components:{
   		'side-bar':Side,
-      'side-bar-admin':Side2,
   		'nav-bar':Nav,
   		'content-center':ContentCenter,
   },
@@ -141,7 +136,7 @@ export default {
     /*end llamamos al api que nos trae toda la informacion de este usuario*/
     },
     editing () {
-      this.$router.push({ name: 'editing-admin', params: {id:this.administrador.id}})
+      this.$router.push({ name: 'edit-user', params: {id:this.administrador.id}})
     },
     remove(){
     	/*start pantalla de evaluar si de verdad se quiere eliminar*/

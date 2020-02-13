@@ -3,10 +3,11 @@
       <v-list dense>
         <!-- start desplegamos las acciones que tendra disponible el super usuario -->
         <v-list-item
-        v-for="item in items"
+        v-for="item in modules"
         :key="item.text"
         link
         :to="{ name: item.direccion}"
+        color="darkgray"
         >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -29,11 +30,19 @@
             @click.stop="$emit('update')"
           >
             <v-list-item-avatar>
+              <v-img v-if="$route.name == 'edit-user' || $route.name == 'show-admin'"
+                class="redondo"
+                height="200"
+                width="200"
+                src="../images/users/defect.jpg"
+              ></v-img>
               <v-img
-              src="../images/users/defect.jpg"
-              alt=""
-              >
-              </v-img>
+                v-else
+                class="redondo"
+                height="200"
+                width="200"
+                src="images/users/defect.jpg"
+              ></v-img>
             </v-list-item-avatar>
             <v-list-item-title v-text="item.first_name" />
           </v-list-item>
@@ -54,17 +63,34 @@
   },
 	data () {
   	  return {
-        items: [
-        { icon: 'mdi-account-edit', text: 'Registrar Jefe de Zona',direccion:'register-leader-zone'},
-        { icon: 'mdi-account-edit', text: 'Ver Jefes de Zona',direccion:'view-leader-zone'},
-        { icon: 'mdi-account-edit', text: 'Registrar Administrador',direccion:'register-admin'},
+  	    itemsSuperAdmin: [
+        { icon: 'mdi-account-multiple-plus', text: 'Registrar Jefe de Zona',direccion:'register-leader-zone'},
+        { icon: 'mdi-library', text: 'Ver Jefes de Zona',direccion:'view-leader-zone'},
+        { icon: 'mdi-account-multiple-plus', text: 'Registrar Administrador',direccion:'register-admin'},
         { icon: 'mdi-google-nearby', text: 'Control de Dependencias',direccion:'controller-dependenci'},
+        { icon: 'mdi-pencil', text: 'Registrar Visita',direccion:'register-visits'},
+        { icon: 'mdi-star', text: 'Gestion de Visitas', direccion:'Gestion'},
+        { icon: 'mdi-book-open-variant', text: 'Visualizar Visitas',direccion:'view-visits'},
+      ],
+      itemsAdmin: [
         { icon: 'mdi-pencil', text: 'Registrar Visita',direccion:'register-visits'},
         { icon: 'mdi-star', text: 'Gestion de Visitas', direccion:'Gestion'},
         { icon: 'mdi-book-open-variant', text: 'Visualizar Visitas',direccion:'view-visits'},
       ],
       administradores: []
   	  };
-  	}
+  	},
+    computed: {
+      modules(){
+        if(this.rol == 1){
+          return this.itemsSuperAdmin;
+        }else{
+          return this.itemsAdmin;
+        }
+      },
+      rol() {
+        return this.$store.state.currentUser.rol_id;
+      }
+    }
 }
 </script>

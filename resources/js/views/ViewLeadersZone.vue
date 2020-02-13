@@ -8,13 +8,9 @@
       v-model="drawer"
       app
       clipped
-    >	<!-- start seleccionamos el side bar dependiendo del tipo de usuario -->
-     <!-- start llamamos al side var del  administrador -->
-      <side-bar v-if="rol == 1"></side-bar>
-      <!-- end llamamos al side var del administrador -->
-      <!-- start llamamos al side var del super administrador -->
-      <side-bar-admin v-if="rol == 2"></side-bar-admin>
-      <!-- end llamamos al side var del super administrador -->
+    >	<!-- start side bar -->
+      <side-bar></side-bar>
+      <!-- end side  bar -->
     </v-navigation-drawer>
     <!-- end cuadro que se mantiene oculto y solo aparecera si drawer es true -->
     <!-- start el main donde ira el contenido principal -->
@@ -43,6 +39,7 @@
                 appear
                 >
           <tbody>
+            <template v-if="visitas.length">
             <tr v-for="(item, index) in LeadersZone" :key="item.id">
               <td>{{ item.first_name }}</td>
               <td>{{ item.last_name }}</td>
@@ -50,10 +47,20 @@
               <td>{{ item.phone }}</td>
               <td>{{item.email}}</td>
               <td>
-                <v-btn @click="editing(item.id)" color="primary">editar</v-btn>
-                <v-btn @click="remove(item.id,index)" color="red lighten-1">eliminiar</v-btn>
+                <v-btn @click="editing(item.id)" color="primary">
+                <span>Editar</span>
+                <v-icon class="ml-2">mdi-account-edit</v-icon>
+                </v-btn>
+                <v-btn @click="remove(item.id,index)" color="red lighten-1">
+                <span>Eliminiar</span>
+                <v-icon class="ml-2">mdi-delete</v-icon>
+                </v-btn>
               </td>
             </tr>
+            </template>
+            <template v-else>
+              <h2 class="text-center">no hay registros...</h2>
+            </template>s
           </tbody>
         </transition>
         </template>
@@ -68,8 +75,7 @@
 </template>
 
 <script>
-import Side from '.././components/SuperAdmin/SideBar.vue'
-import Side2 from '.././components/Admin/SideBar.vue'
+import Side from '.././partials/SideBar.vue'
 import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
   export default {
@@ -82,7 +88,6 @@ import ContentCenter from '.././structures/Center.vue'
     },
   	components:{
   		'side-bar':Side,
-      'side-bar-admin':Side2,
   		'nav-bar':Nav,
   		'content-center':ContentCenter,
   	},
@@ -94,7 +99,7 @@ import ContentCenter from '.././structures/Center.vue'
   	},
     methods: {
       editing (UserId) {
-      this.$router.push({ name: 'editing-leader-zone',params:{id:UserId}})
+      this.$router.push({ name: 'edit-user',params:{id:UserId}})
       // this.$router.push({ name: 'editing-leader-zone', params: {id:UserId}})
       },
       remove(id,index){

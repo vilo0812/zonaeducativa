@@ -9,13 +9,9 @@
       app
       clipped
     >
-    <!-- start seleccionamos el side bar dependiendo del tipo de usuario -->
-     <!-- start llamamos al side var del  administrador -->
-      <side-bar v-if="rol == 1"></side-bar>
-      <!-- end llamamos al side var del administrador -->
-      <!-- start llamamos al side var del super administrador -->
-      <side-bar-admin v-if="rol == 2"></side-bar-admin>
-      <!-- end llamamos al side var del super administrador -->
+    <!-- start side bar -->
+      <side-bar></side-bar>
+      <!-- end side  bar -->
     </v-navigation-drawer>
     <!-- end cuadro que se mantiene oculto y solo aparecera si drawer es true -->
     <!-- start el main donde ira el contenido principal -->
@@ -23,7 +19,7 @@
     	<!-- start contenido de muestra -->
   <v-card class="d-inline-block mx-auto" color="grey darken-2" width="600px">
     <v-container>
-      	<h1 class="text-center">Actualizar Administrador</h1>
+      	<h1 class="text-center">Actualizar Perfil</h1>
 			<form>
 				<!--
 				posibles validaciones
@@ -35,8 +31,8 @@
         label="Nombre: "
         required
         prepend-icon="mdi-account"
-        :placeholder="administrador.first_name"
-        :value="administrador.first_name"
+        :placeholder="user.first_name"
+        :value="user.first_name"
         ></v-text-field>
         <!-- end input nombre -->
         <!-- start input apellido -->
@@ -45,8 +41,8 @@
         label="Apellido: "
         required
         prepend-icon="mdi-account-settings"
-        :placeholder="administrador.last_name"
-        :value="administrador.last_name"
+        :placeholder="user.last_name"
+        :value="user.last_name"
         ></v-text-field>
         <!-- end input apellido -->
         <!-- start input cedula -->
@@ -55,8 +51,8 @@
         label="Cédula: "
         required
         prepend-icon="mdi-account-card-details"
-        :placeholder="administrador.identification_card"
-        :value="administrador.identification_card"
+        :placeholder="user.identification_card"
+        :value="user.identification_card"
         ></v-text-field>
         <!-- end input cedula -->
         <!-- start input telefono -->
@@ -65,8 +61,8 @@
         label="Teléfono: "
         required
         prepend-icon="mdi-cellphone"
-        :placeholder="administrador.phone"
-        :value="administrador.phone"
+        :placeholder="user.phone"
+        :value="user.phone"
         ></v-text-field>
         <!-- end input telefono -->
         <!-- start input correo -->
@@ -75,8 +71,8 @@
         label="Correo"
         required
         prepend-icon="mdi-email"
-        :placeholder="administrador.email"
-        :value="administrador.email"
+        :placeholder="user.email"
+        :value="user.email"
         ></v-text-field>
         <!-- end input correo -->
         <!-- start botoner de submit y clean -->
@@ -86,7 +82,7 @@
       </v-btn>
       <v-btn @click="cancel" class="red lighten-1">
         <span>Cancelar</span>
-        <v-icon>mdi-account-remove</v-icon>
+        <v-icon>mdi-cancel</v-icon>
       </v-btn>
         <!-- end botoner de submit y clean -->
 			</form>
@@ -99,15 +95,13 @@
 </template>
 
 <script>
-import Side from '.././components/SuperAdmin/SideBar2.vue'
-import Side2 from '.././components/Admin/SideBar.vue'
+import Side from '.././partials/SideBar.vue'
 import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
   export default {
   props:['id'],
   	components:{
   		'side-bar':Side,
-      'side-bar-admin':Side2,
   		'nav-bar':Nav,
   		'content-center':ContentCenter,
   	},
@@ -115,7 +109,7 @@ import ContentCenter from '.././structures/Center.vue'
   	/*start llamamos al api que nos trae toda la informacion de este usuario para colocarla por defecto en los formularios*/
   	let url = '/api/showUser/' + this.id;
   	axios.get(url).then(res => {
-  	  this.administrador=res.data.user
+  	  this.user=res.data.user
   	}).catch(err => {
   	  console.log(err);
   	});
@@ -129,7 +123,7 @@ import ContentCenter from '.././structures/Center.vue'
   	    correo:'',
   	    cedula:'',
   	    telefono:'',
-  	    administrador:''
+  	    user:[]
   	  };
   	},
   	methods: {
@@ -137,19 +131,19 @@ import ContentCenter from '.././structures/Center.vue'
         /*start llenamos nuestro objeto*/
         /*por si acaso algun valor queda vacio*/
         if(!this.nombre){
-        this.nombre=this.administrador.first_name
+        this.nombre=this.user.first_name
         }if(!this.apellido){
-        this.apellido=this.administrador.last_name
+        this.apellido=this.user.last_name
         }if(!this.correo){
-        this.correo=this.administrador.email
+        this.correo=this.user.email
         }if(!this.cedula){
-        this.cedula=this.administrador.identification_card
+        this.cedula=this.user.identification_card
         }if(!this.telefono){
-        this.telefono=this.administrador.phone
+        this.telefono=this.user.phone
         }
         /*por si acaso algun valor queda vacio*/
         let parametros={
-          'id':this.administrador.id,
+          'id':this.user.id,
           'first_name':this.nombre,
           'last_name':this.apellido,
           'email':this.correo,
@@ -168,7 +162,7 @@ import ContentCenter from '.././structures/Center.vue'
       		CloseOnEsc:false
       	}).then(select=>{
       		if(select){
-      		this.$router.push({ name: 'show-admin', params: {id:this.administrador.id}})
+      		this.$router.push({ name: 'view-leader-zone'})
       		}
 		});
         /*end anuncio que afirma que se ha registrado correctamente*/
@@ -176,9 +170,9 @@ import ContentCenter from '.././structures/Center.vue'
         /*end llamamos al api que permite actualizar a los usuarios*/
   	  },
   	  cancel(){
-  	  	/*start metodo que permite volver a la vista de showAdmin*/
-  	  this.$router.push({ name: 'show-admin', params: {id:this.administrador.id}})
-  	  	/*end metodo que permite volver a la vista de showAdmin*/
+  	  	/*start metodo que permite volver a la vista anterior*/
+  	 this.$router.go(-1)
+  	  	/*end metodo que permite volver a la vista anterior*/
   	  },
   	  clear () {
         this.nombre = ''
@@ -195,6 +189,16 @@ import ContentCenter from '.././structures/Center.vue'
     },
     created () {
       this.$vuetify.theme.dark = true
+      //start validamos que el usuario no pueda entrar a perfiles de administradores o de Jefes de zona
+      let user = this.$store.getters.currentUser;
+      if(user.rol_id !=1 && user.id == this.id){
+        return;
+      }if(user.rol_id ==1){
+        return;
+      }else{
+        this.$router.go(-1)
+      }
+      //end validamos que el usuario no pueda entrar a perfiles de administradores o de Jefes de zona
     },
   }
 </script>

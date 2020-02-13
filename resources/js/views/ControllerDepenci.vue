@@ -9,9 +9,9 @@
       app
       clipped
       dark
-    >	<!-- start llamamos al side var del super administrador -->
+    >	<!-- start llamamos al side var -->
     	<side-bar></side-bar>
-    	<!-- end llamamos al side var del super administrador -->
+    	<!-- end llamamos al side var -->
     </v-navigation-drawer>
     <!-- end cuadro que se mantiene oculto y solo aparecera si drawer es true -->
     <!-- start el main donde ira el contenido principal -->
@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import Side from '.././components/SuperAdmin/SideBar.vue'
+import Side from '.././partials/SideBar.vue'
 import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
   export default {
