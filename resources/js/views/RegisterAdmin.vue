@@ -144,7 +144,7 @@
 </template>
 
 <script>
-import Side from '.././components/SuperAdmin/SideBar.vue'
+import Side from '.././partials/SideBar.vue'
 import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
   export default {

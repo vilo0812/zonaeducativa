@@ -3336,7 +3336,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+<<<<<<< HEAD
 !(function webpackMissingModule() { var e = new Error("Cannot find module '.././components/SuperAdmin/SideBar.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+=======
+/* harmony import */ var _partials_SideBar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! .././partials/SideBar.vue */ "./resources/js/partials/SideBar.vue");
+>>>>>>> d255e78aa5f81899f3313b537ae9b3d375b51340
 /* harmony import */ var _partials_NavBar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! .././partials/NavBar.vue */ "./resources/js/partials/NavBar.vue");
 /* harmony import */ var _structures_Center_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! .././structures/Center.vue */ "./resources/js/structures/Center.vue");
 //
@@ -3489,7 +3493,11 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
+<<<<<<< HEAD
     'side-bar': !(function webpackMissingModule() { var e = new Error("Cannot find module '.././components/SuperAdmin/SideBar.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
+=======
+    'side-bar': _partials_SideBar_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+>>>>>>> d255e78aa5f81899f3313b537ae9b3d375b51340
     'nav-bar': _partials_NavBar_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     'content-center': _structures_Center_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
