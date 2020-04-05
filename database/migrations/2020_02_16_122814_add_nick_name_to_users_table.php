@@ -14,7 +14,7 @@ class AddNickNameToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('nick_name')->after('email')->unsigned()->nullable();
+            $table->string('nick_name')->after('email')->nullable();
         });
     }
 
@@ -26,7 +26,6 @@ class AddNickNameToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
         });
     }
 }

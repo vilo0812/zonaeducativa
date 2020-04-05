@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SectorSeeder::class);
         $this->call(ZoneSeeder::class);
         $this->call(FloorSeeder::class);
-        $this->call(DirectionsSeeder::class);
+        $this->call(DirectionSeeder::class);
         $this->call(TicketSeeder::class);
     }
     public function truncateTable(array $tables){

@@ -1,9 +1,8 @@
 <?php
-
 use App\Direction;
 use Illuminate\Database\Seeder;
 
-class DirectionsSeeder extends Seeder
+class DirectionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +11,7 @@ class DirectionsSeeder extends Seeder
      */
     public function run()
     {
-       /*start zona 1 con sector 1 */
+        /*start zona 1 con sector 1 */
       Direction::create([
       	"floor_id"=>1,
       	"zone_id"=>1,
