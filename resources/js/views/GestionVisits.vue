@@ -36,11 +36,6 @@
               <th class="text-left">Marcar Salida</th>
             </tr>
           </thead>
-          <transition
-                    name="animate.css"
-                enter-active-class="animated fadeInDownBig"
-                appear
-                >
           <tbody>
             <template v-if="visitas.length">
               <tr v-for="(item,index) in visitas" :key="item.id">
@@ -62,7 +57,6 @@
               <h2 class="text-center">no hay registros...</h2>
             </template>
           </tbody>
-            </transition>
         </template>
       </v-simple-table>
         <!-- end visualizacion de las visitas al edificio -->

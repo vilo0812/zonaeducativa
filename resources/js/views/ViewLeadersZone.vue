@@ -33,13 +33,8 @@
               <th class="text-left">Acciones</th>
             </tr>
           </thead>
-          <transition
-                    name="animate.css"
-                enter-active-class="animated fadeInDownBig"
-                appear
-                >
           <tbody>
-            <template v-if="visitas.length">
+            <template v-if="LeadersZone.length">
             <tr v-for="(item, index) in LeadersZone" :key="item.id">
               <td>{{ item.first_name }}</td>
               <td>{{ item.last_name }}</td>
@@ -60,9 +55,8 @@
             </template>
             <template v-else>
               <h2 class="text-center">no hay registros...</h2>
-            </template>s
+            </template>
           </tbody>
-        </transition>
         </template>
       </v-simple-table>
         <!-- end visualizacion de los jefes de zona de el edificio -->

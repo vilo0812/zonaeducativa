@@ -35,6 +35,10 @@
           href="/pdfVisits"
         >
           Descargar PDF
+          <v-progress-circular
+      indeterminate
+      color="primary"
+    ></v-progress-circular>
           <v-icon right dark>mdi-cloud-upload</v-icon>
         </v-btn>
         <!-- end boton de descargar -->
@@ -52,11 +56,6 @@
               <th class="text-left">salida</th>
             </tr>
           </thead>
-          <transition
-                    name="animate.css"
-                enter-active-class="animated fadeInDownBig"
-                appear
-                >
           <tbody>
             <template v-if="visitas.length">
             <tr v-for="item in visitas" :key="item.id">
@@ -73,7 +72,6 @@
               <h2 class="text-center">no hay registros...</h2>
           </template>
           </tbody>
-        </transition>
         </template>
       </v-simple-table>
         <!-- end visualizacion de las visitas al edificio -->

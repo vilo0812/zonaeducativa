@@ -3170,12 +3170,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -4886,12 +4880,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -5001,8 +4989,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _partials_SideBar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! .././partials/SideBar.vue */ "./resources/js/partials/SideBar.vue");
 /* harmony import */ var _partials_NavBar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! .././partials/NavBar.vue */ "./resources/js/partials/NavBar.vue");
 /* harmony import */ var _structures_Center_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! .././structures/Center.vue */ "./resources/js/structures/Center.vue");
-//
-//
 //
 //
 //
@@ -42032,96 +42018,72 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c(
-                              "transition",
-                              {
-                                attrs: {
-                                  name: "animate.css",
-                                  "enter-active-class":
-                                    "animated fadeInDownBig",
-                                  appear: ""
-                                }
-                              },
+                              "tbody",
                               [
-                                _c(
-                                  "tbody",
-                                  [
-                                    _vm.visitas.length
-                                      ? _vm._l(_vm.visitas, function(
-                                          item,
-                                          index
-                                        ) {
-                                          return _c("tr", { key: item.id }, [
-                                            _c("td", [
-                                              _vm._v(_vm._s(item.first_name))
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _vm._v(_vm._s(item.last_name))
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _vm._v(
-                                                _vm._s(item.identification_card)
-                                              )
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _vm._v(_vm._s(item.phone))
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _vm._v(_vm._s(item.sector))
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _vm._v(_vm._s(item.input))
-                                            ]),
-                                            _vm._v(" "),
+                                _vm.visitas.length
+                                  ? _vm._l(_vm.visitas, function(item, index) {
+                                      return _c("tr", { key: item.id }, [
+                                        _c("td", [
+                                          _vm._v(_vm._s(item.first_name))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(item.last_name))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(
+                                            _vm._s(item.identification_card)
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(item.phone))]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(item.sector))]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(item.input))]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "td",
+                                          [
                                             _c(
-                                              "td",
+                                              "v-btn",
+                                              {
+                                                attrs: {
+                                                  color: "green darken-2"
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.target(
+                                                      item.id,
+                                                      index
+                                                    )
+                                                  }
+                                                }
+                                              },
                                               [
-                                                _c(
-                                                  "v-btn",
-                                                  {
-                                                    attrs: {
-                                                      color: "green darken-2"
-                                                    },
-                                                    on: {
-                                                      click: function($event) {
-                                                        return _vm.target(
-                                                          item.id,
-                                                          index
-                                                        )
-                                                      }
-                                                    }
-                                                  },
-                                                  [
-                                                    _c("span", [
-                                                      _vm._v("marcar salida")
-                                                    ]),
-                                                    _vm._v(" "),
-                                                    _c("v-icon", [
-                                                      _vm._v("mdi-run")
-                                                    ])
-                                                  ],
-                                                  1
-                                                )
+                                                _c("span", [
+                                                  _vm._v("marcar salida")
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("v-icon", [
+                                                  _vm._v("mdi-run")
+                                                ])
                                               ],
                                               1
                                             )
-                                          ])
-                                        })
-                                      : [
-                                          _c(
-                                            "h2",
-                                            { staticClass: "text-center" },
-                                            [_vm._v("no hay registros...")]
-                                          )
-                                        ]
-                                  ],
-                                  2
-                                )
-                              ]
+                                          ],
+                                          1
+                                        )
+                                      ])
+                                    })
+                                  : [
+                                      _c("h2", { staticClass: "text-center" }, [
+                                        _vm._v("no hay registros...")
+                                      ])
+                                    ]
+                              ],
+                              2
                             )
                           ]
                         },
@@ -43687,125 +43649,97 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c(
-                              "transition",
-                              {
-                                attrs: {
-                                  name: "animate.css",
-                                  "enter-active-class":
-                                    "animated fadeInDownBig",
-                                  appear: ""
-                                }
-                              },
+                              "tbody",
                               [
-                                _c(
-                                  "tbody",
-                                  [
-                                    _vm.visitas.length
-                                      ? _vm._l(_vm.LeadersZone, function(
-                                          item,
-                                          index
-                                        ) {
-                                          return _c("tr", { key: item.id }, [
-                                            _c("td", [
-                                              _vm._v(_vm._s(item.first_name))
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _vm._v(_vm._s(item.last_name))
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _vm._v(
-                                                _vm._s(item.identification_card)
-                                              )
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _vm._v(_vm._s(item.phone))
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _vm._v(_vm._s(item.email))
-                                            ]),
-                                            _vm._v(" "),
+                                _vm.LeadersZone.length
+                                  ? _vm._l(_vm.LeadersZone, function(
+                                      item,
+                                      index
+                                    ) {
+                                      return _c("tr", { key: item.id }, [
+                                        _c("td", [
+                                          _vm._v(_vm._s(item.first_name))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(item.last_name))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(
+                                            _vm._s(item.identification_card)
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(item.phone))]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(item.email))]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "td",
+                                          [
                                             _c(
-                                              "td",
+                                              "v-btn",
+                                              {
+                                                attrs: { color: "primary" },
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.editing(item.id)
+                                                  }
+                                                }
+                                              },
                                               [
-                                                _c(
-                                                  "v-btn",
-                                                  {
-                                                    attrs: { color: "primary" },
-                                                    on: {
-                                                      click: function($event) {
-                                                        return _vm.editing(
-                                                          item.id
-                                                        )
-                                                      }
-                                                    }
-                                                  },
-                                                  [
-                                                    _c("span", [
-                                                      _vm._v("Editar")
-                                                    ]),
-                                                    _vm._v(" "),
-                                                    _c(
-                                                      "v-icon",
-                                                      { staticClass: "ml-2" },
-                                                      [
-                                                        _vm._v(
-                                                          "mdi-account-edit"
-                                                        )
-                                                      ]
-                                                    )
-                                                  ],
-                                                  1
-                                                ),
+                                                _c("span", [_vm._v("Editar")]),
                                                 _vm._v(" "),
                                                 _c(
-                                                  "v-btn",
-                                                  {
-                                                    attrs: {
-                                                      color: "red lighten-1"
-                                                    },
-                                                    on: {
-                                                      click: function($event) {
-                                                        return _vm.remove(
-                                                          item.id,
-                                                          index
-                                                        )
-                                                      }
-                                                    }
-                                                  },
-                                                  [
-                                                    _c("span", [
-                                                      _vm._v("Eliminiar")
-                                                    ]),
-                                                    _vm._v(" "),
-                                                    _c(
-                                                      "v-icon",
-                                                      { staticClass: "ml-2" },
-                                                      [_vm._v("mdi-delete")]
+                                                  "v-icon",
+                                                  { staticClass: "ml-2" },
+                                                  [_vm._v("mdi-account-edit")]
+                                                )
+                                              ],
+                                              1
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-btn",
+                                              {
+                                                attrs: {
+                                                  color: "red lighten-1"
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.remove(
+                                                      item.id,
+                                                      index
                                                     )
-                                                  ],
-                                                  1
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                _c("span", [
+                                                  _vm._v("Eliminiar")
+                                                ]),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "v-icon",
+                                                  { staticClass: "ml-2" },
+                                                  [_vm._v("mdi-delete")]
                                                 )
                                               ],
                                               1
                                             )
-                                          ])
-                                        })
-                                      : [
-                                          _c(
-                                            "h2",
-                                            { staticClass: "text-center" },
-                                            [_vm._v("no hay registros...")]
-                                          )
-                                        ],
-                                    _vm._v("s\n          ")
-                                  ],
-                                  2
-                                )
-                              ]
+                                          ],
+                                          1
+                                        )
+                                      ])
+                                    })
+                                  : [
+                                      _c("h2", { staticClass: "text-center" }, [
+                                        _vm._v("no hay registros...")
+                                      ])
+                                    ]
+                              ],
+                              2
                             )
                           ]
                         },
@@ -43916,6 +43850,10 @@ var render = function() {
                     },
                     [
                       _vm._v("\n          Descargar PDF\n          "),
+                      _c("v-progress-circular", {
+                        attrs: { indeterminate: "", color: "primary" }
+                      }),
+                      _vm._v(" "),
                       _c("v-icon", { attrs: { right: "", dark: "" } }, [
                         _vm._v("mdi-cloud-upload")
                       ])
@@ -43962,64 +43900,41 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c(
-                              "transition",
-                              {
-                                attrs: {
-                                  name: "animate.css",
-                                  "enter-active-class":
-                                    "animated fadeInDownBig",
-                                  appear: ""
-                                }
-                              },
+                              "tbody",
                               [
-                                _c(
-                                  "tbody",
-                                  [
-                                    _vm.visitas.length
-                                      ? _vm._l(_vm.visitas, function(item) {
-                                          return _c("tr", { key: item.id }, [
-                                            _c("td", [
-                                              _vm._v(_vm._s(item.first_name))
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _vm._v(_vm._s(item.last_name))
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _vm._v(
-                                                _vm._s(item.identification_card)
-                                              )
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _vm._v(_vm._s(item.phone))
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _vm._v(_vm._s(item.sector))
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _vm._v(_vm._s(item.input))
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _vm._v(_vm._s(item.output))
-                                            ])
-                                          ])
-                                        })
-                                      : [
-                                          _c(
-                                            "h2",
-                                            { staticClass: "text-center" },
-                                            [_vm._v("no hay registros...")]
+                                _vm.visitas.length
+                                  ? _vm._l(_vm.visitas, function(item) {
+                                      return _c("tr", { key: item.id }, [
+                                        _c("td", [
+                                          _vm._v(_vm._s(item.first_name))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(item.last_name))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(
+                                            _vm._s(item.identification_card)
                                           )
-                                        ]
-                                  ],
-                                  2
-                                )
-                              ]
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(item.phone))]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(item.sector))]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(item.input))]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(item.output))])
+                                      ])
+                                    })
+                                  : [
+                                      _c("h2", { staticClass: "text-center" }, [
+                                        _vm._v("no hay registros...")
+                                      ])
+                                    ]
+                              ],
+                              2
                             )
                           ]
                         },
@@ -100864,7 +100779,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
 /* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
-/* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
+/* harmony import */ var vuetify_lib_components_VProgressCircular__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VProgressCircular */ "./node_modules/vuetify/lib/components/VProgressCircular/index.js");
+/* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
 
 
 
@@ -100892,7 +100808,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VSimpleTable"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VProgressCircular: vuetify_lib_components_VProgressCircular__WEBPACK_IMPORTED_MODULE_10__["VProgressCircular"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_11__["VSimpleTable"]})
 
 
 /* hot reload */
