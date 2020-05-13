@@ -45,6 +45,9 @@ Route::group([
 	/*start api para ver todas las visitas en el edificio*/
 	Route::get('showVisits','VisitorController@show');
 	/*start api para ver todas las visitas en el edificio*/
+	/*start api para ver todas las visitas en el edificio*/
+	Route::get('showPageVisits','VisitorController@showPageVisits');
+	/*start api para ver todas las visitas en el edificio*/
 	/*start api que me permite mostrar solo a los usuarios que no han salido del edificio en un lapso de 2 semanas*/
 	Route::get('showOnlyNotTargetVisits','VisitorController@showOnlyNotTargetVisits');
 	/*start api que me permite mostrar solo a los usuarios que no han salido del edificio en un lapso de 2 semanas*/

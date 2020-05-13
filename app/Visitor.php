@@ -15,6 +15,18 @@ class Visitor extends Model
         'belongings',
         'observation'
 	];
+    //start visitas paginadas
+    static public function showPageVisits(){
+        $registro = static::leftJoin("users","visitors.user_id","=","users.id")
+        ->join('handling_times',"visitors.handling_time_id","=","handling_times.id")
+        ->join('directions',"visitors.direction_id","=","directions.id")
+        ->join('sectors',"directions.sector_id","=","sectors.id")
+        ->select('visitors.id','first_name','last_name','identification_card','phone','sector','input','output')
+        ->orderBy('visitors.id', 'DESC')
+        ->paginate(30);
+        return $registro;
+    }
+    //start visitas paginadas
     /*start metodo que me permite ver los datos de la visita */
     static public function showVisits(){
         $registro = static::leftJoin("users","visitors.user_id","=","users.id")

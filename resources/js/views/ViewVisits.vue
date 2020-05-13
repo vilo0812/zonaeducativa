@@ -19,7 +19,7 @@
     	<!-- start contenido de muestra -->
   <v-card class="d-inline-block mx-auto" color="grey darken-2">
     <v-container>
-		    <h1 class="text-center">Visualizar Visitas</h1>
+		    <h1 class="text-center">Visualizar Visitas {{page}}</h1>
         <!-- start boton de descargar -->
         <v-btn
           color="success"
@@ -43,7 +43,7 @@
         </v-btn>
         <!-- end boton de descargar -->
         <!-- start visualizacion de las visitas al edificio -->
-      <v-simple-table>
+      <v-simple-table >
         <template v-slot:default>
           <thead>
             <tr>
@@ -68,12 +68,26 @@
               <td>{{ item.output }}</td>
             </tr>
           </template>
+
           <template v-else>
               <h2 class="text-center">no hay registros...</h2>
           </template>
           </tbody>
         </template>
       </v-simple-table>
+      <div class="text-center">
+                <v-row justify="center" align="center">
+                    <v-col cols="12">
+                      <v-btn @click="pagePrev()" fab small>
+                        <v-icon>mdi-menu-left</v-icon>
+                      </v-btn>
+                      <v-btn v-for="(n,index) in total_page" @click="pageReload(index)" fab small :key="index">{{n}}</v-btn>
+                      <v-btn fab small @click="pageNext()">
+                        <v-icon>mdi-menu-right</v-icon>
+                      </v-btn>
+                    </v-col>
+                </v-row>
+            </div>
         <!-- end visualizacion de las visitas al edificio -->
     </v-container>
   </v-card>
@@ -89,8 +103,10 @@ import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
   export default {
     mounted(){
-    axios.get('/api/showVisits').then(res => {
-        this.visitas=res.data
+    axios.get('/api/showPageVisits').then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data;
       }).catch(err => {
         console.log(err);
       });
@@ -104,15 +120,50 @@ import ContentCenter from '.././structures/Center.vue'
   	  return {
   	    drawer: null,
         visitas:[],
+        page:0,
+        total_page:0,
+        n:0
   	  };
   	},
     computed: {
       rol() {
         return this.$store.state.currentUser.rol_id;
-      }
+      },
     },
     created () {
       this.$vuetify.theme.dark = true
+    },
+    methods: {
+      pageReload (index) {
+      axios.get(`/api/showPageVisits?page=${index + 1}`).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data;
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+      },
+      pagePrev(){
+        axios.get(`/api/showPageVisits?page=${this.page - 1}`).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data;
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+      },
+      pageNext(){
+        axios.get(`/api/showPageVisits?page=${this.page + 1}`).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data;
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+      }
     },
   }
 </script>
@@ -120,5 +171,8 @@ import ContentCenter from '.././structures/Center.vue'
   .fondo{
     background: #EEEEEE;
     min-height: 700px;
+  }
+  .scroll{
+    overflow: auto;
   }
 </style>

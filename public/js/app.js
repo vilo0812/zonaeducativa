@@ -5074,6 +5074,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5081,8 +5095,10 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.get('/api/showVisits').then(function (res) {
-      _this.visitas = res.data;
+    axios.get('/api/showPageVisits').then(function (res) {
+      _this.page = res.data.current_page;
+      _this.total_page = res.data.last_page;
+      _this.visitas = res.data.data;
     })["catch"](function (err) {
       console.log(err);
     });
@@ -5095,7 +5111,10 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       drawer: null,
-      visitas: []
+      visitas: [],
+      page: 0,
+      total_page: 0,
+      n: 0
     };
   },
   computed: {
@@ -5105,6 +5124,44 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.$vuetify.theme.dark = true;
+  },
+  methods: {
+    pageReload: function pageReload(index) {
+      var _this2 = this;
+
+      axios.get("/api/showPageVisits?page=".concat(index + 1)).then(function (res) {
+        _this2.page = res.data.current_page;
+        _this2.total_page = res.data.last_page;
+        _this2.visitas = res.data.data;
+        scroll(0, 1);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    pagePrev: function pagePrev() {
+      var _this3 = this;
+
+      axios.get("/api/showPageVisits?page=".concat(this.page - 1)).then(function (res) {
+        _this3.page = res.data.current_page;
+        _this3.total_page = res.data.last_page;
+        _this3.visitas = res.data.data;
+        scroll(0, 1);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    pageNext: function pageNext() {
+      var _this4 = this;
+
+      axios.get("/api/showPageVisits?page=".concat(this.page + 1)).then(function (res) {
+        _this4.page = res.data.current_page;
+        _this4.total_page = res.data.last_page;
+        _this4.visitas = res.data.data;
+        scroll(0, 1);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
   }
 });
 
@@ -43824,7 +43881,7 @@ var render = function() {
                 "v-container",
                 [
                   _c("h1", { staticClass: "text-center" }, [
-                    _vm._v("Visualizar Visitas")
+                    _vm._v("Visualizar Visitas " + _vm._s(_vm.page))
                   ]),
                   _vm._v(" "),
                   _c(
@@ -43941,7 +43998,72 @@ var render = function() {
                         proxy: true
                       }
                     ])
-                  })
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "text-center" },
+                    [
+                      _c(
+                        "v-row",
+                        { attrs: { justify: "center", align: "center" } },
+                        [
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12" } },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { fab: "", small: "" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.pagePrev()
+                                    }
+                                  }
+                                },
+                                [_c("v-icon", [_vm._v("mdi-menu-left")])],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.total_page, function(n, index) {
+                                return _c(
+                                  "v-btn",
+                                  {
+                                    key: index,
+                                    attrs: { fab: "", small: "" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.pageReload(index)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(n))]
+                                )
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { fab: "", small: "" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.pageNext()
+                                    }
+                                  }
+                                },
+                                [_c("v-icon", [_vm._v("mdi-menu-right")])],
+                                1
+                              )
+                            ],
+                            2
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
                 ],
                 1
               )
@@ -100809,7 +100931,9 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VProgressCircular: vuetify_lib_components_VProgressCircular__WEBPACK_IMPORTED_MODULE_10__["VProgressCircular"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_11__["VSimpleTable"]})
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VProgressCircular: vuetify_lib_components_VProgressCircular__WEBPACK_IMPORTED_MODULE_10__["VProgressCircular"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_11__["VSimpleTable"]})
 
 
 /* hot reload */

@@ -79,6 +79,12 @@ class VisitorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // start paginacion de los registros para el reporte
+    public function showPageVisits()
+    {
+        return response()->json(Visitor::showPageVisits(),200);
+    }
+    // end paginacion de los registros para el reporte
     /*start api que me permite ver los registros inmediatos de todas las visitas*/
     public function show()
     {
