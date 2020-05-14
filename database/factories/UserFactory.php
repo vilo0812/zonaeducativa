@@ -14,15 +14,12 @@ use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'firstName' => $faker->firstname,
-        'lastName' => $faker->lastname,
+        'first_name' => $faker->firstname,
+        'last_name' => $faker->lastname,
         'email' => $faker->unique()->safeEmail,
-        'IC' => $faker->randomNumber(7),
-        'tlf' =>$faker->randomNumber(7),
-        'municipality' => $faker->address,
+        'identification_card' => $faker->randomNumber(7),
+        'phone' =>$faker->randomNumber(7),
         'password' => bcrypt(1234), // password
-        "belongings" => $faker->sentence,
-        'remember_token' => $faker->sentence,
-        "rol_id"=>$faker->randomElement([2,3])
+        "rol_id"=>$faker->randomElement([2,3,4])
     ];
 });

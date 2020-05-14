@@ -19,7 +19,7 @@
     	<!-- start contenido de muestra -->
   <v-card class="d-inline-block mx-auto" color="grey darken-2">
     <v-container>
-		    <h1 class="text-center">Visualizar Visitas {{page}}</h1>
+		    <h1 class="text-center">Visualizar Visitas </h1>
         <!-- start boton de descargar -->
         <v-btn
           color="success"
