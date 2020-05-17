@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Http\Request;
+// start ticket
+Route::get('ticket','TicketController@getCodeTicket');
+// end ticket
 /*start apis de sesiones*/
 Route::group(['prefix' => 'sesion'], function() {
 	/*start api para iniciar sesion*/

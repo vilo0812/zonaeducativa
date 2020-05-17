@@ -3,7 +3,9 @@
 namespace App;
 
 use App\Direction;
-use App\sector;
+use App\Floor;
+use App\Sector;
+use App\Zone;
 use Illuminate\Database\Eloquent\Model;
 
 class Direction extends Model
@@ -33,7 +35,17 @@ class Direction extends Model
         /*end api que permite ver las zonas y sectores dependiendo de el id del piso*/
     /*start api que permite ver el sector de cada zona*/
     public function sector(){
-      return $this->belongsTo(sector::class);
+      return $this->belongsTo(Sector::class);
     }
     /*end api que permite ver el sector de cada zona*/
+    /*start api que permite ver los pisos del edificio*/
+    public function floor(){
+      return $this->belongsTo(Floor::class);
+    }
+    /*end api que permite ver los pisos del edificio*/
+    /*start api que permite ver las zonas del edificio*/
+    public function zone(){
+      return $this->belongsTo(Zone::class);
+    }
+    /*end api que permite ver las zonas del edificio*/
 }

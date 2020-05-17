@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Direction;
 use App\Http\Requests\LoginFormRequest;
 use App\Http\Requests\RecoverPasswordRequest;
 use App\Password_recover;
@@ -119,4 +120,5 @@ class Controller extends BaseController
     	return $pdf->download();
     }
     /*end api que me permtie descargar los pdfs*/
+    
 }

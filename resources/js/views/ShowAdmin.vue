@@ -127,7 +127,7 @@ export default {
   methods: {
     go(){
       /*start llamamos al api que nos trae toda la informacion de este usuario*/
-    let url=`/api/showUser/` + this.id;
+    let url=`/api/showUser/axios` + this.id;
     axios.get(url).then(res => {
       this.administrador=res.data.user
     }).catch(err => {

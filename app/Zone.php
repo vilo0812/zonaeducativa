@@ -18,4 +18,9 @@ class Zone extends Model
         return $this->belongsToMany(Sector::class,'directions');
     }
     /*start relacion entre zones y sectores*/
+    /*start relacion con direcciones*/
+    public function direcciones(){
+        return $this->hasMany(Direction::class);
+    }
+    /*end relacion con direcciones*/
 }
