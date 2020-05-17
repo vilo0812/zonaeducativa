@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Visitor extends Model
 {
+    public $timestamps = false;
 	protected $fillable = [
         'user_id',
         'handling_time_id',

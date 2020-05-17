@@ -54,28 +54,31 @@
 <script>
 	export default{
   mounted(){
-    /*start metemos los administradores registradors*/
+    /*start traemos los administradores registrados*/
     axios.get('/api/viewAdmins').then(res => {
       this.administradores=res.data.admins;
     }).catch(err => {
       console.log(err);
+    /*end traemos los administradores registrados*/
     });
   },
 	data () {
   	  return {
   	    itemsSuperAdmin: [
         { icon: 'mdi-account-multiple-plus', text: 'Registrar Jefe de Zona',direccion:'register-leader-zone'},
-        { icon: 'mdi-library', text: 'Ver Jefes de Zona',direccion:'view-leader-zone'},
+        { icon: 'mdi-library', text: 'Ver Usuarios',direccion:'view-users'},
         { icon: 'mdi-account-multiple-plus', text: 'Registrar Administrador',direccion:'register-admin'},
         { icon: 'mdi-google-nearby', text: 'Control de Dependencias',direccion:'controller-dependenci'},
         { icon: 'mdi-pencil', text: 'Registrar Visita',direccion:'register-visits'},
         { icon: 'mdi-star', text: 'Gestion de Visitas', direccion:'Gestion'},
         { icon: 'mdi-book-open-variant', text: 'Visualizar Visitas',direccion:'view-visits'},
+        { icon: 'mdi-account-card-details', text: 'Bitacora',direccion:'view-bitacores'},
       ],
       itemsAdmin: [
         { icon: 'mdi-pencil', text: 'Registrar Visita',direccion:'register-visits'},
         { icon: 'mdi-star', text: 'Gestion de Visitas', direccion:'Gestion'},
         { icon: 'mdi-book-open-variant', text: 'Visualizar Visitas',direccion:'view-visits'},
+        
       ],
       administradores: []
   	  };

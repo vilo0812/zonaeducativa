@@ -9,6 +9,11 @@ use Mail;
 
 class UserController extends Controller
 {
+    // start api para ver a los admins y jefes de zona
+    public function viewUsers(){
+    $users=$users=User::where('rol_id',2)->orWhere('rol_id',3)->get();
+    return response()->json($users,200);
+    }
     /*start api que permita visualizar a los administradores trayendo solo el id y el nombre*/
     public function viewAdmins(){
         /*start sacamos solo a los usuarios administradores y los mandamos a la vista*/

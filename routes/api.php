@@ -74,6 +74,8 @@ Route::group([
 	/*start api para ver a los Jefes de Zona*/
 	Route::get('viewLeadersZone','UserController@viewLeadersZone');
 	/*end api api para ver a los Jefes de Zona*/
+	// start api para ver a jefes de zona y admins
+	Route::get('viewUsers','UserController@viewUsers');
 	/*start api para ver los pisos del edificio*/
 	Route::get('viewFloors','DirectionController@viewFloors');
 	/*end api para ver a las zonas del edificio*/

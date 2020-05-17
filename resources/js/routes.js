@@ -5,17 +5,18 @@ import Login from './components/home/Login.vue';
 import PasswordRecover from './components/home/PasswordRecover.vue';
 import Code from './components/home/Code.vue';
 import newPassword from './components/home/NewPassword.vue';
+/*start componentes que gestionan a los administradores*/
 import GestionVisits from './views/GestionVisits.vue';
 import ControllerDepenci from './views/ControllerDepenci.vue';
 import ViewVisits from './views/ViewVisits.vue';
 import RegisterVisits from './views/RegisterVisits.vue';
-/*start componentes que gestionan a los administradores*/
+/*end componentes que gestionan a los administradores*/
 import RegisterLeaderZone from './views/RegisterLeaderZone.vue';
-import ViewLeadersZone from './views/ViewLeadersZone.vue';
+import ViewUsers from './views/ViewUsers.vue';
 import RegisterAdmin from './views/RegisterAdmin.vue';
 import ShowAdmin from './views/ShowAdmin.vue';
 import EditUser from './views/EditUser.vue';
-/*end componentes que gestionan a los administradores*/
+import Bitacores from './views/Bitacores.vue';
 export const routes = [
   /*
    |--------------------------------------------------------------------------
@@ -53,11 +54,6 @@ export const routes = [
       }
     ]
   },
-   /*
-   |--------------------------------------------------------------------------
-   | rutas para el super administrador
-   |--------------------------------------------------------------------------|
-   */
   {
     path:'/gestions',
     component:GestionVisits,
@@ -94,9 +90,9 @@ export const routes = [
     }
   },
   {
-    path:'/viewLeadersZone',
-    component:ViewLeadersZone,
-    name:'view-leader-zone',
+    path:'/viewUsers',
+    component:ViewUsers,
+    name:'view-users',
     meta:{
       requiresAuth: true,
       requiresAuthSuperAdmin: true,
@@ -115,6 +111,15 @@ export const routes = [
     path:'/dependecies',
     component:ControllerDepenci,
     name:'controller-dependenci',
+    meta:{
+      requiresAuth: true,
+      requiresAuthSuperAdmin: true,
+    }
+  },
+  {
+    path:'/bitacores',
+    component:Bitacores,
+    name:'view-bitacores',
     meta:{
       requiresAuth: true,
       requiresAuthSuperAdmin: true,

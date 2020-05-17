@@ -15,9 +15,8 @@ class CreateBitacoresTable extends Migration
     {
         Schema::create('bitacores', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('action');
             $table->text('details');
-            $table->timestamps();
+            $table->timestamp('input')->nullable();
         });
     }
 
