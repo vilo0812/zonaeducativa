@@ -1,17 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Bitacore;
 use App\Http\Requests\RegisterAdminRequest;
 use App\Mail\UsuarioRegistrado;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Mail;
 
 class UserController extends Controller
 {
     // start api para ver a los admins y jefes de zona
     public function viewUsers(){
-    $users=$users=User::where('rol_id',2)->orWhere('rol_id',3)->get();
+    $users=$users=User::where('rol_id',2)->orWhere('rol_id',3)->get(['id','first_name','identification_card','phone','email','rol_id']);
     return response()->json($users,200);
     }
     /*start api que permita visualizar a los administradores trayendo solo el id y el nombre*/
@@ -102,6 +104,8 @@ class UserController extends Controller
         $user->phone=$request->phone;
         $user->identification_card=$request->identification_card;
         $user->save();
+        $bitacore = new BitacoreController();
+        $bitacore->store($request->user_id,$request->details,$request->action_id);
         return response()->json(['mensaje'=>'actualización exitosa'],200);
     }
     /*end api para actualizar a un usuario*/
@@ -120,4 +124,33 @@ class UserController extends Controller
      return response()->json($user,200);
     }
     /*end api que me permite ver al usuario segun el numero de cedula*/
+    //start api para mostrar las bitacoras segun el id del usuario
+    public function showBitacoreByUserId($id){
+    $bit = new Bitacore();
+    $bit =$bit->showBitacore($id);
+    return response()->json($bit,200);
+    }
+    //end api para mostrar las bitacoras segun el id del usuario
+    // start ver la bitacora del usuario en PDF
+    public function viewBitacore($id){
+    $bit = new Bitacore();
+    $bit =$bit->showBitacore($id);
+    $user = User::findOrFail($id);
+    $pdf = App::make('dompdf.wrapper');
+    $pdf->setPaper('a4','landscape');
+    $pdf->loadView('pdf.bitacore',compact('bit','user'));
+    return $pdf->stream();
+    }
+    // end ver la bitacora del usuario en PDF
+    // start descargar bitacora del usuario
+    public function DownloadBitacore($id){
+    $bit = new Bitacore();
+    $bit =$bit->showBitacore($id);
+    $user = User::findOrFail($id);
+    $pdf = App::make('dompdf.wrapper');
+    $pdf->setPaper('a4','landscape');
+    $pdf->loadView('pdf.bitacore',compact('bit','user'));
+    return $pdf->download();
+    }
+    // start descargar bitacora del usuario
 }

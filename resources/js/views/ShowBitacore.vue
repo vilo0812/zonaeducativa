@@ -18,36 +18,44 @@
     <!-- start el main donde ira el contenido principal -->
     <content-center>
       <!-- start contenido de muestra -->
-      <v-card class="d-inline-block mx-auto" width="1000" color="grey darken-2">
+      <v-card class="d-inline-block mx-auto" min-width="1000" color="grey darken-2">
         <v-container>
-        <h1 class="text-center">Bitacoras</h1>
-        <!-- start vemos a todos los usuarios que posiblemente tienen bitacora -->
+        <h1 class="text-center">Bitacora</h1>
+        <h3 class="text-center">Bitacora del {{rolId(user.rol_id) }} {{ user.first_name}} {{user.last_name}}</h3>
+        <!-- start empezamos a hacer los botones de descarga de pdf de bitacora -->
+        <v-btn
+          color="success"
+          class="ma-2 white--text"
+          :href="urlViewBitacore"
+        >
+          Visualizar PDF
+          <v-icon right dark>mdi-file-pdf</v-icon>
+        </v-btn>
+        <v-btn
+          color="blue"
+          class="ma-2 white--text"
+          :href="urlDownloadBitacore"
+        >
+          Descargar PDF
+          <v-icon right dark>mdi-cloud-upload</v-icon>
+        </v-btn>
+        <!-- end botones de descarga -->
+         <!-- start vemos los datos de la botacora -->
         <v-simple-table>
         <template v-slot:default>
           <thead>
             <tr>
-              <th class="text-left">Nombre</th>
-              <th class="text-left">Apellido</th>
-              <th class="text-left">Cedula</th>
-              <th class="text-left">teléfono</th>
-              <th class="text-left">Correo</th>
-              <th class="text-left">Bitacora</th>
+              <th class="text-left">Acción</th>
+              <th class="text-left">Hora</th>
+              <th class="text-left">Detalles</th>
             </tr>
           </thead>
           <tbody>
-            <template v-if="users.length">
-            <tr v-for="(item, index) in users" :key="item.id">
-              <td>{{ item.first_name }}</td>
-              <td>{{rolId(item.rol_id)}}</td>
-              <td>{{ item.identification_card }}</td>
-              <td>{{ item.phone }}</td>
-              <td>{{item.email}}</td>
-              <td>
-                <v-btn @click="viewBitacore(item.id)" color="primary">
-                <span>Ver Bitacora</span>
-                <v-icon class="ml-2">mdi-account-card-details</v-icon>
-                </v-btn>
-              </td>
+            <template v-if="bitacores.length">
+            <tr v-for="(item, index) in bitacores" :key="item.id">
+              <td>{{ item.action }}</td>
+              <td>{{item.input}}</td>
+              <td>{{ item.details }}</td>
             </tr>
             </template>
             <template v-else>
@@ -56,7 +64,7 @@
           </tbody>
         </template>
       </v-simple-table>
-      <!-- start vemos a todos los usuarios que posiblemente tienen bitacora -->
+      <!-- star vemos los datos de la botacora - -->
         </v-container>
       </v-card>
       <!-- start contenido de muestra -->
@@ -71,9 +79,15 @@ import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
 import {initialize} from '.././helpers/general';
   export default {
+    props:['id'],
     mounted(){
-      axios.get('/api/viewUsers').then(res => {
-        this.users=res.data
+      axios.get(`/api/showBitacoreByUserId/${this.id}`).then(res => {
+        this.bitacores=res.data;
+      }).catch(err => {
+        console.log(err);
+      });
+      axios.get(`/api/showUser/${this.id}`).then(res => {
+        this.user=res.data.user;
       }).catch(err => {
         console.log(err);
       });
@@ -86,21 +100,26 @@ import {initialize} from '.././helpers/general';
     data () {
       return {
         drawer: null,
-        users:[]
+        bitacores:[],
+        user:[]
       };
     },
     methods: {
-      viewBitacore($id){
-        this.$router.push({ name: 'show-bitacore',params:{id:$id}});
-      },
+      
       rolId(id){
-      return id==2 ? 'administrador' : 'jefe de zona';
+      return id==2 ? 'Administrador' : 'Jefe de Zona';
       },
     },
     computed: {
       rol() {
         return this.$store.state.currentUser.rol_id;
-      }
+      },
+      urlViewBitacore(){
+        return `/verBitacora/${this.user.id}`;
+      },
+      urlDownloadBitacore(){
+        return `/DescargarBitacora/${this.user.id}`;
+      },
     },
     created () {
       this.$vuetify.theme.dark = true;

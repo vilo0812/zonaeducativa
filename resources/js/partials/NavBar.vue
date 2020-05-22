@@ -50,10 +50,10 @@
           width="200"
           color="red lighten-1"
         >
-          <v-list-item-content class="ml-2">
+          <!-- <v-list-item-content class="ml-2">
           <v-list-item-subtitle class="subtitle">Nombre de usuario</v-list-item-subtitle>
           <v-list-item-title>Vilonk</v-list-item-title>
-          </v-list-item-content>
+          </v-list-item-content> -->
           <v-list-item-content class="ml-2">
           <v-list-item-subtitle class="subtitle">Usuario</v-list-item-subtitle>
           <v-list-item-title >

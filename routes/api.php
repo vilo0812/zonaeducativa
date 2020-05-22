@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+
 // start ticket
 Route::get('ticket','TicketController@getCodeTicket');
 // end ticket
@@ -94,5 +95,11 @@ Route::group([
 	/*start api para ver la información de una usuario*/
 	Route::get('showUserByIc/{id}','UserController@showByIdentificationCard');
 	/*end api para ver la información de una usuario*/
+	//start api para mostrar las bitacoras de un usuario segun su id
+	Route::get('showBitacoreByUserId/{id}','UserController@showBitacoreByUserId');
+	//end api para mostrar las bitacoras de un usuario segun su id
+	//start api para registar en la bitacora la accion de visualizar los pdfs
+	Route::post('storeBitacore','BitacoreController@storeBitacoreViewVisits');
+	//end api para registar en la bitacora la accion de visualizar los pdfs
 /*end apis para sacar informacines especificas*/
 });

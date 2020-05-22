@@ -17,6 +17,7 @@ import RegisterAdmin from './views/RegisterAdmin.vue';
 import ShowAdmin from './views/ShowAdmin.vue';
 import EditUser from './views/EditUser.vue';
 import Bitacores from './views/Bitacores.vue';
+import ShowBitacore from './views/ShowBitacore.vue';
 export const routes = [
   /*
    |--------------------------------------------------------------------------
@@ -95,7 +96,6 @@ export const routes = [
     name:'view-users',
     meta:{
       requiresAuth: true,
-      requiresAuthSuperAdmin: true,
     }
   },
   {
@@ -120,6 +120,16 @@ export const routes = [
     path:'/bitacores',
     component:Bitacores,
     name:'view-bitacores',
+    meta:{
+      requiresAuth: true,
+      requiresAuthSuperAdmin: true,
+    }
+  },
+  {
+    path:'/showBitacore/:id',
+    component:ShowBitacore,
+    name:'show-bitacore',
+    props: true,
     meta:{
       requiresAuth: true,
       requiresAuthSuperAdmin: true,

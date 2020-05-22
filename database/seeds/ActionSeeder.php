@@ -12,19 +12,19 @@ class ActionSeeder extends Seeder
     public function run()
     {
         Action::create([
-        'action' => 'Registro de entrada de una visita'
+        'action' => 'Registro de Entrada de una Visita'
         ]);
         Action::create([
-        'action' => 'Registro de salida de una visita'
+        'action' => 'Registro de Salida de una Visita'
         ]);
         Action::create([
-        'action' => 'Modificacion a su perfil'
+        'action' => 'Modificacion a su Perfil'
         ]);
         Action::create([
-        'action' => 'Visualizo los reportes de visita'
+        'action' => 'Visualizo los Reportes de Visita'
         ]);
         Action::create([
-        'action' => 'Descargo los reportes de visita'
+        'action' => 'Descarga de Reportes de Visita'
         ]);
     }
 }

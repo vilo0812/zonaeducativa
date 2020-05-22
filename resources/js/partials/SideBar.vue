@@ -41,7 +41,7 @@
                 class="redondo"
                 height="200"
                 width="200"
-                src="images/users/defect.jpg"
+                src="../images/users/defect.jpg"
               ></v-img>
             </v-list-item-avatar>
             <v-list-item-title v-text="item.first_name" />
@@ -65,18 +65,24 @@
 	data () {
   	  return {
   	    itemsSuperAdmin: [
-        { icon: 'mdi-account-multiple-plus', text: 'Registrar Jefe de Zona',direccion:'register-leader-zone'},
-        { icon: 'mdi-library', text: 'Ver Usuarios',direccion:'view-users'},
-        { icon: 'mdi-account-multiple-plus', text: 'Registrar Administrador',direccion:'register-admin'},
+        { icon: 'mdi-account-card-details', text: 'Bitacoras',direccion:'view-bitacores'},
         { icon: 'mdi-google-nearby', text: 'Control de Dependencias',direccion:'controller-dependenci'},
+        { icon: 'mdi-account-multiple-plus', text: 'Registrar Administrador',direccion:'register-admin'},
+        { icon: 'mdi-account-multiple-plus', text: 'Registrar Jefe de Zona',direccion:'register-leader-zone'},
+        { icon: 'mdi-pencil', text: 'Registrar Visita',direccion:'register-visits'},
+        { icon: 'mdi-star', text: 'Gestion de Visitas', direccion:'Gestion'},
+        { icon: 'mdi-library', text: 'Ver Usuarios',direccion:'view-users'},
+        { icon: 'mdi-book-open-variant', text: 'Visualizar Visitas',direccion:'view-visits'},
+      ],
+      itemsAdmin: [
+        { icon: 'mdi-library', text: 'Ver Usuarios',direccion:'view-users'},
         { icon: 'mdi-pencil', text: 'Registrar Visita',direccion:'register-visits'},
         { icon: 'mdi-star', text: 'Gestion de Visitas', direccion:'Gestion'},
         { icon: 'mdi-book-open-variant', text: 'Visualizar Visitas',direccion:'view-visits'},
-        { icon: 'mdi-account-card-details', text: 'Bitacora',direccion:'view-bitacores'},
+        
       ],
-      itemsAdmin: [
-        { icon: 'mdi-pencil', text: 'Registrar Visita',direccion:'register-visits'},
-        { icon: 'mdi-star', text: 'Gestion de Visitas', direccion:'Gestion'},
+      itemsLeaderZone: [
+        { icon: 'mdi-library', text: 'Ver Usuarios',direccion:'view-users'},
         { icon: 'mdi-book-open-variant', text: 'Visualizar Visitas',direccion:'view-visits'},
         
       ],
@@ -87,8 +93,10 @@
       modules(){
         if(this.rol == 1){
           return this.itemsSuperAdmin;
-        }else{
+        }else if(this.rol == 2){
           return this.itemsAdmin;
+        }else{
+          return this.itemsLeaderZone;
         }
       },
       rol() {

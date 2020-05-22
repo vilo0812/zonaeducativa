@@ -20,14 +20,14 @@
       <!-- start contenido de muestra -->
       <v-card class="d-inline-block mx-auto" width="1000" color="grey darken-2">
         <v-container>
-        <h1 class="text-center">Usuarios</h1>
+        <h1 class="text-center">Usuarios </h1>
         <!-- start vemos a todos los usuarios que posiblemente tienen bitacora -->
         <v-simple-table>
         <template v-slot:default>
           <thead>
             <tr>
               <th class="text-left">Nombre</th>
-              <th class="text-left">Apellido</th>
+              <th class="text-left">Puesto</th>
               <th class="text-left">Cedula</th>
               <th class="text-left">teléfono</th>
               <th class="text-left">Correo</th>
@@ -37,20 +37,18 @@
           <tbody>
             <template v-if="users.length">
             <tr v-for="(item, index) in users" :key="item.id">
+              <!--  -->
               <td>{{ item.first_name }}</td>
-              <td>{{ item.last_name }}</td>
+              <td>{{rolId(item.rol_id)}}</td>
               <td>{{ item.identification_card }}</td>
               <td>{{ item.phone }}</td>
               <td>{{item.email}}</td>
               <td>
-                <v-btn @click="editing(item.id)" color="primary">
-                <span>Editar</span>
-                <v-icon class="ml-2">mdi-account-edit</v-icon>
-                </v-btn>
-                <v-btn @click="remove(item.id,index)" color="red lighten-1">
-                <span>Bitacora</span>
-                <v-icon class="ml-2">mdi-delete</v-icon>
-                </v-btn>
+                <actions
+                  v-on:editing="editing(item.id)"
+                  v-on:remove="remove(item.id,index)" 
+                  v-on:viewUser="viewUser(item.id)"  
+                ></actions>
               </td>
             </tr>
             </template>
@@ -74,6 +72,7 @@ import Side from '.././partials/SideBar.vue'
 import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
 import {initialize} from '.././helpers/general';
+import actions from '.././components/viewUsers/actionSuperAdmin.vue'
   export default {
     mounted(){
       axios.get('/api/viewUsers').then(res => {
@@ -86,6 +85,7 @@ import {initialize} from '.././helpers/general';
       'side-bar':Side,
       'nav-bar':Nav,
       'content-center':ContentCenter,
+      'actions':actions
     },
     data () {
       return {
@@ -111,7 +111,7 @@ import {initialize} from '.././helpers/general';
           }).then((willDelete) => {
             /*start las dos pantallas que se pueden mostrar en caso de que decida eliminar o no*/
         if (willDelete) {
-          this.deleteAdmin(id,index);
+          this.deleteUser(id,index);
         } else {
           swal("su usuario se encuentra seguro");
         }
@@ -119,11 +119,44 @@ import {initialize} from '.././helpers/general';
           });
       /*end pantalla de evaluar si de verdad se quiere eliminar*/
     },
+    deleteUser(id,index){
+      /*start eliminamos al usuario de la base de datos*/
+          // let parametros={
+          //  'id':this.id
+          // }
+          // axios.delete('/api/deleteAdmin',parametros).then(res => {
+            let url=`/api/deleteUser/` + id;
+            axios.delete(url).then(res => {
+            /*start pantalla que informa que se elimino correctamente*/
+            swal("su usuario ha sido eliminado!", {
+            icon: "success",
+            closeOnClickOutside:false,
+              CloseOnEsc:false
+          }).then(select=>{
+            /*start eliminamos de la vista el registro*/
+            if(select){
+              this.users.splice(index,1);
+            }
+            /*end eliminamos de la vista el registro*/
+          });
+            /*end pantalla que informa que se elimino correctamente*/
+          }).catch(err => {
+            console.log(err);
+          });
+          /*end eliminamos al usuario de la base de datos*/
+    },
+    rolId(id){
+      return id==2 ? 'administrador' : 'jefe de zona';
+      },
+    viewUser(index){
+      // console.log(`hola mundo ${index}`);
+      this.$router.push({ name: 'show-admin', params: {id:index}})
+    }
     },
     computed: {
       rol() {
         return this.$store.state.currentUser.rol_id;
-      }
+      },
     },
     created () {
       this.$vuetify.theme.dark = true;

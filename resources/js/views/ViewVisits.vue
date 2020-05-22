@@ -24,7 +24,7 @@
         <v-btn
           color="success"
           class="ma-2 white--text"
-          href="/showVisits"
+          :href="urlViewVisits"
         >
           Visualizar PDF
           <v-icon right dark>mdi-file-pdf</v-icon>
@@ -32,13 +32,9 @@
         <v-btn
           color="blue"
           class="ma-2 white--text"
-          href="/pdfVisits"
+          :href="urlPdfVisits"
         >
           Descargar PDF
-          <v-progress-circular
-      indeterminate
-      color="primary"
-    ></v-progress-circular>
           <v-icon right dark>mdi-cloud-upload</v-icon>
         </v-btn>
         <!-- end boton de descargar -->
@@ -129,11 +125,32 @@ import ContentCenter from '.././structures/Center.vue'
       rol() {
         return this.$store.state.currentUser.rol_id;
       },
+      id(){
+        return this.$store.state.currentUser.id;
+      },
+     urlViewVisits(){
+        return `/verVisitas/${this.id}`;
+      },
+      urlPdfVisits(){
+        return `/pdfVisits/${this.id}`;
+      }
     },
     created () {
       this.$vuetify.theme.dark = true
     },
     methods: {
+      verVisitas(){
+      let params = {
+        'action_id' : 4,
+        'user_id' : this.$store.state.currentUser.id,
+        'details': `El usuario visualizo los registros de visitas en el edificio`
+      }
+        axios.post(`/api/storeBitacore`,params).then(res => {
+          window.location.href = "/verVisitas";
+      }).catch(err => {
+        console.log(err);
+      });
+      },
       pageReload (index) {
       axios.get(`/api/showPageVisits?page=${index + 1}`).then(res => {
         this.page = res.data.current_page;

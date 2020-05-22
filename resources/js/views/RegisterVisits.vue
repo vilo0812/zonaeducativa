@@ -344,6 +344,7 @@ import ContentCenter from '.././structures/Center.vue'
             }
       },
   	  registrar() {
+        let sector = this.sectores.filter((sector)=>sector.id == this.sector ? true : false);
   	    let params={
         'id':this.id,
         'idFloor':this.piso,
@@ -358,8 +359,10 @@ import ContentCenter from '.././structures/Center.vue'
         'ticket_id':this.pase,
         'belogings':this.pertenencias,
         'observation':this.observaciones,
+        'action_id' : 1,
+        'user_id' : this.$store.state.currentUser.id,
+        'details': `registro la visita del usuario ${this.nombre} ${this.apellido} ${this.cedula} el cual se dirijia al sector: ${sector[0].sector}`
         }
-
         axios.post('/api/storeVisit',params).then(res => {
         swal({
             title:res.data.mensaje,

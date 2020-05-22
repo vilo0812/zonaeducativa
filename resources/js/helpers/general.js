@@ -11,7 +11,7 @@ router.beforeEach((to,from,next) =>{//funcion que exije vue routes y que no enti
 		next('/');
 	}
 	else if (to.path == '/' && currentUser){//siii, intenta ir a login, pero el ya inicio sesion entonces lo mandamos a la pagina principal dentro del sistema
-		next('/gestions');
+		next('/viewUsers');
 	}else{//de otro modo puede entrar a la ruta normalmente
 		next();
 	}

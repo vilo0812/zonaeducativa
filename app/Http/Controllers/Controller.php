@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Direction;
+use App\Http\Controllers\BitacoreController;
 use App\Http\Requests\LoginFormRequest;
 use App\Http\Requests\RecoverPasswordRequest;
 use App\Password_recover;
@@ -102,17 +103,23 @@ class Controller extends BaseController
     }
     /*end api que cambia la contraseña del usuario*/
     /*api que me permite visualizar los pdfs*/
-    public function showVisitsPdf(){
+    public function showVisitsPdf($id){
+        $bitacore = new BitacoreController();
+        $details = "El usuario visualizo los registros de visitas en el edificio";
+        $bitacore->store($id,$details,4);
     	$data=Visitor::showVisitsPdf();
     	$pdf = App::make('dompdf.wrapper');
         $pdf->setPaper('a4', 'landscape');
     	$pdf->loadView('pdf.showVisits',compact('data'));
 
-    	return $pdf->stream();
+    	 return $pdf->stream();
     }
     /*end que me permite visualizar los pdfs*/
     /*start api que me permtie descargar los pdfs*/
-    public function downloadPdf(){
+    public function downloadPdf($id){
+        $bitacore = new BitacoreController();
+        $details = "El usuario descargo los registros de visitas en el edificio";
+        $bitacore->store($id,$details,5);
     	$data=Visitor::showVisitsPdf();
     	$pdf = App::make('dompdf.wrapper');
         $pdf->setPaper('a4', 'landscape');

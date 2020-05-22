@@ -91,7 +91,7 @@ export default{
 	      		CloseOnEsc:false
 	      	}).then(select=>{
 	      		if(select){
-	      			this.$router.push({ name: 'Gestion'})
+	      			this.$router.push({ name: 'view-users'})
 	      		}
 	      	});
 	      	/*end accion si todo funciono perfectamente*/

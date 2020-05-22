@@ -149,6 +149,9 @@ import ContentCenter from '.././structures/Center.vue'
           'email':this.correo,
           'identification_card':this.cedula,
           'phone':this.telefono,
+          'action_id' : 3,
+            'user_id' : this.$store.state.currentUser.id,
+          'details': `El usuario hizo una actualización en su perfil personal`
         }
         /*end llenamos nuestro objeto*/
         /*start llamamos al api que permite actualizar a los usuarios*/
@@ -205,6 +208,6 @@ import ContentCenter from '.././structures/Center.vue'
 <style>
 .fondo{
     background: #EEEEEE;
-    min-height: 700px;
+    min-height: 1000px;
   }
 </style>

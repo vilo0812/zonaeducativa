@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Direction;
 use App\Handling_time;
+use App\Http\Controllers\BitacoreController;
 use App\Http\Requests\RegisterVisitorRequest;
 use App\User;
 use App\Visitor;
@@ -69,7 +70,9 @@ class VisitorController extends Controller
         'belongings'=>$request->belogings,
         'observation'=>$request->observation,
         ]);
-         return response()->json(['mensaje'=>'Registro exitoso'],200);
+        $bitacore = new BitacoreController();
+        $bitacore->store($request->user_id,$request->details,$request->action_id);
+        return response()->json(['mensaje'=>'Registro exitoso'],200);
     }
     /*end iniciamos la api que permite registrar visitas*/
 
@@ -122,6 +125,8 @@ class VisitorController extends Controller
         $visit=$visit->handling_time;
         $visit->output=Carbon::now();
         $visit->save();
+        $bitacore = new BitacoreController();
+        $bitacore->store($request->user_id,$request->details,$request->action_id);
         return response()->json('actualizado con exito',200);;
     }
     /*end api que me permite actualizar las visitas marcando su hora de salida*/
@@ -135,5 +140,8 @@ class VisitorController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function storeBitacore(Request $request){
+    
     }
 }
