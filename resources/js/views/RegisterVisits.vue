@@ -1,5 +1,5 @@
 <template>
-  <div id="inspire" class="fondo-2">
+  <div id="inspire" class="fondo">
 	<!-- start Nav Bar -->
 	<nav-bar v-on:showSideBar="drawer = !drawer"></nav-bar><!-- recordar que este nav bar es capaz de mostrar el side bar que se mantiene oculto -->
 	<!-- end Nav Bar -->
@@ -491,6 +491,6 @@ import ContentCenter from '.././structures/Center.vue'
 <style>
   .fondo-2{
     background: #EEEEEE;
-    min-height: 700px;
+    min-height: 1000px;
   }
 </style>

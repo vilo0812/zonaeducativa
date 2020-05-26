@@ -16,6 +16,7 @@ import ViewUsers from './views/ViewUsers.vue';
 import RegisterAdmin from './views/RegisterAdmin.vue';
 import ShowAdmin from './views/ShowAdmin.vue';
 import EditUser from './views/EditUser.vue';
+import Tickets from './views/GestionTickets.vue';
 import Bitacores from './views/Bitacores.vue';
 import ShowBitacore from './views/ShowBitacore.vue';
 export const routes = [
@@ -58,7 +59,7 @@ export const routes = [
   {
     path:'/gestions',
     component:GestionVisits,
-    name:'Gestion',
+    name:'gestion-visit',
     meta:{
       requiresAuth: true
     }
@@ -111,6 +112,15 @@ export const routes = [
     path:'/dependecies',
     component:ControllerDepenci,
     name:'controller-dependenci',
+    meta:{
+      requiresAuth: true,
+      requiresAuthSuperAdmin: true,
+    }
+  },
+  {
+    path:'/tickets',
+    component:Tickets,
+    name:'gestion-ticket',
     meta:{
       requiresAuth: true,
       requiresAuthSuperAdmin: true,

@@ -26,7 +26,7 @@ export default {
         return this.$store.state.currentUser.rol_id;
       }
 	},
-  name: 'actionSuperAdmin',
+  name: 'actionUsers',
   data () {
     return {
 

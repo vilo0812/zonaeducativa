@@ -72,7 +72,7 @@ import Side from '.././partials/SideBar.vue'
 import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
 import {initialize} from '.././helpers/general';
-import actions from '.././components/viewUsers/actionSuperAdmin.vue'
+import actions from '.././components/viewUsers/actionUsers.vue'
   export default {
     mounted(){
       axios.get('/api/viewUsers').then(res => {

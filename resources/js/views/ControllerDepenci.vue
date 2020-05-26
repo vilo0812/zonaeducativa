@@ -22,17 +22,7 @@
       <!-- start hacemos el control delas dependecias -->
       <h1 class="text-center">control de dependencias</h1>
       <v-row>
-      <v-select
-        class="ml-3"
-        v-model="piso"
-        color="dark"
-        label="Seleccione el piso a verificar: "
-        :items="pisos"
-        item-text="floor"
-        item-value="id"
-        prepend-icon="mdi-grid"
-      ></v-select>
-      <v-btn color="primary" class="mt-3 mx-5" @click="showZonesAndSectors">Ver</v-btn>
+        <Floors @floor="getDataFloor"/>
       </v-row>
       <!-- start se mostrara solos si el selector de pisos es seleccionado -->
       <v-simple-table v-if="zonesSector" >
@@ -83,11 +73,13 @@
 import Side from '.././partials/SideBar.vue'
 import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
+import Floors from '.././components/viewFloors/Floors.vue'
   export default {
   	components:{
       'side-bar':Side,
   		'nav-bar':Nav,
   		'content-center':ContentCenter,
+      'Floors': Floors
   	},
   	data () {
   	  return {
@@ -127,8 +119,12 @@ import ContentCenter from '.././structures/Center.vue'
       });
     },
     methods: {
+      getDataFloor(floor){
+        this.piso = floor;
+        this.showZonesAndSectors();
+      },
       showZonesAndSectors(){
-        let url = '/api/showZonesAndSectors/'+this.piso;
+        let url = `/api/showZonesAndSectors/${this.piso}`;
         axios.get(url).then(res => {
           this.zonesSector=res.data;
         }).catch(err => {
