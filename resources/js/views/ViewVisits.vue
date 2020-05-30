@@ -54,7 +54,7 @@
           </thead>
           <tbody>
             <template v-if="visitas.length">
-            <tr v-for="item in visitas" :key="item.id">
+            <tr v-for="(item,index) in visitas" :key="index">
               <td>{{ item.first_name }}</td>
               <td>{{ item.last_name }}</td>
               <td>{{ item.identification_card }}</td>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDirectionIdToTicketDirectionsTable extends Migration
+class AddDirectionIdToDirectionTicketsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddDirectionIdToTicketDirectionsTable extends Migration
      */
     public function up()
     {
-        Schema::table('ticket_directions', function (Blueprint $table) {
+        Schema::table('direction_tickets', function (Blueprint $table) {
              $table->bigInteger('direction_id')->after('id')->unsigned()->nullable();
             $table->foreign('direction_id')->references('id')->on('directions')->onDelete('cascade');
         });
@@ -26,8 +26,8 @@ class AddDirectionIdToTicketDirectionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('ticket_directions', function (Blueprint $table) {
-            $table->dropForeign(['direction_id']);
+        Schema::table('direction_tickets', function (Blueprint $table) {
+             $table->dropForeign(['direction_id']);
             $table->dropColumn('direction_id');
         });
     }

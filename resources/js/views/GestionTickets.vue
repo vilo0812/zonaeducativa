@@ -43,11 +43,7 @@
         </v-card>
       	</content-center>
         <content-center>
-      		<ticket direction="PLANTA BAJA - ZONA 1 - A"/>
-      		<ticket direction="PLANTA BAJA - ZONA 1 - B"/>
-      		<ticket direction="PLANTA BAJA - ZONA 1 - C"/>
-      		<ticket direction="PLANTA BAJA - ZONA 1 - D"/>
-      		<ticket direction="PLANTA BAJA - ZONA 1 - E"/>
+      		<ticket v-for="(item,index) in tickets" :key="index" :ticket="item"/>
       	</content-center>
     	<!-- end el main donde ira el contenido principal -->
 	</div>
@@ -60,6 +56,13 @@ import ContentCenter from '.././structures/Center.vue'
 import Ticket from '.././components/ManagementTickets/Ticket.vue'
 import Floors from '.././components/viewFloors/Floors.vue'
 export default {
+  mounted(){
+    axios.get('/api/getTickets').then(res => {
+        this.tickets = res.data;
+      }).catch(err => {
+        console.log(err);
+      });
+  },
   components:{
       'side-bar':Side,
   		'nav-bar':Nav,
@@ -71,7 +74,8 @@ export default {
 
   data () {
     return {
-    drawer: null
+    drawer: null,
+    tickets:[],
     }
   },
   created () {
@@ -85,6 +89,18 @@ export default {
         console.log(floor)
       }
     },
+    computed: {
+      setTicket () {
+        return {
+        "ticket": "visitante",
+        "id": 1,
+        "code": "s5l7hchisba718csuoeo",
+        "floor": "planta baja",
+        "zone": "ZONA 1",
+        "letter_code": "a"
+    };
+      }
+    }
 }
 </script>
 

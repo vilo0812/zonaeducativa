@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
         'tickets',
         'visitors',
         'actions',
-        'bitacores'
+        'bitacores',
+        'direction_tickets'
         ]);
         $this->call(RolSeeder::class);
         $this->call(UserSeeder::class);
@@ -35,6 +36,7 @@ class DatabaseSeeder extends Seeder
       $this->call(VisitorSeeder::class);
       $this->call(ActionSeeder::class);
       $this->call(BitacoreSeeder::class);
+      $this->call(DirectionTicketsSeeder::class);
     }
     public function truncateTable(array $tables){
       DB::statement('SET FOREIGN_KEY_CHECKS = 0;');

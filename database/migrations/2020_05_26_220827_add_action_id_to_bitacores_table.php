@@ -14,7 +14,7 @@ class AddActionIdToBitacoresTable extends Migration
     public function up()
     {
         Schema::table('bitacores', function (Blueprint $table) {
-            $table->bigInteger('action_id')->after('id')->unsigned()->nullable();
+             $table->bigInteger('action_id')->after('user_id')->unsigned()->nullable();
             $table->foreign('action_id')->references('id')->on('actions')->onDelete('cascade');
         });
     }
@@ -27,7 +27,7 @@ class AddActionIdToBitacoresTable extends Migration
     public function down()
     {
         Schema::table('bitacores', function (Blueprint $table) {
-            $table->dropForeign(['action_id']);
+           $table->dropForeign(['action_id']);
             $table->dropColumn('action_id');
         });
     }

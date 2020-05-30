@@ -1962,17 +1962,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     viewTicket: function viewTicket() {
-      console.log('hola que hace');
+      window.location.href = "ticket/".concat(this.ticket.id);
+    }
+  },
+  computed: {
+    transformDirectionData: function transformDirectionData() {
+      var _this$ticket = this.ticket,
+          floor = _this$ticket.floor,
+          letter_code = _this$ticket.letter_code,
+          zone = _this$ticket.zone;
+      var direction = "".concat(floor, " - ").concat(letter_code, " - ").concat(zone);
+      return direction.toUpperCase();
     }
   },
   name: 'Ticket',
-  props: ['direction', 'code', 'id'],
-  data: function data() {
-    return {};
-  }
+  props: ['ticket']
 });
 
 /***/ }),
@@ -3442,16 +3450,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/getTickets').then(function (res) {
+      _this.tickets = res.data;
+    })["catch"](function (err) {
+      console.log(err);
+    });
+  },
   components: {
     'side-bar': _partials_SideBar_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     'nav-bar': _partials_NavBar_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -3462,7 +3475,8 @@ __webpack_require__.r(__webpack_exports__);
   name: 'GestionTickets',
   data: function data() {
     return {
-      drawer: null
+      drawer: null,
+      tickets: []
     };
   },
   created: function created() {
@@ -3474,6 +3488,18 @@ __webpack_require__.r(__webpack_exports__);
     },
     getDataFloor: function getDataFloor(floor) {
       console.log(floor);
+    }
+  },
+  computed: {
+    setTicket: function setTicket() {
+      return {
+        "ticket": "visitante",
+        "id": 1,
+        "code": "s5l7hchisba718csuoeo",
+        "floor": "planta baja",
+        "zone": "ZONA 1",
+        "letter_code": "a"
+      };
     }
   }
 });
@@ -41325,7 +41351,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "ticket", on: { click: _vm.viewTicket } }, [
-    _c("div", { staticClass: "header" }),
+    _c("div", { staticClass: "header" }, [
+      _c("h3", { staticClass: "centerCode" }, [_vm._v(_vm._s(_vm.ticket.code))])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "main" }, [
       _c("img", {
@@ -41333,7 +41361,13 @@ var render = function() {
         attrs: { src: "images/icons/zeg.png", alt: "" }
       }),
       _vm._v(" "),
-      _c("h3", { staticClass: "centerCode" }, [_vm._v(_vm._s(_vm.direction))])
+      _c("h3", { staticClass: "centerCode" }, [
+        _vm._v(_vm._s(_vm.transformDirectionData))
+      ]),
+      _vm._v(" "),
+      _c("h3", { staticClass: "centerCode" }, [
+        _vm._v(_vm._s(_vm.ticket.ticket))
+      ])
     ]),
     _vm._v(" "),
     _vm._m(0)
@@ -43058,17 +43092,9 @@ var render = function() {
       _vm._v(" "),
       _c(
         "content-center",
-        [
-          _c("ticket", { attrs: { direction: "PLANTA BAJA - ZONA 1 - A" } }),
-          _vm._v(" "),
-          _c("ticket", { attrs: { direction: "PLANTA BAJA - ZONA 1 - B" } }),
-          _vm._v(" "),
-          _c("ticket", { attrs: { direction: "PLANTA BAJA - ZONA 1 - C" } }),
-          _vm._v(" "),
-          _c("ticket", { attrs: { direction: "PLANTA BAJA - ZONA 1 - D" } }),
-          _vm._v(" "),
-          _c("ticket", { attrs: { direction: "PLANTA BAJA - ZONA 1 - E" } })
-        ],
+        _vm._l(_vm.tickets, function(item, index) {
+          return _c("ticket", { key: index, attrs: { ticket: item } })
+        }),
         1
       )
     ],
@@ -45198,8 +45224,8 @@ var render = function() {
                               "tbody",
                               [
                                 _vm.visitas.length
-                                  ? _vm._l(_vm.visitas, function(item) {
-                                      return _c("tr", { key: item.id }, [
+                                  ? _vm._l(_vm.visitas, function(item, index) {
+                                      return _c("tr", { key: index }, [
                                         _c("td", [
                                           _vm._v(_vm._s(item.first_name))
                                         ]),

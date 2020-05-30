@@ -7,14 +7,18 @@
     <style>
         .container{
         border: 1px black solid;
-        border-radius: 50%;
         width: 350px;
+        margin-top: 15px;
         margin:auto;
+        border-radius: 50%;
         }
         .header{
+        display: inline-block;
         border-bottom: 1px black solid;
         height: 50px;
         background: red;
+        width: 100%;
+        margin-top: 0px;
         }
         .main{
         width: 250px;
@@ -39,11 +43,12 @@
 <body>
     <div class="container">
         <div class="header">
-            
+            <h3 class="centerCode">{{$data['code']}}</h3>
         </div>
         <div class="main">
             <img class="centerImg" src="images/icons/zeg.png" alt="">
-            <h3 class="centerCode">{{$data}}</h3>
+            <h3 class="centerCode">{{$data['direction']}}</h3>
+            <h3 class="centerCode">{{$data['ticket']}}</h3>
         </div>
         <div class="footer">
             <div class="items">

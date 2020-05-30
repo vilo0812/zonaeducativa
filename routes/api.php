@@ -3,8 +3,10 @@
 use Illuminate\Http\Request;
 
 // start ticket
-Route::get('ticket','TicketController@getCodeTicket');
 // end ticket
+// start api que saca toda la informacion de todos los tickets
+Route::get('getTicketById','TicketController@getTicketById');
+// end api que saca toda la informacion de todos los tickets
 /*start apis de sesiones*/
 Route::group(['prefix' => 'sesion'], function() {
 	/*start api para iniciar sesion*/
@@ -89,9 +91,9 @@ Route::group([
 	/*start api sacar el id de la direccion segun 3 id*/
 	Route::post('directionId','DirectionController@directionId');
 	/*end api sacar el id de la direccion segun 3 id*/
-	/*start api para ver los pases permitidos de la zona*/
-	Route::get('showTickets','TicketController@show');
-	/*end api para ver los pases permitidos de la zona*/
+	// start api que saca toda la informacion de todos los tickets
+		Route::get('getTickets','TicketController@getTickets');
+	// end api que saca toda la informacion de todos los tickets
 	/*start api para ver la información de una usuario*/
 	Route::get('showUserByIc/{id}','UserController@showByIdentificationCard');
 	/*end api para ver la información de una usuario*/

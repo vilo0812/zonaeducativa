@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTicketDirectionsTable extends Migration
+class CreateDirectionTicketsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTicketDirectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_directions', function (Blueprint $table) {
+        Schema::create('direction_tickets', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('code');
         });
@@ -26,6 +26,6 @@ class CreateTicketDirectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket_directions');
+        Schema::dropIfExists('direction_tickets');
     }
 }

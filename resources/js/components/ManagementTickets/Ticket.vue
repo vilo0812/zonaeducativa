@@ -1,11 +1,12 @@
 <template>
 	<div class="ticket" @click="viewTicket">
         <div class="header">
-            
+            <h3 class="centerCode">{{ticket.code}}</h3>
         </div>
         <div class="main">
             <img class="centerImg" src="images/icons/zeg.png" alt="">
-            <h3 class="centerCode">{{direction}}</h3>
+            <h3 class="centerCode">{{transformDirectionData}}</h3>
+            <h3 class="centerCode">{{ticket.ticket}}</h3>
         </div>
         <div class="footer">
             <div class="items">
@@ -21,16 +22,18 @@
 export default {
 	methods: {
 	  viewTicket () {
-	    console.log('hola que hace');
+	     window.location.href = `ticket/${this.ticket.id}`;
 	  }
 	},
+    computed: {
+      transformDirectionData () {
+        let {floor,letter_code,zone} = this.ticket;
+        let direction = `${floor} - ${letter_code} - ${zone}`;
+        return direction.toUpperCase();
+      }
+    },
   name: 'Ticket',
-  props:['direction','code','id'],
-  data () {
-    return {
-
-    }
-  }
+  props:['ticket'],
 }
 </script>
 
