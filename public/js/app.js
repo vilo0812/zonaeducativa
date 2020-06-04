@@ -3483,6 +3483,15 @@ __webpack_require__.r(__webpack_exports__);
     this.$vuetify.theme.dark = true;
   },
   methods: {
+    getTicketsByFloor: function getTicketsByFloor(floor) {
+      var _this2 = this;
+
+      axios.get("/api/getTicketsByFloor/".concat(floor)).then(function (res) {
+        _this2.tickets = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
     viewTicket: function viewTicket() {
       console.log('hola que hace');
     },
@@ -43051,6 +43060,8 @@ var render = function() {
                   _c(
                     "v-row",
                     [
+                      _c("Floors", { on: { floor: _vm.getTicketsByFloor } }),
+                      _vm._v(" "),
                       _c(
                         "v-btn",
                         {
@@ -43066,17 +43077,7 @@ var render = function() {
                           ])
                         ],
                         1
-                      ),
-                      _vm._v(" "),
-                      _c("Floors", { on: { floor: _vm.getDataFloor } }),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: {
-                          outlined: "",
-                          label: "Buscar Ticket",
-                          "prepend-inner-icon": "mdi-magnify"
-                        }
-                      })
+                      )
                     ],
                     1
                   )
@@ -101725,7 +101726,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
 /* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -101753,8 +101753,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__["VTextField"]})
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"]})
 
 
 /* hot reload */

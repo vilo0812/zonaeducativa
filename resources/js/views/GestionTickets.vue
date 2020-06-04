@@ -23,6 +23,7 @@
               
               <!-- start llamamos a el selec que nos permite seleccionar el piso que quiere ver de ticket -->
               <v-row>
+                  <Floors @floor="getTicketsByFloor"/>
                  <v-btn
                 color="primary"
                 class="ma-2 white--text mr-5"
@@ -30,13 +31,12 @@
                   Actualizar Tickets
                   <v-icon right dark>mdi-refresh</v-icon>
                 </v-btn> 
-                  <Floors @floor="getDataFloor"/>
-                  <v-text-field
+              </v-row>
+                  <!-- <v-text-field
                     outlined
                     label="Buscar Ticket"
                     prepend-inner-icon="mdi-magnify"
-                  ></v-text-field>
-              </v-row>
+                  ></v-text-field> -->
               <!-- end llamamos a el selec que nos permite seleccionar el piso que quiere ver de ticket -->
               <!-- end boton de descarga -->
           </v-container>
@@ -82,6 +82,13 @@ export default {
       this.$vuetify.theme.dark = true
     },
     methods: {
+      getTicketsByFloor(floor){
+      axios.get(`/api/getTicketsByFloor/${floor}`).then(res => {
+        this.tickets = res.data;
+      }).catch(err => {
+        console.log(err);
+      });
+      },
       viewTicket () {
         console.log('hola que hace');
       },

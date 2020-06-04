@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Hash;
 
 class TicketController extends Controller
 {
+    
+    public function getTicketsByFloor ($floor){
+        $ticket = new DirectionTickets();
+         $data = $ticket->getTicketsByFloor($floor);
+        return response()->json($data,200);
+    }
     //start get ticket funcion que arroja toda la informacion referente a todos los tickets
      public function getTickets(){
         $data = DirectionTickets::getTickets();
@@ -87,4 +93,10 @@ class TicketController extends Controller
 
     
     }
+    //start api que saca los 3 tipos de tickets que existen
+    public function showTickets(){
+    $tickets = Ticket::get(['ticket','id']);
+    return response()->json($tickets,200);
+    }
+    //end api que saca los 3 tipos de tickets que existen
 }
