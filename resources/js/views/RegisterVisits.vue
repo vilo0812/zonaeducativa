@@ -20,6 +20,13 @@
   <v-card class="d-inline-block mx-auto" color="grey darken-2" width="450px">
     <v-container>
       	<h1 class="text-center">Registrar Visitante</h1>
+        <v-btn
+          color="primary"
+          dark
+          @click.stop="dialog = true"
+        >
+          Open Dialog
+        </v-btn>
 			<form>
 				<!--
 				posibles validaciones
@@ -196,6 +203,43 @@
         </v-btn>
         <!-- end botones de registrar y limpiar -->
 			</form>
+       <v-dialog
+      v-model="dialog"
+      max-width="400"
+    >
+      <v-card
+       class=" mx-auto"
+       :dark="true"
+      >
+      <v-card-title class=" text-center headline">
+          Su registro ha sido exitoso
+          <transition
+          name="animate.css"
+          enter-active-class="animated flip"
+          appear
+           >
+            <v-icon class="ml-3" color="success">mdi-checkbox-marked-circle
+            </v-icon>
+          </transition>
+              
+      </v-card-title>
+      <ticket 
+      :ticket="ticket"/>
+        <v-card-text>
+          El usuario ya puede acceder al area designada
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            color="primary darken-1"
+            @click="dialog = false"
+          >
+            Aceptar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     </v-container>
   </v-card>
 <!-- end contenido de muestra -->
@@ -208,11 +252,13 @@
 import Side from '.././partials/SideBar.vue'
 import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
+import Ticket from '.././components/ManagementTickets/Ticket.vue'
   export default {
   	components:{
       'side-bar':Side,
   		'nav-bar':Nav,
   		'content-center':ContentCenter,
+      'ticket': Ticket,
   	},
     mounted(){
       axios.get('/api/viewFloors').then(res => {
@@ -225,12 +271,20 @@ import ContentCenter from '.././structures/Center.vue'
       }).catch(err => {
         console.log(err);
       });
+      axios.get(`http://127.0.0.1:8000/api/getTicketById/1`).then(res => {
+        this.ticket=res.data
+      }).catch(err => {
+        console.log(err);
+      });
+      
       //  {id:1,pase:'visitante'},
       //   {id:2,pase:'provisional'},
       //   {id:3,pase:'video conferencia'},
     },
   	data () {
   	  return {
+        ticket:[],
+        dialog:null,
         errors:[],
   	    drawer: null,
         usuario:[],
@@ -370,6 +424,7 @@ import ContentCenter from '.././structures/Center.vue'
             closeOnClickOutside:false,
             CloseOnEsc:false
           }).then(select=>{
+
             if(select){
               this.$router.push({ name: 'Gestion'})
             }

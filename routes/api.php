@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 
 // start ticket
+Route::get('getTicketById/{id}','TicketController@getTicketById');
 // end ticket
 // start api que saca toda la informacion de todos los tickets segun el piso
 Route::get('getTicketsByFloor/{floor}','TicketController@getTicketsByFloor');

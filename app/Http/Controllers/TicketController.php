@@ -12,7 +12,13 @@ use Illuminate\Support\Facades\Hash;
 
 class TicketController extends Controller
 {
-    
+    //start mostramos un ticket segun su id
+    public function getTicketById($id){
+    $dir = new DirectionTickets ();
+    $data = $dir->getTicketById($id);
+    return response()->json($data[0],200);
+    }
+    //end mostramos un ticket segun su id
     public function getTicketsByFloor ($floor){
         $ticket = new DirectionTickets();
          $data = $ticket->getTicketsByFloor($floor);

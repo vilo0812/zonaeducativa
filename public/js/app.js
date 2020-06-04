@@ -4476,6 +4476,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _partials_SideBar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! .././partials/SideBar.vue */ "./resources/js/partials/SideBar.vue");
 /* harmony import */ var _partials_NavBar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! .././partials/NavBar.vue */ "./resources/js/partials/NavBar.vue");
 /* harmony import */ var _structures_Center_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! .././structures/Center.vue */ "./resources/js/structures/Center.vue");
+/* harmony import */ var _components_ManagementTickets_Ticket_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! .././components/ManagementTickets/Ticket.vue */ "./resources/js/components/ManagementTickets/Ticket.vue");
 //
 //
 //
@@ -4682,6 +4683,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -4689,7 +4735,8 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     'side-bar': _partials_SideBar_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     'nav-bar': _partials_NavBar_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    'content-center': _structures_Center_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    'content-center': _structures_Center_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    'ticket': _components_ManagementTickets_Ticket_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   mounted: function mounted() {
     var _this = this;
@@ -4703,12 +4750,19 @@ __webpack_require__.r(__webpack_exports__);
       _this.pases = res.data;
     })["catch"](function (err) {
       console.log(err);
+    });
+    axios.get("http://127.0.0.1:8000/api/getTicketById/1").then(function (res) {
+      _this.ticket = res.data;
+    })["catch"](function (err) {
+      console.log(err);
     }); //  {id:1,pase:'visitante'},
     //   {id:2,pase:'provisional'},
     //   {id:3,pase:'video conferencia'},
   },
   data: function data() {
     return {
+      ticket: [],
+      dialog: null,
       errors: [],
       drawer: null,
       usuario: [],
@@ -44119,352 +44173,460 @@ var render = function() {
               attrs: { color: "grey darken-2", width: "450px" }
             },
             [
-              _c("v-container", [
-                _c("h1", { staticClass: "text-center" }, [
-                  _vm._v("Registrar Visitante")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "form",
-                  [
-                    _c("v-text-field", {
-                      attrs: {
-                        color: "dark",
-                        type: "number",
-                        label: "Cédula: ",
-                        error: _vm.cedulaError,
-                        rules: _vm.cedulaRules,
-                        counter: 13,
-                        "prepend-icon": "mdi-account-card-details",
-                        required: ""
-                      },
+              _c(
+                "v-container",
+                [
+                  _c("h1", { staticClass: "text-center" }, [
+                    _vm._v("Registrar Visitante")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "primary", dark: "" },
                       on: {
-                        blur: _vm.checkUser,
-                        keyup: function($event) {
-                          if (
-                            !$event.type.indexOf("key") &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
-                            )
-                          ) {
-                            return null
-                          }
-                          return _vm.checkUser($event)
+                        click: function($event) {
+                          $event.stopPropagation()
+                          _vm.dialog = true
                         }
-                      },
-                      model: {
-                        value: _vm.cedula,
-                        callback: function($$v) {
-                          _vm.cedula = $$v
-                        },
-                        expression: "cedula"
                       }
-                    }),
-                    _vm._v(" "),
-                    _c("v-text-field", {
-                      attrs: {
-                        label: "Nombre: ",
-                        error: _vm.nombreError,
-                        rules: _vm.nombreRules,
-                        counter: 50,
-                        "prepend-icon": "mdi-account",
-                        required: ""
-                      },
-                      model: {
-                        value: _vm.nombre,
-                        callback: function($$v) {
-                          _vm.nombre = $$v
+                    },
+                    [_vm._v("\n          Open Dialog\n        ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "form",
+                    [
+                      _c("v-text-field", {
+                        attrs: {
+                          color: "dark",
+                          type: "number",
+                          label: "Cédula: ",
+                          error: _vm.cedulaError,
+                          rules: _vm.cedulaRules,
+                          counter: 13,
+                          "prepend-icon": "mdi-account-card-details",
+                          required: ""
                         },
-                        expression: "nombre"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-text-field", {
-                      attrs: {
-                        color: "dark",
-                        label: "Apellido: ",
-                        error: _vm.apellidoError,
-                        rules: _vm.apellidoRules,
-                        counter: 50,
-                        required: "",
-                        "prepend-icon": "mdi-account-settings"
-                      },
-                      model: {
-                        value: _vm.apellido,
-                        callback: function($$v) {
-                          _vm.apellido = $$v
+                        on: {
+                          blur: _vm.checkUser,
+                          keyup: function($event) {
+                            if (
+                              !$event.type.indexOf("key") &&
+                              _vm._k(
+                                $event.keyCode,
+                                "enter",
+                                13,
+                                $event.key,
+                                "Enter"
+                              )
+                            ) {
+                              return null
+                            }
+                            return _vm.checkUser($event)
+                          }
                         },
-                        expression: "apellido"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-text-field", {
-                      attrs: {
-                        color: "dark",
-                        type: "number",
-                        label: "Teléfono: ",
-                        error: _vm.tlfError,
-                        rules: _vm.tlfRules,
-                        counter: 13,
-                        "prepend-icon": "mdi-cellphone",
-                        required: ""
-                      },
-                      model: {
-                        value: _vm.telefono,
-                        callback: function($$v) {
-                          _vm.telefono = $$v
+                        model: {
+                          value: _vm.cedula,
+                          callback: function($$v) {
+                            _vm.cedula = $$v
+                          },
+                          expression: "cedula"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          label: "Nombre: ",
+                          error: _vm.nombreError,
+                          rules: _vm.nombreRules,
+                          counter: 50,
+                          "prepend-icon": "mdi-account",
+                          required: ""
                         },
-                        expression: "telefono"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-text-field", {
-                      attrs: {
-                        color: "dark",
-                        label: "Correo: ",
-                        counter: 100,
-                        "prepend-icon": "mdi-email",
-                        required: ""
-                      },
-                      model: {
-                        value: _vm.correo,
-                        callback: function($$v) {
-                          _vm.correo = $$v
+                        model: {
+                          value: _vm.nombre,
+                          callback: function($$v) {
+                            _vm.nombre = $$v
+                          },
+                          expression: "nombre"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          color: "dark",
+                          label: "Apellido: ",
+                          error: _vm.apellidoError,
+                          rules: _vm.apellidoRules,
+                          counter: 50,
+                          required: "",
+                          "prepend-icon": "mdi-account-settings"
                         },
-                        expression: "correo"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-text-field", {
-                      attrs: {
-                        color: "dark",
-                        label: "Procedencia: ",
-                        counter: 100,
-                        "prepend-icon": "mdi-google-maps",
-                        required: ""
-                      },
-                      model: {
-                        value: _vm.provenance,
-                        callback: function($$v) {
-                          _vm.provenance = $$v
+                        model: {
+                          value: _vm.apellido,
+                          callback: function($$v) {
+                            _vm.apellido = $$v
+                          },
+                          expression: "apellido"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          color: "dark",
+                          type: "number",
+                          label: "Teléfono: ",
+                          error: _vm.tlfError,
+                          rules: _vm.tlfRules,
+                          counter: 13,
+                          "prepend-icon": "mdi-cellphone",
+                          required: ""
                         },
-                        expression: "provenance"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-select", {
-                      attrs: {
-                        error: _vm.pisoError,
-                        rules: _vm.pisoRules,
-                        color: "dark",
-                        label: "Piso: ",
-                        items: _vm.pisos,
-                        "item-text": "floor",
-                        "item-value": "id",
-                        "prepend-icon": "mdi-grid"
-                      },
-                      on: { blur: _vm.viewZones },
-                      model: {
-                        value: _vm.piso,
-                        callback: function($$v) {
-                          _vm.piso = $$v
+                        model: {
+                          value: _vm.telefono,
+                          callback: function($$v) {
+                            _vm.telefono = $$v
+                          },
+                          expression: "telefono"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          color: "dark",
+                          label: "Correo: ",
+                          counter: 100,
+                          "prepend-icon": "mdi-email",
+                          required: ""
                         },
-                        expression: "piso"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-select", {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
+                        model: {
+                          value: _vm.correo,
+                          callback: function($$v) {
+                            _vm.correo = $$v
+                          },
+                          expression: "correo"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          color: "dark",
+                          label: "Procedencia: ",
+                          counter: 100,
+                          "prepend-icon": "mdi-google-maps",
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.provenance,
+                          callback: function($$v) {
+                            _vm.provenance = $$v
+                          },
+                          expression: "provenance"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        attrs: {
+                          error: _vm.pisoError,
+                          rules: _vm.pisoRules,
+                          color: "dark",
+                          label: "Piso: ",
+                          items: _vm.pisos,
+                          "item-text": "floor",
+                          "item-value": "id",
+                          "prepend-icon": "mdi-grid"
+                        },
+                        on: { blur: _vm.viewZones },
+                        model: {
                           value: _vm.piso,
+                          callback: function($$v) {
+                            _vm.piso = $$v
+                          },
                           expression: "piso"
                         }
-                      ],
-                      attrs: {
-                        error: _vm.zonaError,
-                        rules: _vm.zonaRules,
-                        color: "dark",
-                        items: _vm.zonas,
-                        "item-text": "zona",
-                        "item-value": "id",
-                        label: "Zona: ",
-                        "prepend-icon": "mdi-grid-large"
-                      },
-                      on: { blur: _vm.showSectors },
-                      model: {
-                        value: _vm.zona,
-                        callback: function($$v) {
-                          _vm.zona = $$v
+                      }),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.piso,
+                            expression: "piso"
+                          }
+                        ],
+                        attrs: {
+                          error: _vm.zonaError,
+                          rules: _vm.zonaRules,
+                          color: "dark",
+                          items: _vm.zonas,
+                          "item-text": "zona",
+                          "item-value": "id",
+                          label: "Zona: ",
+                          "prepend-icon": "mdi-grid-large"
                         },
-                        expression: "zona"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-select", {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
+                        on: { blur: _vm.showSectors },
+                        model: {
                           value: _vm.zona,
+                          callback: function($$v) {
+                            _vm.zona = $$v
+                          },
                           expression: "zona"
                         }
-                      ],
-                      attrs: {
-                        error: _vm.sectorError,
-                        rules: _vm.sectorRules,
-                        color: "dark",
-                        items: _vm.sectores,
-                        label: "Sector: ",
-                        "item-text": "sector",
-                        "item-value": "id",
-                        "prepend-icon": "mdi-cube-unfolded"
-                      },
-                      on: { blur: _vm.checkDependence },
-                      model: {
-                        value: _vm.sector,
-                        callback: function($$v) {
-                          _vm.sector = $$v
-                        },
-                        expression: "sector"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-select", {
-                      attrs: {
-                        color: "dark",
-                        error: _vm.paseError,
-                        rules: _vm.paseRules,
-                        items: _vm.pases,
-                        "item-text": "ticket",
-                        "item-value": "id",
-                        label: "Tipo de Pase: ",
-                        "prepend-icon": "mdi-ticket-account"
-                      },
-                      model: {
-                        value: _vm.pase,
-                        callback: function($$v) {
-                          _vm.pase = $$v
-                        },
-                        expression: "pase"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-textarea", {
-                      attrs: {
-                        color: "dark",
-                        outlined: "",
-                        name: "input-7-4",
-                        label: "Motivo de Visita: "
-                      },
-                      model: {
-                        value: _vm.observaciones,
-                        callback: function($$v) {
-                          _vm.observaciones = $$v
-                        },
-                        expression: "observaciones"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("h3", { staticClass: "text-center" }, [
-                      _vm._v("¿El usuario tiene pertenencias?")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "v-radio-group",
-                      {
-                        attrs: { row: "" },
-                        model: {
-                          value: _vm.HasPertenencias,
-                          callback: function($$v) {
-                            _vm.HasPertenencias = $$v
-                          },
-                          expression: "HasPertenencias"
-                        }
-                      },
-                      [
-                        _c("v-radio", {
-                          attrs: { label: "no", color: "dark" }
-                        }),
-                        _vm._v(" "),
-                        _c("v-radio", { attrs: { label: "si", color: "dark" } })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _vm.HasPertenencias
-                      ? _c("v-textarea", {
-                          attrs: {
-                            color: "dark",
-                            outlined: "",
-                            name: "input-7-4",
-                            label: "Pertenencias: "
-                          },
-                          model: {
-                            value: _vm.pertenencias,
-                            callback: function($$v) {
-                              _vm.pertenencias = $$v
-                            },
-                            expression: "pertenencias"
+                      }),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.zona,
+                            expression: "zona"
                           }
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.errors
-                      ? _c(
-                          "div",
-                          { staticClass: "font-weight-black err " },
-                          _vm._l(_vm.errors, function(err) {
-                            return _c("div", [
-                              _c(
-                                "ul",
-                                _vm._l(err, function(e) {
-                                  return _c("li", [_vm._v(_vm._s(e))])
-                                }),
-                                0
-                              )
-                            ])
+                        ],
+                        attrs: {
+                          error: _vm.sectorError,
+                          rules: _vm.sectorRules,
+                          color: "dark",
+                          items: _vm.sectores,
+                          label: "Sector: ",
+                          "item-text": "sector",
+                          "item-value": "id",
+                          "prepend-icon": "mdi-cube-unfolded"
+                        },
+                        on: { blur: _vm.checkDependence },
+                        model: {
+                          value: _vm.sector,
+                          callback: function($$v) {
+                            _vm.sector = $$v
+                          },
+                          expression: "sector"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        attrs: {
+                          color: "dark",
+                          error: _vm.paseError,
+                          rules: _vm.paseRules,
+                          items: _vm.pases,
+                          "item-text": "ticket",
+                          "item-value": "id",
+                          label: "Tipo de Pase: ",
+                          "prepend-icon": "mdi-ticket-account"
+                        },
+                        model: {
+                          value: _vm.pase,
+                          callback: function($$v) {
+                            _vm.pase = $$v
+                          },
+                          expression: "pase"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-textarea", {
+                        attrs: {
+                          color: "dark",
+                          outlined: "",
+                          name: "input-7-4",
+                          label: "Motivo de Visita: "
+                        },
+                        model: {
+                          value: _vm.observaciones,
+                          callback: function($$v) {
+                            _vm.observaciones = $$v
+                          },
+                          expression: "observaciones"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("h3", { staticClass: "text-center" }, [
+                        _vm._v("¿El usuario tiene pertenencias?")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "v-radio-group",
+                        {
+                          attrs: { row: "" },
+                          model: {
+                            value: _vm.HasPertenencias,
+                            callback: function($$v) {
+                              _vm.HasPertenencias = $$v
+                            },
+                            expression: "HasPertenencias"
+                          }
+                        },
+                        [
+                          _c("v-radio", {
+                            attrs: { label: "no", color: "dark" }
                           }),
-                          0
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c(
-                      "v-btn",
-                      {
-                        staticClass: "mr-4 light-blue accent-4",
-                        on: { click: _vm.submit }
-                      },
-                      [
-                        _c("span", [_vm._v("Registrar")]),
-                        _vm._v(" "),
-                        _c("v-icon", [_vm._v("mdi-account-multiple-plus")])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "v-btn",
-                      {
-                        staticClass: "orange lighten-2",
-                        on: { click: _vm.clear }
-                      },
-                      [
-                        _c("span", [_vm._v("Limpiar")]),
-                        _vm._v(" "),
-                        _c("v-icon", [_vm._v("mdi-eraser")])
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ])
+                          _vm._v(" "),
+                          _c("v-radio", {
+                            attrs: { label: "si", color: "dark" }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _vm.HasPertenencias
+                        ? _c("v-textarea", {
+                            attrs: {
+                              color: "dark",
+                              outlined: "",
+                              name: "input-7-4",
+                              label: "Pertenencias: "
+                            },
+                            model: {
+                              value: _vm.pertenencias,
+                              callback: function($$v) {
+                                _vm.pertenencias = $$v
+                              },
+                              expression: "pertenencias"
+                            }
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.errors
+                        ? _c(
+                            "div",
+                            { staticClass: "font-weight-black err " },
+                            _vm._l(_vm.errors, function(err) {
+                              return _c("div", [
+                                _c(
+                                  "ul",
+                                  _vm._l(err, function(e) {
+                                    return _c("li", [_vm._v(_vm._s(e))])
+                                  }),
+                                  0
+                                )
+                              ])
+                            }),
+                            0
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "mr-4 light-blue accent-4",
+                          on: { click: _vm.submit }
+                        },
+                        [
+                          _c("span", [_vm._v("Registrar")]),
+                          _vm._v(" "),
+                          _c("v-icon", [_vm._v("mdi-account-multiple-plus")])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "orange lighten-2",
+                          on: { click: _vm.clear }
+                        },
+                        [
+                          _c("span", [_vm._v("Limpiar")]),
+                          _vm._v(" "),
+                          _c("v-icon", [_vm._v("mdi-eraser")])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-dialog",
+                    {
+                      attrs: { "max-width": "400" },
+                      model: {
+                        value: _vm.dialog,
+                        callback: function($$v) {
+                          _vm.dialog = $$v
+                        },
+                        expression: "dialog"
+                      }
+                    },
+                    [
+                      _c(
+                        "v-card",
+                        { staticClass: " mx-auto", attrs: { dark: true } },
+                        [
+                          _c(
+                            "v-card-title",
+                            { staticClass: " text-center headline" },
+                            [
+                              _vm._v(
+                                "\n          Su registro ha sido exitoso\n          "
+                              ),
+                              _c(
+                                "transition",
+                                {
+                                  attrs: {
+                                    name: "animate.css",
+                                    "enter-active-class": "animated flip",
+                                    appear: ""
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "v-icon",
+                                    {
+                                      staticClass: "ml-3",
+                                      attrs: { color: "success" }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "mdi-checkbox-marked-circle\n            "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("ticket", { attrs: { ticket: _vm.ticket } }),
+                          _vm._v(" "),
+                          _c("v-card-text", [
+                            _vm._v(
+                              "\n          El usuario ya puede acceder al area designada\n        "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-actions",
+                            [
+                              _c("v-spacer"),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { color: "primary darken-1" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.dialog = false
+                                    }
+                                  }
+                                },
+                                [_vm._v("\n            Aceptar\n          ")]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
             ],
             1
           )
@@ -102314,12 +102476,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
-/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
-/* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
-/* harmony import */ var vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VRadioGroup */ "./node_modules/vuetify/lib/components/VRadioGroup/index.js");
-/* harmony import */ var vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VSelect */ "./node_modules/vuetify/lib/components/VSelect/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
-/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/index.js");
+/* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
+/* harmony import */ var vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VRadioGroup */ "./node_modules/vuetify/lib/components/VRadioGroup/index.js");
+/* harmony import */ var vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VSelect */ "./node_modules/vuetify/lib/components/VSelect/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/index.js");
 
 
 
@@ -102351,7 +102514,12 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VRadio: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_10__["VRadio"],VRadioGroup: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_10__["VRadioGroup"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_11__["VSelect"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__["VTextField"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_13__["VTextarea"]})
+
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardTitle"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_8__["VDialog"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_9__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_10__["VNavigationDrawer"],VRadio: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_11__["VRadio"],VRadioGroup: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_11__["VRadioGroup"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_12__["VSelect"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VSpacer"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_13__["VTextField"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_14__["VTextarea"]})
 
 
 /* hot reload */
