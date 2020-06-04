@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Direction;
+use App\DirectionTickets;
 use App\Handling_time;
 use App\Http\Controllers\BitacoreController;
 use App\Http\Requests\RegisterVisitorRequest;
@@ -72,7 +73,12 @@ class VisitorController extends Controller
         ]);
         $bitacore = new BitacoreController();
         $bitacore->store($request->user_id,$request->details,$request->action_id);
-        return response()->json(['mensaje'=>'Registro exitoso'],200);
+        $ticket = DirectionTickets::where([['direction_id','=',$direccion[0]->id],['ticket_id','=',$request->ticket_id]])->get('id');
+
+        $data = $ticket[0]->getTicketById($ticket[0]->id);
+        return response()->json([
+            'mensaje'=>'Registro exitoso',
+            'ticket' => $data[0]],200);
     }
     /*end iniciamos la api que permite registrar visitas*/
 

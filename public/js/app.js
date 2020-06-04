@@ -4906,18 +4906,8 @@ __webpack_require__.r(__webpack_exports__);
         'details': "registro la visita del usuario ".concat(this.nombre, " ").concat(this.apellido, " ").concat(this.cedula, " el cual se dirijia al sector: ").concat(sector[0].sector)
       };
       axios.post('/api/storeVisit', params).then(function (res) {
-        swal({
-          title: res.data.mensaje,
-          icon: 'success',
-          closeOnClickOutside: false,
-          CloseOnEsc: false
-        }).then(function (select) {
-          if (select) {
-            _this2.$router.push({
-              name: 'Gestion'
-            });
-          }
-        });
+        _this2.ticket = res.data.ticket;
+        _this2.dialog = true;
       })["catch"](function (err) {
         /*start en caso de algun error llenamos la variable error*/
         var er = err.response.data.mensaje;
@@ -44606,11 +44596,9 @@ var render = function() {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "primary darken-1" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.dialog = false
-                                    }
+                                  attrs: {
+                                    color: "primary darken-1",
+                                    to: { name: "gestion-visit" }
                                   }
                                 },
                                 [_vm._v("\n            Aceptar\n          ")]

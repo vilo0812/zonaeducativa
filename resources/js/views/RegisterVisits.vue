@@ -233,7 +233,7 @@
 
           <v-btn
             color="primary darken-1"
-            @click="dialog = false"
+            :to="{ name: `gestion-visit`}"
           >
             Aceptar
           </v-btn>
@@ -418,17 +418,8 @@ import Ticket from '.././components/ManagementTickets/Ticket.vue'
         'details': `registro la visita del usuario ${this.nombre} ${this.apellido} ${this.cedula} el cual se dirijia al sector: ${sector[0].sector}`
         }
         axios.post('/api/storeVisit',params).then(res => {
-        swal({
-            title:res.data.mensaje,
-            icon:'success',
-            closeOnClickOutside:false,
-            CloseOnEsc:false
-          }).then(select=>{
-
-            if(select){
-              this.$router.push({ name: 'Gestion'})
-            }
-          });
+          this.ticket = res.data.ticket;
+          this.dialog = true
         }).catch(err => {
           /*start en caso de algun error llenamos la variable error*/
           let er = err.response.data.mensaje;
