@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Direction;
 use App\Floor;
+use App\Sector;
 use App\Zone;
 use Illuminate\Http\Request;
 
@@ -47,4 +48,9 @@ class DirectionController extends Controller
         return response()->json($direction,200);
     }
     /*end metodo que me permite cambiar el estado de la pendencia de disponible a no disponible*/
+    //start api para ver todos los sectores
+    public function viewSectors(){
+        $sector = Sector::get(['id','sector']);
+        return response()->json($sector,200);
+    }
 }

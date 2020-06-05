@@ -8,6 +8,9 @@ Route::get('getTicketById/{id}','TicketController@getTicketById');
 // start api que saca toda la informacion de todos los tickets segun el piso
 Route::get('getTicketsByFloor/{floor}','TicketController@getTicketsByFloor');
 // end api que saca toda la informacion de todos los tickets segun el piso
+// start api que saca toda la informacion de todos los tickets segun el sector
+Route::get('getTicketsBySector/{sector}','TicketController@getTicketsBySector');
+// end api que saca toda la informacion de todos los tickets segun el sector
 /*start apis de sesiones*/
 Route::group(['prefix' => 'sesion'], function() {
 	/*start api para iniciar sesion*/
@@ -83,6 +86,9 @@ Route::group([
 	/*start api para ver los pisos del edificio*/
 	Route::get('viewFloors','DirectionController@viewFloors');
 	/*end api para ver a las zonas del edificio*/
+	/*start api para ver los sectores del edificio*/
+	Route::get('viewSectors','DirectionController@viewSectors');
+	/*end api para ver a los sectores del edificio*/
 	/*start api para ver las zonas y sectores de un sector*/
 	Route::get('showZonesAndSectors/{id}','DirectionController@showZonesAndSectors');
 	/*end api para ver a las zonas y sectores de un sector*/

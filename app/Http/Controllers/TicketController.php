@@ -19,11 +19,20 @@ class TicketController extends Controller
     return response()->json($data[0],200);
     }
     //end mostramos un ticket segun su id
+    //start devolvemos la informacion de los tickets segun el piso
     public function getTicketsByFloor ($floor){
         $ticket = new DirectionTickets();
          $data = $ticket->getTicketsByFloor($floor);
         return response()->json($data,200);
     }
+    //end devolvemos la informacion de los tickets segun el piso
+    //start devolvemos la informacion de los tickets segun el sector
+    public function getTicketsBySector ($sector){
+        $ticket = new DirectionTickets();
+         $data = $ticket->getTicketsBySector($sector);
+        return response()->json($data,200);
+    }
+    //end devolvemos la informacion de los tickets segun el sector
     //start get ticket funcion que arroja toda la informacion referente a todos los tickets
      public function getTickets(){
         $data = DirectionTickets::getTickets();
@@ -51,6 +60,15 @@ class TicketController extends Controller
     }
     // start api que muestra los id de los directioTickets
     // start tickets solicitado
+    // public function tickets(){
+    //     $data = DirectionTickets::getTickets();
+    //     $pdf = App::make('dompdf.wrapper');
+    //     $pdf->setPaper('a4');
+    //     $pdf->loadView('pdf.tickets',compact('data'));
+    //     return $pdf->download();
+    // }
+    // end tickets solicitado
+    // start ticket solicitado
     public function ticket($id){
         $dir = new DirectionTickets ();
         $data = $dir->getTicketById($id);
@@ -67,7 +85,7 @@ class TicketController extends Controller
         $pdf->loadView('pdf.ticket',compact('data'));
         return $pdf->stream();
     }
-    // end tickets solicitado
+    // end ticket solicitado
     // start informacion del ticket
     public function getDirectionTicket($data){
         // $dir = Direction::findOrFail($id);
