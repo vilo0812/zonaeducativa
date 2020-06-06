@@ -2,15 +2,7 @@
 
 use Illuminate\Http\Request;
 
-// start ticket
-Route::get('getTicketById/{id}','TicketController@getTicketById');
-// end ticket
-// start api que saca toda la informacion de todos los tickets segun el piso
-Route::get('getTicketsByFloor/{floor}','TicketController@getTicketsByFloor');
-// end api que saca toda la informacion de todos los tickets segun el piso
-// start api que saca toda la informacion de todos los tickets segun el sector
-Route::get('getTicketsBySector/{sector}','TicketController@getTicketsBySector');
-// end api que saca toda la informacion de todos los tickets segun el sector
+Route::post('updateTickets','TicketController@updateTickets');
 /*start apis de sesiones*/
 Route::group(['prefix' => 'sesion'], function() {
 	/*start api para iniciar sesion*/
@@ -104,6 +96,15 @@ Route::group([
 	//start api que muestra los tickets
 		Route::get('showTickets','TicketController@showTickets');
 	//start api que muestra los tickets
+	// start ticket por su id
+	Route::get('getTicketByIdgetTicketById/{id}','TicketController@getTicketById');
+	// end ticket por su id
+	// start api que saca toda la informacion de todos los tickets segun el piso
+	Route::get('getTicketsByFloor/{floor}','TicketController@getTicketsByFloor');
+	// end api que saca toda la informacion de todos los tickets segun el piso
+	// start api que saca toda la informacion de todos los tickets segun el sector
+	Route::get('getTicketsBySector/{sector}','TicketController@getTicketsBySector');
+	// end api que saca toda la informacion de todos los tickets segun el sector
 	/*start api para ver la información de una usuario*/
 	Route::get('showUserByIc/{id}','UserController@showByIdentificationCard');
 	/*end api para ver la información de una usuario*/

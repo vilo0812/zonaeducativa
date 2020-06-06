@@ -110,17 +110,29 @@ class TicketController extends Controller
     // $encrupt = decrypt($encrupt);
     }
     //end sacar la informacion del ticket
-    // start funcion que permite sacar el codigo
-    public function getCodeTicket(){
-    // $obj = new Controller();
-    // return $obj->token(3);
-
-    
+    // start funcion que permite update el cogido
+    public function updateTickets(){
+    $tickets = DirectionTickets::all();
+    for ($i=0; $i < sizeof($tickets); $i++) { 
+        $tickets[$i]->code = $this->token(20);
+        $tickets[$i]->save();
     }
+    return response()->json($tickets,200);
+    }
+    // end funcion que permite update el cogido
     //start api que saca los 3 tipos de tickets que existen
     public function showTickets(){
     $tickets = Ticket::get(['ticket','id']);
     return response()->json($tickets,200);
     }
     //end api que saca los 3 tipos de tickets que existen
+    /*start funcion para generar un codigo aleatorio*/
+    public function token($longitud) {
+         $key = '';
+         $pattern = '1234567890abcdefghijklmnopqrstuvwxyz';
+         $max = strlen($pattern)-1;
+         for($i=0;$i < $longitud;$i++) $key .= $pattern{mt_rand(0,$max)};
+         return $key;
+        }
+        /*end funcion para generar un codigo aleatorio*/
 }

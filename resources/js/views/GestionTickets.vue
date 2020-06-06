@@ -16,6 +16,39 @@
 	    <!-- end cuadro que se mantiene oculto y solo aparecera si drawer es true -->
 			<!-- start el main donde ira el contenido principal -->
         <content-center>
+        <!-- start dialog -->
+        <v-dialog
+        v-model="dialog"
+        max-width="550"
+        :light="true"
+        >
+      <v-card>
+        <v-card-title class="headline">¿Estas seguro de querer actualizar los tickets?</v-card-title>
+
+        <v-card-text>
+          Vamos a actualizar el codigo de todos los tickets del edificio con codigos nuevos para mejorar la seguridad, los codigos anteriores dejaran de funcionar ¿esta seguro que desea continuar?
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            color="error"
+            @click="dialog = false"
+          >
+            cancelar
+          </v-btn>
+
+          <v-btn
+            color="primary"
+            @click="updateTickets"
+          >
+            continuar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- end dialog -->
       <v-card class="d-inline-block mx-auto title" color="grey darken-2">
           <v-container>
                 <h1 class="text-center mb-5">Gestion de Tickets
@@ -23,6 +56,7 @@
                 <!-- start boton de actualizar -->
                 <v-row justify="space-between">
                  <v-btn
+                @click.stop="dialog = true"
                 color="primary"
                 class="ma-2 white--text mr-5"
                 >
@@ -95,6 +129,7 @@ export default {
 
   data () {
     return {
+    dialog:null,
     drawer: null,
     tickets:[],
     searching:[
@@ -110,6 +145,24 @@ export default {
       this.$vuetify.theme.dark = true
     },
     methods: {
+      updateTickets(){
+        axios.post('/api/updateTickets').then(res => {
+        this.dialog = false;
+        swal({
+            title:'Completado',
+            text:res.data.mensaje,
+            icon:'success',
+            closeOnClickOutside:false,
+            CloseOnEsc:false
+          }).then(select=>{
+            if(select){
+              location.reload();
+            }
+          });
+      }).catch(err => {
+        swal('Error','se ha producido un error inesperado','error');
+      });
+      },
       getSelectors(){
         if(this.search == 1){
           this.showSelectorBySector = false
