@@ -72,15 +72,16 @@
         { icon: 'mdi-pencil', text: 'Registrar Visita',direccion:'register-visits'},
         { icon: 'mdi-account-check', text: 'Gestion de Visitas', direccion:'gestion-visit'},
         { icon: 'mdi-ticket', text: 'Gestion de Tickets', direccion:'gestion-ticket'},
+        { icon: 'mdi-library-books', text: 'Verificar Ticket',direccion:'check-ticket'},
         { icon: 'mdi-library', text: 'Ver Usuarios',direccion:'view-users'},
         { icon: 'mdi-book-open-variant', text: 'Visualizar Visitas',direccion:'view-visits'},
       ],
       itemsAdmin: [
         { icon: 'mdi-library', text: 'Ver Usuarios',direccion:'view-users'},
         { icon: 'mdi-pencil', text: 'Registrar Visita',direccion:'register-visits'},
-        { icon: 'mdi-star', text: 'Gestion de Visitas', direccion:'Gestion'},
+        { icon: 'mdi-account-check', text: 'Gestion de Visitas', direccion:'Gestion'},
+        { icon: 'mdi-library-books', text: 'Verificar Ticket',direccion:'check-ticket'},
         { icon: 'mdi-book-open-variant', text: 'Visualizar Visitas',direccion:'view-visits'},
-        
       ],
       itemsLeaderZone: [
         { icon: 'mdi-library', text: 'Ver Usuarios',direccion:'view-users'},

@@ -19,6 +19,7 @@ import EditUser from './views/EditUser.vue';
 import Tickets from './views/GestionTickets.vue';
 import Bitacores from './views/Bitacores.vue';
 import ShowBitacore from './views/ShowBitacore.vue';
+import CheckingTicket from './views/CheckingTicket.vue'
 export const routes = [
   /*
    |--------------------------------------------------------------------------
@@ -168,5 +169,15 @@ export const routes = [
     }
   },
   /*end editar usuario*/
+  /*start checkear ticket*/
+  {
+    path:'/VerificarTicket',
+    component:CheckingTicket,
+    name:'check-ticket',
+    meta:{
+      requiresAuth: true,
+    }
+  },
+  /*end checkear ticket*/
 /*manejador de administradores*/
 ]

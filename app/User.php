@@ -46,4 +46,11 @@ class User extends Authenticatable implements JWTSubject
       return $this->hasMany(Bitacore::class);
       }
       //end sacamos la bitacora de el id del usuario
+      ///startscope scope del name
+      public function scopeName($query,$name){
+        if($name){
+          return $query->where('name','LIKE',"%$name%");
+        }
+      }
+      ///end scope del name
 }

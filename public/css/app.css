@@ -6442,6 +6442,14 @@ border-radius:50%;
   background: #EEEEEE;
   min-height: 1000px;
 }
+
+.fondo[data-v-337b9165]{
+    background: #EEEEEE;
+    min-height: 1000px;
+}
+.title[data-v-337b9165]{
+  min-width: 1000px;
+}
 .theme--light.v-application {
   background: #fafafa;
   color: rgba(0, 0, 0, 0.87);

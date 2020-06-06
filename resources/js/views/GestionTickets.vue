@@ -193,18 +193,6 @@ export default {
         console.log(floor)
       }
     },
-    computed: {
-      setTicket () {
-        return {
-        "ticket": "visitante",
-        "id": 1,
-        "code": "s5l7hchisba718csuoeo",
-        "floor": "planta baja",
-        "zone": "ZONA 1",
-        "letter_code": "a"
-    };
-      }
-    }
 }
 </script>
 
