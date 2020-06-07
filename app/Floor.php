@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Floor extends Model
 {
+    public $timestamps = false;
 	/*start relacion entre zones y floors*/
 	public function zones(){
         return $this->belongsToMany(Zone::class,'directions');

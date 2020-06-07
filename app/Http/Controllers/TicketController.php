@@ -15,7 +15,7 @@ class TicketController extends Controller
     //start mostramos un ticket segun su id
     public function getTicketById($id){
     $dir = new DirectionTickets ();
-    $data = $dir->getTicketById($id);
+    $data = $dir->ticketById($id);
     return response()->json($data[0],200);
     }
     //end mostramos un ticket segun su id
@@ -71,7 +71,7 @@ class TicketController extends Controller
     // start ticket solicitado
     public function ticket($id){
         $dir = new DirectionTickets ();
-        $data = $dir->getTicketById($id);
+        $data = $dir->ticketById($id);
         $direction = $this->getDirectionTicket($data);
         $ticket = strtoupper($data[0]->ticket);
         $code = $data[0]->code;

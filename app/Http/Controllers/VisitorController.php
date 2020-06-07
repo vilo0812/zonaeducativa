@@ -46,6 +46,7 @@ class VisitorController extends Controller
         // $time=Carbon::now()->format('h:i');
         $time=Carbon::now();
         $direccion = Direction::where([['floor_id',$request->idFloor],['zone_id',$request->idZone],['sector_id',$request->idSector]])->select('id')->get();
+        $ticket = DirectionTickets::where([['direction_id','=',$direccion[0]->id],['ticket_id','=',$request->ticket_id]])->get('id');
         if(!$request['id']){
         $user=User::create([
             'first_name'=>$request['first_name'],
@@ -65,17 +66,15 @@ class VisitorController extends Controller
         $visit=Visitor::create([
         'user_id'=>$id,
         'handling_time_id'=>$time->id,
-        'ticket_id'=>$request->ticket_id,
-        'direction_id'=>$direccion[0]->id,
+        'direction_ticket_id'=>$ticket[0]->id,
         'provenance'=>$request['provenance'],
         'belongings'=>$request->belogings,
         'observation'=>$request->observation,
         ]);
         $bitacore = new BitacoreController();
         $bitacore->store($request->user_id,$request->details,$request->action_id);
-        $ticket = DirectionTickets::where([['direction_id','=',$direccion[0]->id],['ticket_id','=',$request->ticket_id]])->get('id');
 
-        $data = $ticket[0]->getTicketById($ticket[0]->id);
+        $data = $ticket[0]->ticketById($ticket[0]->id);
         return response()->json([
             'mensaje'=>'Registro exitoso',
             'ticket' => $data[0]],200);

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-
 Route::post('updateTickets','TicketController@updateTickets');
 /*start apis de sesiones*/
 Route::group(['prefix' => 'sesion'], function() {

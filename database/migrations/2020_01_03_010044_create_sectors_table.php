@@ -17,7 +17,6 @@ class CreateSectorsTable extends Migration
             $table->bigIncrements('id');
             $table->string('sector');
             $table->string('letter_code');
-            $table->timestamps();
         });
     }
 

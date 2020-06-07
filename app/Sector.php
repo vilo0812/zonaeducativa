@@ -17,4 +17,5 @@ class Sector extends Model
         return $this->hasMany(Direction::class);
     }
     /*end relacion con direcciones*/
+    public $timestamps = false;
 }

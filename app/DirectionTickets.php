@@ -25,15 +25,27 @@ class DirectionTickets extends Model
     }
     /*end metodo  que permite ver toda la informacion de todos los tickets*/
     // start funcion para buscar los ticket segun el id
-    public function getTicketById($id){
+    public function ticketById($id){
         $registro = static::leftJoin("tickets","direction_tickets.ticket_id","=","tickets.id")
-        ->join('directions',"direction_tickets.ticket_id","=","directions.id")
-        ->join('floors','directions.floor_id','floors.id')
-        ->join('zones','directions.zone_id','zones.id')
-        ->join('sectors','directions.sector_id','sectors.id')
-        ->select('ticket','directions.id','code','floor','zone','sectors.letter_code')
+        ->join('directions',"direction_tickets.direction_id","=","directions.id")
+        ->join('floors','directions.floor_id',"=",'floors.id')
+        ->join('zones','directions.zone_id',"=",'zones.id')
+        ->join('sectors','directions.sector_id',"=",'sectors.id')
         ->where('direction_tickets.id','=',$id)
+        ->select('direction_tickets.id','ticket','code','floor','zone','sectors.letter_code')
         ->get();
+        return $registro;
+        // $registro = static::leftJoin("tickets","direction_tickets.ticket_id","=","tickets.id")
+        // ->join('directions',
+        //     "direction_tickets.ticket_id",
+        //     "=",
+        //     "directions.id")
+        // ->join('floors','directions.floor_id','=','floors.id')
+        // ->join('zones','directions.zone_id','=','zones.id')
+        // ->join('sectors','directions.sector_id','=','sectors.id')
+        // ->where('direction_tickets.id','=',$id)
+        // ->select('ticket','directions.id','code','floor','zone','sectors.letter_code')
+        // ->get();
         return $registro;
     }
     // end funcion para buscar los ticket segun el id
