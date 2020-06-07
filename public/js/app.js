@@ -6009,7 +6009,7 @@ __webpack_require__.r(__webpack_exports__);
       return "/verVisitas/".concat(this.id);
     },
     urlPdfVisits: function urlPdfVisits() {
-      return "/pdfVisits/".concat(this.id);
+      return "/downloadPdf/".concat(this.id);
     }
   },
   created: function created() {

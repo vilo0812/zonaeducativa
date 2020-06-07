@@ -102,32 +102,6 @@ class Controller extends BaseController
         return response()->json(['mensaje'=>'contraseña cambiada correctamente'], 200);
     }
     /*end api que cambia la contraseña del usuario*/
-    /*api que me permite visualizar los pdfs*/
-    public function showVisitsPdf($id){
-        $bitacore = new BitacoreController();
-        $details = "El usuario visualizo los registros de visitas en el edificio";
-        $bitacore->store($id,$details,4);
-    	$data=Visitor::showVisitsPdf();
-    	$pdf = App::make('dompdf.wrapper');
-        $pdf->setPaper('a4', 'landscape');
-    	$pdf->loadView('pdf.showVisits',compact('data'));
-
-    	 return $pdf->stream();
-    }
-    /*end que me permite visualizar los pdfs*/
-    /*start api que me permtie descargar los pdfs*/
-    public function downloadPdf($id){
-        $bitacore = new BitacoreController();
-        $details = "El usuario descargo los registros de visitas en el edificio";
-        $bitacore->store($id,$details,5);
-    	$data=Visitor::showVisitsPdf();
-    	$pdf = App::make('dompdf.wrapper');
-        $pdf->setPaper('a4', 'landscape');
-    	$pdf->loadView('pdf.showVisits',compact('data'));
-    	return $pdf->download();
-    }
-    /*end api que me permtie descargar los pdfs*/
-
 //start filtrado 
     public function filter($info,$data,$select){
     $filter = User::leftJoin("visitors","visitors.user_id","=","users.id")
@@ -142,7 +116,7 @@ class Controller extends BaseController
         ->orderBy('visitors.id','desc')
         ->where($info,'LIKE',"%$data%")
         ->select($select)
-    ->paginate(5);
+    ->paginate(25);
     return $filter;
     }
 //end filtrado 

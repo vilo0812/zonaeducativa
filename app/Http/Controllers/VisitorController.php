@@ -11,9 +11,35 @@ use App\User;
 use App\Visitor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class VisitorController extends Controller
 {
+    /*start que me permite visualizar los pdfs*/
+    public function viewPdf($id){
+        $bitacore = new BitacoreController();
+        $details = "El usuario visualizo los registros de visitas en el edificio";
+        $bitacore->store($id,$details,4);
+        $data=Visitor::showVisitsPdf();
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->setPaper('a4', 'landscape');
+        $pdf->loadView('pdf.showVisits',compact('data'));
+
+         return $pdf->stream();
+    }
+    /*end que me permite visualizar los pdfs*/
+    /*start que me permtie descargar los pdfs*/
+    public function downloadPdf($id){
+        $bitacore = new BitacoreController();
+        $details = "El usuario descargo los registros de visitas en el edificio";
+        $bitacore->store($id,$details,5);
+        $data=Visitor::showVisitsPdf();
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->setPaper('a4', 'landscape');
+        $pdf->loadView('pdf.showVisits',compact('data'));
+        return $pdf->download();
+    }
+    /*end que me permtie descargar los pdfs*/
     /**
      * Display a listing of the resource.
      *

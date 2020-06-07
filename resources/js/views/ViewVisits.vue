@@ -132,7 +132,7 @@ import ContentCenter from '.././structures/Center.vue'
         return `/verVisitas/${this.id}`;
       },
       urlPdfVisits(){
-        return `/pdfVisits/${this.id}`;
+        return `/downloadPdf/${this.id}`;
       }
     },
     created () {
