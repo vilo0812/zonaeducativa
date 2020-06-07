@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Direction;
 use App\DirectionTickets;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FilterController;
 use App\Ticket;
+use App\User;
+use App\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
@@ -134,5 +137,16 @@ class TicketController extends Controller
          for($i=0;$i < $longitud;$i++) $key .= $pattern{mt_rand(0,$max)};
          return $key;
         }
-        /*end funcion para generar un codigo aleatorio*/
+    /*end funcion para generar un codigo aleatorio*/
+    //start busqueda de tickets
+    public function searchTicket(Request $request){
+    $searching = new FilterController();
+    $data = $searching->filterOfVerificationTicketByIc($request->data);
+    if(!$data[0]){
+     $data = $searching->filterOfVerificationTicketByCode($request->data);
+    }
+    return response()->json(["data"=>$data],200);
+    
+    }
+    //end busqueda de tickets
 }

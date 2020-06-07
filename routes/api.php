@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Http\Request;
-Route::post('updateTickets','TicketController@updateTickets');
+Route::post('searchTicket','TicketController@searchTicket');
+Route::post('filterTicket','FilterController@filterOfVerificationTicketByIc');
+Route::post('filterTicketByCode','FilterController@filterOfVerificationTicketByCode');
 /*start apis de sesiones*/
 Route::group(['prefix' => 'sesion'], function() {
 	/*start api para iniciar sesion*/
@@ -89,12 +91,14 @@ Route::group([
 	/*start api sacar el id de la direccion segun 3 id*/
 	Route::post('directionId','DirectionController@directionId');
 	/*end api sacar el id de la direccion segun 3 id*/
+//start apis de ticket generales
 	// start api que saca toda la informacion de todos los tickets
 		Route::get('getTickets','TicketController@getTickets');
 	// end api que saca toda la informacion de todos los tickets
 	//start api que muestra los tickets
 		Route::get('showTickets','TicketController@showTickets');
-	//start api que muestra los tickets
+	//end api que muestra los tickets
+//end apis de ticket generales
 	// start ticket por su id
 	Route::get('getTicketByIdgetTicketById/{id}','TicketController@getTicketById');
 	// end ticket por su id
@@ -104,6 +108,9 @@ Route::group([
 	// start api que saca toda la informacion de todos los tickets segun el sector
 	Route::get('getTicketsBySector/{sector}','TicketController@getTicketsBySector');
 	// end api que saca toda la informacion de todos los tickets segun el sector
+	//start actualizar tickets
+	Route::post('updateTickets','TicketController@updateTickets');
+	//end actualizar tickets
 	/*start api para ver la información de una usuario*/
 	Route::get('showUserByIc/{id}','UserController@showByIdentificationCard');
 	/*end api para ver la información de una usuario*/
@@ -114,4 +121,7 @@ Route::group([
 	Route::post('storeBitacore','BitacoreController@storeBitacoreViewVisits');
 	//end api para registar en la bitacora la accion de visualizar los pdfs
 /*end apis para sacar informacines especificas*/
+//start filtros
+// Route::post('filterTicket','FilterController@filterOfVerificationTicketByIc');
+//end filtros
 });

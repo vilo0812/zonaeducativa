@@ -47,10 +47,14 @@ class User extends Authenticatable implements JWTSubject
       }
       //end sacamos la bitacora de el id del usuario
       ///startscope scope del name
-      public function scopeName($query,$name){
-        if($name){
-          return $query->where('name','LIKE',"%$name%");
-        }
+      public function scopeFirstName($query,$name){
+          return $query->where('first_name','LIKE',"%$name%");
       }
       ///end scope del name
+      ///startscope scope del ID
+      public function scopeIdentificationCard($query,$ic){
+          return $query->where('identification_card','LIKE',"%$ic%");
+      }
+      ///end scope del ID
+     
 }
