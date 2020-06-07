@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class FilterController extends Controller
 {
+
 //start api para filtrar segun la cedula
     public function filterOfVerificationTicketByIc($ic){
     $user = User::leftJoin("visitors","visitors.user_id","=","users.id")

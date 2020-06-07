@@ -140,12 +140,38 @@ class TicketController extends Controller
     /*end funcion para generar un codigo aleatorio*/
     //start busqueda de tickets
     public function searchTicket(Request $request){
-    $searching = new FilterController();
-    $data = $searching->filterOfVerificationTicketByIc($request->data);
+    // $searching = new Controller();
+    $searching = new Controller();
+    $datalist = ['users.id',
+    'users.first_name',
+    'users.last_name',
+    'users.identification_card',
+    'ticket','sector','code',
+    'floor','zone',
+    'sectors.letter_code',
+    'direction_tickets.id',
+    'ticket','input'];
+    $findByCi = "users.identification_card";
+    $findByCode = "direction_tickets.code";
+    $data = $searching
+    ->filter(
+        $findByCi,
+        $request->data,
+        $datalist);
     if(!$data[0]){
-     $data = $searching->filterOfVerificationTicketByCode($request->data);
-    }
+     $data = $searching
+     ->filter(
+        $findByCode,
+        $request->data,
+        $datalist);
+    };
     return response()->json(["data"=>$data],200);
+    // $searching = new FilterController();
+    // $data = $searching->filterOfVerificationTicketByIc($request->data);
+    // if(!$data[0]){
+    //  $data = $searching->filterOfVerificationTicketByCode($request->data);
+    // }
+    // return response()->json(["data"=>$data],200);
     
     }
     //end busqueda de tickets

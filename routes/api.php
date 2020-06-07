@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+Route::get('filter/{info}/{data}','Controller@filter');
 Route::post('searchTicket','TicketController@searchTicket');
 Route::post('filterTicket','FilterController@filterOfVerificationTicketByIc');
 Route::post('filterTicketByCode','FilterController@filterOfVerificationTicketByCode');

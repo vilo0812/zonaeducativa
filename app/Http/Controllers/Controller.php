@@ -127,5 +127,23 @@ class Controller extends BaseController
     	return $pdf->download();
     }
     /*end api que me permtie descargar los pdfs*/
-    
+
+//start filtrado 
+    public function filter($info,$data,$select){
+    $filter = User::leftJoin("visitors","visitors.user_id","=","users.id")
+        ->join('rols',"rols.id","=","users.rol_id")
+        ->join('handling_times',"visitors.handling_time_id","=","handling_times.id")
+        ->join("direction_tickets","direction_tickets.id","=","visitors.direction_ticket_id")
+        ->join("tickets","direction_tickets.ticket_id","=","tickets.id")
+        ->join('directions',"direction_tickets.direction_id","=","directions.id")
+        ->join('floors','directions.floor_id',"=",'floors.id')
+        ->join('zones','directions.zone_id',"=",'zones.id')
+        ->join('sectors','directions.sector_id',"=",'sectors.id')
+        ->orderBy('visitors.id','desc')
+        ->where($info,'LIKE',"%$data%")
+        ->select($select)
+    ->paginate(5);
+    return $filter;
+    }
+//end filtrado 
 }
