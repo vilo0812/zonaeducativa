@@ -20,13 +20,6 @@
   <v-card class="d-inline-block mx-auto" color="grey darken-2" width="450px">
     <v-container>
       	<h1 class="text-center">Registrar Visitante</h1>
-        <v-btn
-          color="primary"
-          dark
-          @click.stop="dialog = true"
-        >
-          Open Dialog
-        </v-btn>
 			<form>
 				<!--
 				posibles validaciones

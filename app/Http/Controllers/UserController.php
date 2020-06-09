@@ -13,7 +13,10 @@ class UserController extends Controller
 {
     // start api para ver a los admins y jefes de zona
     public function viewUsers(){
-    $users=$users=User::where('rol_id',2)->orWhere('rol_id',3)->get(['id','first_name','identification_card','phone','email','rol_id']);
+    $users=$users=User::where('rol_id',2)
+    ->orWhere('rol_id',3)
+    ->select(['id','first_name','identification_card','phone','email','rol_id'])
+    ->paginate(30);
     return response()->json($users,200);
     }
     /*start api que permita visualizar a los administradores trayendo solo el id y el nombre*/

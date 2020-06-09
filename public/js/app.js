@@ -2839,10 +2839,6 @@ __webpack_require__.r(__webpack_exports__);
         text: 'Gestion de Tickets',
         direccion: 'gestion-ticket'
       }, {
-        icon: 'mdi-library-books',
-        text: 'Verificar Ticket',
-        direccion: 'check-ticket'
-      }, {
         icon: 'mdi-library',
         text: 'Ver Usuarios',
         direccion: 'view-users'
@@ -2862,11 +2858,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         icon: 'mdi-account-check',
         text: 'Gestion de Visitas',
-        direccion: 'Gestion'
-      }, {
-        icon: 'mdi-library-books',
-        text: 'Verificar Ticket',
-        direccion: 'check-ticket'
+        direccion: 'gestion-visit'
       }, {
         icon: 'mdi-book-open-variant',
         text: 'Visualizar Visitas',
@@ -2982,6 +2974,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2991,7 +2998,9 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios.get('/api/viewUsers').then(function (res) {
-      _this.users = res.data;
+      _this.page = res.data.current_page;
+      _this.total_page = res.data.last_page;
+      _this.users = res.data.data;
     })["catch"](function (err) {
       console.log(err);
     });
@@ -3004,10 +3013,48 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       drawer: null,
-      users: []
+      users: [],
+      page: 0,
+      total_page: 0
     };
   },
   methods: {
+    pageReload: function pageReload(index) {
+      var _this2 = this;
+
+      axios.get("/api/viewUsers?page=".concat(index + 1)).then(function (res) {
+        _this2.page = res.data.current_page;
+        _this2.total_page = res.data.last_page;
+        _this2.users = res.data.data;
+        scroll(0, 1);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    pagePrev: function pagePrev() {
+      var _this3 = this;
+
+      axios.get("/api/viewUsers?page=".concat(this.page - 1)).then(function (res) {
+        _this3.page = res.data.current_page;
+        _this3.total_page = res.data.last_page;
+        _this3.users = res.data.data;
+        scroll(0, 1);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    pageNext: function pageNext() {
+      var _this4 = this;
+
+      axios.get("/api/viewUsers?page=".concat(this.page + 1)).then(function (res) {
+        _this4.page = res.data.current_page;
+        _this4.total_page = res.data.last_page;
+        _this4.users = res.data.data;
+        scroll(0, 1);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
     viewBitacore: function viewBitacore($id) {
       this.$router.push({
         name: 'show-bitacore',
@@ -3092,16 +3139,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {// axios.get('/api/getTickets').then(res => {
-    //     this.tickets = res.data;
-    //   }).catch(err => {
-    //     console.log(err);
-    //   });
-  },
   components: {
     'side-bar': _partials_SideBar_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     'nav-bar': _partials_NavBar_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -3111,7 +3186,18 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       drawer: null,
-      search: ''
+      search: '',
+      page: '',
+      total_page: '',
+      visits: [{
+        id: 1,
+        first_name: "gabriel",
+        last_name: "viloria",
+        identification_card: "27167028",
+        phone: "04149017184",
+        sector: "washintong dc",
+        input: "horita menor"
+      }]
     };
   },
   created: function created() {
@@ -3119,7 +3205,21 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     searching: function searching() {
-      console.log('hola');
+      var _this = this;
+
+      var params = {
+        data: this.search
+      };
+      axios.post('/api/searchTicket', params).then(function (res) {
+        _this.page = res.data.current_page;
+        _this.total_page = res.data.last_page;
+        _this.visits = res.data.data.filter(function (item) {
+          return item.output === null;
+        });
+        console.log(err);
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   },
   computed: {}
@@ -3770,7 +3870,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _partials_SideBar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! .././partials/SideBar.vue */ "./resources/js/partials/SideBar.vue");
 /* harmony import */ var _partials_NavBar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! .././partials/NavBar.vue */ "./resources/js/partials/NavBar.vue");
 /* harmony import */ var _structures_Center_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! .././structures/Center.vue */ "./resources/js/structures/Center.vue");
-/* harmony import */ var _helpers_general__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! .././helpers/general */ "./resources/js/helpers/general.js");
 //
 //
 //
@@ -3841,7 +3940,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3850,7 +3976,9 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios.get('/api/showOnlyNotTargetVisits').then(function (res) {
-      _this.visitas = res.data;
+      _this.page = res.data.current_page;
+      _this.total_page = res.data.last_page;
+      _this.visitas = res.data.data;
     })["catch"](function (err) {
       console.log(err);
     });
@@ -3863,12 +3991,118 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       drawer: null,
-      visitas: []
+      visitas: [],
+      search: '',
+      page: 0,
+      total_page: 0,
+      itsSearching: null
     };
   },
   methods: {
-    target: function target(idItem, index) {
+    pageReload: function pageReload(index) {
       var _this2 = this;
+
+      if (this.itsSearching == true) {
+        var params = {
+          data: this.search
+        };
+        axios.post("/api/searchTicket?page=".concat(index + 1), params).then(function (res) {
+          _this2.page = res.data.current_page;
+          _this2.total_page = res.data.last_page;
+          _this2.visitas = res.data.data.filter(function (item) {
+            return item.output === null;
+          });
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/showOnlyNotTargetVisits?page=".concat(index + 1)).then(function (res) {
+          _this2.page = res.data.current_page;
+          _this2.total_page = res.data.last_page;
+          _this2.visitas = res.data.data;
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
+    },
+    pagePrev: function pagePrev() {
+      var _this3 = this;
+
+      if (this.itsSearching == true) {
+        var params = {
+          data: this.search
+        };
+        axios.post("/api/searchTicket?page=".concat(this.page - 1), params).then(function (res) {
+          _this3.page = res.data.current_page;
+          _this3.total_page = res.data.last_page;
+          _this3.visitas = res.data.data.filter(function (item) {
+            return item.output === null;
+          });
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/showOnlyNotTargetVisits?page=".concat(this.page - 1)).then(function (res) {
+          _this3.page = res.data.current_page;
+          _this3.total_page = res.data.last_page;
+          _this3.visitas = res.data.data;
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
+    },
+    pageNext: function pageNext() {
+      var _this4 = this;
+
+      if (this.itsSearching == true) {
+        var params = {
+          data: this.search
+        };
+        axios.post("/api/searchTicket?page=".concat(this.page + 1), params).then(function (res) {
+          _this4.page = res.data.current_page;
+          _this4.total_page = res.data.last_page;
+          _this4.visitas = res.data.data.filter(function (item) {
+            return item.output === null;
+          });
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/showOnlyNotTargetVisits?page=".concat(this.page + 1)).then(function (res) {
+          _this4.page = res.data.current_page;
+          _this4.total_page = res.data.last_page;
+          _this4.visitas = res.data.data;
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
+    },
+    searching: function searching() {
+      var _this5 = this;
+
+      var params = {
+        data: this.search
+      };
+      axios.post('/api/searchTicket', params).then(function (res) {
+        _this5.itsSearching = true;
+        _this5.page = res.data.current_page;
+        _this5.total_page = res.data.last_page;
+        _this5.visitas = res.data.data.filter(function (item) {
+          return item.output === null;
+        });
+        console.log(err);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    target: function target(idItem, index) {
+      var _this6 = this;
 
       var params = {
         'id': idItem,
@@ -3877,7 +4111,7 @@ __webpack_require__.r(__webpack_exports__);
         'details': "registro la salida del edificio del usuario ".concat(this.visitas[index].first_name, " ").concat(this.visitas[index].last_name, " ").concat(this.visitas[index].identification_card, " el cual accedio al sector: ").concat(this.visitas[index].sector)
       };
       axios.patch('/api/targetVisit', params).then(function (res) {
-        _this2.visitas.splice(index, 1);
+        _this6.visitas.splice(index, 1);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -3893,7 +4127,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.$vuetify.theme.dark = true;
-    Object(_helpers_general__WEBPACK_IMPORTED_MODULE_3__["initialize"])(this.$store, this.$router);
   }
 });
 
@@ -4963,13 +5196,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -5749,6 +5975,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5759,7 +6000,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this = this;
 
     axios.get('/api/viewUsers').then(function (res) {
-      _this.users = res.data;
+      _this.page = res.data.current_page;
+      _this.total_page = res.data.last_page;
+      _this.users = res.data.data;
     })["catch"](function (err) {
       console.log(err);
     });
@@ -5773,10 +6016,48 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       drawer: null,
-      users: []
+      users: [],
+      page: 0,
+      total_page: 0
     };
   },
   methods: {
+    pageReload: function pageReload(index) {
+      var _this2 = this;
+
+      axios.get("/api/viewUsers?page=".concat(index + 1)).then(function (res) {
+        _this2.page = res.data.current_page;
+        _this2.total_page = res.data.last_page;
+        _this2.users = res.data.data;
+        scroll(0, 1);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    pagePrev: function pagePrev() {
+      var _this3 = this;
+
+      axios.get("/api/viewUsers?page=".concat(this.page - 1)).then(function (res) {
+        _this3.page = res.data.current_page;
+        _this3.total_page = res.data.last_page;
+        _this3.users = res.data.data;
+        scroll(0, 1);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    pageNext: function pageNext() {
+      var _this4 = this;
+
+      axios.get("/api/viewUsers?page=".concat(this.page + 1)).then(function (res) {
+        _this4.page = res.data.current_page;
+        _this4.total_page = res.data.last_page;
+        _this4.users = res.data.data;
+        scroll(0, 1);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
     editing: function editing(UserId) {
       this.$router.push({
         name: 'edit-user',
@@ -5787,7 +6068,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     remove: function remove(id, index) {
       var _swal,
-          _this2 = this;
+          _this5 = this;
 
       /*start pantalla de evaluar si de verdad se quiere eliminar*/
       swal((_swal = {
@@ -5798,7 +6079,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, _defineProperty(_swal, "buttons", ["cancelar", "eliminar"]), _defineProperty(_swal, "closeOnClickOutside", false), _defineProperty(_swal, "CloseOnEsc", false), _swal)).then(function (willDelete) {
         /*start las dos pantallas que se pueden mostrar en caso de que decida eliminar o no*/
         if (willDelete) {
-          _this2.deleteUser(id, index);
+          _this5.deleteUser(id, index);
         } else {
           swal("su usuario se encuentra seguro");
         }
@@ -5808,7 +6089,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       /*end pantalla de evaluar si de verdad se quiere eliminar*/
     },
     deleteUser: function deleteUser(id, index) {
-      var _this3 = this;
+      var _this6 = this;
 
       /*start eliminamos al usuario de la base de datos*/
       // let parametros={
@@ -5825,7 +6106,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }).then(function (select) {
           /*start eliminamos de la vista el registro*/
           if (select) {
-            _this3.users.splice(index, 1);
+            _this6.users.splice(index, 1);
           }
           /*end eliminamos de la vista el registro*/
 
@@ -42926,7 +43207,72 @@ var render = function() {
                         proxy: true
                       }
                     ])
-                  })
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "text-center" },
+                    [
+                      _c(
+                        "v-row",
+                        { attrs: { justify: "center", align: "center" } },
+                        [
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12" } },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { fab: "", small: "" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.pagePrev()
+                                    }
+                                  }
+                                },
+                                [_c("v-icon", [_vm._v("mdi-menu-left")])],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.total_page, function(n, index) {
+                                return _c(
+                                  "v-btn",
+                                  {
+                                    key: index,
+                                    attrs: { fab: "", small: "" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.pageReload(index)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(n))]
+                                )
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { fab: "", small: "" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.pageNext()
+                                    }
+                                  }
+                                },
+                                [_c("v-icon", [_vm._v("mdi-menu-right")])],
+                                1
+                              )
+                            ],
+                            2
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
                 ],
                 1
               )
@@ -43038,7 +43384,120 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c("v-row")
+                  _c("v-row"),
+                  _vm._v(" "),
+                  _c("v-simple-table", {
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function() {
+                          return [
+                            _c("thead", [
+                              _c("tr", [
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("Nombre")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("Apellido")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("Cedula")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("teléfono")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("sector")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("llegada")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("salida")
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              [
+                                _vm.visits.length
+                                  ? _vm._l(_vm.visits, function(item, index) {
+                                      return _c("tr", { key: index }, [
+                                        _c("td", [
+                                          _vm._v(_vm._s(item.first_name))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(item.last_name))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(
+                                            _vm._s(item.identification_card)
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(item.phone))]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(item.sector))]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(item.input))]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "td",
+                                          [
+                                            _c(
+                                              "v-btn",
+                                              {
+                                                attrs: {
+                                                  color: "green darken-2"
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.target(
+                                                      item.id,
+                                                      index
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                _c("span", [
+                                                  _vm._v("marcar salida")
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("v-icon", [
+                                                  _vm._v("mdi-run")
+                                                ])
+                                              ],
+                                              1
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ])
+                                    })
+                                  : [
+                                      _c("h2", { staticClass: "text-center" }, [
+                                        _vm._v("no hay registros...")
+                                      ])
+                                    ]
+                              ],
+                              2
+                            )
+                          ]
+                        },
+                        proxy: true
+                      }
+                    ])
+                  })
                 ],
                 1
               )
@@ -43771,6 +44230,37 @@ var render = function() {
                     _vm._v("Gestionar Visitas")
                   ]),
                   _vm._v(" "),
+                  _c(
+                    "v-row",
+                    { attrs: { justify: "center" } },
+                    [
+                      _c(
+                        "v-col",
+                        { attrs: { cols: "12", sm: "7" } },
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              label:
+                                "Buscar ticket según cédula o codigo del ticket",
+                              outlined: "",
+                              "prepend-icon": "mdi-magnify"
+                            },
+                            on: { change: _vm.searching },
+                            model: {
+                              value: _vm.search,
+                              callback: function($$v) {
+                                _vm.search = $$v
+                              },
+                              expression: "search"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
                   _c("v-simple-table", {
                     scopedSlots: _vm._u([
                       {
@@ -43814,7 +44304,7 @@ var render = function() {
                               [
                                 _vm.visitas.length
                                   ? _vm._l(_vm.visitas, function(item, index) {
-                                      return _c("tr", { key: item.id }, [
+                                      return _c("tr", { key: index }, [
                                         _c("td", [
                                           _vm._v(_vm._s(item.first_name))
                                         ]),
@@ -43882,7 +44372,72 @@ var render = function() {
                         proxy: true
                       }
                     ])
-                  })
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "text-center" },
+                    [
+                      _c(
+                        "v-row",
+                        { attrs: { justify: "center", align: "center" } },
+                        [
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12" } },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { fab: "", small: "" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.pagePrev()
+                                    }
+                                  }
+                                },
+                                [_c("v-icon", [_vm._v("mdi-menu-left")])],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.total_page, function(n, index) {
+                                return _c(
+                                  "v-btn",
+                                  {
+                                    key: index,
+                                    attrs: { fab: "", small: "" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.pageReload(index)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(n))]
+                                )
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { fab: "", small: "" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.pageNext()
+                                    }
+                                  }
+                                },
+                                [_c("v-icon", [_vm._v("mdi-menu-right")])],
+                                1
+                              )
+                            ],
+                            2
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
                 ],
                 1
               )
@@ -44727,20 +45282,6 @@ var render = function() {
                   _c("h1", { staticClass: "text-center" }, [
                     _vm._v("Registrar Visitante")
                   ]),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "primary", dark: "" },
-                      on: {
-                        click: function($event) {
-                          $event.stopPropagation()
-                          _vm.dialog = true
-                        }
-                      }
-                    },
-                    [_vm._v("\n          Open Dialog\n        ")]
-                  ),
                   _vm._v(" "),
                   _c(
                     "form",
@@ -45780,7 +46321,72 @@ var render = function() {
                         proxy: true
                       }
                     ])
-                  })
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "text-center" },
+                    [
+                      _c(
+                        "v-row",
+                        { attrs: { justify: "center", align: "center" } },
+                        [
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12" } },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { fab: "", small: "" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.pagePrev()
+                                    }
+                                  }
+                                },
+                                [_c("v-icon", [_vm._v("mdi-menu-left")])],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.total_page, function(n, index) {
+                                return _c(
+                                  "v-btn",
+                                  {
+                                    key: index,
+                                    attrs: { fab: "", small: "" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.pageReload(index)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(n))]
+                                )
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { fab: "", small: "" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.pageNext()
+                                    }
+                                  }
+                                },
+                                [_c("v-icon", [_vm._v("mdi-menu-right")])],
+                                1
+                              )
+                            ],
+                            2
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
                 ],
                 1
               )
@@ -102238,7 +102844,9 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VSimpleTable"]})
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VSimpleTable"]})
 
 
 /* hot reload */
@@ -102311,10 +102919,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
-/* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
+/* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -102342,7 +102953,10 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VContainer"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_7__["VNavigationDrawer"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_8__["VTextField"]})
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VSimpleTable"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__["VTextField"]})
 
 
 /* hot reload */
@@ -102748,6 +103362,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
 /* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
 /* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -102775,7 +103390,10 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VSimpleTable"]})
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VSimpleTable"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__["VTextField"]})
 
 
 /* hot reload */
@@ -103564,10 +104182,12 @@ __webpack_require__.r(__webpack_exports__);
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
-/* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
-/* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
+/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
+/* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
 
 
 
@@ -103592,7 +104212,11 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_4__["VCard"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__["VContainer"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_6__["VNavigationDrawer"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_7__["VSimpleTable"]})
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_7__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_8__["VNavigationDrawer"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_9__["VSimpleTable"]})
 
 
 /* hot reload */

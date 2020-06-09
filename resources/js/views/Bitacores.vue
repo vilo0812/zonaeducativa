@@ -57,6 +57,21 @@
         </template>
       </v-simple-table>
       <!-- start vemos a todos los usuarios que posiblemente tienen bitacora -->
+      <!-- start pagination -->
+        <div class="text-center">
+                <v-row justify="center" align="center">
+                    <v-col cols="12">
+                      <v-btn @click="pagePrev()" fab small>
+                        <v-icon>mdi-menu-left</v-icon>
+                      </v-btn>
+                      <v-btn v-for="(n,index) in total_page" @click="pageReload(index)" fab small :key="index">{{n}}</v-btn>
+                      <v-btn fab small @click="pageNext()">
+                        <v-icon>mdi-menu-right</v-icon>
+                      </v-btn>
+                    </v-col>
+                </v-row>
+            </div>
+        <!--end paginate -->
         </v-container>
       </v-card>
       <!-- start contenido de muestra -->
@@ -73,7 +88,9 @@ import {initialize} from '.././helpers/general';
   export default {
     mounted(){
       axios.get('/api/viewUsers').then(res => {
-        this.users=res.data
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.users=res.data.data
       }).catch(err => {
         console.log(err);
       });
@@ -86,10 +103,42 @@ import {initialize} from '.././helpers/general';
     data () {
       return {
         drawer: null,
-        users:[]
+        users:[],
+        page:0,
+        total_page:0,
       };
     },
     methods: {
+      pageReload (index) {
+      axios.get(`/api/viewUsers?page=${index + 1}`).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.users=res.data.data;
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+      },
+      pagePrev(){
+        axios.get(`/api/viewUsers?page=${this.page - 1}`).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.users=res.data.data;
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+      },
+      pageNext(){
+        axios.get(`/api/viewUsers?page=${this.page + 1}`).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.users=res.data.data;
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+      },
       viewBitacore($id){
         this.$router.push({ name: 'show-bitacore',params:{id:$id}});
       },

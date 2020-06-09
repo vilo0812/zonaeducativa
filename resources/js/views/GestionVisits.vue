@@ -22,6 +22,19 @@
   <!--color="#EB6E80" color="#E9B000" -->
     <v-container>
         <h1 class="text-center">Gestionar Visitas</h1>
+        <!-- start boton de busqueda -->
+                <v-row justify="center">
+                  <v-col cols="12" sm="7">
+                    <v-text-field
+                      label="Buscar ticket según cédula o codigo del ticket"
+                      outlined
+                      prepend-icon="mdi-magnify"
+                      @change="searching"
+                      v-model="search"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+                <!--end boton que busqueda-->
         <!-- start visualizacion de las visitas al edificio -->
       <v-simple-table>
         <template v-slot:default>
@@ -38,7 +51,7 @@
           </thead>
           <tbody>
             <template v-if="visitas.length">
-              <tr v-for="(item,index) in visitas" :key="item.id">
+              <tr v-for="(item,index) in visitas" :key="index">
               <td>{{ item.first_name }}</td>
               <td>{{ item.last_name }}</td>
               <td>{{ item.identification_card }}</td>
@@ -60,6 +73,21 @@
         </template>
       </v-simple-table>
         <!-- end visualizacion de las visitas al edificio -->
+        <!-- start pagination -->
+        <div class="text-center">
+                <v-row justify="center" align="center">
+                    <v-col cols="12">
+                      <v-btn @click="pagePrev()" fab small>
+                        <v-icon>mdi-menu-left</v-icon>
+                      </v-btn>
+                      <v-btn v-for="(n,index) in total_page" @click="pageReload(index)" fab small :key="index">{{n}}</v-btn>
+                      <v-btn fab small @click="pageNext()">
+                        <v-icon>mdi-menu-right</v-icon>
+                      </v-btn>
+                    </v-col>
+                </v-row>
+            </div>
+        <!--end paginate -->
     </v-container>
   </v-card>
 <!-- end contenido de muestra -->
@@ -72,11 +100,12 @@
 import Side from '.././partials/SideBar.vue'
 import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
-import {initialize} from '.././helpers/general';
   export default {
     mounted(){
     axios.get('/api/showOnlyNotTargetVisits').then(res => {
-        this.visitas=res.data
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data
       }).catch(err => {
         console.log(err);
       });
@@ -90,9 +119,103 @@ import {initialize} from '.././helpers/general';
       return {
         drawer: null,
         visitas:[],
+        search:'',
+        page:0,
+        total_page:0,
+        itsSearching:null
       };
     },
     methods: {
+      pageReload (index) {
+        if(this.itsSearching == true){ 
+        let params = {
+        data : this.search
+        };
+        axios.post(`/api/searchTicket?page=${index + 1}`,params).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data.filter(item => 
+          (item.output === null));
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+      }else{
+      axios.get(`/api/showOnlyNotTargetVisits?page=${index + 1}`).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data;
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+      }
+      },
+      pagePrev(){
+        if(this.itsSearching == true){ 
+        let params = {
+        data : this.search
+        };
+        axios.post(`/api/searchTicket?page=${this.page - 1}`,params).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data.filter(item => 
+          (item.output === null));
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+      }else{
+        axios.get(`/api/showOnlyNotTargetVisits?page=${this.page - 1}`).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data;
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+      }
+      },
+      pageNext(){
+        if(this.itsSearching == true){ 
+        let params = {
+        data : this.search
+        };
+        axios.post(`/api/searchTicket?page=${this.page + 1}`,params).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data.filter(item => 
+          (item.output === null));
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+      }else{
+        axios.get(`/api/showOnlyNotTargetVisits?page=${this.page + 1}`).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data;
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+      }
+      },
+      searching(){
+      let params = {
+      data : this.search
+      };
+      axios.post('/api/searchTicket', params).then(res => {
+        this.itsSearching = true
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data.filter(item => 
+          (item.output === null));
+        console.log(err);
+        }).catch(err => {
+          console.log(err);
+        });
+      },
       target (idItem,index) {
         let params={
           'id':idItem,
@@ -101,7 +224,7 @@ import {initialize} from '.././helpers/general';
          'details': `registro la salida del edificio del usuario ${this.visitas[index].first_name} ${this.visitas[index].last_name} ${this.visitas[index].identification_card} el cual accedio al sector: ${this.visitas[index].sector}`
         }
         axios.patch('/api/targetVisit',params).then(res => {
-          this.visitas.splice(index,1);
+        this.visitas.splice(index,1);
         }).catch(err => {
           console.log(err);
         });
@@ -117,7 +240,6 @@ import {initialize} from '.././helpers/general';
     },
     created () {
       this.$vuetify.theme.dark = true;
-      initialize(this.$store,this.$router);
     },
   }
 </script>

@@ -65,7 +65,7 @@ class Visitor extends Model
         ->select('visitors.id','first_name','last_name','identification_card','phone','sector','input')
         ->where('output','=',null)
         ->orderBy('visitors.id', 'DESC')
-        ->get();
+        ->paginate(30);;
         return $registro;
     }
     /*end metodo que me permite ver los datos de la visita */

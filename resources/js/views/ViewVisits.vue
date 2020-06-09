@@ -70,6 +70,7 @@
           </template>
           </tbody>
         </template>
+        <!-- end visualizacion de las visitas al edificio -->
       </v-simple-table>
       <div class="text-center">
                 <v-row justify="center" align="center">
@@ -84,7 +85,6 @@
                     </v-col>
                 </v-row>
             </div>
-        <!-- end visualizacion de las visitas al edificio -->
     </v-container>
   </v-card>
 <!-- end contenido de muestra -->

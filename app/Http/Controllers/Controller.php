@@ -104,19 +104,19 @@ class Controller extends BaseController
     /*end api que cambia la contraseña del usuario*/
 //start filtrado 
     public function filter($info,$data,$select){
-    $filter = User::leftJoin("visitors","visitors.user_id","=","users.id")
-        ->join('rols',"rols.id","=","users.rol_id")
+    $filter = Visitor::leftJoin("users","visitors.user_id","=","users.id")
+        ->join('rols',"users.rol_id","=","rols.id")
         ->join('handling_times',"visitors.handling_time_id","=","handling_times.id")
-        ->join("direction_tickets","direction_tickets.id","=","visitors.direction_ticket_id")
+        ->join('direction_tickets',"visitors.direction_ticket_id","=","direction_tickets.id")
         ->join("tickets","direction_tickets.ticket_id","=","tickets.id")
         ->join('directions',"direction_tickets.direction_id","=","directions.id")
         ->join('floors','directions.floor_id',"=",'floors.id')
         ->join('zones','directions.zone_id',"=",'zones.id')
-        ->join('sectors','directions.sector_id',"=",'sectors.id')
-        ->orderBy('visitors.id','desc')
+        ->join('sectors',"directions.sector_id","=","sectors.id")
         ->where($info,'LIKE',"%$data%")
         ->select($select)
-    ->paginate(25);
+        ->orderBy('visitors.id','desc')
+    ->paginate(30);
     return $filter;
     }
 //end filtrado 

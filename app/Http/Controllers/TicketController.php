@@ -142,22 +142,23 @@ class TicketController extends Controller
     public function searchTicket(Request $request){
     // $searching = new Controller();
     $searching = new Controller();
-    $datalist = ['users.id',
-    'users.first_name',
-    'users.last_name',
-    'users.identification_card',
-    'ticket','sector','code',
-    'floor','zone',
-    'sectors.letter_code',
-    'direction_tickets.id',
-    'ticket','input'];
+    $datalist = [
+    'visitors.id',
+    'first_name',
+    'last_name',
+    'identification_card',
+    'sector',
+    'input',
+    'output',
+    'phone'];
     $findByCi = "users.identification_card";
     $findByCode = "direction_tickets.code";
     $data = $searching
     ->filter(
         $findByCi,
         $request->data,
-        $datalist);
+        $datalist)
+    ;
     if(!$data[0]){
      $data = $searching
      ->filter(
@@ -165,7 +166,7 @@ class TicketController extends Controller
         $request->data,
         $datalist);
     };
-    return response()->json(["data"=>$data],200);
+    return response()->json($data,200);
     // $searching = new FilterController();
     // $data = $searching->filterOfVerificationTicketByIc($request->data);
     // if(!$data[0]){
