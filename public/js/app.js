@@ -2989,6 +2989,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3015,45 +3024,103 @@ __webpack_require__.r(__webpack_exports__);
       drawer: null,
       users: [],
       page: 0,
-      total_page: 0
+      total_page: 0,
+      search: '',
+      itsSearching: null
     };
   },
   methods: {
-    pageReload: function pageReload(index) {
+    searching: function searching() {
       var _this2 = this;
 
-      axios.get("/api/viewUsers?page=".concat(index + 1)).then(function (res) {
-        _this2.page = res.data.current_page;
-        _this2.total_page = res.data.last_page;
-        _this2.users = res.data.data;
-        scroll(0, 1);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      if (!this.search) {
+        this.itsSearching = false;
+        axios.get('/api/viewUsers').then(function (res) {
+          _this2.page = res.data.current_page;
+          _this2.total_page = res.data.last_page;
+          _this2.users = res.data.data;
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/searchUser/".concat(this.search)).then(function (res) {
+          _this2.itsSearching = true;
+          _this2.page = res.data.current_page;
+          _this2.total_page = res.data.last_page;
+          _this2.users = res.data.data;
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
     },
-    pagePrev: function pagePrev() {
+    pageReload: function pageReload(index) {
       var _this3 = this;
 
-      axios.get("/api/viewUsers?page=".concat(this.page - 1)).then(function (res) {
-        _this3.page = res.data.current_page;
-        _this3.total_page = res.data.last_page;
-        _this3.users = res.data.data;
-        scroll(0, 1);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      if (this.itsSearching) {
+        axios.get("/api/searchUser/".concat(this.search, "?page=").concat(index + 1)).then(function (res) {
+          _this3.itsSearching = true;
+          _this3.page = res.data.current_page;
+          _this3.total_page = res.data.last_page;
+          _this3.users = res.data.data;
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/viewUsers?page=".concat(index + 1)).then(function (res) {
+          _this3.page = res.data.current_page;
+          _this3.total_page = res.data.last_page;
+          _this3.users = res.data.data;
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
     },
-    pageNext: function pageNext() {
+    pagePrev: function pagePrev() {
       var _this4 = this;
 
-      axios.get("/api/viewUsers?page=".concat(this.page + 1)).then(function (res) {
-        _this4.page = res.data.current_page;
-        _this4.total_page = res.data.last_page;
-        _this4.users = res.data.data;
-        scroll(0, 1);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      if (this.itsSearching) {
+        axios.get("/api/searchUser/".concat(this.search, "?page=").concat(this.page - 1)).then(function (res) {
+          _this4.itsSearching = true;
+          _this4.page = res.data.current_page;
+          _this4.total_page = res.data.last_page;
+          _this4.users = res.data.data;
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/viewUsers?page=".concat(this.page - 1)).then(function (res) {
+          _this4.page = res.data.current_page;
+          _this4.total_page = res.data.last_page;
+          _this4.users = res.data.data;
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
+    },
+    pageNext: function pageNext() {
+      var _this5 = this;
+
+      if (this.itsSearching) {
+        axios.get("/api/searchUser/".concat(this.search, "?page=").concat(this.page + 1)).then(function (res) {
+          _this5.itsSearching = true;
+          _this5.page = res.data.current_page;
+          _this5.total_page = res.data.last_page;
+          _this5.users = res.data.data;
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/viewUsers?page=".concat(this.page + 1)).then(function (res) {
+          _this5.page = res.data.current_page;
+          _this5.total_page = res.data.last_page;
+          _this5.users = res.data.data;
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
     },
     viewBitacore: function viewBitacore($id) {
       this.$router.push({
@@ -4086,20 +4153,30 @@ __webpack_require__.r(__webpack_exports__);
     searching: function searching() {
       var _this5 = this;
 
-      var params = {
-        data: this.search
-      };
-      axios.post('/api/searchTicket', params).then(function (res) {
-        _this5.itsSearching = true;
-        _this5.page = res.data.current_page;
-        _this5.total_page = res.data.last_page;
-        _this5.visitas = res.data.data.filter(function (item) {
-          return item.output === null;
+      if (!this.search) {
+        this.searching = false;
+        axios.get('/api/showOnlyNotTargetVisits').then(function (res) {
+          _this5.page = res.data.current_page;
+          _this5.total_page = res.data.last_page;
+          _this5.visitas = res.data.data;
+        })["catch"](function (err) {
+          console.log(err);
         });
-        console.log(err);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      } else {
+        var params = {
+          data: this.search
+        };
+        axios.post('/api/searchTicket', params).then(function (res) {
+          _this5.itsSearching = true;
+          _this5.page = res.data.current_page;
+          _this5.total_page = res.data.last_page;
+          _this5.visitas = res.data.data.filter(function (item) {
+            return item.output === null;
+          });
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
     },
     target: function target(idItem, index) {
       var _this6 = this;
@@ -5834,6 +5911,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5844,7 +5944,9 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios.get("/api/showBitacoreByUserId/".concat(this.id)).then(function (res) {
-      _this.bitacores = res.data;
+      _this.page = res.data.current_page;
+      _this.total_page = res.data.last_page;
+      _this.bitacores = res.data.data;
     })["catch"](function (err) {
       console.log(err);
     });
@@ -5863,10 +5965,104 @@ __webpack_require__.r(__webpack_exports__);
     return {
       drawer: null,
       bitacores: [],
-      user: []
+      user: [],
+      search: '',
+      page: '',
+      total_page: '',
+      itsSearching: null
     };
   },
   methods: {
+    searching: function searching() {
+      var _this2 = this;
+
+      if (!this.search) {
+        this.itsSearching = false;
+        axios.get("/api/showBitacoreByUserId/".concat(this.id)).then(function (res) {
+          _this2.bitacores = res.data;
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/searchBitacore/".concat(this.id, "/").concat(this.search)).then(function (res) {
+          _this2.itsSearching = true;
+          _this2.page = res.data.current_page;
+          _this2.total_page = res.data.last_page;
+          _this2.bitacores = res.data.data;
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
+    },
+    pageReload: function pageReload(index) {
+      var _this3 = this;
+
+      if (this.itsSearching) {
+        axios.get("/api/searchBitacore/".concat(this.id, "/").concat(this.search, "?page=").concat(index + 1)).then(function (res) {
+          _this3.itsSearching = true;
+          _this3.page = res.data.current_page;
+          _this3.total_page = res.data.last_page;
+          _this3.bitacores = res.data.data;
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/showBitacoreByUserId/".concat(this.id, "?page=").concat(index + 1)).then(function (res) {
+          _this3.page = res.data.current_page;
+          _this3.total_page = res.data.last_page;
+          _this3.bitacores = res.data.data;
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
+    },
+    pagePrev: function pagePrev() {
+      var _this4 = this;
+
+      if (this.itsSearching) {
+        axios.get("/api/searchBitacore/".concat(this.id, "/").concat(this.search, "?page=").concat(this.page - 1)).then(function (res) {
+          _this4.itsSearching = true;
+          _this4.page = res.data.current_page;
+          _this4.total_page = res.data.last_page;
+          _this4.bitacores = res.data.data;
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/showBitacoreByUserId/".concat(this.id, "?page=").concat(this.page - 1)).then(function (res) {
+          _this4.page = res.data.current_page;
+          _this4.total_page = res.data.last_page;
+          _this4.bitacores = res.data.data;
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
+    },
+    pageNext: function pageNext() {
+      var _this5 = this;
+
+      if (this.itsSearching) {
+        axios.get("/api/searchBitacore/".concat(this.id, "/").concat(this.search, "?page=").concat(this.page + 1)).then(function (res) {
+          _this5.itsSearching = true;
+          _this5.page = res.data.current_page;
+          _this5.total_page = res.data.last_page;
+          _this5.bitacores = res.data.data;
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/showBitacoreByUserId/".concat(this.id, "?page=").concat(this.page + 1)).then(function (res) {
+          _this5.page = res.data.current_page;
+          _this5.total_page = res.data.last_page;
+          _this5.bitacores = res.data.data;
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
+    },
     rolId: function rolId(id) {
       return id == 2 ? 'Administrador' : 'Jefe de Zona';
     }
@@ -5990,6 +6186,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6014,49 +6219,109 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     'actions': _components_viewUsers_actionUsers_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   data: function data() {
-    return {
+    var _ref;
+
+    return _ref = {
       drawer: null,
       users: [],
       page: 0,
-      total_page: 0
-    };
+      total_page: 0,
+      search: null,
+      itsSearching: null
+    }, _defineProperty(_ref, "page", null), _defineProperty(_ref, "total_page", null), _ref;
   },
   methods: {
-    pageReload: function pageReload(index) {
+    searching: function searching() {
       var _this2 = this;
 
-      axios.get("/api/viewUsers?page=".concat(index + 1)).then(function (res) {
-        _this2.page = res.data.current_page;
-        _this2.total_page = res.data.last_page;
-        _this2.users = res.data.data;
-        scroll(0, 1);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      if (!this.search) {
+        this.itsSearching = false;
+        axios.get('/api/viewUsers').then(function (res) {
+          _this2.page = res.data.current_page;
+          _this2.total_page = res.data.last_page;
+          _this2.users = res.data.data;
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/searchUser/".concat(this.search)).then(function (res) {
+          _this2.itsSearching = true;
+          _this2.page = res.data.current_page;
+          _this2.total_page = res.data.last_page;
+          _this2.users = res.data.data;
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
     },
-    pagePrev: function pagePrev() {
+    pageReload: function pageReload(index) {
       var _this3 = this;
 
-      axios.get("/api/viewUsers?page=".concat(this.page - 1)).then(function (res) {
-        _this3.page = res.data.current_page;
-        _this3.total_page = res.data.last_page;
-        _this3.users = res.data.data;
-        scroll(0, 1);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      if (this.itsSearching) {
+        axios.get("/api/searchUser/".concat(this.search, "?page=").concat(index + 1)).then(function (res) {
+          _this3.itsSearching = true;
+          _this3.page = res.data.current_page;
+          _this3.total_page = res.data.last_page;
+          _this3.users = res.data.data;
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/viewUsers?page=".concat(index + 1)).then(function (res) {
+          _this3.page = res.data.current_page;
+          _this3.total_page = res.data.last_page;
+          _this3.users = res.data.data;
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
     },
-    pageNext: function pageNext() {
+    pagePrev: function pagePrev() {
       var _this4 = this;
 
-      axios.get("/api/viewUsers?page=".concat(this.page + 1)).then(function (res) {
-        _this4.page = res.data.current_page;
-        _this4.total_page = res.data.last_page;
-        _this4.users = res.data.data;
-        scroll(0, 1);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      if (this.itsSearching) {
+        axios.get("/api/searchUser/".concat(this.search, "?page=").concat(this.page - 1)).then(function (res) {
+          _this4.itsSearching = true;
+          _this4.page = res.data.current_page;
+          _this4.total_page = res.data.last_page;
+          _this4.users = res.data.data;
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/viewUsers?page=".concat(this.page - 1)).then(function (res) {
+          _this4.page = res.data.current_page;
+          _this4.total_page = res.data.last_page;
+          _this4.users = res.data.data;
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
+    },
+    pageNext: function pageNext() {
+      var _this5 = this;
+
+      if (this.itsSearching) {
+        axios.get("/api/searchUser/".concat(this.search, "?page=").concat(this.page + 1)).then(function (res) {
+          _this5.itsSearching = true;
+          _this5.page = res.data.current_page;
+          _this5.total_page = res.data.last_page;
+          _this5.users = res.data.data;
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/viewUsers?page=".concat(this.page + 1)).then(function (res) {
+          _this5.page = res.data.current_page;
+          _this5.total_page = res.data.last_page;
+          _this5.users = res.data.data;
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
     },
     editing: function editing(UserId) {
       this.$router.push({
@@ -6068,7 +6333,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     remove: function remove(id, index) {
       var _swal,
-          _this5 = this;
+          _this6 = this;
 
       /*start pantalla de evaluar si de verdad se quiere eliminar*/
       swal((_swal = {
@@ -6079,7 +6344,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, _defineProperty(_swal, "buttons", ["cancelar", "eliminar"]), _defineProperty(_swal, "closeOnClickOutside", false), _defineProperty(_swal, "CloseOnEsc", false), _swal)).then(function (willDelete) {
         /*start las dos pantallas que se pueden mostrar en caso de que decida eliminar o no*/
         if (willDelete) {
-          _this5.deleteUser(id, index);
+          _this6.deleteUser(id, index);
         } else {
           swal("su usuario se encuentra seguro");
         }
@@ -6089,7 +6354,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       /*end pantalla de evaluar si de verdad se quiere eliminar*/
     },
     deleteUser: function deleteUser(id, index) {
-      var _this6 = this;
+      var _this7 = this;
 
       /*start eliminamos al usuario de la base de datos*/
       // let parametros={
@@ -6106,7 +6371,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }).then(function (select) {
           /*start eliminamos de la vista el registro*/
           if (select) {
-            _this6.users.splice(index, 1);
+            _this7.users.splice(index, 1);
           }
           /*end eliminamos de la vista el registro*/
 
@@ -6250,6 +6515,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6276,7 +6552,9 @@ __webpack_require__.r(__webpack_exports__);
       visitas: [],
       page: 0,
       total_page: 0,
-      n: 0
+      n: 0,
+      search: '',
+      itsSearching: null
     };
   },
   computed: {
@@ -6297,6 +6575,32 @@ __webpack_require__.r(__webpack_exports__);
     this.$vuetify.theme.dark = true;
   },
   methods: {
+    searching: function searching() {
+      var _this2 = this;
+
+      if (!this.search) {
+        this.itsSearching = false;
+        axios.get('/api/showPageVisits').then(function (res) {
+          _this2.page = res.data.current_page;
+          _this2.total_page = res.data.last_page;
+          _this2.visitas = res.data.data;
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        var params = {
+          data: this.search
+        };
+        axios.post('/api/searchVisit', params).then(function (res) {
+          _this2.itsSearching = true;
+          _this2.page = res.data.current_page;
+          _this2.total_page = res.data.last_page;
+          _this2.visitas = res.data.data;
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
+    },
     verVisitas: function verVisitas() {
       var params = {
         'action_id': 4,
@@ -6310,40 +6614,88 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     pageReload: function pageReload(index) {
-      var _this2 = this;
-
-      axios.get("/api/showPageVisits?page=".concat(index + 1)).then(function (res) {
-        _this2.page = res.data.current_page;
-        _this2.total_page = res.data.last_page;
-        _this2.visitas = res.data.data;
-        scroll(0, 1);
-      })["catch"](function (err) {
-        console.log(err);
-      });
-    },
-    pagePrev: function pagePrev() {
       var _this3 = this;
 
-      axios.get("/api/showPageVisits?page=".concat(this.page - 1)).then(function (res) {
-        _this3.page = res.data.current_page;
-        _this3.total_page = res.data.last_page;
-        _this3.visitas = res.data.data;
-        scroll(0, 1);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      if (this.itsSearching == true) {
+        var params = {
+          data: this.search
+        };
+        axios.post("/api/searchVisit?page=".concat(index + 1), params).then(function (res) {
+          _this3.page = res.data.current_page;
+          _this3.total_page = res.data.last_page;
+          _this3.visitas = res.data.data.filter(function (item) {
+            return item.output === null;
+          });
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/showPageVisits?page=".concat(index + 1)).then(function (res) {
+          _this3.page = res.data.current_page;
+          _this3.total_page = res.data.last_page;
+          _this3.visitas = res.data.data;
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
     },
-    pageNext: function pageNext() {
+    pagePrev: function pagePrev() {
       var _this4 = this;
 
-      axios.get("/api/showPageVisits?page=".concat(this.page + 1)).then(function (res) {
-        _this4.page = res.data.current_page;
-        _this4.total_page = res.data.last_page;
-        _this4.visitas = res.data.data;
-        scroll(0, 1);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      if (this.itsSearching == true) {
+        var params = {
+          data: this.search
+        };
+        axios.post("/api/searchVisit?page=".concat(this.page - 1), params).then(function (res) {
+          _this4.page = res.data.current_page;
+          _this4.total_page = res.data.last_page;
+          _this4.visitas = res.data.data.filter(function (item) {
+            return item.output === null;
+          });
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/showPageVisits?page=".concat(this.page - 1)).then(function (res) {
+          _this4.page = res.data.current_page;
+          _this4.total_page = res.data.last_page;
+          _this4.visitas = res.data.data;
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
+    },
+    pageNext: function pageNext() {
+      var _this5 = this;
+
+      if (this.itsSearching == true) {
+        var params = {
+          data: this.search
+        };
+        axios.post("/api/searchVisit?page=".concat(this.page - 1), params).then(function (res) {
+          _this5.page = res.data.current_page;
+          _this5.total_page = res.data.last_page;
+          _this5.visitas = res.data.data.filter(function (item) {
+            return item.output === null;
+          });
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        axios.get("/api/showPageVisits?page=".concat(this.page + 1)).then(function (res) {
+          _this5.page = res.data.current_page;
+          _this5.total_page = res.data.last_page;
+          _this5.visitas = res.data.data;
+          scroll(0, 1);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }
     }
   }
 });
@@ -43099,6 +43451,22 @@ var render = function() {
                     _vm._v("Bitacoras")
                   ]),
                   _vm._v(" "),
+                  _c("v-text-field", {
+                    attrs: {
+                      label: "Buscar Bitacora",
+                      outlined: "",
+                      "prepend-icon": "mdi-magnify"
+                    },
+                    on: { change: _vm.searching },
+                    model: {
+                      value: _vm.search,
+                      callback: function($$v) {
+                        _vm.search = $$v
+                      },
+                      expression: "search"
+                    }
+                  }),
+                  _vm._v(" "),
                   _c("v-simple-table", {
                     scopedSlots: _vm._u([
                       {
@@ -43112,7 +43480,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("th", { staticClass: "text-left" }, [
-                                  _vm._v("Apellido")
+                                  _vm._v("Cargo")
                                 ]),
                                 _vm._v(" "),
                                 _c("th", { staticClass: "text-left" }, [
@@ -46064,6 +46432,22 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
+                  _c("v-text-field", {
+                    attrs: {
+                      label: "Buscar Registro",
+                      outlined: "",
+                      "prepend-icon": "mdi-magnify"
+                    },
+                    on: { change: _vm.searching },
+                    model: {
+                      value: _vm.search,
+                      callback: function($$v) {
+                        _vm.search = $$v
+                      },
+                      expression: "search"
+                    }
+                  }),
+                  _vm._v(" "),
                   _c(
                     "v-btn",
                     {
@@ -46151,6 +46535,71 @@ var render = function() {
               )
             ],
             1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "text-center" },
+            [
+              _c(
+                "v-row",
+                { attrs: { justify: "center", align: "center" } },
+                [
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "12" } },
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { fab: "", small: "" },
+                          on: {
+                            click: function($event) {
+                              return _vm.pagePrev()
+                            }
+                          }
+                        },
+                        [_c("v-icon", [_vm._v("mdi-menu-left")])],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _vm._l(_vm.total_page, function(n, index) {
+                        return _c(
+                          "v-btn",
+                          {
+                            key: index,
+                            attrs: { fab: "", small: "" },
+                            on: {
+                              click: function($event) {
+                                return _vm.pageReload(index)
+                              }
+                            }
+                          },
+                          [_vm._v(_vm._s(n))]
+                        )
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { fab: "", small: "" },
+                          on: {
+                            click: function($event) {
+                              return _vm.pageNext()
+                            }
+                          }
+                        },
+                        [_c("v-icon", [_vm._v("mdi-menu-right")])],
+                        1
+                      )
+                    ],
+                    2
+                  )
+                ],
+                1
+              )
+            ],
+            1
           )
         ],
         1
@@ -46225,6 +46674,22 @@ var render = function() {
                   _c("h1", { staticClass: "text-center" }, [
                     _vm._v("Usuarios ")
                   ]),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    attrs: {
+                      label: "Buscar Usuario",
+                      outlined: "",
+                      "prepend-icon": "mdi-magnify"
+                    },
+                    on: { change: _vm.searching },
+                    model: {
+                      value: _vm.search,
+                      callback: function($$v) {
+                        _vm.search = $$v
+                      },
+                      expression: "search"
+                    }
+                  }),
                   _vm._v(" "),
                   _c("v-simple-table", {
                     scopedSlots: _vm._u([
@@ -46468,31 +46933,53 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c(
-                    "v-btn",
-                    {
-                      staticClass: "ma-2 white--text",
-                      attrs: { color: "success", href: _vm.urlViewVisits }
-                    },
+                    "v-row",
                     [
-                      _vm._v("\n          Visualizar PDF\n          "),
-                      _c("v-icon", { attrs: { right: "", dark: "" } }, [
-                        _vm._v("mdi-file-pdf")
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      staticClass: "ma-2 white--text",
-                      attrs: { color: "blue", href: _vm.urlPdfVisits }
-                    },
-                    [
-                      _vm._v("\n          Descargar PDF\n          "),
-                      _c("v-icon", { attrs: { right: "", dark: "" } }, [
-                        _vm._v("mdi-cloud-upload")
-                      ])
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "ma-2 white--text",
+                          attrs: { color: "success", href: _vm.urlViewVisits }
+                        },
+                        [
+                          _vm._v("\n            Visualizar PDF\n            "),
+                          _c("v-icon", { attrs: { right: "", dark: "" } }, [
+                            _vm._v("mdi-file-pdf")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "ma-2 white--text",
+                          attrs: { color: "blue", href: _vm.urlPdfVisits }
+                        },
+                        [
+                          _vm._v("\n            Descargar PDF\n            "),
+                          _c("v-icon", { attrs: { right: "", dark: "" } }, [
+                            _vm._v("mdi-cloud-upload")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          label: "Buscar Visita",
+                          outlined: "",
+                          "prepend-icon": "mdi-magnify"
+                        },
+                        on: { change: _vm.searching },
+                        model: {
+                          value: _vm.search,
+                          callback: function($$v) {
+                            _vm.search = $$v
+                          },
+                          expression: "search"
+                        }
+                      })
                     ],
                     1
                   ),
@@ -102817,6 +103304,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
 /* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
 /* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -102846,7 +103334,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VSimpleTable"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VSimpleTable"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__["VTextField"]})
 
 
 /* hot reload */
@@ -104083,6 +104572,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
 /* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
 /* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -104110,7 +104600,10 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VSimpleTable"]})
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VSimpleTable"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__["VTextField"]})
 
 
 /* hot reload */
@@ -104188,6 +104681,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
 /* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
 /* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -104216,7 +104710,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_7__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_8__["VNavigationDrawer"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_9__["VSimpleTable"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_7__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_8__["VNavigationDrawer"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_9__["VSimpleTable"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__["VTextField"]})
 
 
 /* hot reload */
@@ -104279,6 +104774,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
 /* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
 /* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -104308,7 +104804,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VSimpleTable"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_9__["VNavigationDrawer"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VSimpleTable"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__["VTextField"]})
 
 
 /* hot reload */

@@ -21,13 +21,22 @@
       <v-card class="d-inline-block mx-auto" width="1000" color="grey darken-2">
         <v-container>
         <h1 class="text-center">Bitacoras</h1>
+        <!-- start boton de busqueda -->
+            <v-text-field
+              label="Buscar Bitacora"
+              outlined
+              prepend-icon="mdi-magnify"
+              @change="searching"
+              v-model="search"
+            ></v-text-field>
+        <!--end boton que busqueda-->
         <!-- start vemos a todos los usuarios que posiblemente tienen bitacora -->
         <v-simple-table>
         <template v-slot:default>
           <thead>
             <tr>
               <th class="text-left">Nombre</th>
-              <th class="text-left">Apellido</th>
+              <th class="text-left">Cargo</th>
               <th class="text-left">Cedula</th>
               <th class="text-left">teléfono</th>
               <th class="text-left">Correo</th>
@@ -106,10 +115,43 @@ import {initialize} from '.././helpers/general';
         users:[],
         page:0,
         total_page:0,
+        search:'',
+        itsSearching:null
       };
     },
     methods: {
+      searching(){
+      if(!this.search){
+        this.itsSearching = false;
+        axios.get('/api/viewUsers').then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.users=res.data.data
+      }).catch(err => {
+        console.log(err);
+      });
+      }else{
+      axios.get(`/api/searchUser/${this.search}`).then(res => {
+        this.itsSearching = true;
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.users=res.data.data
+        }).catch(err => {
+          console.log(err);
+        });
+      }
+      },
       pageReload (index) {
+        if(this.itsSearching){
+           axios.get(`/api/searchUser/${this.search}?page=${index + 1}`).then(res => {
+        this.itsSearching = true;
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.users=res.data.data
+        }).catch(err => {
+          console.log(err);
+        });
+        }else{
       axios.get(`/api/viewUsers?page=${index + 1}`).then(res => {
         this.page = res.data.current_page;
         this.total_page= res.data.last_page;
@@ -118,8 +160,19 @@ import {initialize} from '.././helpers/general';
       }).catch(err => {
         console.log(err);
       });
+    }
       },
       pagePrev(){
+        if(this.itsSearching){
+           axios.get(`/api/searchUser/${this.search}?page=${this.page - 1}`).then(res => {
+        this.itsSearching = true;
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.users=res.data.data
+        }).catch(err => {
+          console.log(err);
+        });
+        }else{
         axios.get(`/api/viewUsers?page=${this.page - 1}`).then(res => {
         this.page = res.data.current_page;
         this.total_page= res.data.last_page;
@@ -128,8 +181,19 @@ import {initialize} from '.././helpers/general';
       }).catch(err => {
         console.log(err);
       });
+    }
       },
       pageNext(){
+        if(this.itsSearching){
+           axios.get(`/api/searchUser/${this.search}?page=${this.page + 1}`).then(res => {
+        this.itsSearching = true;
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.users=res.data.data
+        }).catch(err => {
+          console.log(err);
+        });
+        }else{
         axios.get(`/api/viewUsers?page=${this.page + 1}`).then(res => {
         this.page = res.data.current_page;
         this.total_page= res.data.last_page;
@@ -138,6 +202,7 @@ import {initialize} from '.././helpers/general';
       }).catch(err => {
         console.log(err);
       });
+    }
       },
       viewBitacore($id){
         this.$router.push({ name: 'show-bitacore',params:{id:$id}});

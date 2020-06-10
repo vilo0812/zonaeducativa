@@ -202,7 +202,17 @@ import ContentCenter from '.././structures/Center.vue'
       }
       },
       searching(){
-      let params = {
+      if(!this.search){
+        this.searching = false;
+      axios.get('/api/showOnlyNotTargetVisits').then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data
+      }).catch(err => {
+        console.log(err);
+      });
+      }else{
+        let params = {
       data : this.search
       };
       axios.post('/api/searchTicket', params).then(res => {
@@ -211,10 +221,10 @@ import ContentCenter from '.././structures/Center.vue'
         this.total_page= res.data.last_page;
         this.visitas=res.data.data.filter(item => 
           (item.output === null));
-        console.log(err);
         }).catch(err => {
           console.log(err);
         });
+      }
       },
       target (idItem,index) {
         let params={

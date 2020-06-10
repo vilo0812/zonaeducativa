@@ -167,13 +167,6 @@ class TicketController extends Controller
         $datalist);
     };
     return response()->json($data,200);
-    // $searching = new FilterController();
-    // $data = $searching->filterOfVerificationTicketByIc($request->data);
-    // if(!$data[0]){
-    //  $data = $searching->filterOfVerificationTicketByCode($request->data);
-    // }
-    // return response()->json(["data"=>$data],200);
-    
     }
     //end busqueda de tickets
 }

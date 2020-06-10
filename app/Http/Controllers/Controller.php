@@ -113,7 +113,7 @@ class Controller extends BaseController
         ->join('floors','directions.floor_id',"=",'floors.id')
         ->join('zones','directions.zone_id',"=",'zones.id')
         ->join('sectors',"directions.sector_id","=","sectors.id")
-        ->where($info,'LIKE',"%$data%")
+            ->where($info,'LIKE',"%$data%")
         ->select($select)
         ->orderBy('visitors.id','desc')
     ->paginate(30);

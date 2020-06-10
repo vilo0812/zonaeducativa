@@ -6,6 +6,7 @@ use App\Direction;
 use App\DirectionTickets;
 use App\Handling_time;
 use App\Http\Controllers\BitacoreController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterVisitorRequest;
 use App\User;
 use App\Visitor;
@@ -175,4 +176,74 @@ class VisitorController extends Controller
     public function storeBitacore(Request $request){
     
     }
+    //start busqueda de visita
+    public function searchVisit(Request $request){
+    // $searching = new Controller();
+    $searching = new Controller();
+    $datalist = [
+    'visitors.id',
+    'first_name',
+    'last_name',
+    'identification_card',
+    'sector',
+    'input',
+    'output',
+    'phone'];
+    $findByFirstName="users.first_name";
+    $findByLastName="users.last_name";
+    $findByCi = "users.identification_card";
+    $findByInput = "handling_times.input";
+    $findByOutput = "handling_times.output";
+    $findByPhone = "users.phone";
+    $findSector = "sectors.sector";
+    $data = $searching
+    ->filter(
+        $findByFirstName,
+        $request->data,
+        $datalist);
+    if(!$data[0]){
+     $data = $searching
+     ->filter(
+        $findByLastName,
+        $request->data,
+        $datalist);
+    }
+    if(!$data[0]){
+    $data = $searching
+    ->filter(
+        $findByCi,
+        $request->data,
+        $datalist);
+    }
+    if(!$data[0]){
+     $data = $searching
+     ->filter(
+        $findByInput,
+        $request->data,
+        $datalist);
+    }
+    if(!$data[0]){
+     $data = $searching
+     ->filter(
+        $findByOutput,
+        $request->data,
+        $datalist);
+    }
+    if(!$data[0]){
+     $data = $searching
+     ->filter(
+        $findByPhone,
+        $request->data,
+        $datalist);
+    }
+    if(!$data[0]){
+     $data = $searching
+     ->filter(
+        $findSector,
+        $request->data,
+        $datalist);
+    }
+    return response()->json($data,200);
+    }
+    //end busqueda de visita
 }

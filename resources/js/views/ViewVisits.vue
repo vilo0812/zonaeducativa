@@ -20,24 +20,35 @@
   <v-card class="d-inline-block mx-auto" color="grey darken-2">
     <v-container>
 		    <h1 class="text-center">Visualizar Visitas </h1>
-        <!-- start boton de descargar -->
-        <v-btn
-          color="success"
-          class="ma-2 white--text"
-          :href="urlViewVisits"
-        >
-          Visualizar PDF
-          <v-icon right dark>mdi-file-pdf</v-icon>
-        </v-btn>
-        <v-btn
-          color="blue"
-          class="ma-2 white--text"
-          :href="urlPdfVisits"
-        >
-          Descargar PDF
-          <v-icon right dark>mdi-cloud-upload</v-icon>
-        </v-btn>
-        <!-- end boton de descargar -->
+        <v-row>
+          <!-- start boton de descargar -->
+          <v-btn
+            color="success"
+            class="ma-2 white--text"
+            :href="urlViewVisits"
+          >
+            Visualizar PDF
+            <v-icon right dark>mdi-file-pdf</v-icon>
+          </v-btn>
+          <v-btn
+            color="blue"
+            class="ma-2 white--text"
+            :href="urlPdfVisits"
+          >
+            Descargar PDF
+            <v-icon right dark>mdi-cloud-upload</v-icon>
+          </v-btn>
+          <!-- start boton de busqueda -->
+            <v-text-field
+              label="Buscar Visita"
+              outlined
+              prepend-icon="mdi-magnify"
+              @change="searching"
+              v-model="search"
+            ></v-text-field>
+        <!--end boton que busqueda-->
+          <!-- end boton de descargar -->
+        </v-row>
         <!-- start visualizacion de las visitas al edificio -->
       <v-simple-table >
         <template v-slot:default>
@@ -118,7 +129,9 @@ import ContentCenter from '.././structures/Center.vue'
         visitas:[],
         page:0,
         total_page:0,
-        n:0
+        n:0,
+        search:'',
+        itsSearching:null
   	  };
   	},
     computed: {
@@ -139,6 +152,30 @@ import ContentCenter from '.././structures/Center.vue'
       this.$vuetify.theme.dark = true
     },
     methods: {
+      searching(){
+      if(!this.search){
+        this.itsSearching = false;
+        axios.get('/api/showPageVisits').then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data;
+      }).catch(err => {
+        console.log(err);
+      });
+      }else{
+      let params = {
+      data : this.search
+      };
+      axios.post('/api/searchVisit', params).then(res => {
+        this.itsSearching = true;
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data;
+        }).catch(err => {
+          console.log(err);
+        });
+      }
+      },
       verVisitas(){
       let params = {
         'action_id' : 4,
@@ -152,6 +189,20 @@ import ContentCenter from '.././structures/Center.vue'
       });
       },
       pageReload (index) {
+        if(this.itsSearching == true){ 
+        let params = {
+        data : this.search
+        };
+        axios.post(`/api/searchVisit?page=${index + 1}`,params).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data.filter(item => 
+          (item.output === null));
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+      }else{
       axios.get(`/api/showPageVisits?page=${index + 1}`).then(res => {
         this.page = res.data.current_page;
         this.total_page= res.data.last_page;
@@ -160,8 +211,23 @@ import ContentCenter from '.././structures/Center.vue'
       }).catch(err => {
         console.log(err);
       });
+      }
       },
       pagePrev(){
+        if(this.itsSearching == true){ 
+        let params = {
+        data : this.search
+        };
+        axios.post(`/api/searchVisit?page=${this.page - 1}`,params).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data.filter(item => 
+          (item.output === null));
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+      }else{
         axios.get(`/api/showPageVisits?page=${this.page - 1}`).then(res => {
         this.page = res.data.current_page;
         this.total_page= res.data.last_page;
@@ -170,8 +236,23 @@ import ContentCenter from '.././structures/Center.vue'
       }).catch(err => {
         console.log(err);
       });
+      }
       },
       pageNext(){
+        if(this.itsSearching == true){ 
+        let params = {
+        data : this.search
+        };
+        axios.post(`/api/searchVisit?page=${this.page - 1}`,params).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.visitas=res.data.data.filter(item => 
+          (item.output === null));
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+      }else{
         axios.get(`/api/showPageVisits?page=${this.page + 1}`).then(res => {
         this.page = res.data.current_page;
         this.total_page= res.data.last_page;
@@ -181,6 +262,7 @@ import ContentCenter from '.././structures/Center.vue'
         console.log(err);
       });
       }
+    }
     },
   }
 </script>

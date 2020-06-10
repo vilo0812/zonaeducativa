@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Http\Request;
-Route::get('filter/{info}/{data}','Controller@filter');
+Route::get('searchBitacore/{id}/{dato}','BitacoreController@searchBitacore');
+Route::get('searchUser/{dato}','UserController@searchUser');
 Route::post('searchTicket','TicketController@searchTicket');
-Route::post('filterTicket','FilterController@filterOfVerificationTicketByIc');
-Route::post('filterTicketByCode','FilterController@filterOfVerificationTicketByCode');
+Route::post('searchVisit','VisitorController@searchVisit');
 /*start apis de sesiones*/
 Route::group(['prefix' => 'sesion'], function() {
 	/*start api para iniciar sesion*/
@@ -116,7 +116,7 @@ Route::group([
 	Route::get('showUserByIc/{id}','UserController@showByIdentificationCard');
 	/*end api para ver la información de una usuario*/
 	//start api para mostrar las bitacoras de un usuario segun su id
-	Route::get('showBitacoreByUserId/{id}','UserController@showBitacoreByUserId');
+	Route::get('showBitacoreByUserId/{id}','BitacoreController@showBitacoreByUserId');
 	//end api para mostrar las bitacoras de un usuario segun su id
 	//start api para registar en la bitacora la accion de visualizar los pdfs
 	Route::post('storeBitacore','BitacoreController@storeBitacoreViewVisits');

@@ -22,6 +22,15 @@
         <v-container>
         <h1 class="text-center">Bitacora</h1>
         <h3 class="text-center">Bitacora del {{rolId(user.rol_id) }} {{ user.first_name}} {{user.last_name}}</h3>
+        <!-- start boton de busqueda -->
+            <v-text-field
+              label="Buscar Registro"
+              outlined
+              prepend-icon="mdi-magnify"
+              @change="searching"
+              v-model="search"
+            ></v-text-field>
+        <!--end boton que busqueda-->
         <!-- start empezamos a hacer los botones de descarga de pdf de bitacora -->
         <v-btn
           color="success"
@@ -67,7 +76,21 @@
       <!-- star vemos los datos de la botacora - -->
         </v-container>
       </v-card>
-      <!-- start contenido de muestra -->
+       <!-- start pagination -->
+        <div class="text-center">
+                <v-row justify="center" align="center">
+                    <v-col cols="12">
+                      <v-btn @click="pagePrev()" fab small>
+                        <v-icon>mdi-menu-left</v-icon>
+                      </v-btn>
+                      <v-btn v-for="(n,index) in total_page" @click="pageReload(index)" fab small :key="index">{{n}}</v-btn>
+                      <v-btn fab small @click="pageNext()">
+                        <v-icon>mdi-menu-right</v-icon>
+                      </v-btn>
+                    </v-col>
+                </v-row>
+            </div>
+        <!--end paginate -->
     </content-center>
     <!-- end el main donde ira el contenido principal-->
   </div>
@@ -82,7 +105,9 @@ import {initialize} from '.././helpers/general';
     props:['id'],
     mounted(){
       axios.get(`/api/showBitacoreByUserId/${this.id}`).then(res => {
-        this.bitacores=res.data;
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.bitacores=res.data.data;
       }).catch(err => {
         console.log(err);
       });
@@ -101,11 +126,97 @@ import {initialize} from '.././helpers/general';
       return {
         drawer: null,
         bitacores:[],
-        user:[]
+        user:[],
+        search:'',
+        page:'',
+        total_page:'',
+        itsSearching:null
+
       };
     },
     methods: {
-      
+      searching(){
+      if(!this.search){
+      this.itsSearching = false;
+      axios.get(`/api/showBitacoreByUserId/${this.id}`).then(res => {
+        this.bitacores=res.data;
+      }).catch(err => {
+        console.log(err);
+      });
+      }else{
+      axios.get(`/api/searchBitacore/${this.id}/${this.search}`).then(res => {
+        this.itsSearching = true;
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.bitacores=res.data.data
+        }).catch(err => {
+          console.log(err);
+        });
+      }
+      },
+      pageReload (index) {
+        if(this.itsSearching){
+           axios.get(`/api/searchBitacore/${this.id}/${this.search}?page=${index + 1}`).then(res => {
+        this.itsSearching = true;
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.bitacores=res.data.data
+        }).catch(err => {
+          console.log(err);
+        });
+        }else{
+      axios.get(`/api/showBitacoreByUserId/${this.id}?page=${index + 1}`).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.bitacores=res.data.data;
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+    }
+      },
+      pagePrev(){
+        if(this.itsSearching){
+           axios.get(`/api/searchBitacore/${this.id}/${this.search}?page=${this.page - 1}`).then(res => {
+        this.itsSearching = true;
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.bitacores=res.data.data
+        }).catch(err => {
+          console.log(err);
+        });
+        }else{
+        axios.get(`/api/showBitacoreByUserId/${this.id}?page=${this.page - 1}`).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.bitacores=res.data.data;
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+    }
+      },
+      pageNext(){
+        if(this.itsSearching){
+           axios.get(`/api/searchBitacore/${this.id}/${this.search}?page=${this.page + 1}`).then(res => {
+        this.itsSearching = true;
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.bitacores=res.data.data
+        }).catch(err => {
+          console.log(err);
+        });
+        }else{
+        axios.get(`/api/showBitacoreByUserId/${this.id}?page=${this.page + 1}`).then(res => {
+        this.page = res.data.current_page;
+        this.total_page= res.data.last_page;
+        this.bitacores=res.data.data;
+        scroll(0,1);
+      }).catch(err => {
+        console.log(err);
+      });
+    }
+      },
       rolId(id){
       return id==2 ? 'Administrador' : 'Jefe de Zona';
       },

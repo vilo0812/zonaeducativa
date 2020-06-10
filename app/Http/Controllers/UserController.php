@@ -127,13 +127,6 @@ class UserController extends Controller
      return response()->json($user,200);
     }
     /*end api que me permite ver al usuario segun el numero de cedula*/
-    //start api para mostrar las bitacoras segun el id del usuario
-    public function showBitacoreByUserId($id){
-    $bit = new Bitacore();
-    $bit =$bit->showBitacore($id);
-    return response()->json($bit,200);
-    }
-    //end api para mostrar las bitacoras segun el id del usuario
     // start ver la bitacora del usuario en PDF
     public function viewBitacore($id){
     $bit = new Bitacore();
@@ -156,4 +149,38 @@ class UserController extends Controller
     return $pdf->download();
     }
     // start descargar bitacora del usuario
+    //start api para buscar usuarios
+    public function searchUser($dato){
+    $data = User::firstname($dato)
+            ->orderBy('id', 'desc')
+            ->paginate(30);
+    if(!$data[0]){
+     $data = User::lastname($dato)
+            ->orderBy('id', 'desc')
+            ->paginate(30);
+    }
+    if(!$data[0]){
+     $data = User::identificationcard($dato)
+            ->orderBy('id', 'desc')
+            ->paginate(30);
+    }
+    if(!$data[0]){
+     $data = User::phone($dato)
+            ->orderBy('id', 'desc')
+            ->paginate(30);
+    }
+    if(!$data[0]){
+      $data = User::email($dato)
+            ->orderBy('id', 'desc')
+            ->paginate(30);
+    }
+    if(!$data[0]){
+      $data = User::leftJoin('rols',"users.rol_id","=","rols.id")
+            ->rols($dato)
+            ->orderBy('users.id', 'desc')
+            ->paginate(30);
+    }
+    return response()->json($data,200);
+    }
+    //end api para buscar usuarios
 }
