@@ -4070,15 +4070,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       if (this.itsSearching == true) {
-        var params = {
-          data: this.search
-        };
-        axios.post("/api/searchTicket?page=".concat(index + 1), params).then(function (res) {
+        axios.get("/api/searchTicket/".concat(this.search, "?page=").concat(index + 1), params).then(function (res) {
           _this2.page = res.data.current_page;
           _this2.total_page = res.data.last_page;
-          _this2.visitas = res.data.data.filter(function (item) {
-            return item.output === null;
-          });
+          _this2.visitas = res.data.data;
           scroll(0, 1);
         })["catch"](function (err) {
           console.log(err);
@@ -4098,15 +4093,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       if (this.itsSearching == true) {
-        var params = {
-          data: this.search
-        };
-        axios.post("/api/searchTicket?page=".concat(this.page - 1), params).then(function (res) {
+        axios.get("/api/searchTicket/".concat(this.search, "?page=").concat(this.page - 1), params).then(function (res) {
           _this3.page = res.data.current_page;
           _this3.total_page = res.data.last_page;
-          _this3.visitas = res.data.data.filter(function (item) {
-            return item.output === null;
-          });
+          _this3.visitas = res.data.data;
           scroll(0, 1);
         })["catch"](function (err) {
           console.log(err);
@@ -4126,15 +4116,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       if (this.itsSearching == true) {
-        var params = {
-          data: this.search
-        };
-        axios.post("/api/searchTicket?page=".concat(this.page + 1), params).then(function (res) {
+        axios.get("/api/searchTicket/".concat(this.search, "?page=").concat(this.page + 1), params).then(function (res) {
           _this4.page = res.data.current_page;
           _this4.total_page = res.data.last_page;
-          _this4.visitas = res.data.data.filter(function (item) {
-            return item.output === null;
-          });
+          _this4.visitas = res.data.data;
           scroll(0, 1);
         })["catch"](function (err) {
           console.log(err);
@@ -4163,16 +4148,11 @@ __webpack_require__.r(__webpack_exports__);
           console.log(err);
         });
       } else {
-        var params = {
-          data: this.search
-        };
-        axios.post('/api/searchTicket', params).then(function (res) {
+        axios.get("/api/searchTicket/".concat(this.search)).then(function (res) {
           _this5.itsSearching = true;
           _this5.page = res.data.current_page;
           _this5.total_page = res.data.last_page;
-          _this5.visitas = res.data.data.filter(function (item) {
-            return item.output === null;
-          });
+          _this5.visitas = res.data.data;
         })["catch"](function (err) {
           console.log(err);
         });
@@ -6588,10 +6568,7 @@ __webpack_require__.r(__webpack_exports__);
           console.log(err);
         });
       } else {
-        var params = {
-          data: this.search
-        };
-        axios.post('/api/searchVisit', params).then(function (res) {
+        axios.get("/api/searchVisit/".concat(this.search)).then(function (res) {
           _this2.itsSearching = true;
           _this2.page = res.data.current_page;
           _this2.total_page = res.data.last_page;
@@ -6617,10 +6594,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       if (this.itsSearching == true) {
-        var params = {
-          data: this.search
-        };
-        axios.post("/api/searchVisit?page=".concat(index + 1), params).then(function (res) {
+        axios.get("/api/searchVisit/".concat(this.search, "?page=").concat(index + 1)).then(function (res) {
           _this3.page = res.data.current_page;
           _this3.total_page = res.data.last_page;
           _this3.visitas = res.data.data.filter(function (item) {
@@ -6648,7 +6622,7 @@ __webpack_require__.r(__webpack_exports__);
         var params = {
           data: this.search
         };
-        axios.post("/api/searchVisit?page=".concat(this.page - 1), params).then(function (res) {
+        axios.get("/api/searchVisit/".concat(this.search, "?page=").concat(this.page - 1)).then(function (res) {
           _this4.page = res.data.current_page;
           _this4.total_page = res.data.last_page;
           _this4.visitas = res.data.data.filter(function (item) {
@@ -6676,7 +6650,7 @@ __webpack_require__.r(__webpack_exports__);
         var params = {
           data: this.search
         };
-        axios.post("/api/searchVisit?page=".concat(this.page - 1), params).then(function (res) {
+        axios.get("/api/searchVisit/".concat(this.search, "?page=").concat(this.page + 1)).then(function (res) {
           _this5.page = res.data.current_page;
           _this5.total_page = res.data.last_page;
           _this5.visitas = res.data.data.filter(function (item) {

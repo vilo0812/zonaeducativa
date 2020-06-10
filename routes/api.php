@@ -3,8 +3,8 @@
 use Illuminate\Http\Request;
 Route::get('searchBitacore/{id}/{dato}','BitacoreController@searchBitacore');
 Route::get('searchUser/{dato}','UserController@searchUser');
-Route::post('searchTicket','TicketController@searchTicket');
-Route::post('searchVisit','VisitorController@searchVisit');
+Route::get('searchTicket/{dato}','TicketController@searchTicket');
+Route::get('searchVisit/{dato}','VisitorController@searchVisit');
 /*start apis de sesiones*/
 Route::group(['prefix' => 'sesion'], function() {
 	/*start api para iniciar sesion*/

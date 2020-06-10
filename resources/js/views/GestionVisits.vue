@@ -128,14 +128,10 @@ import ContentCenter from '.././structures/Center.vue'
     methods: {
       pageReload (index) {
         if(this.itsSearching == true){ 
-        let params = {
-        data : this.search
-        };
-        axios.post(`/api/searchTicket?page=${index + 1}`,params).then(res => {
+        axios.get(`/api/searchTicket/${this.search}?page=${index + 1}`,params).then(res => {
         this.page = res.data.current_page;
         this.total_page= res.data.last_page;
-        this.visitas=res.data.data.filter(item => 
-          (item.output === null));
+        this.visitas=res.data.data
         scroll(0,1);
       }).catch(err => {
         console.log(err);
@@ -153,14 +149,10 @@ import ContentCenter from '.././structures/Center.vue'
       },
       pagePrev(){
         if(this.itsSearching == true){ 
-        let params = {
-        data : this.search
-        };
-        axios.post(`/api/searchTicket?page=${this.page - 1}`,params).then(res => {
+        axios.get(`/api/searchTicket/${this.search}?page=${this.page - 1}`,params).then(res => {
         this.page = res.data.current_page;
         this.total_page= res.data.last_page;
-        this.visitas=res.data.data.filter(item => 
-          (item.output === null));
+        this.visitas=res.data.data
         scroll(0,1);
       }).catch(err => {
         console.log(err);
@@ -178,14 +170,10 @@ import ContentCenter from '.././structures/Center.vue'
       },
       pageNext(){
         if(this.itsSearching == true){ 
-        let params = {
-        data : this.search
-        };
-        axios.post(`/api/searchTicket?page=${this.page + 1}`,params).then(res => {
+        axios.get(`/api/searchTicket/${this.search}?page=${this.page + 1}`,params).then(res => {
         this.page = res.data.current_page;
         this.total_page= res.data.last_page;
-        this.visitas=res.data.data.filter(item => 
-          (item.output === null));
+        this.visitas=res.data.data
         scroll(0,1);
       }).catch(err => {
         console.log(err);
@@ -212,15 +200,11 @@ import ContentCenter from '.././structures/Center.vue'
         console.log(err);
       });
       }else{
-        let params = {
-      data : this.search
-      };
-      axios.post('/api/searchTicket', params).then(res => {
+      axios.get(`/api/searchTicket/${this.search}`).then(res => {
         this.itsSearching = true
         this.page = res.data.current_page;
         this.total_page= res.data.last_page;
-        this.visitas=res.data.data.filter(item => 
-          (item.output === null));
+        this.visitas=res.data.data;
         }).catch(err => {
           console.log(err);
         });

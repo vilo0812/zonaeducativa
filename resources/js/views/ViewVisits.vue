@@ -163,10 +163,7 @@ import ContentCenter from '.././structures/Center.vue'
         console.log(err);
       });
       }else{
-      let params = {
-      data : this.search
-      };
-      axios.post('/api/searchVisit', params).then(res => {
+      axios.get(`/api/searchVisit/${this.search}`).then(res => {
         this.itsSearching = true;
         this.page = res.data.current_page;
         this.total_page= res.data.last_page;
@@ -190,10 +187,7 @@ import ContentCenter from '.././structures/Center.vue'
       },
       pageReload (index) {
         if(this.itsSearching == true){ 
-        let params = {
-        data : this.search
-        };
-        axios.post(`/api/searchVisit?page=${index + 1}`,params).then(res => {
+        axios.get(`/api/searchVisit/${this.search}?page=${index + 1}`).then(res => {
         this.page = res.data.current_page;
         this.total_page= res.data.last_page;
         this.visitas=res.data.data.filter(item => 
@@ -218,7 +212,7 @@ import ContentCenter from '.././structures/Center.vue'
         let params = {
         data : this.search
         };
-        axios.post(`/api/searchVisit?page=${this.page - 1}`,params).then(res => {
+        axios.get(`/api/searchVisit/${this.search}?page=${this.page - 1}`).then(res => {
         this.page = res.data.current_page;
         this.total_page= res.data.last_page;
         this.visitas=res.data.data.filter(item => 
@@ -243,7 +237,7 @@ import ContentCenter from '.././structures/Center.vue'
         let params = {
         data : this.search
         };
-        axios.post(`/api/searchVisit?page=${this.page - 1}`,params).then(res => {
+        axios.get(`/api/searchVisit/${this.search}?page=${this.page + 1}`).then(res => {
         this.page = res.data.current_page;
         this.total_page= res.data.last_page;
         this.visitas=res.data.data.filter(item => 

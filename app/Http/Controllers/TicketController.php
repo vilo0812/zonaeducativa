@@ -139,9 +139,7 @@ class TicketController extends Controller
         }
     /*end funcion para generar un codigo aleatorio*/
     //start busqueda de tickets
-    public function searchTicket(Request $request){
-    // $searching = new Controller();
-    $searching = new Controller();
+    public function searchTicket($dato){
     $datalist = [
     'visitors.id',
     'first_name',
@@ -149,24 +147,80 @@ class TicketController extends Controller
     'identification_card',
     'sector',
     'input',
-    'output',
     'phone'];
+    $findByFirstName="users.first_name";
+    $findByLastName="users.last_name";
     $findByCi = "users.identification_card";
+    $findByPhone = "users.phone";
     $findByCode = "direction_tickets.code";
-    $data = $searching
+    $findSector = "sectors.sector";
+    $findByInput = "handling_times.input";
+    $data = $this
+    ->filter(
+        $findByFirstName,
+        $dato,
+        $datalist);
+    if(!$data[0]){
+    $data = $this
+    ->filter(
+        $findByLastName,
+        $dato,
+        $datalist);
+	}
+    if(!$data[0]){
+    $data = $this
     ->filter(
         $findByCi,
-        $request->data,
-        $datalist)
-    ;
+        $dato,
+        $datalist);
+	}
     if(!$data[0]){
-     $data = $searching
+    $data = $this
+    ->filter(
+        $findByPhone,
+        $dato,
+        $datalist);
+	}
+    if(!$data[0]){
+    $data = $this
+    ->filter(
+        $findSector,
+        $dato,
+        $datalist);
+	}
+    if(!$data[0]){
+    $data = $this
+    ->filter(
+        $findByInput,
+        $dato,
+        $datalist);
+	}
+    if(!$data[0]){
+     $data = $this
      ->filter(
         $findByCode,
-        $request->data,
+        $dato,
         $datalist);
     };
     return response()->json($data,200);
     }
     //end busqueda de tickets
+    //start filtrado 
+    public function filter($info,$data,$select){
+    $filter = Visitor::leftJoin("users","visitors.user_id","=","users.id")
+        ->join('rols',"users.rol_id","=","rols.id")
+        ->join('handling_times',"visitors.handling_time_id","=","handling_times.id")
+        ->join('direction_tickets',"visitors.direction_ticket_id","=","direction_tickets.id")
+        ->join("tickets","direction_tickets.ticket_id","=","tickets.id")
+        ->join('directions',"direction_tickets.direction_id","=","directions.id")
+        ->join('floors','directions.floor_id',"=",'floors.id')
+        ->join('zones','directions.zone_id',"=",'zones.id')
+        ->join('sectors',"directions.sector_id","=","sectors.id")
+            ->where([[$info,'LIKE',"%$data%"],['handling_times.output',"=",null]])
+        ->select($select)
+        ->orderBy('visitors.id','desc')
+    ->paginate(30);
+    return $filter;
+    }
+//end filtrado 
 }
