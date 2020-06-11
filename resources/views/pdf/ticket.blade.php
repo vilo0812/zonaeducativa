@@ -5,6 +5,9 @@
 	<meta charset="UTF-8">
 	<title>ticket</title>
     <style>
+        .content{
+            text-align: center;
+        }
         .container{
         border: 1px black solid;
         width: 350px;
@@ -38,10 +41,33 @@
         width: 50px;
         margin:0px 10px;
         }
+        .logo-img2 {
+        width: 150px;
+        margin:0px 10px;
+        }
+        .header-title{
+                color: black;
+                margin:0 5px;
+        }
     </style>
 </head>
 <body>
+    <div class="content">
+        <div>
+            <div class="items">
+                <img src="images/icons/GobiernoBolivarianoVenezolano.png" alt="logo ministerio" class="logo-img2">
+                <img src="images/icons/mppe.png" alt="logo gobernación" class="logo-img2">
+                <img src="images/icons/zeg.png" alt="logo zona educativa guarico" class="logo-img2">
+            </div>
+             <h1 class="header-title">
+            Ministerio Del Poder Popular Para la Educación<br/>
+            Zona Educativa Del estado Guárico<br/>
+            Dirección del municipio Juan Germán Roscio
+        </h1>
+        </div>
+    </div>
     <div class="container">
+       
         <div class="header">
             <h3 class="centerCode">{{$data['code']}}</h3>
         </div>
@@ -56,7 +82,7 @@
                 <img src="images/icons/mppe.png" alt="logo gobernación" class="logo-img">
                 <img src="images/icons/zeg.png" alt="logo zona educativa guarico" class="logo-img">
             </div>
-    </div>
+        </div>
     </div>
 </body>
 </html>

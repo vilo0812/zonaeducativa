@@ -65,10 +65,45 @@
 			.margin{
 				margin: auto 10;
 			}
+            .header{
+
+            }
+            .items{
+            width: 60%;
+            margin:auto;
+            }
+            .logo-img {
+            width: 50px;
+            margin:0px 10px;
+            }
+            .items{
+            width: 60%;
+            margin:auto;
+            }
+            .logo-img {
+            width: 200px;
+            margin:0px 10px;
+            }
+            .header-title{
+                color: black;
+                margin:0 5px;
+            }
         </style>
 </head>
 <body>
 	<div class="content">
+         <div class="header">
+            <div class="items">
+                <img src="images/icons/GobiernoBolivarianoVenezolano.png" alt="logo ministerio" class="logo-img">
+                <img src="images/icons/mppe.png" alt="logo gobernación" class="logo-img">
+                <img src="images/icons/zeg.png" alt="logo zona educativa guarico" class="logo-img">
+            </div>
+        </div>
+        <h1 class="header-title">
+            Ministerio Del Poder Popular Para la Educación<br/>
+            Zona Educativa Del estado Guárico<br/>
+            Dirección del municipio Juan Germán Roscio
+        </h1>
         <div class="title m-b-md">
             Registro de visitas
         </div>

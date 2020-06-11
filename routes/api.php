@@ -1,10 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-Route::get('searchBitacore/{id}/{dato}','BitacoreController@searchBitacore');
-Route::get('searchUser/{dato}','UserController@searchUser');
-Route::get('searchTicket/{dato}','TicketController@searchTicket');
-Route::get('searchVisit/{dato}','VisitorController@searchVisit');
+
 /*start apis de sesiones*/
 Route::group(['prefix' => 'sesion'], function() {
 	/*start api para iniciar sesion*/
@@ -125,4 +122,10 @@ Route::group([
 //start filtros
 // Route::post('filterTicket','FilterController@filterOfVerificationTicketByIc');
 //end filtros
+//start api de filtro
+Route::get('searchBitacore/{id}/{dato}','BitacoreController@searchBitacore');//filtro para bitacoras
+Route::get('searchUser/{dato}','UserController@searchUser');//filtro para usuarios
+Route::get('searchTicket/{dato}','TicketController@searchTicket');//filtro para tickets
+Route::get('searchVisit/{dato}','VisitorController@searchVisit');//filtro para visits
+//end api de filtro
 });
