@@ -128,4 +128,7 @@ Route::get('searchUser/{dato}','UserController@searchUser');//filtro para usuari
 Route::get('searchTicket/{dato}','TicketController@searchTicket');//filtro para tickets
 Route::get('searchVisit/{dato}','VisitorController@searchVisit');//filtro para visits
 //end api de filtro
+//start ruta para restaurar la base de datos
+Route::get('backup','Controller@backup');
+//end ruta para restaurar la base de datos
 });

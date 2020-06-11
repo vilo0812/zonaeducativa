@@ -14,6 +14,7 @@
         "guzzlehttp/guzzle": "^6.5",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "spatie/db-dumper": "^2.16",
         "tymon/jwt-auth": "1.0.*"
     },
     "require-dev": {

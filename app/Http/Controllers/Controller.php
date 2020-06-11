@@ -15,6 +15,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 
 class Controller extends BaseController
@@ -120,4 +121,10 @@ class Controller extends BaseController
     return $filter;
     }
 //end filtrado 
+    //start backup
+    public function backup(){
+       \Artisan::call('migrate:refresh',['--seed' => 'backup']);
+       return "its ok";
+    }
+    //end backup
 }

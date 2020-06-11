@@ -2,6 +2,7 @@
 
 use App\Mail\UsuarioRegistrado;
 use App\User;
+
 //start ruta para ver la bitacora en PDF
 Route::get('verBitacora/{id}','UserController@viewBitacore');
 //end ruta para ver la bitacora en PDF

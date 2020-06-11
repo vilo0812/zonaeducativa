@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
             "password"=>bcrypt("1234"),
             "rol_id"=>2
         ]);
-        factory(User::class, 20)->create();
+        // factory(User::class, 20)->create();
     	/*end super administrador*/
     }
     /*end creamos a los usuarios*/

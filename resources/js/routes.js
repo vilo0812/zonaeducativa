@@ -19,7 +19,8 @@ import EditUser from './views/EditUser.vue';
 import Tickets from './views/GestionTickets.vue';
 import Bitacores from './views/Bitacores.vue';
 import ShowBitacore from './views/ShowBitacore.vue';
-import CheckingTicket from './views/CheckingTicket.vue'
+import CheckingTicket from './views/CheckingTicket.vue';
+import Backup from './views/Backup.vue';
 export const routes = [
   /*
    |--------------------------------------------------------------------------
@@ -147,6 +148,17 @@ export const routes = [
     }
   },
   /*end registrar administrador*/
+  /*start restaurar sistema*/
+  {
+    path:'/RestaurarSistema',
+    component:Backup,
+    name:'backup',
+    meta:{
+      requiresAuth: true,
+      requiresAuthSuperAdmin: true,
+    }
+  },
+  /*end restaurar sistema*/
   /*start mostrar el perfil de administrador*/
   {
     path:'/showAdmin/:id',
