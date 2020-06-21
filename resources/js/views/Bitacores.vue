@@ -20,7 +20,7 @@
       <!-- start contenido de muestra -->
       <v-card class="d-inline-block mx-auto" width="1000" color="grey darken-2">
         <v-container>
-        <h1 class="text-center">Bitacoras</h1>
+        <h1 class="text-center">Bitácoras</h1>
         <!-- start boton de busqueda -->
             <v-text-field
               label="Buscar Bitacora"

@@ -56,7 +56,7 @@
             <tr>
               <th class="text-left">Nombre</th>
               <th class="text-left">Apellido</th>
-              <th class="text-left">Cedula</th>
+              <th class="text-left">Cédula</th>
               <th class="text-left">teléfono</th>
               <th class="text-left">sector</th>
               <th class="text-left">llegada</th>

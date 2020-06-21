@@ -65,13 +65,13 @@
 	data () {
   	  return {
   	    itemsSuperAdmin: [
-        { icon: 'mdi-account-card-details', text: 'Bitacoras',direccion:'view-bitacores'},
+        { icon: 'mdi-account-card-details', text: 'Bitácoras',direccion:'view-bitacores'},
         { icon: 'mdi-google-nearby', text: 'Control de Dependencias',direccion:'controller-dependenci'},
         { icon: 'mdi-account-multiple-plus', text: 'Registrar Administrador',direccion:'register-admin'},
         { icon: 'mdi-account-multiple-plus', text: 'Registrar Jefe de Zona',direccion:'register-leader-zone'},
         { icon: 'mdi-pencil', text: 'Registrar Visita',direccion:'register-visits'},
-        { icon: 'mdi-account-check', text: 'Gestion de Visitas', direccion:'gestion-visit'},
-        { icon: 'mdi-ticket', text: 'Gestion de Tickets', direccion:'gestion-ticket'},
+        { icon: 'mdi-account-check', text: 'Gestionar Visitas', direccion:'gestion-visit'},
+        { icon: 'mdi-ticket', text: 'Gestionar Tickets', direccion:'gestion-ticket'},
         { icon: 'mdi-library', text: 'Ver Usuarios',direccion:'view-users'},
         { icon: 'mdi-book-open-variant', text: 'Visualizar Visitas',direccion:'view-visits'},
         { icon: 'mdi-settings', text: 'Sistema',direccion:'backup'},
@@ -79,7 +79,8 @@
       itemsAdmin: [
         { icon: 'mdi-library', text: 'Ver Usuarios',direccion:'view-users'},
         { icon: 'mdi-pencil', text: 'Registrar Visita',direccion:'register-visits'},
-        { icon: 'mdi-account-check', text: 'Gestion de Visitas', direccion:'gestion-visit'},
+        { icon: 'mdi-account-check', text: 'Gestionar Visitas', direccion:'gestion-visit'},
+        { icon: 'mdi-ticket', text: 'Gestionar Tickets', direccion:'gestion-ticket'},
         { icon: 'mdi-book-open-variant', text: 'Visualizar Visitas',direccion:'view-visits'},
       ],
       itemsLeaderZone: [

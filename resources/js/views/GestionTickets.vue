@@ -51,7 +51,7 @@
     <!-- end dialog -->
       <v-card class="d-inline-block mx-auto title" color="grey darken-2">
           <v-container>
-                <h1 class="text-center mb-5">Gestion de Tickets
+                <h1 class="text-center mb-5">Gestionar de Tickets
                 </h1>
                 <!-- start boton de actualizar -->
                 <v-row justify="space-between">

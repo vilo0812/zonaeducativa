@@ -215,7 +215,11 @@ import ContentCenter from '.././structures/Center.vue'
           'id':idItem,
           'action_id' : 2,
           'user_id' : this.$store.state.currentUser.id,
-         'details': `registro la salida del edificio del usuario ${this.visitas[index].first_name} ${this.visitas[index].last_name} ${this.visitas[index].identification_card} el cual accedio al sector: ${this.visitas[index].sector}`
+         'details': `registro la salida del edificio del usuario 
+         ${this.visitas[index].first_name} 
+         ${this.visitas[index].last_name} 
+         ${this.visitas[index].identification_card} el cual accedio al sector: 
+         ${this.visitas[index].sector}`
         }
         axios.patch('/api/targetVisit',params).then(res => {
         this.visitas.splice(index,1);

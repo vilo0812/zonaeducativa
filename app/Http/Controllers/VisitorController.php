@@ -70,7 +70,6 @@ class VisitorController extends Controller
     /*start iniciamos la api que permite registrar visitas*/
     public function store(RegisterVisitorRequest $request)
     {
-        // $time=Carbon::now()->format('h:i');
         $time=Carbon::now();
         $direccion = Direction::where([['floor_id',$request->idFloor],['zone_id',$request->idZone],['sector_id',$request->idSector]])->select('id')->get();
         $ticket = DirectionTickets::where([['direction_id','=',$direccion[0]->id],['ticket_id','=',$request->ticket_id]])->get('id');
@@ -84,8 +83,10 @@ class VisitorController extends Controller
             'rol_id'=>3
         ]);
         $id=$user->id;
+        $identification_card=$user->identification_card;
         }else{
         $id=$request['id'];
+        $identification_card=$request['identification_card'];
         }
         $time=Handling_time::create([
             'input'=>Carbon::now()
@@ -97,6 +98,7 @@ class VisitorController extends Controller
         'provenance'=>$request['provenance'],
         'belongings'=>$request->belogings,
         'observation'=>$request->observation,
+        'code'=> $identification_card . '-' . $ticket[0]->code
         ]);
         $bitacore = new BitacoreController();
         $bitacore->store($request->user_id,$request->details,$request->action_id);
@@ -126,11 +128,11 @@ class VisitorController extends Controller
         return response()->json(Visitor::showVisits(),200);
     }
     /*end api que me permite ver los registros inmediatos de todas las visitas*/
-    /*start api que me permite ver las visitas que no han sido marcadas en un lapso de 2 semanas*/
+    /*start api que me permite ver las visitas que no han sido marcadas con la salida*/
     public function showOnlyNotTargetVisits(){
         return response()->json(Visitor::showOnlyNotTargetVisits(),200);
     }
-    /*end api que me permite ver las visitas que no han sido marcadas en un lapso de 2 semanas*/
+    /*end api que me permite ver las visitas que no han sido marcadas con la salida*/
 
     /**
      * Show the form for editing the specified resource.

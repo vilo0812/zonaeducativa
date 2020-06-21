@@ -127,7 +127,7 @@ export default {
       let url=`/api/backup`;
     axios.get(url).then(res => {
       this.$store.commit('logout');
-        this.$router.push('/');
+      this.$router.push('/');
     }).catch(err => {
       console.log(err);
     });

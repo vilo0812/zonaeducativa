@@ -155,6 +155,7 @@ class TicketController extends Controller
     $findByCode = "direction_tickets.code";
     $findSector = "sectors.sector";
     $findByInput = "handling_times.input";
+    $findByCodeVisitor = "visitors.code";
     $data = $this
     ->filter(
         $findByFirstName,
@@ -199,6 +200,13 @@ class TicketController extends Controller
      $data = $this
      ->filter(
         $findByCode,
+        $dato,
+        $datalist);
+    };
+    if(!$data[0]){
+     $data = $this
+     ->filter(
+        $findByCodeVisitor,
         $dato,
         $datalist);
     };

@@ -125,7 +125,6 @@ export const routes = [
     name:'gestion-ticket',
     meta:{
       requiresAuth: true,
-      requiresAuthSuperAdmin: true,
     }
   },
   {

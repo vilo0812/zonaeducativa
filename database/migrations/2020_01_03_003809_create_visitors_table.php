@@ -18,6 +18,7 @@ class CreateVisitorsTable extends Migration
             $table->string('provenance')->nullable();
             $table->string('belongings')->nullable();//pertenencias
             $table->text('observation')->nullable();//observaiones
+            $table->string('code')->nullable();//observaiones
         });
     }
 

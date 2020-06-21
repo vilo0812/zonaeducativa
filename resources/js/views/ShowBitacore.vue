@@ -20,8 +20,8 @@
       <!-- start contenido de muestra -->
       <v-card class="d-inline-block mx-auto" min-width="1000" color="grey darken-2">
         <v-container>
-        <h1 class="text-center">Bitacora</h1>
-        <h3 class="text-center">Bitacora del {{rolId(user.rol_id) }} {{ user.first_name}} {{user.last_name}}</h3>
+        <h1 class="text-center">Bitácora</h1>
+        <h3 class="text-center">Bitácora del {{rolId(user.rol_id) }} {{ user.first_name}} {{user.last_name}}</h3>
         <!-- start boton de busqueda -->
             <v-text-field
               label="Buscar Registro"

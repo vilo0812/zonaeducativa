@@ -2812,7 +2812,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       itemsSuperAdmin: [{
         icon: 'mdi-account-card-details',
-        text: 'Bitacoras',
+        text: 'Bitácoras',
         direccion: 'view-bitacores'
       }, {
         icon: 'mdi-google-nearby',
@@ -2832,11 +2832,11 @@ __webpack_require__.r(__webpack_exports__);
         direccion: 'register-visits'
       }, {
         icon: 'mdi-account-check',
-        text: 'Gestion de Visitas',
+        text: 'Gestionar Visitas',
         direccion: 'gestion-visit'
       }, {
         icon: 'mdi-ticket',
-        text: 'Gestion de Tickets',
+        text: 'Gestionar Tickets',
         direccion: 'gestion-ticket'
       }, {
         icon: 'mdi-library',
@@ -2861,8 +2861,12 @@ __webpack_require__.r(__webpack_exports__);
         direccion: 'register-visits'
       }, {
         icon: 'mdi-account-check',
-        text: 'Gestion de Visitas',
+        text: 'Gestionar Visitas',
         direccion: 'gestion-visit'
+      }, {
+        icon: 'mdi-ticket',
+        text: 'Gestionar Tickets',
+        direccion: 'gestion-ticket'
       }, {
         icon: 'mdi-book-open-variant',
         text: 'Visualizar Visitas',
@@ -4330,7 +4334,7 @@ __webpack_require__.r(__webpack_exports__);
         'id': idItem,
         'action_id': 2,
         'user_id': this.$store.state.currentUser.id,
-        'details': "registro la salida del edificio del usuario ".concat(this.visitas[index].first_name, " ").concat(this.visitas[index].last_name, " ").concat(this.visitas[index].identification_card, " el cual accedio al sector: ").concat(this.visitas[index].sector)
+        'details': "registro la salida del edificio del usuario \n         ".concat(this.visitas[index].first_name, " \n         ").concat(this.visitas[index].last_name, " \n         ").concat(this.visitas[index].identification_card, " el cual accedio al sector: \n         ").concat(this.visitas[index].sector)
       };
       axios.patch('/api/targetVisit', params).then(function (res) {
         _this6.visitas.splice(index, 1);
@@ -43846,7 +43850,7 @@ var render = function() {
                 "v-container",
                 [
                   _c("h1", { staticClass: "text-center" }, [
-                    _vm._v("Bitacoras")
+                    _vm._v("Bitácoras")
                   ]),
                   _vm._v(" "),
                   _c("v-text-field", {
@@ -44818,7 +44822,7 @@ var render = function() {
                 "v-container",
                 [
                   _c("h1", { staticClass: "text-center mb-5" }, [
-                    _vm._v("Gestion de Tickets\n                ")
+                    _vm._v("Gestionar de Tickets\n                ")
                   ]),
                   _vm._v(" "),
                   _c(
@@ -46816,12 +46820,12 @@ var render = function() {
                 "v-container",
                 [
                   _c("h1", { staticClass: "text-center" }, [
-                    _vm._v("Bitacora")
+                    _vm._v("Bitácora")
                   ]),
                   _vm._v(" "),
                   _c("h3", { staticClass: "text-center" }, [
                     _vm._v(
-                      "Bitacora del " +
+                      "Bitácora del " +
                         _vm._s(_vm.rolId(_vm.user.rol_id)) +
                         " " +
                         _vm._s(_vm.user.first_name) +
@@ -47399,7 +47403,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("th", { staticClass: "text-left" }, [
-                                  _vm._v("Cedula")
+                                  _vm._v("Cédula")
                                 ]),
                                 _vm._v(" "),
                                 _c("th", { staticClass: "text-left" }, [
@@ -103487,8 +103491,7 @@ var routes = [
   component: _views_GestionTickets_vue__WEBPACK_IMPORTED_MODULE_15__["default"],
   name: 'gestion-ticket',
   meta: {
-    requiresAuth: true,
-    requiresAuthSuperAdmin: true
+    requiresAuth: true
   }
 }, {
   path: '/bitacores',
