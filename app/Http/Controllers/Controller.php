@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    
     /*start api que lanza el SPA*/
     public function index(){
     	return view('app');

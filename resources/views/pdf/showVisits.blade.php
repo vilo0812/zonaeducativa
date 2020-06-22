@@ -88,6 +88,19 @@
                 color: black;
                 margin:0 5px;
             }
+            .item-sign{
+                width: 100px;
+                height: 100px;
+            }
+            .sign{
+                margin-left: 30px;
+                text-align: left;
+                font-weight: bolder;
+                color:black;
+            }
+            .img-sing{
+                margin-left: 70px;
+            }
         </style>
 </head>
 <body>
@@ -104,6 +117,38 @@
             Zona Educativa Del estado Guárico<br/>
             Dirección del municipio Juan Germán Roscio
         </h1>
+        <div class="sign">
+                <span>
+                Encargado del Sistema:<br/>
+                {{$superadmin[0]["first_name"]}} {{$superadmin[0]["last_name"]}}<br/>  
+                {{$superadmin[0]["identification_card"]}} <br/>  
+                @if($superadmin[0]["sign"])
+                <?php
+                echo '<img  class="img-sing" width="75px" height="75px"src="images/users/'.$superadmin[0]["sign"].'" alt=""><br/>';
+                ?>
+                Firma:________________<br/>  
+                @else
+                Firma:________________<br/>  
+                @endif
+                </span><br/>          
+                <span>
+                Encargado del Reporte:<br/>
+                {{$user["first_name"]}} {{$user["last_name"]}} <br/>  
+                {{$user["identification_card"]}}   <br/> 
+                @if($user["sign"])
+                <?php
+                echo '<img  class="img-sing" width="75px" height="75px"src="images/users/'.$user["sign"].'" alt=""><br/>';
+                ?>
+                Firma:________________<br/>  
+                @else
+                Firma:________________<br/>  
+                @endif
+                </span>
+        </div>
+            <!-- 
+            <section>
+                
+            </section> -->
         <div class="title m-b-md">
             Registro de visitas
         </div>

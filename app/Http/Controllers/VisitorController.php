@@ -21,10 +21,12 @@ class VisitorController extends Controller
         $bitacore = new BitacoreController();
         $details = "El usuario visualizo los registros de visitas en el edificio";
         $bitacore->store($id,$details,4);
+        $user = User::find($id);
+        $superadmin = User::whereRol_id(1)->get();
         $data=Visitor::showVisitsPdf();
         $pdf = App::make('dompdf.wrapper');
         $pdf->setPaper('a4', 'landscape');
-        $pdf->loadView('pdf.showVisits',compact('data'));
+        $pdf->loadView('pdf.showVisits',compact('data','user','superadmin'));
 
          return $pdf->stream();
     }

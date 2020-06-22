@@ -21,6 +21,8 @@ import Bitacores from './views/Bitacores.vue';
 import ShowBitacore from './views/ShowBitacore.vue';
 import CheckingTicket from './views/CheckingTicket.vue';
 import Backup from './views/Backup.vue';
+import Sign from './components/sign/Sign.vue';
+import AddSign from './components/sign/AddSign.vue';
 export const routes = [
   /*
    |--------------------------------------------------------------------------
@@ -177,7 +179,19 @@ export const routes = [
     props: true,
     meta:{
       requiresAuth: true,
-    }
+    },
+    children:[
+      {
+      path:'/',
+      component: Sign,
+      name:'sign',
+      },
+      {
+      path:'/EditUser/:id/AddSign',
+      component: AddSign,
+      name:'add-sign',
+      },
+    ]
   },
   /*end editar usuario*/
   /*start checkear ticket*/

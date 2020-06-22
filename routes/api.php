@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 
+Route::post('getSign','UserController@getSign');
+Route::post('destroySign','UserController@destroySign');
 /*start apis de sesiones*/
 Route::group(['prefix' => 'sesion'], function() {
 	/*start api para iniciar sesion*/

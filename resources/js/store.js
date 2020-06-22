@@ -14,6 +14,14 @@ export default{
             state.loading =true;
             state.auth_error =null;
         },
+        signDelete(state){
+        state.currentUser.sign = null;
+        localStorage.setItem("user",JSON.stringify(state.currentUser));
+        },
+        signSuccess(state,payload){
+        state.currentUser.sign = payload;
+        localStorage.setItem("user",JSON.stringify(state.currentUser));
+        },
         loginSuccess(state,payload){
             state.auth_error = null;
             state.isLoggedIn = true;

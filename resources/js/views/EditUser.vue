@@ -20,6 +20,29 @@
   <v-card class="d-inline-block mx-auto" color="grey darken-2" width="600px">
     <v-container>
       	<h1 class="text-center">Actualizar Perfil</h1>
+        <!-- start dialog -->
+        <v-dialog
+        v-model="dialog"
+        max-width="550"
+        :light="true"
+        >
+        <router-view @cancel="dialog = false" @cancel2="reload"/>
+    </v-dialog>
+    <!-- end dialog -->
+    <!-- start boton de actualiza la firma digital -->
+                <v-row justify="end">
+                <v-col sm="12" md="4">
+                  <v-btn
+                @click.stop="dialog = true"
+                color="primary"
+                class="ma-2 white--text mr-5"
+                >
+                  Firma Digital
+                  <v-icon right dark>mdi-pencil</v-icon>
+                </v-btn> 
+                </v-col>
+                </v-row>
+      <!--end boton que actualiza la firma digital-->
 			<form>
 				<!--
 				posibles validaciones
@@ -98,12 +121,14 @@
 import Side from '.././partials/SideBar.vue'
 import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
+import sign from '.././components/sign/Sign.vue'
   export default {
   props:['id'],
   	components:{
   		'side-bar':Side,
   		'nav-bar':Nav,
   		'content-center':ContentCenter,
+      'sign':sign
   	},
   	mounted(){
   	/*start llamamos al api que nos trae toda la informacion de este usuario para colocarla por defecto en los formularios*/
@@ -123,10 +148,41 @@ import ContentCenter from '.././structures/Center.vue'
   	    correo:'',
   	    cedula:'',
   	    telefono:'',
-  	    user:[]
+  	    user:[],
+        dialog:null,
+        file:null,
+        image:null,
+        imagenMiniatura: ''
   	  };
   	},
   	methods: {
+      reload(){
+        this.$router.push({ name: 'view-users'})
+      },
+      getImage(e){
+        console.log(e)
+        this.image = e;
+        this.uploadImage(e)
+        // let file = e.target.files[0];
+        // console.log(file);
+        // this.image = file;
+        // this.uploadImage(file)
+      },
+      uploadImage(file){
+        let reader  = new FileReader();
+        reader.onloadend = (e) => (
+          this.imagenMiniatura = e.target.result
+          )
+        reader.readAsDataURL(file);
+      },
+      addSign(){
+        let formData = new FormData();
+        formData.append('image',this.image)
+        axios.post('/api/getSign',formData)
+        .then( res =>{
+          console.log(res.data)
+        })
+      },
   	  update() {
         /*start llenamos nuestro objeto*/
         /*por si acaso algun valor queda vacio*/
@@ -188,7 +244,10 @@ import ContentCenter from '.././structures/Center.vue'
     computed: {
       rol() {
         return this.$store.state.currentUser.rol_id;
-      }
+      },
+      imagen(){
+      return this.imagenMiniatura
+    }
     },
     created () {
       this.$vuetify.theme.dark = true
@@ -203,6 +262,7 @@ import ContentCenter from '.././structures/Center.vue'
       }
       //end validamos que el usuario no pueda entrar a perfiles de administradores o de Jefes de zona
     },
+
   }
 </script>
 <style>

@@ -183,4 +183,37 @@ class UserController extends Controller
     return response()->json($data,200);
     }
     //end api para buscar usuarios
+    //start agregamos la firma digitales
+    public function getSign(Request $request){
+        if($archivo=$request->file('image')){
+            $nombre = $archivo->getClientOriginalName();
+            $archivo->move('images',$nombre);
+            $entrada['ruta']=$nombre;
+            $user = User::Find($request->id);
+            $user->sign = $nombre;
+            $user->save();
+            return response()->json($nombre, 200);
+        }else{
+            return "no hay imagen";
+        }
+    }
+    //end agregamos la firma digital
+
+//start eliminamos la firma
+    public function destroySign(Request $request){
+         $user = User::Find($request->id);
+         $img = public_path().'/images/'.$user->sign;
+         if(@getimagesize($img)){
+            unlink($img);
+            $user->sign = null;
+            $user->save();
+            return response()->json("Firma Eliminada exitosamente", 200);
+         }
+         else{
+            $user->sign = null;
+            $user->save();
+            return response()->json("Firma Eliminada exitosamente", 200);
+         }
+    }
+    //end eliminamos la firma
 }
