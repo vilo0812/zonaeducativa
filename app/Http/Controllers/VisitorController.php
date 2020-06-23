@@ -74,7 +74,7 @@ class VisitorController extends Controller
     {
         $time=Carbon::now();
         $direccion = Direction::where([['floor_id',$request->idFloor],['zone_id',$request->idZone],['sector_id',$request->idSector]])->select('id')->get();
-        $ticket = DirectionTickets::where([['direction_id','=',$direccion[0]->id],['ticket_id','=',$request->ticket_id]])->get('id');
+        $ticket = DirectionTickets::where([['direction_id','=',$direccion[0]->id],['ticket_id','=',$request->ticket_id]])->get(['id','code']);
         if(!$request['id']){
         $user=User::create([
             'first_name'=>$request['first_name'],
@@ -93,6 +93,7 @@ class VisitorController extends Controller
         $time=Handling_time::create([
             'input'=>Carbon::now()
         ]);
+        $code = $identification_card . '-' . $ticket[0]->code;
         $visit=Visitor::create([
         'user_id'=>$id,
         'handling_time_id'=>$time->id,

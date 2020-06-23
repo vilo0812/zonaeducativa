@@ -13,7 +13,8 @@ class Visitor extends Model
         'handling_time_id',
         'belongings',
         'observation',
-        'direction_ticket_id'
+        'direction_ticket_id',
+        'code'
 	];
     //start visitas paginadas
     static public function showPageVisits(){

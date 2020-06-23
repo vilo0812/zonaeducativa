@@ -24,9 +24,9 @@
         <h1 class="text-center">Gestionar Visitas</h1>
         <!-- start boton de busqueda -->
                 <v-row justify="center">
-                  <v-col cols="12" sm="7">
+                  <v-col cols="12" sm="9">
                     <v-text-field
-                      label="Buscar ticket según cédula o codigo del ticket"
+                      label="Buscar ticket por cédula y codigo. ej: 26666666-ru280tbv9zbm4s9eqygb"
                       outlined
                       prepend-icon="mdi-magnify"
                       @change="searching"

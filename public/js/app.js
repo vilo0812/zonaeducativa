@@ -45843,12 +45843,12 @@ var render = function() {
                     [
                       _c(
                         "v-col",
-                        { attrs: { cols: "12", sm: "7" } },
+                        { attrs: { cols: "12", sm: "9" } },
                         [
                           _c("v-text-field", {
                             attrs: {
                               label:
-                                "Buscar ticket según cédula o codigo del ticket",
+                                "Buscar ticket por cédula y codigo. ej: 26666666-ru280tbv9zbm4s9eqygb",
                               outlined: "",
                               "prepend-icon": "mdi-magnify"
                             },

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Ticket;
 use App\Visitor;
 use Illuminate\Database\Eloquent\Model;
 
@@ -83,5 +84,7 @@ class DirectionTickets extends Model
         return $registro;
     }
     // end funcion para buscar los ticket segun el id
-    
+    static function ticket(){
+      return $this->belongsTo(Ticket::class);
+    }
 }
