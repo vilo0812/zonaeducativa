@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
+use Spatie\DbDumper\Databases\MySql;
 
 class BackupDatabaseComand extends Command
 {
@@ -11,14 +13,14 @@ class BackupDatabaseComand extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'backup:database';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'this backs up  the database';
 
     /**
      * Create a new command instance.
@@ -37,6 +39,13 @@ class BackupDatabaseComand extends Command
      */
     public function handle()
     {
-        //
+        File::put(base_path('/database/dump.sql'),'');
+        MySql::create()
+        ->setDbName(env('DB_DATABASE'))
+        ->setUserName(env('DB_USERNAME'))
+        ->setPassword(env('DB_PASSWORD'))
+        ->setHost(env('DB_HOST'))
+        ->setPort(env('DB_PORT'))
+        ->dumpToFile(base_path('/database/dump.sql'));
     }
 }

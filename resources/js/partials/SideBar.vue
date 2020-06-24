@@ -74,7 +74,7 @@
         { icon: 'mdi-ticket', text: 'Gestionar Tickets', direccion:'gestion-ticket'},
         { icon: 'mdi-library', text: 'Ver Usuarios',direccion:'view-users'},
         { icon: 'mdi-book-open-variant', text: 'Visualizar Visitas',direccion:'view-visits'},
-        { icon: 'mdi-settings', text: 'Sistema',direccion:'backup'},
+        { icon: 'mdi-settings', text: 'Sistema',direccion:'backup-index'},
       ],
       itemsAdmin: [
         { icon: 'mdi-library', text: 'Ver Usuarios',direccion:'view-users'},

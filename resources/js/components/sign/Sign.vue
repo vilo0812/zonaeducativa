@@ -1,7 +1,6 @@
 <template>
   <div>
     <v-card>
-
       <show-sign  v-if="sign" @cancel="$emit('cancel')"/>
       <not-sign v-else @cancel="$emit('cancel')"/>
     </v-card>

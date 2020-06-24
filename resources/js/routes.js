@@ -21,6 +21,9 @@ import Bitacores from './views/Bitacores.vue';
 import ShowBitacore from './views/ShowBitacore.vue';
 import CheckingTicket from './views/CheckingTicket.vue';
 import Backup from './views/Backup.vue';
+import Backup2 from './components/backup/Backup.vue';
+import BackupFact from './components/backup/BackupFact.vue';
+import BackupSecurityCopy from './components/backup/BackupSecurityCopy.vue';
 import Sign from './components/sign/Sign.vue';
 import AddSign from './components/sign/AddSign.vue';
 export const routes = [
@@ -157,7 +160,24 @@ export const routes = [
     meta:{
       requiresAuth: true,
       requiresAuthSuperAdmin: true,
-    }
+    },
+    children:[
+      {
+      path:'/',
+      component: Backup2,
+      name:'backup-index',
+      },
+      {
+      path:'/RestaurarSistema/BackupFactory',
+      component: BackupFact,
+      name:'backup-fact',
+      },
+      {
+      path:'/RestaurarSistema/SecurityCopy',
+      component: BackupSecurityCopy,
+      name:'backup-security-copy',
+      },
+    ]
   },
   /*end restaurar sistema*/
   /*start mostrar el perfil de administrador*/
@@ -182,8 +202,9 @@ export const routes = [
     },
     children:[
       {
-      path:'/',
+      path:'/EditUser/:id',
       component: Sign,
+      props: true,
       name:'sign',
       },
       {

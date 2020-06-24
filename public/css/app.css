@@ -6467,6 +6467,40 @@ border-radius:50%;
 .small{
   font-size:10px;
 }
+
+.fondo{
+    background: #EEEEEE;
+    min-height: 700px;
+}
+.redondo{
+border-radius:50%;
+}
+.black{
+	color:black;
+}
+.yellow-accent-4{
+	background-color:rgba(245,227,25,0.7);
+}
+.small{
+  font-size:10px;
+}
+
+.fondo{
+    background: #EEEEEE;
+    min-height: 700px;
+}
+.redondo{
+border-radius:50%;
+}
+.black{
+	color:black;
+}
+.yellow-accent-4{
+	background-color:rgba(245,227,25,0.7);
+}
+.small{
+  font-size:10px;
+}
 .theme--light.v-file-input .v-file-input__text {
   color: rgba(0, 0, 0, 0.87);
 }

@@ -26,46 +26,13 @@
             
             <!-- <h3>Restaurando el Sistema de Fábrica</h3> -->    
         <v-card>
-          <div v-if="loading">
-            <v-row justify="center">
-              <v-col cols="2">
-                  <v-progress-circular
-                    indeterminate
-                    color="red"
-                    :size="100"
-                    :width="7"
-                  ></v-progress-circular>
-              </v-col>
-            </v-row>
-            <v-row justify="center">
-                <h3 class="text-center">Restaurando el Sistema de Fábrica</h3>
-          </v-row>
-        </div>
-        <div v-else>
-            <v-card-title class="headline">¿Estas seguro de querer restaurar el sistema de fábrica?</v-card-title>
-
-            <v-card-text>
-              Vamos a Restaurar el sistema de fábrica lo que quiere decir que todos los datos actuales se perderan y el sistema volvera a tener la información de fábrica ¿esta seguro que desea continuar?
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-
-              <v-btn
-                color="error"
-                @click="dialog = false"
-              >
-                cancelar
-              </v-btn>
-
-              <v-btn
-                color="primary"
-                @click="backup"
-              >
-                continuar
-              </v-btn>
-            </v-card-actions>
-          </div>
+            <router-view @cancel="dialog = false"/>
+          <!-- <template v-if="backup">
+            
+          </template>
+            <template v-if="backupToFact">  
+              <backup-dialog @cancel="dialog = false"/>
+            </template> -->
         </v-card>
       </v-dialog>
       <!-- end dialog -->
@@ -93,7 +60,7 @@
            <li>vuetify en su versión: 2.0.7</li>
          </ul>
          <v-row justify="center">
-         <v-btn color="primary" @click="dialog = true">Restaurar de Fábrica</v-btn>
+         <v-btn color="primary" @click="dialog = true">copia de seguridad y Restauración de Fábrica</v-btn>
          </v-row>
         </v-container>
        </v-card>
@@ -107,12 +74,16 @@
 import Side from '.././partials/SideBar.vue'
 import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
+import BackupDialog from '.././components/backup/BackupFact.vue';
 export default {
 	data () {
 	  return {
 	    drawer:'',
       dialog:null,
-      loading:null
+      loading:null,
+      backupCopy:null,
+      backup:true,
+      backupToFact:null
 	  };
 	},
   props:['id'],
@@ -120,17 +91,19 @@ export default {
   		'side-bar':Side,
   		'nav-bar':Nav,
   		'content-center':ContentCenter,
+      'backup-dialog':BackupDialog
   },
   methods: {
-    backup () {
-    this.loading = true;
-      let url=`/api/backup`;
-    axios.get(url).then(res => {
-      this.$store.commit('logout');
-      this.$router.push('/');
-    }).catch(err => {
-      console.log(err);
-    });
+    backupFactDialog(){
+      this.backupCopy = true;
+      this.backup = false;
+    },
+    backupDialog(){
+      this.backup = false;
+      this.backupToFact = true;
+    },
+    prueba(){
+      console.log('hola');
     }
   },
   computed: {

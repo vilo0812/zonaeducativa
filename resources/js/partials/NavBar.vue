@@ -65,7 +65,7 @@
           <v-list-item-subtitle class="subtitle">Correo</v-list-item-subtitle>
           <v-list-item-title >{{user.email}}</v-list-item-title>
           </v-list-item-content>
-        <v-list-item link :to="{ name: 'edit-user', params: { id:user.id }}">
+        <v-list-item link :to="{ name: 'sign', params: { id:user.id }}">
             <v-list-item-icon>
               <v-icon>mdi-account-edit</v-icon>
             </v-list-item-icon>

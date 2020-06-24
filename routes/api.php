@@ -3,6 +3,10 @@
 use Illuminate\Http\Request;
 
 Route::post('getSign','UserController@getSign');
+Route::post('addCopy','SistemController@addCopy');
+Route::get('showCopies','SistemController@showCopies');
+Route::get('isntallCopy/{id}','SistemController@isntallCopy');
+Route::delete('destroyCopy/{id}','SistemController@destroyCopy');
 Route::post('destroySign','UserController@destroySign');
 /*start apis de sesiones*/
 Route::group(['prefix' => 'sesion'], function() {
