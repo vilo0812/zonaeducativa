@@ -2026,8 +2026,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Backup'
+  data: function data() {
+    return {
+      loading: null
+    };
+  },
+  name: 'Backup',
+  methods: {
+    backupToFact: function backupToFact() {
+      var _this = this;
+
+      swal({
+        title: '¿Estas seguro de querer restaurar el sistema de fábrica?',
+        icon: 'warning',
+        text: 'Vamos a Restaurar el sistema de fábrica lo que quiere decir que todos los datos actuales se perderan y el sistema volvera a tener la información de fábrica, se recomienda hacer una copia de seguridad antes que los actuales desaparescan para siempre, una vez el proceso sea finalizado el sistema se reiniciara ¿seguro que desea continuar?',
+        closeOnClickOutside: true,
+        CloseOnEsc: true,
+        buttons: true
+      }).then(function (select) {
+        if (select) {
+          _this.loading = true;
+          var url = "/api/backup";
+          axios.get(url).then(function (res) {
+            _this.loading = false;
+
+            _this.$store.commit('logout');
+
+            _this.$router.push('/');
+          })["catch"](function (err) {
+            console.log(err);
+          });
+        }
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -43276,46 +43333,115 @@ var render = function() {
         _vm._v("copia de seguridad y Restauración de Fábrica")
       ]),
       _vm._v(" "),
-      _c("v-card-text", [_vm._v("\n              restauración\n            ")]),
-      _vm._v(" "),
-      _c(
-        "v-card-actions",
-        [
-          _c(
-            "v-btn",
-            {
-              attrs: { color: "primary", to: { name: "backup-security-copy" } }
-            },
+      _vm.loading
+        ? _c(
+            "div",
             [
-              _vm._v(
-                "\n                Hacer copia de seguridad\n              "
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            { attrs: { color: "error", to: { name: "backup-fact" } } },
-            [_vm._v("\n                restaurar de fábrica \n              ")]
-          ),
-          _vm._v(" "),
-          _c("v-spacer"),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              attrs: { color: "error" },
-              on: {
-                click: function($event) {
-                  return _vm.$emit("cancel")
-                }
-              }
-            },
-            [_vm._v("\n                cancelar\n              ")]
+              _c(
+                "v-row",
+                { attrs: { justify: "center" } },
+                [
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "2" } },
+                    [
+                      _c("v-progress-circular", {
+                        attrs: {
+                          indeterminate: "",
+                          color: "red",
+                          size: 100,
+                          width: 7
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-row", { attrs: { justify: "center" } }, [
+                _c("h3", { staticClass: "text-center" }, [
+                  _vm._v("Restaurando el Sistema de Fábrica")
+                ])
+              ])
+            ],
+            1
           )
-        ],
-        1
-      )
+        : _c(
+            "div",
+            [
+              _c("v-card-title", [
+                _vm._v(
+                  "\n        Copia de copia de seguridad, permite crear, eliminar e instalar copias del sistema para mantener la seguridad, mientras que restaurar de fábrica restaurara el sistema a su estado original, se recomienda hacerlo despues de hacer una copia de seguridad\n      "
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c("v-row", { attrs: { justify: "center" } }, [
+                    _c(
+                      "div",
+                      [
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: {
+                              color: "primary",
+                              to: { name: "backup-security-copy" }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                copia de seguridad\n              "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: { color: "warning" },
+                            on: { click: _vm.backupToFact }
+                          },
+                          [
+                            _vm._v(
+                              "\n                restaurar de fábrica \n              "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "error" },
+                      on: {
+                        click: function($event) {
+                          return _vm.$emit("cancel")
+                        }
+                      }
+                    },
+                    [_vm._v("\n                cancelar\n              ")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
     ],
     1
   )
@@ -43666,7 +43792,7 @@ var render = function() {
                       attrs: { color: "error" },
                       on: {
                         click: function($event) {
-                          return _vm.$emit("cancel")
+                          return _vm.$router.go(-1)
                         }
                       }
                     },
@@ -104022,6 +104148,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VProgressCircular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VProgressCircular */ "./node_modules/vuetify/lib/components/VProgressCircular/index.js");
 
 
 
@@ -104047,7 +104174,10 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VSpacer"]})
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VProgressCircular: vuetify_lib_components_VProgressCircular__WEBPACK_IMPORTED_MODULE_7__["VProgressCircular"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VSpacer"]})
 
 
 /* hot reload */

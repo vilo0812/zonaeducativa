@@ -54,6 +54,7 @@ class SistemController extends Controller
             array_push($data,$item->copy);
         };
         DB::unprepared(file_get_contents(base_path('database/'.$name)));
+        Sistem::query()->delete();
         foreach ($data as $item) {
             Sistem::create([
                 'copy' => $item
@@ -63,4 +64,26 @@ class SistemController extends Controller
             'mensaje'=>'Copia Instalada Exitosamente'],200);
     }
     //end vamos a instalar una copia de seguridad
+    //start backup
+    public function backup(){
+        $sistem = Sistem::all();
+        $data = array();
+        if(sizeof($sistem)){
+        foreach ($sistem as $item) {
+            array_push($data,$item->copy);
+        }
+        }
+       DB::unprepared(file_get_contents(base_path('database/default/default.sql')));
+       Sistem::query()->delete();
+       if(sizeof($data)){
+       foreach ($data as $item) {
+            Sistem::create([
+                'copy' => $item
+            ]);
+        };
+       }
+       return response()->json([
+            'mensaje'=>'Restauración exitosa'],200);
+    }
+    //end backup
 }

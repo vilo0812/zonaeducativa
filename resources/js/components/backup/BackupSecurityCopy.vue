@@ -101,7 +101,7 @@
             <v-card-actions>
               <v-btn
                 color="error"
-                @click="$emit('cancel')"
+                @click="$router.go(-1)"
               >
                 cancelar
               </v-btn>

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+Route::get('backup','SistemController@backup');
 Route::post('getSign','UserController@getSign');
 Route::post('addCopy','SistemController@addCopy');
 Route::get('showCopies','SistemController@showCopies');
@@ -135,6 +135,6 @@ Route::get('searchTicket/{dato}','TicketController@searchTicket');//filtro para 
 Route::get('searchVisit/{dato}','VisitorController@searchVisit');//filtro para visits
 //end api de filtro
 //start ruta para restaurar la base de datos
-Route::get('backup','Controller@backup');
+
 //end ruta para restaurar la base de datos
 });
