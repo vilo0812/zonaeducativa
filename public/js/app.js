@@ -3011,7 +3011,7 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       formData.append('image', this.image);
       formData.append('id', this.user.id);
-      axios.post('/api/getSign', formData).then(function (res) {
+      axios.post('/api/storeSign', formData).then(function (res) {
         _this2.$store.commit("signSuccess", res.data);
 
         swal({
@@ -3222,6 +3222,121 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.sign = this.$store.getters.currentUser.sign;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sign/UpdateSign.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vuetify-loader/lib/loader.js??ref--11-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/sign/UpdateSign.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'AddSign',
+  data: function data() {
+    return {
+      image: null,
+      imagenMiniatura: '',
+      user: ''
+    };
+  },
+  computed: {
+    imagen: function imagen() {
+      return this.imagenMiniatura;
+    }
+  },
+  methods: {
+    getImage: function getImage(e) {
+      // console.log(e)
+      this.image = e;
+      this.uploadImage(e); // let file = e.target.files[0];
+      // console.log(file);
+      // this.image = file;
+      // this.uploadImage(file)
+    },
+    uploadImage: function uploadImage(file) {
+      var _this = this;
+
+      var reader = new FileReader();
+
+      reader.onloadend = function (e) {
+        return _this.imagenMiniatura = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
+    updateSign: function updateSign() {
+      var _this2 = this;
+
+      var formData = new FormData();
+      formData.append('image', this.image);
+      formData.append('id', this.user.id);
+      formData.append('oldSign', this.user.sign);
+      axios.post('/api/updateSign', formData).then(function (res) {
+        _this2.$store.commit("signSuccess", res.data);
+
+        swal({
+          title: 'Firma Guardada exitosamente',
+          icon: 'success',
+          closeOnClickOutside: false,
+          CloseOnEsc: false
+        }).then(function (select) {
+          if (select) {
+            _this2.$router.go(-1);
+          }
+        });
+      });
+    }
+  },
+  created: function created() {
+    this.user = this.$store.getters.currentUser;
   }
 });
 
@@ -43251,12 +43366,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "ticket", on: { click: _vm.viewTicket } }, [
+  return _c("div", { staticClass: "ticket" }, [
     _c("div", { staticClass: "header" }, [
       _c("h3", { staticClass: "centerCode" }, [_vm._v(_vm._s(_vm.ticket.code))])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "main" }, [
+    _c("div", { staticClass: "main", on: { click: _vm.viewTicket } }, [
       _c("img", {
         staticClass: "centerImg",
         attrs: { src: "images/icons/zeg.png", alt: "" }
@@ -43271,7 +43386,9 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(0)
+    _c("div", { staticClass: "footer", on: { click: _vm.viewTicket } }, [
+      _vm._m(0)
+    ])
   ])
 }
 var staticRenderFns = [
@@ -43279,29 +43396,27 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "footer" }, [
-      _c("div", { staticClass: "items" }, [
-        _c("img", {
-          staticClass: "logo-img",
-          attrs: {
-            src: "images/icons/GobiernoBolivarianoVenezolano.png",
-            alt: "logo ministerio"
-          }
-        }),
-        _vm._v(" "),
-        _c("img", {
-          staticClass: "logo-img",
-          attrs: { src: "images/icons/mppe.png", alt: "logo gobernación" }
-        }),
-        _vm._v(" "),
-        _c("img", {
-          staticClass: "logo-img",
-          attrs: {
-            src: "images/icons/zeg.png",
-            alt: "logo zona educativa guarico"
-          }
-        })
-      ])
+    return _c("div", { staticClass: "items" }, [
+      _c("img", {
+        staticClass: "logo-img",
+        attrs: {
+          src: "images/icons/GobiernoBolivarianoVenezolano.png",
+          alt: "logo ministerio"
+        }
+      }),
+      _vm._v(" "),
+      _c("img", {
+        staticClass: "logo-img",
+        attrs: { src: "images/icons/mppe.png", alt: "logo gobernación" }
+      }),
+      _vm._v(" "),
+      _c("img", {
+        staticClass: "logo-img",
+        attrs: {
+          src: "images/icons/zeg.png",
+          alt: "logo zona educativa guarico"
+        }
+      })
     ])
   }
 ]
@@ -44501,7 +44616,7 @@ var render = function() {
                 {
                   staticClass: "primary",
                   attrs: {
-                    to: { name: "add-sign", params: { id: _vm.user.id } }
+                    to: { name: "update-sign", params: { id: _vm.user.id } }
                   }
                 },
                 [
@@ -44617,6 +44732,142 @@ var render = function() {
         ],
         1
       )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sign/UpdateSign.vue?vue&type=template&id=53215e5d&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vuetify-loader/lib/loader.js??ref--11-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/sign/UpdateSign.vue?vue&type=template&id=53215e5d& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("v-card", [
+        _c(
+          "form",
+          {
+            attrs: { enctype: "multipart/form-data" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.updateSign($event)
+              }
+            }
+          },
+          [
+            _c("v-card-title", { staticClass: "headline" }, [
+              _vm._v("Por Favor Ingrese su firma Digital")
+            ]),
+            _vm._v(" "),
+            _c(
+              "v-card-text",
+              [
+                _c("p", [
+                  _vm._v(
+                    "\n           Usted es libre de importar una imagen de su firma para firmar automáticamente los documentos pdf de los reportes, se recomienda utilizar una imagen de la firma con formato .png, .jpg o .jpeg que no exceda los 400px por 400px de ancho y alto\n          "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("v-file-input", {
+                  attrs: {
+                    "show-size": "",
+                    counter: "",
+                    label: "Agregar Firma",
+                    accept: "image/*"
+                  },
+                  on: {
+                    change: function($event) {
+                      return _vm.getImage($event)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.imagen
+                  ? _c(
+                      "v-card",
+                      [
+                        _c(
+                          "v-row",
+                          { attrs: { justify: "center" } },
+                          [
+                            _c(
+                              "v-col",
+                              { attrs: { cols: "6" } },
+                              [
+                                _c("v-img", {
+                                  attrs: {
+                                    src: "",
+                                    width: "200",
+                                    height: "200",
+                                    alt: "firma digital",
+                                    src: _vm.imagen
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("v-card-title", { staticClass: "title" }, [
+                          _vm._v(_vm._s(_vm.image.name))
+                        ])
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "v-card-actions",
+              [
+                _c("v-spacer"),
+                _vm._v(" "),
+                _c(
+                  "v-btn",
+                  {
+                    attrs: { color: "error" },
+                    on: {
+                      click: function($event) {
+                        return _vm.$router.go(-1)
+                      }
+                    }
+                  },
+                  [_vm._v("\n          cancelar\n        ")]
+                ),
+                _vm._v(" "),
+                _c("v-btn", { attrs: { color: "primary", type: "submit" } }, [
+                  _vm._v("\n          continuar\n        ")
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
     ],
     1
   )
@@ -105133,6 +105384,97 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/sign/UpdateSign.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/sign/UpdateSign.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _UpdateSign_vue_vue_type_template_id_53215e5d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateSign.vue?vue&type=template&id=53215e5d& */ "./resources/js/components/sign/UpdateSign.vue?vue&type=template&id=53215e5d&");
+/* harmony import */ var _UpdateSign_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateSign.vue?vue&type=script&lang=js& */ "./resources/js/components/sign/UpdateSign.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VFileInput__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VFileInput */ "./node_modules/vuetify/lib/components/VFileInput/index.js");
+/* harmony import */ var vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VImg */ "./node_modules/vuetify/lib/components/VImg/index.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _UpdateSign_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _UpdateSign_vue_vue_type_template_id_53215e5d___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _UpdateSign_vue_vue_type_template_id_53215e5d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* vuetify-loader */
+
+
+
+
+
+
+
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VFileInput: vuetify_lib_components_VFileInput__WEBPACK_IMPORTED_MODULE_7__["VFileInput"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_8__["VImg"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VSpacer"]})
+
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/sign/UpdateSign.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/sign/UpdateSign.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/sign/UpdateSign.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vuetify_loader_lib_loader_js_ref_11_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateSign_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vuetify-loader/lib/loader.js??ref--11-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./UpdateSign.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sign/UpdateSign.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vuetify_loader_lib_loader_js_ref_11_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateSign_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/sign/UpdateSign.vue?vue&type=template&id=53215e5d&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/sign/UpdateSign.vue?vue&type=template&id=53215e5d& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_11_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateSign_vue_vue_type_template_id_53215e5d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vuetify-loader/lib/loader.js??ref--11-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./UpdateSign.vue?vue&type=template&id=53215e5d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sign/UpdateSign.vue?vue&type=template&id=53215e5d&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_11_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateSign_vue_vue_type_template_id_53215e5d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_11_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateSign_vue_vue_type_template_id_53215e5d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/viewFloors/Floors.vue":
 /*!*******************************************************!*\
   !*** ./resources/js/components/viewFloors/Floors.vue ***!
@@ -105747,6 +106089,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_backup_BackupSecurityCopy_vue__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/backup/BackupSecurityCopy.vue */ "./resources/js/components/backup/BackupSecurityCopy.vue");
 /* harmony import */ var _components_sign_Sign_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/sign/Sign.vue */ "./resources/js/components/sign/Sign.vue");
 /* harmony import */ var _components_sign_AddSign_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/sign/AddSign.vue */ "./resources/js/components/sign/AddSign.vue");
+/* harmony import */ var _components_sign_UpdateSign_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/sign/UpdateSign.vue */ "./resources/js/components/sign/UpdateSign.vue");
 //importamos las vistas del Home
 
 
@@ -105761,6 +106104,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /*end componentes que gestionan a los administradores*/
+
 
 
 
@@ -105946,6 +106290,10 @@ var routes = [
     path: '/EditUser/:id/AddSign',
     component: _components_sign_AddSign_vue__WEBPACK_IMPORTED_MODULE_24__["default"],
     name: 'add-sign'
+  }, {
+    path: '/EditUser/:id/updateSign',
+    component: _components_sign_UpdateSign_vue__WEBPACK_IMPORTED_MODULE_25__["default"],
+    name: 'update-sign'
   }]
 },
 /*end editar usuario*/

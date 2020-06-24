@@ -26,6 +26,7 @@ import BackupFact from './components/backup/BackupFact.vue';
 import BackupSecurityCopy from './components/backup/BackupSecurityCopy.vue';
 import Sign from './components/sign/Sign.vue';
 import AddSign from './components/sign/AddSign.vue';
+import updateSign from './components/sign/UpdateSign.vue';
 export const routes = [
   /*
    |--------------------------------------------------------------------------
@@ -211,6 +212,11 @@ export const routes = [
       path:'/EditUser/:id/AddSign',
       component: AddSign,
       name:'add-sign',
+      },
+      {
+      path:'/EditUser/:id/updateSign',
+      component: updateSign,
+      name:'update-sign',
       },
     ]
   },

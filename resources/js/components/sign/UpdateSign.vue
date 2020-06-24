@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card>
-        <form @submit.prevent="addSign" enctype="multipart/form-data">
+        <form @submit.prevent="updateSign" enctype="multipart/form-data">
         <v-card-title class="headline">Por Favor Ingrese su firma Digital</v-card-title>
         <v-card-text>
             <p>
@@ -72,11 +72,12 @@
           )
         reader.readAsDataURL(file);
       },
-      addSign(){
+      updateSign(){
         let formData = new FormData();
         formData.append('image',this.image)
         formData.append('id',this.user.id)
-        axios.post('/api/storeSign',formData)
+        formData.append('oldSign',this.user.sign)
+        axios.post('/api/updateSign',formData)
         .then( res =>{
           this.$store.commit("signSuccess",res.data);
           swal({

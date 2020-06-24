@@ -202,7 +202,7 @@ class UserController extends Controller
 //start eliminamos la firma
     public function destroySign(Request $request){
          $user = User::Find($request->id);
-         $img = public_path().'/images/'.$user->sign;
+         $img = public_path('images/'.$user->sign);
          if(@getimagesize($img)){
             unlink($img);
             $user->sign = null;
@@ -214,6 +214,26 @@ class UserController extends Controller
             $user->save();
             return response()->json("Firma Eliminada exitosamente", 200);
          }
+    }
+    //end eliminamos la firma
+//start eliminamos la firma
+    public function updateSign(Request $request){
+         $user = User::Find($request->id);
+         $img = public_path('images/'.$request->oldSign);
+         if(@getimagesize($img)){
+            unlink($img);
+         }
+         if($archivo=$request->file('image')){
+            $nombre = $archivo->getClientOriginalName();
+            $archivo->move('images',$nombre);
+            $entrada['ruta']=$nombre;
+            $user->sign = $nombre;
+            $user->save();
+            return response()->json($nombre, 200);
+        }else{
+            return "no hay imagen";
+        }
+         
     }
     //end eliminamos la firma
 }

@@ -5,7 +5,7 @@
       </v-card-title>
       <v-card-text>
         <v-btn class="primary"
-        :to="{ name: 'add-sign', params: { id:user.id }}"
+        :to="{ name: 'update-sign', params: { id:user.id }}"
         >
         <span>Editar</span>
         <v-icon>mdi-pencil</v-icon>

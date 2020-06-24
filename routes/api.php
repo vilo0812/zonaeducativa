@@ -1,13 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-Route::get('backup','SistemController@backup');
-Route::post('getSign','UserController@getSign');
-Route::post('addCopy','SistemController@addCopy');
-Route::get('showCopies','SistemController@showCopies');
-Route::get('isntallCopy/{id}','SistemController@isntallCopy');
-Route::delete('destroyCopy/{id}','SistemController@destroyCopy');
-Route::post('destroySign','UserController@destroySign');
+Route::post('updateSign','UserController@updateSign');
 /*start apis de sesiones*/
 Route::group(['prefix' => 'sesion'], function() {
 	/*start api para iniciar sesion*/
@@ -129,12 +123,21 @@ Route::group([
 // Route::post('filterTicket','FilterController@filterOfVerificationTicketByIc');
 //end filtros
 //start api de filtro
-Route::get('searchBitacore/{id}/{dato}','BitacoreController@searchBitacore');//filtro para bitacoras
-Route::get('searchUser/{dato}','UserController@searchUser');//filtro para usuarios
-Route::get('searchTicket/{dato}','TicketController@searchTicket');//filtro para tickets
-Route::get('searchVisit/{dato}','VisitorController@searchVisit');//filtro para visits
+	Route::get('searchBitacore/{id}/{dato}','BitacoreController@searchBitacore');//filtro para bitacoras
+	Route::get('searchUser/{dato}','UserController@searchUser');//filtro para usuarios
+	Route::get('searchTicket/{dato}','TicketController@searchTicket');//filtro para tickets
+	Route::get('searchVisit/{dato}','VisitorController@searchVisit');//filtro para visits
 //end api de filtro
-//start ruta para restaurar la base de datos
+//start backups
+Route::get('backup','SistemController@backup');
+Route::post('addCopy','SistemController@addCopy');
+Route::get('showCopies','SistemController@showCopies');
+Route::get('isntallCopy/{id}','SistemController@isntallCopy');
+Route::delete('destroyCopy/{id}','SistemController@destroyCopy');
+//end backups
+//start firmas digitales
+Route::post('storeSign','UserController@getSign');
 
-//end ruta para restaurar la base de datos
+Route::post('destroySign','UserController@destroySign');
+//end firmas digitales
 });

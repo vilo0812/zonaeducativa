@@ -1,14 +1,14 @@
 <template>
-	<div class="ticket" @click="viewTicket">
+	<div class="ticket" >
         <div class="header">
             <h3 class="centerCode">{{ticket.code}}</h3>
         </div>
-        <div class="main">
+        <div class="main" @click="viewTicket">
             <img class="centerImg" src="images/icons/zeg.png" alt="">
             <h3 class="centerCode">{{transformDirectionData}}</h3>
             <h3 class="centerCode">{{ticket.ticket}}</h3>
         </div>
-        <div class="footer">
+        <div class="footer" @click="viewTicket">
             <div class="items">
                 <img src="images/icons/GobiernoBolivarianoVenezolano.png" alt="logo ministerio" class="logo-img">
                 <img src="images/icons/mppe.png" alt="logo gobernación" class="logo-img">
