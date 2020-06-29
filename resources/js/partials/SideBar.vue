@@ -30,18 +30,11 @@
             @click.stop="$emit('update')"
           >
             <v-list-item-avatar>
-              <v-img v-if="$route.name == 'edit-user' || $route.name == 'show-admin'"
-                class="redondo"
-                height="200"
-                width="200"
-                src="../images/users/defect.jpg"
-              ></v-img>
               <v-img
-                v-else
                 class="redondo"
                 height="200"
                 width="200"
-                src="../images/users/defect.jpg"
+                src="./../images/users/defect.jpg"
               ></v-img>
             </v-list-item-avatar>
             <v-list-item-title v-text="item.first_name" />

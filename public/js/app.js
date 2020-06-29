@@ -3574,12 +3574,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3608,13 +3602,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -45190,24 +45177,14 @@ var render = function() {
                                 "v-col",
                                 { attrs: { cols: "auto" } },
                                 [
-                                  _vm.$route.name == "edit-user" ||
-                                  _vm.$route.name == "show-admin"
-                                    ? _c("v-img", {
-                                        staticClass: "redondo",
-                                        attrs: {
-                                          height: "200",
-                                          width: "200",
-                                          src: "../images/users/defect.jpg"
-                                        }
-                                      })
-                                    : _c("v-img", {
-                                        staticClass: "redondo",
-                                        attrs: {
-                                          height: "200",
-                                          width: "200",
-                                          src: "images/users/defect.jpg"
-                                        }
-                                      })
+                                  _c("v-img", {
+                                    staticClass: "redondo",
+                                    attrs: {
+                                      height: "200",
+                                      width: "200",
+                                      src: "./../images/users/defect.jpg"
+                                    }
+                                  })
                                 ],
                                 1
                               ),
@@ -45434,24 +45411,14 @@ var render = function() {
                   _c(
                     "v-list-item-avatar",
                     [
-                      _vm.$route.name == "edit-user" ||
-                      _vm.$route.name == "show-admin"
-                        ? _c("v-img", {
-                            staticClass: "redondo",
-                            attrs: {
-                              height: "200",
-                              width: "200",
-                              src: "../images/users/defect.jpg"
-                            }
-                          })
-                        : _c("v-img", {
-                            staticClass: "redondo",
-                            attrs: {
-                              height: "200",
-                              width: "200",
-                              src: "../images/users/defect.jpg"
-                            }
-                          })
+                      _c("v-img", {
+                        staticClass: "redondo",
+                        attrs: {
+                          height: "200",
+                          width: "200",
+                          src: "./../images/users/defect.jpg"
+                        }
+                      })
                     ],
                     1
                   ),
