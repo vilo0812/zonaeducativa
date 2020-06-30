@@ -28,9 +28,12 @@
             margin:0 5px;
         }
         .message{
+            height: 30px;
+            width: 60px;
             border:1px solid black;
-            margin:30px;
-            padding:30px;
+            padding: 30px;  
+            background: #b9c7f3;
+            color:black;
         }
         .title {
         font-size: 24px;
@@ -47,30 +50,15 @@
         Zona Educativa Del estado Guárico<br/>
         Dirección del municipio Juan Germán Roscio
     </h1>
-    <div class="message">
-    @if($rol_id == 2) 
-    <p class="title bold"> Su usuario ha sido registrado como administrador en el sistema de control de permanencias de la zona educativa del estado guarico</p>
-    @elseif($rol_id == 4)
-    <p class="title bold"> Su usuario ha sido registrado como jefe de zona en el sistema de control de permanencias de la zona educativa del estado guarico</p>
-    @endif
-    <p>Estos son los datos del usuario que ha sido registrado:</p>
-	<ul>
-        <li>Nombre: {{$first_name}}</li>
-        <li>Apellido: {{$last_name}}</li>
-        <li>cedula: {{$identification_card}}</li>
-        <li>correo: {{$email}}</li>
-        <li>Teléfono: {{$phone}}</li>
-    </ul>
-    <p>Y esta es su contraseña:</p>
-    <ul>
-        <li >Contraseña: 
-            <span class="bold">
-                {{$password}}
-            </span>    
-        </li>
-    </ul>
-    <small>puede cambiar su contraseña en cualquier momento</small>
-    </div>
+    <div>
+    <p class="title bold">Este es una notificación automática para su cambio de clave</p>
+    <p class="">Su codigo para cambiar la contraseña:</p><br/>
+
+    <p class="bold message">
+        <?php echo $code?>
+    </p><br/>    
+    <small>Si no has solicitado un cambio de clave, puedes ignorar este correo electrónico.<br/>
+    Que tengas un buen día,</small>
 </div>
 </body>
 </html>

@@ -23,7 +23,8 @@ class UsuarioRegistrado extends Mailable
     public $email;
     public $phone;
     public $password;
-    public function __construct($first_name,$last_name,$identification_card,$email,$phone,$password)
+    public $rol_id;
+    public function __construct($first_name,$last_name,$identification_card,$email,$phone,$password,$rol_id)
     {
         $this->first_name=$first_name;
         $this->last_name=$last_name;
@@ -31,6 +32,7 @@ class UsuarioRegistrado extends Mailable
         $this->email=$email;
         $this->phone=$phone;
         $this->password=$password;
+        $this->rol_id=$rol_id;
     }
     public function build()
     {

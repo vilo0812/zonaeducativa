@@ -8,7 +8,6 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Mail;
-
 class UserController extends Controller
 {
     // start api para ver a los admins y jefes de zona
@@ -54,6 +53,16 @@ class UserController extends Controller
             $user = User::where('identification_card',$request['identification_card'])->get();
             $user[0]->rol_id = 4;
             $user[0]->save();
+            Mail::to($request['email'])
+            ->send(new UsuarioRegistrado(
+                $request['first_name'],
+                $request['last_name'],
+                $request['identification_card'],
+                $request['email'],
+                $request['phone'],
+                $request['password'],
+                4
+            ));
             return response()->json(['mensaje'=>'registro exitoso'],200);
         }
         User::create([
@@ -65,7 +74,16 @@ class UserController extends Controller
             'password'=>bcrypt($request['password']),
             'rol_id'=>4
         ]);
-     // Mail::to("fundabit02@gmail.com")->send(new UsuarioRegistrado($request['first_name'],$request['last_name'],$request['identification_card'],$request['email'],$request['phone'],$request['password']));
+     Mail::to($request['email'])
+            ->send(new UsuarioRegistrado(
+                $request['first_name'],
+                $request['last_name'],
+                $request['identification_card'],
+                $request['email'],
+                $request['phone'],
+                $request['password'],
+                4
+            ));
         return response()->json(['mensaje'=>'registro exitoso'],200);
     }
     /*end api que me permita registrar a un Jefe de Zona*/
@@ -75,6 +93,16 @@ class UserController extends Controller
             $user = User::where('identification_card',$request['identification_card'])->get();
             $user[0]->rol_id = 2;
             $user[0]->save();
+            Mail::to($request['email'])
+            ->send(new UsuarioRegistrado(
+                $request['first_name'],
+                $request['last_name'],
+                $request['identification_card'],
+                $request['email'],
+                $request['phone'],
+                $request['password'],
+                2
+            ));
             return response()->json(['mensaje'=>'registro exitoso'],200);
         }
         User::create([
@@ -86,8 +114,17 @@ class UserController extends Controller
             'password'=>bcrypt($request['password']),
             'rol_id'=>2
         ]);
-     // Mail::to("fundabit02@gmail.com")->send(new UsuarioRegistrado($request['first_name'],$request['last_name'],$request['identification_card'],$request['email'],$request['phone'],$request['password']));
-        return response()->json(['mensaje'=>'registro exitoso'],200);
+    Mail::to($request['email'])
+    ->send(new UsuarioRegistrado(
+        $request['first_name'],
+        $request['last_name'],
+        $request['identification_card'],
+        $request['email'],
+        $request['phone'],
+        $request['password'],
+        2
+    ));
+    return response()->json(['mensaje'=>'registro exitoso'],200);
 
     }
     /*end api que me permita registrar a un administrador*/

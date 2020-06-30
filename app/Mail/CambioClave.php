@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EmergencyCallReceived extends Mailable
+class CambioClave extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,9 +16,10 @@ class EmergencyCallReceived extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $code;
+    public function __construct($code)
     {
-        //
+        $this->code=$code;
     }
 
     /**
@@ -28,6 +29,6 @@ class EmergencyCallReceived extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.emergency_call');
+        return $this->view('emails.passwordRecover');
     }
 }

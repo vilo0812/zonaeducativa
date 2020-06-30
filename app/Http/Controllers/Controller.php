@@ -6,6 +6,7 @@ use App\Direction;
 use App\Http\Controllers\BitacoreController;
 use App\Http\Requests\LoginFormRequest;
 use App\Http\Requests\RecoverPasswordRequest;
+use App\Mail\CambioClave;
 use App\Password_recover;
 use App\User;
 use App\Visitor;
@@ -17,6 +18,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class Controller extends BaseController
 {
@@ -46,7 +48,7 @@ class Controller extends BaseController
             'access_token' => $token,
             'user' => $this->guard()->user(),
             'token_type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60
+            'expires_in' => auth('api')->factory()->getTTL() * 6000
         ]);
     }
     /*end funcion que me crea los datos que van para la sesion*/
@@ -66,17 +68,24 @@ class Controller extends BaseController
         /*end funcion para generar un codigo aleatorio*/
      /*start funcion que me permite recuperar la contraseña enviando un codigo a mi correo que me para verificar*/
     public function recoverPassword(RecoverPasswordRequest $request){
-        if(User::where('email',request('email'))->count()){
+        $token = $this->token(6);
+        if(User::where('email',request('email'))->count())
+        {
             if(Password_recover::where('email',request('email'))->count()){
             $id = Password_recover::where('email',request('email'))->get('id');
             $pas = Password_recover::find($id[0]->id);
-            $pas->token = $this->token(6);
+            $pas->token = $token;
             $pas->save();
-            // Mail::to(request('email'))->send(new UsuarioRegistrado($request['first_name'],$request['last_name'],$request['identification_card'],$request['email'],$request['phone'],$request['password']));
+            Mail::to("gabriel.viloria0812@gmail.com")
+            ->send(new CambioClave(
+            $token));
             return response()->json(['mensaje'=>'codigo enviado correctamente'], 200);
-            }else{
-            $pas = Password_recover::create(['email'=>request('email'),'token'=>$this->token(6)]);
-            // Mail::to(request('email'))->send(new UsuarioRegistrado($request['first_name'],$request['last_name'],$request['identification_card'],$request['email'],$request['phone'],$request['password']));
+         }else{
+            $pas = Password_recover::create(['email'=>request('email'),'token'=> $token]);
+           
+            Mail::to("gabriel.viloria0812@gmail.com")
+            ->send(new CambioClave(
+            $token));
             return response()->json(['mensaje'=>'codigo enviado correctamente'], 200);
             }
         }else{

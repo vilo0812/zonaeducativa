@@ -1,8 +1,24 @@
 <?php
-
+use App\Mail\CambioClave;
 use App\Mail\UsuarioRegistrado;
 use App\User;
-
+Route::get('email',function () {
+	// $data = [
+	// 'first_name'=>'gabriel',
+ //    'last_name'=>'viloria',
+ //    'identification_card'=>'27167028',
+ //    'email'=>'gabriel.viloria0812@gmail.com',
+ //    'phone'=>'0414-9017184',
+ //    'password'=> '1234'
+	// ];
+	$code='gabriel';
+	Mail::to("gabriel.viloria0812@gmail.com")
+	->send(new CambioClave(
+		$code));
+	// return view('emails.passwordRecover', compact(
+	// 	'code',
+	// ));
+});
 //start ruta para ver la bitacora en PDF
 Route::get('verBitacora/{id}','UserController@viewBitacore');
 //end ruta para ver la bitacora en PDF
