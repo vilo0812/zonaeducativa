@@ -28,6 +28,13 @@
         >
         <router-view @cancel="dialog = false" @cancel2="reload"/>
     </v-dialog>
+    <v-dialog
+        v-model="dialogImgUser"
+        max-width="550"
+        :light="true"
+        >
+        <Picture></Picture>
+    </v-dialog>
     <!-- end dialog -->
     <!-- start boton de actualiza la firma digital -->
                 <v-row justify="end">
@@ -39,6 +46,14 @@
                 >
                   Firma Digital
                   <v-icon right dark>mdi-pencil</v-icon>
+                </v-btn> 
+                <v-btn
+                @click.stop="dialogImgUser = true"
+                color="primary"
+                class="ma-2 white--text mr-5"
+                >
+                  Foto de Perfil
+                  <v-icon right dark>mdi-image</v-icon>
                 </v-btn> 
                 </v-col>
                 </v-row>
@@ -122,13 +137,15 @@ import Side from '.././partials/SideBar.vue'
 import Nav from '.././partials/NavBar.vue'
 import ContentCenter from '.././structures/Center.vue'
 import sign from '.././components/sign/Sign.vue'
+import Picture from '.././components/editUser/AddPicture.vue'
   export default {
   props:['id'],
   	components:{
   		'side-bar':Side,
   		'nav-bar':Nav,
   		'content-center':ContentCenter,
-      'sign':sign
+      'sign':sign,
+      'Picture':Picture
   	},
   	mounted(){
   	/*start llamamos al api que nos trae toda la informacion de este usuario para colocarla por defecto en los formularios*/
@@ -142,6 +159,7 @@ import sign from '.././components/sign/Sign.vue'
   	},
   	data () {
   	  return {
+        dialogImgUser:null,
   	    drawer: null,
   	    nombre:'',
   	    apellido:'',

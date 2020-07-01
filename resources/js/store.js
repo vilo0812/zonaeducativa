@@ -22,6 +22,10 @@ export default{
         state.currentUser.sign = payload;
         localStorage.setItem("user",JSON.stringify(state.currentUser));
         },
+        pictureSuccess(state,payload){
+        state.currentUser.picture = payload;
+        localStorage.setItem("user",JSON.stringify(state.currentUser));
+        },
         loginSuccess(state,payload){
             state.auth_error = null;
             state.isLoggedIn = true;

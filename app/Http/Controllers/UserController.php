@@ -158,12 +158,30 @@ class UserController extends Controller
         $user->email=$request->email;
         $user->phone=$request->phone;
         $user->identification_card=$request->identification_card;
+        $user->picture=$request->picture;
         $user->save();
         $bitacore = new BitacoreController();
         $bitacore->store($request->user_id,$request->details,$request->action_id);
         return response()->json(['mensaje'=>'actualización exitosa'],200);
     }
     /*end api para actualizar a un usuario*/
+    public function updatePictureUser(Request $request){
+        $user = User::Find($request->id);
+         $img = public_path('images/users/'.$user->identification_card.'/'.$user->picture);
+         if(@getimagesize($img)){
+            unlink($img);
+         }
+         if($archivo=$request->file('image')){
+            $nombre = $archivo->getClientOriginalName();
+            $archivo->move('images/users/'.$user->identification_card,$nombre);
+            $entrada['ruta']=$nombre;
+            $user->picture = $nombre;
+            $user->save();
+            return response()->json($nombre, 200);
+        }else{
+            return "no hay imagen";
+        }
+    }
     /*start api para actualizar a un usuario*/
     public function destroy($id){
         $user = User::findOrFail($id);

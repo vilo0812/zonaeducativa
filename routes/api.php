@@ -36,6 +36,9 @@ Route::group([
 	/*start api para actualizar el administrador*/
 	Route::put('updateUser','UserController@update');
 	/*end api para actualizar el administrador*/
+	/*start api para actualizar la foto del administrador*/
+	Route::post('updatePictureUser','UserController@updatePictureUser');
+	/*end api para actualizar la foto del administrador*/
 	/*start api para eliminar el administrador*/
 	Route::delete('deleteUser/{id}','UserController@destroy');
 	/*end api para eliminar el administrador*/
