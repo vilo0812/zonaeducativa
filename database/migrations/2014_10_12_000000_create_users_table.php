@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('identification_card')->unique()->nullable();//cedula
             $table->string('email')->nullable()->unique();
             $table->string('phone')->nullable();
+            $table->string('picture')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();
 

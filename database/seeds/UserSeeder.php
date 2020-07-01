@@ -15,6 +15,13 @@ class UserSeeder extends Seeder
     {
 
     	/*start super administrador*/
+        $route = public_path('images/users/27167028');
+        if (!file_exists($route)) {
+            mkdir($route, 0777, true);
+        }
+        $imgRoute = public_path('images/defect.jpg');
+        $imgRouteCopy = public_path('images/users/'.'27167028'.'/defect.jpg');
+        copy($imgRoute,$imgRouteCopy);
         User::create([
             "first_name"=>"Gabriel Antonio",
             "last_name"=>"Viloria Aparicio",
@@ -22,8 +29,16 @@ class UserSeeder extends Seeder
             "email"=>"gabriel.viloria0812@gmail.com",
             "phone"=>"04149017184",
             "password"=>bcrypt("1234"),
+            'picture' => 'defect.jpg',
             "rol_id"=>1
         ]);
+        $route = public_path('images/users/26666666');
+        if (!file_exists($route)) {
+            mkdir($route, 0777, true);
+        }
+        $imgRoute = public_path('images/defect.jpg');
+        $imgRouteCopy = public_path('images/users/'.'26666666'.'/defect.jpg');
+        copy($imgRoute,$imgRouteCopy);
         User::create([
             "first_name"=>"Miguel",
             "last_name"=>"Padron",
@@ -31,6 +46,7 @@ class UserSeeder extends Seeder
             "email"=>"miguelpadron1234@gmail.com",
             "phone"=>"04149017183",
             "password"=>bcrypt("1234"),
+            'picture' => 'defect.jpg',
             "rol_id"=>2
         ]);
         factory(User::class, 20)->create();

@@ -35,7 +35,7 @@
             class="redondo"
             height="200"
             width="200"
-            src="./../images/users/defect.jpg"
+            :src="urlImgUser"
           ></v-img>
 
         </v-col>
@@ -87,6 +87,11 @@
       return {
         user:''
       };
+    },
+    computed: {
+      urlImgUser () {
+        return `./../images/users/${this.user.identification_card}/${this.user.picture}`;
+      }
     },
     methods: {
       cerrarSesion() {

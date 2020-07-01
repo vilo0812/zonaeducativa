@@ -21,7 +21,7 @@ class UserController extends Controller
     /*start api que permita visualizar a los administradores trayendo solo el id y el nombre*/
     public function viewAdmins(){
         /*start sacamos solo a los usuarios administradores y los mandamos a la vista*/
-    $admins=User::where('rol_id',2)->get(['id','first_name']);
+    $admins=User::where('rol_id',2)->get(['id','first_name','identification_card','picture']);
     return response()->json(['admins'=>$admins],200);
         /*end sacamos solo a los usuarios administradores y los mandamos a la vista*/
     }
@@ -49,10 +49,8 @@ class UserController extends Controller
     /*end api que permite registart un usuario*/
     /*start api que me permita registrar a un Jefe de Zona*/
     public function storeLeaderZone(RegisterAdminRequest $request){
+        $route = public_path('images/users/'.$request['identification_card']);
         if(User::where('identification_card',$request['identification_card'])->count()){
-            $user = User::where('identification_card',$request['identification_card'])->get();
-            $user[0]->rol_id = 4;
-            $user[0]->save();
             Mail::to($request['email'])
             ->send(new UsuarioRegistrado(
                 $request['first_name'],
@@ -63,17 +61,14 @@ class UserController extends Controller
                 $request['password'],
                 4
             ));
+            if (!file_exists($route)) {
+                mkdir($route, 0777, true);
+            }
+            $user = User::where('identification_card',$request['identification_card'])->get();
+            $user[0]->rol_id = 4;
+            $user[0]->save();
             return response()->json(['mensaje'=>'registro exitoso'],200);
         }
-        User::create([
-            'first_name'=>$request['first_name'],
-            'last_name'=>$request['last_name'],
-            'identification_card'=>$request['identification_card'],
-            'email'=>$request['email'],
-            'phone'=>$request['phone'],
-            'password'=>bcrypt($request['password']),
-            'rol_id'=>4
-        ]);
      Mail::to($request['email'])
             ->send(new UsuarioRegistrado(
                 $request['first_name'],
@@ -84,15 +79,26 @@ class UserController extends Controller
                 $request['password'],
                 4
             ));
+     if (!file_exists($route)) {
+         mkdir($route, 0777, true);
+     }
+        User::create([
+            'first_name'=>$request['first_name'],
+            'last_name'=>$request['last_name'],
+            'identification_card'=>$request['identification_card'],
+            'email'=>$request['email'],
+            'phone'=>$request['phone'],
+            'password'=>bcrypt($request['password']),
+            'picture' => 'defect.jpg',
+            'rol_id'=>4
+        ]);
         return response()->json(['mensaje'=>'registro exitoso'],200);
     }
     /*end api que me permita registrar a un Jefe de Zona*/
     /*start api que me permita registrar a un administrador*/
     public function storeAdmin(RegisterAdminRequest $request){
+        $route = public_path('images/users/'.$request['identification_card']);
         if(User::where('identification_card',$request['identification_card'])->count()){
-            $user = User::where('identification_card',$request['identification_card'])->get();
-            $user[0]->rol_id = 2;
-            $user[0]->save();
             Mail::to($request['email'])
             ->send(new UsuarioRegistrado(
                 $request['first_name'],
@@ -103,8 +109,27 @@ class UserController extends Controller
                 $request['password'],
                 2
             ));
-            return response()->json(['mensaje'=>'registro exitoso'],200);
+         if (!file_exists($route)) {
+             mkdir($route, 0777, true);
+         }
+        $user = User::where('identification_card',$request['identification_card'])->get();
+        $user[0]->rol_id = 2;
+        $user[0]->save();
+        return response()->json(['mensaje'=>'registro exitoso'],200);
         }
+        Mail::to($request['email'])
+        ->send(new UsuarioRegistrado(
+            $request['first_name'],
+            $request['last_name'],
+            $request['identification_card'],
+            $request['email'],
+            $request['phone'],
+            $request['password'],
+            2
+        ));
+         if (!file_exists($route)) {
+             mkdir($route, 0777, true);
+         }
         User::create([
             'first_name'=>$request['first_name'],
             'last_name'=>$request['last_name'],
@@ -114,16 +139,6 @@ class UserController extends Controller
             'password'=>bcrypt($request['password']),
             'rol_id'=>2
         ]);
-    Mail::to($request['email'])
-    ->send(new UsuarioRegistrado(
-        $request['first_name'],
-        $request['last_name'],
-        $request['identification_card'],
-        $request['email'],
-        $request['phone'],
-        $request['password'],
-        2
-    ));
     return response()->json(['mensaje'=>'registro exitoso'],200);
 
     }

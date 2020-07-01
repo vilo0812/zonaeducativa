@@ -3580,6 +3580,11 @@ __webpack_require__.r(__webpack_exports__);
       user: ''
     };
   },
+  computed: {
+    urlImgUser: function urlImgUser() {
+      return "./../images/users/".concat(this.user.identification_card, "/").concat(this.user.picture);
+    }
+  },
   methods: {
     cerrarSesion: function cerrarSesion() {
       this.$store.commit('logout');
@@ -3602,8 +3607,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -3748,6 +3751,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     rol: function rol() {
       return this.$store.state.currentUser.rol_id;
+    },
+    urlUserPicture: function urlUserPicture() {
+      return './../images/defect.jpg'; // this.pic = `./../images/users/${this.administradores[index].identification_card}/${this.administradores[index].picture}`;
+      // return `./../images/users/${this.administradores[index].identification_card}/${this.administradores[index].picture}`;
+    }
+  },
+  methods: {
+    urlImgUser: function urlImgUser(index) {
+      return "./../images/users/".concat(this.administradores[index].identification_card, "/").concat(this.administradores[index].picture);
     }
   }
 });
@@ -45182,7 +45194,7 @@ var render = function() {
                                     attrs: {
                                       height: "200",
                                       width: "200",
-                                      src: "./../images/users/defect.jpg"
+                                      src: _vm.urlImgUser
                                     }
                                   })
                                 ],
@@ -45391,7 +45403,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-list",
-            _vm._l(_vm.administradores, function(item) {
+            _vm._l(_vm.administradores, function(item, index) {
               return _c(
                 "v-list-item",
                 {
@@ -45413,11 +45425,7 @@ var render = function() {
                     [
                       _c("v-img", {
                         staticClass: "redondo",
-                        attrs: {
-                          height: "200",
-                          width: "200",
-                          src: "./../images/users/defect.jpg"
-                        }
+                        attrs: { src: _vm.urlImgUser(index) }
                       })
                     ],
                     1

@@ -23,7 +23,7 @@
         <!-- start listamos a los administradores del sistema -->
         <v-list>
           <v-list-item
-            v-for="item in administradores"
+            v-for="(item, index) in administradores"
             :key="item.id"
             link
             :to="{ name: 'show-admin', params: { id:item.id }}"
@@ -32,9 +32,7 @@
             <v-list-item-avatar>
               <v-img
                 class="redondo"
-                height="200"
-                width="200"
-                src="./../images/users/defect.jpg"
+                :src="urlImgUser(index)"
               ></v-img>
             </v-list-item-avatar>
             <v-list-item-title v-text="item.first_name" />
@@ -96,6 +94,16 @@
       },
       rol() {
         return this.$store.state.currentUser.rol_id;
+      },
+      urlUserPicture(){
+        return './../images/defect.jpg';
+        // this.pic = `./../images/users/${this.administradores[index].identification_card}/${this.administradores[index].picture}`;
+        // return `./../images/users/${this.administradores[index].identification_card}/${this.administradores[index].picture}`;
+      }
+    },
+    methods: {
+      urlImgUser(index) {
+        return `./../images/users/${this.administradores[index].identification_card}/${this.administradores[index].picture}`;
       }
     }
 }
