@@ -5,7 +5,7 @@
       </v-card-title>
       <v-card-text>
         <v-btn class="primary"
-        :to="{ name: 'update-sign', params: { id:user.id }}"
+        :to="{ name: 'update-sign', params: {id:user.id}}"
         >
         <span>Editar</span>
         <v-icon>mdi-pencil</v-icon>
@@ -36,14 +36,11 @@
 </template>
 <script>
  export default {
-  data () {
-      return {
-        user:''
-      };
-    },
+  props:['user'],
+  name:'ShowSign',
   computed: {
     urlSign(){
-      return `.././images/${this.user.sign}`
+      return `.././images/users/${this.user.identification_card}/${this.user.sign}`
     }
   },
   methods: {
@@ -70,8 +67,5 @@
       console.log('agregar')
     }
   },
-  created(){
-      this.user= this.$store.getters.currentUser;
-    }
  }
 </script>

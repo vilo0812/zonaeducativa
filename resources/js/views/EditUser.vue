@@ -33,29 +33,27 @@
         max-width="550"
         :light="true"
         >
-        <Picture></Picture>
+        <Picture :id="id" @cancel="dialogImgUser = false"></Picture>
     </v-dialog>
     <!-- end dialog -->
     <!-- start boton de actualiza la firma digital -->
-                <v-row justify="end">
-                <v-col sm="12" md="4">
+                <v-row justify="start">
+                    <v-btn
+                  @click.stop="dialog = true"
+                  color="#FF9C56"
+                  class="ma-2 white--text mr-5"
+                  >
+                    Firma Digital
+                    <v-icon right dark>mdi-pencil</v-icon>
+                  </v-btn> 
                   <v-btn
-                @click.stop="dialog = true"
-                color="primary"
-                class="ma-2 white--text mr-5"
-                >
-                  Firma Digital
-                  <v-icon right dark>mdi-pencil</v-icon>
-                </v-btn> 
-                <v-btn
-                @click.stop="dialogImgUser = true"
-                color="primary"
-                class="ma-2 white--text mr-5"
-                >
-                  Foto de Perfil
-                  <v-icon right dark>mdi-image</v-icon>
-                </v-btn> 
-                </v-col>
+                  @click.stop="dialogImgUser = true"
+                  color="success"
+                  class="ma-2 white--text mr-5"
+                  >
+                    Foto de Perfil
+                    <v-icon right dark>mdi-image</v-icon>
+                  </v-btn> 
                 </v-row>
       <!--end boton que actualiza la firma digital-->
 			<form>

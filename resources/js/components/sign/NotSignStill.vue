@@ -6,7 +6,7 @@
       <v-card-text>
         <v-btn
               color="primary"
-              :to="{ name: 'add-sign', params: { id:user.id }}"
+              :to="{ name: 'add-sign', params: { id:user.id, sign:user.sign }}"
             >
           Agregar Firma Digital
           <v-icon right dark>mdi-pencil</v-icon>
@@ -31,20 +31,7 @@
 </template>
 <script>
  export default {
-  data () {
-      return {
-        user:''
-      };
-    },
-  computed: {
-  },
-  methods: {
-    add(){
-      console.log('agregar')
-    }
-  },
-  created(){
-      this.user= this.$store.getters.currentUser;
-    }
+  name:'NotSignStill',
+  props:['user'],
  }
 </script>

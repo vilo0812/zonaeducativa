@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-card>
-      <show-sign  v-if="sign" @cancel="$emit('cancel')"/>
-      <not-sign v-else @cancel="$emit('cancel')"/>
+      <show-sign  v-if="user.sign" :user="user" @cancel="$emit('cancel')"/>
+      <not-sign v-else :user="user" @cancel="$emit('cancel')"/>
     </v-card>
   </div>
 </template>
@@ -10,7 +10,13 @@
 import NotSignStill from './NotSignStill.vue'
 import ShowSign from './ShowSign.vue'
  export default {
+  props:['id'],
   mounted(){
+      axios.get(`/api/showUser/${this.id}`).then(res => {
+        this.user=res.data.user
+      }).catch(err => {
+        console.log(err);
+      });
     },
   components:{
     'not-sign':NotSignStill,
@@ -18,18 +24,13 @@ import ShowSign from './ShowSign.vue'
   },
   data () {
       return {
-        sign:''
+        user:'',
       };
     },
-  computed: {
-  },
   methods: {
     add(){
       console.log('agregar')
     }
   },
-  created(){
-      this.sign= this.$store.getters.currentUser.sign;
-    }
  }
 </script>

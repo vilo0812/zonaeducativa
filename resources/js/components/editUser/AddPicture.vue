@@ -1,18 +1,11 @@
-<template>
-  <div>
-    <v-card>
-        <form @submit.prevent="addPicture" enctype="multipart/form-data">
-        <v-card-title class="headline">Por Favor Ingrese su Foto de Perfil</v-card-title>
-        <v-card-text>
-            <v-file-input show-size counter label="Agregar Firma" accept="image/*" @change="getImage($event)"></v-file-input>
-            <v-card v-if="imagen">
-              <v-row justify="center">
-                <v-col cols="6">
-                    <v-img  src="" width="200" height="200" alt="firma digital" :src="imagen"></v-img>
-                </v-col>
-              </v-row>
-            <v-card-title class="title">{{image.name}}</v-card-title>
-          </v-card>
+<template> <div> <v-card> <form @submit.prevent="addPicture"
+enctype="multipart/form-data"> <v-card-title class="headline">Por Favor
+Ingrese su Foto de Perfil</v-card-title> <v-card-text> <v-file-input show-size
+counter label="Agregar Foto para el Perfil" accept="image/*"
+@change="getImage($event)"></v-file-input> <v-card v-if="imagen"> <v-row
+justify="center"> <v-col cols="6"> <v-img  src="" width="200" height="200"
+alt="firma digital" :src="imagen"></v-img> </v-col> </v-row> <v-card-title
+class="title">{{image.name}}</v-card-title> </v-card>
           
         </v-card-text>
 
@@ -21,7 +14,7 @@
 
           <v-btn
             color="error"
-            @click="$router.go(-1)"
+            @click="$emit('cancel')"
           >
             cancelar
           </v-btn>
@@ -39,6 +32,7 @@
 </template>
 <script>
  export default {
+  props:['id'],
   name: 'AddPicture',
   data () {
       return {
@@ -72,7 +66,7 @@
       addPicture(){
         let formData = new FormData();
         formData.append('image',this.image)
-        formData.append('id',this.user.id)
+        formData.append('id',this.id)
         axios.post('/api/updatePictureUser',formData)
         .then( res =>{
           this.$store.commit("pictureSuccess",res.data);

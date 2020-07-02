@@ -2416,7 +2416,7 @@ __webpack_require__.r(__webpack_exports__);
           if (select) {
             _this4.getCopiesData();
 
-            _this4.addCopyDialog = false;
+            _this4.loadingAddCopy = false;
           }
         });
       })["catch"](function (err) {
@@ -2477,6 +2477,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['id'],
   name: 'AddPicture',
   data: function data() {
     return {
@@ -2515,7 +2516,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var formData = new FormData();
       formData.append('image', this.image);
-      formData.append('id', this.user.id);
+      formData.append('id', this.id);
       axios.post('/api/updatePictureUser', formData).then(function (res) {
         _this2.$store.commit("pictureSuccess", res.data);
 
@@ -3083,6 +3084,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['id'],
   name: 'AddSign',
   data: function data() {
     return {
@@ -3121,7 +3123,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var formData = new FormData();
       formData.append('image', this.image);
-      formData.append('id', this.user.id);
+      formData.append('id', this.id);
       axios.post('/api/storeSign', formData).then(function (res) {
         _this2.$store.commit("signSuccess", res.data);
 
@@ -3186,20 +3188,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      user: ''
-    };
-  },
-  computed: {},
-  methods: {
-    add: function add() {
-      console.log('agregar');
-    }
-  },
-  created: function created() {
-    this.user = this.$store.getters.currentUser;
-  }
+  name: 'NotSignStill',
+  props: ['user']
 });
 
 /***/ }),
@@ -3250,14 +3240,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      user: ''
-    };
-  },
+  props: ['user'],
+  name: 'ShowSign',
   computed: {
     urlSign: function urlSign() {
-      return ".././images/".concat(this.user.sign);
+      return ".././images/users/".concat(this.user.identification_card, "/").concat(this.user.sign);
     }
   },
   methods: {
@@ -3285,9 +3272,6 @@ __webpack_require__.r(__webpack_exports__);
     add: function add() {
       console.log('agregar');
     }
-  },
-  created: function created() {
-    this.user = this.$store.getters.currentUser;
   }
 });
 
@@ -3315,24 +3299,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {},
+  props: ['id'],
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("/api/showUser/".concat(this.id)).then(function (res) {
+      _this.user = res.data.user;
+    })["catch"](function (err) {
+      console.log(err);
+    });
+  },
   components: {
     'not-sign': _NotSignStill_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     'show-sign': _ShowSign_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
-      sign: ''
+      user: ''
     };
   },
-  computed: {},
   methods: {
     add: function add() {
       console.log('agregar');
     }
-  },
-  created: function created() {
-    this.sign = this.$store.getters.currentUser.sign;
   }
 });
 
@@ -3390,12 +3379,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['id', 'sign'],
   name: 'AddSign',
   data: function data() {
     return {
       image: null,
-      imagenMiniatura: '',
-      user: ''
+      imagenMiniatura: ''
     };
   },
   computed: {
@@ -3428,8 +3417,8 @@ __webpack_require__.r(__webpack_exports__);
 
       var formData = new FormData();
       formData.append('image', this.image);
-      formData.append('id', this.user.id);
-      formData.append('oldSign', this.user.sign);
+      formData.append('id', this.id);
+      formData.append('oldSign', this.sign);
       axios.post('/api/updateSign', formData).then(function (res) {
         _this2.$store.commit("signSuccess", res.data);
 
@@ -3445,9 +3434,6 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     }
-  },
-  created: function created() {
-    this.user = this.$store.getters.currentUser;
   }
 });
 
@@ -4588,8 +4574,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _structures_Center_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! .././structures/Center.vue */ "./resources/js/structures/Center.vue");
 /* harmony import */ var _components_sign_Sign_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! .././components/sign/Sign.vue */ "./resources/js/components/sign/Sign.vue");
 /* harmony import */ var _components_editUser_AddPicture_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! .././components/editUser/AddPicture.vue */ "./resources/js/components/editUser/AddPicture.vue");
-//
-//
 //
 //
 //
@@ -6893,7 +6877,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       drawer: '',
-      administrador: ''
+      administrador: {}
     };
   },
   props: ['id'],
@@ -6929,7 +6913,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     editing: function editing() {
       this.$router.push({
-        name: 'edit-user',
+        name: 'sign',
         params: {
           id: this.administrador.id
         }
@@ -6990,6 +6974,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   computed: {
+    urlImgUser: function urlImgUser() {
+      return './../images/users/' + this.administrador.identification_card + '/' + this.administrador.picture;
+    },
     rol: function rol() {
       return this.$store.state.currentUser.rol_id;
     }
@@ -44116,7 +44103,7 @@ var render = function() {
                   attrs: {
                     "show-size": "",
                     counter: "",
-                    label: "Agregar Firma",
+                    label: "Agregar Foto para el Perfil",
                     accept: "image/*"
                   },
                   on: {
@@ -44176,7 +44163,7 @@ var render = function() {
                     attrs: { color: "error" },
                     on: {
                       click: function($event) {
-                        return _vm.$router.go(-1)
+                        return _vm.$emit("cancel")
                       }
                     }
                   },
@@ -44772,7 +44759,10 @@ var render = function() {
                 {
                   attrs: {
                     color: "primary",
-                    to: { name: "add-sign", params: { id: _vm.user.id } }
+                    to: {
+                      name: "add-sign",
+                      params: { id: _vm.user.id, sign: _vm.user.sign }
+                    }
                   }
                 },
                 [
@@ -44973,8 +44963,9 @@ var render = function() {
       _c(
         "v-card",
         [
-          _vm.sign
+          _vm.user.sign
             ? _c("show-sign", {
+                attrs: { user: _vm.user },
                 on: {
                   cancel: function($event) {
                     return _vm.$emit("cancel")
@@ -44982,6 +44973,7 @@ var render = function() {
                 }
               })
             : _c("not-sign", {
+                attrs: { user: _vm.user },
                 on: {
                   cancel: function($event) {
                     return _vm.$emit("cancel")
@@ -46741,63 +46733,65 @@ var render = function() {
                         expression: "dialogImgUser"
                       }
                     },
-                    [_c("Picture")],
+                    [
+                      _c("Picture", {
+                        attrs: { id: _vm.id },
+                        on: {
+                          cancel: function($event) {
+                            _vm.dialogImgUser = false
+                          }
+                        }
+                      })
+                    ],
                     1
                   ),
                   _vm._v(" "),
                   _c(
                     "v-row",
-                    { attrs: { justify: "end" } },
+                    { attrs: { justify: "start" } },
                     [
                       _c(
-                        "v-col",
-                        { attrs: { sm: "12", md: "4" } },
+                        "v-btn",
+                        {
+                          staticClass: "ma-2 white--text mr-5",
+                          attrs: { color: "#FF9C56" },
+                          on: {
+                            click: function($event) {
+                              $event.stopPropagation()
+                              _vm.dialog = true
+                            }
+                          }
+                        },
                         [
-                          _c(
-                            "v-btn",
-                            {
-                              staticClass: "ma-2 white--text mr-5",
-                              attrs: { color: "primary" },
-                              on: {
-                                click: function($event) {
-                                  $event.stopPropagation()
-                                  _vm.dialog = true
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                  Firma Digital\n                  "
-                              ),
-                              _c("v-icon", { attrs: { right: "", dark: "" } }, [
-                                _vm._v("mdi-pencil")
-                              ])
-                            ],
-                            1
+                          _vm._v(
+                            "\n                    Firma Digital\n                    "
                           ),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            {
-                              staticClass: "ma-2 white--text mr-5",
-                              attrs: { color: "primary" },
-                              on: {
-                                click: function($event) {
-                                  $event.stopPropagation()
-                                  _vm.dialogImgUser = true
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                  Foto de Perfil\n                  "
-                              ),
-                              _c("v-icon", { attrs: { right: "", dark: "" } }, [
-                                _vm._v("mdi-image")
-                              ])
-                            ],
-                            1
-                          )
+                          _c("v-icon", { attrs: { right: "", dark: "" } }, [
+                            _vm._v("mdi-pencil")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "ma-2 white--text mr-5",
+                          attrs: { color: "success" },
+                          on: {
+                            click: function($event) {
+                              $event.stopPropagation()
+                              _vm.dialogImgUser = true
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    Foto de Perfil\n                    "
+                          ),
+                          _c("v-icon", { attrs: { right: "", dark: "" } }, [
+                            _vm._v("mdi-image")
+                          ])
                         ],
                         1
                       )
@@ -48797,12 +48791,7 @@ var render = function() {
                 [
                   _c(
                     "v-img",
-                    {
-                      attrs: {
-                        "aspect-ratio": 16 / 9,
-                        src: "/images/users/defect.jpg"
-                      }
-                    },
+                    { attrs: { "aspect-ratio": 16 / 9, src: _vm.urlImgUser } },
                     [
                       _c(
                         "v-row",
@@ -106653,10 +106642,12 @@ var routes = [
     name: 'sign'
   }, {
     path: '/EditUser/:id/AddSign',
+    props: true,
     component: _components_sign_AddSign_vue__WEBPACK_IMPORTED_MODULE_24__["default"],
     name: 'add-sign'
   }, {
     path: '/EditUser/:id/updateSign',
+    props: true,
     component: _components_sign_UpdateSign_vue__WEBPACK_IMPORTED_MODULE_25__["default"],
     name: 'update-sign'
   }]
@@ -107307,8 +107298,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_8__["VDialog"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_9__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_10__["VNavigationDrawer"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__["VTextField"]})
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_8__["VDialog"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_9__["VIcon"],VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_10__["VNavigationDrawer"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__["VTextField"]})
 
 
 /* hot reload */

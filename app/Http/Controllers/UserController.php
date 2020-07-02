@@ -65,6 +65,21 @@ class UserController extends Controller
                 mkdir($route, 0777, true);
             }
             $user = User::where('identification_card',$request['identification_card'])->get();
+            if(!$user[0]->email){
+                $user[0]->email = $request['email'];
+            }
+            if(!$user[0]->phone){
+                $user[0]->phone = $request['phone'];
+            }
+            if(!$user[0]->picture){
+                $imgRouteCopy = public_path('images/default/default.jpg');
+                $imgRoutePaste = public_path('images/users/'.$request['identification_card'].'/default.jpg');
+                copy($imgRouteCopy,$imgRoutePaste);
+                $user[0]->picture = 'default.jpg';
+            }
+            if(!$user[0]->password){
+                $user[0]->password = bcrypt($request['password']);
+            }
             $user[0]->rol_id = 4;
             $user[0]->save();
             return response()->json(['mensaje'=>'registro exitoso'],200);
@@ -81,6 +96,9 @@ class UserController extends Controller
             ));
      if (!file_exists($route)) {
          mkdir($route, 0777, true);
+        $imgRoute = public_path('images/default/default.jpg');
+        $imgRouteCopy = public_path('images/users/'.$request['identification_card'].'/default.jpg');
+        copy($imgRoute,$imgRouteCopy);
      }
         User::create([
             'first_name'=>$request['first_name'],
@@ -89,7 +107,7 @@ class UserController extends Controller
             'email'=>$request['email'],
             'phone'=>$request['phone'],
             'password'=>bcrypt($request['password']),
-            'picture' => 'defect.jpg',
+            'picture' => 'default.jpg',
             'rol_id'=>4
         ]);
         return response()->json(['mensaje'=>'registro exitoso'],200);
@@ -99,36 +117,54 @@ class UserController extends Controller
     public function storeAdmin(RegisterAdminRequest $request){
         $route = public_path('images/users/'.$request['identification_card']);
         if(User::where('identification_card',$request['identification_card'])->count()){
-            Mail::to($request['email'])
-            ->send(new UsuarioRegistrado(
-                $request['first_name'],
-                $request['last_name'],
-                $request['identification_card'],
-                $request['email'],
-                $request['phone'],
-                $request['password'],
-                2
-            ));
+            // Mail::to($request['email'])
+            // ->send(new UsuarioRegistrado(
+            //     $request['first_name'],
+            //     $request['last_name'],
+            //     $request['identification_card'],
+            //     $request['email'],
+            //     $request['phone'],
+            //     $request['password'],
+            //     2
+            // ));
          if (!file_exists($route)) {
              mkdir($route, 0777, true);
          }
         $user = User::where('identification_card',$request['identification_card'])->get();
+        if(!$user[0]->email){
+            $user[0]->email = $request['email'];
+        }
+        if(!$user[0]->phone){
+            $user[0]->phone = $request['phone'];
+        }
+        if(!$user[0]->picture){
+            $imgRoute = public_path('images/default/default.jpg');
+            $imgRouteCopy = public_path('images/users/'.$request['identification_card'].'/default.jpg');
+            copy($imgRoute,$imgRouteCopy);
+            $user[0]->picture = 'default.jpg';
+        }
+        if(!$user[0]->password){
+            $user[0]->password = bcrypt($request['password']);
+        }
         $user[0]->rol_id = 2;
         $user[0]->save();
         return response()->json(['mensaje'=>'registro exitoso'],200);
         }
-        Mail::to($request['email'])
-        ->send(new UsuarioRegistrado(
-            $request['first_name'],
-            $request['last_name'],
-            $request['identification_card'],
-            $request['email'],
-            $request['phone'],
-            $request['password'],
-            2
-        ));
+        // Mail::to($request['email'])
+        // ->send(new UsuarioRegistrado(
+        //     $request['first_name'],
+        //     $request['last_name'],
+        //     $request['identification_card'],
+        //     $request['email'],
+        //     $request['phone'],
+        //     $request['password'],
+        //     2
+        // ));
          if (!file_exists($route)) {
-             mkdir($route, 0777, true);
+            mkdir($route, 0777, true);
+            $imgRoute = public_path('images/default/default.jpg');
+            $imgRouteCopy = public_path('images/users/'.$request['identification_card'].'/default.jpg');
+            copy($imgRoute,$imgRouteCopy);
          }
         User::create([
             'first_name'=>$request['first_name'],
@@ -137,6 +173,7 @@ class UserController extends Controller
             'email'=>$request['email'],
             'phone'=>$request['phone'],
             'password'=>bcrypt($request['password']),
+            'picture' => 'default.jpg',
             'rol_id'=>2
         ]);
     return response()->json(['mensaje'=>'registro exitoso'],200);
@@ -255,9 +292,14 @@ class UserController extends Controller
     //end api para buscar usuarios
     //start agregamos la firma digitales
     public function getSign(Request $request){
+    $user = User::Find($request->id);
+    $img = public_path('images/users/'.$user->identification_card.'/'.$user->sign);
+    if(@getimagesize($img)){
+            unlink($img);
+    }
         if($archivo=$request->file('image')){
             $nombre = $archivo->getClientOriginalName();
-            $archivo->move('images',$nombre);
+            $archivo->move('images/users/'.$user->identification_card,$nombre);
             $entrada['ruta']=$nombre;
             $user = User::Find($request->id);
             $user->sign = $nombre;
@@ -272,7 +314,7 @@ class UserController extends Controller
 //start eliminamos la firma
     public function destroySign(Request $request){
          $user = User::Find($request->id);
-         $img = public_path('images/'.$user->sign);
+         $img = public_path('images/users/'.$user->identification_card.'/'.$user->sign);
          if(@getimagesize($img)){
             unlink($img);
             $user->sign = null;
@@ -288,14 +330,14 @@ class UserController extends Controller
     //end eliminamos la firma
 //start eliminamos la firma
     public function updateSign(Request $request){
-         $user = User::Find($request->id);
-         $img = public_path('images/'.$request->oldSign);
+        $user = User::Find($request->id);
+         $img = public_path('images/users/'.$user->identification_card.'/'.$request->oldSign);
          if(@getimagesize($img)){
             unlink($img);
          }
          if($archivo=$request->file('image')){
             $nombre = $archivo->getClientOriginalName();
-            $archivo->move('images',$nombre);
+            $archivo->move('images/users/'.$user->identification_card,$nombre);
             $entrada['ruta']=$nombre;
             $user->sign = $nombre;
             $user->save();

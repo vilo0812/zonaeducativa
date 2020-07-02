@@ -1,7 +1,8 @@
 <?php
 /*"firstName"=>'Manuel',
             "lastName"=>'Rangel',
-            "IC"=>'24238148',
+            "IC"=>'2423
+            8148',
             "email"=> 'manueldavidrangel@gmail.com',
             "tlf"=>'04144588234',
             "municipality"=>'Roscio',
@@ -18,8 +19,8 @@ $factory->define(User::class, function (Faker $faker) {
     if (!file_exists($route)) {
         mkdir($route, 0777, true);
     }
-    $imgRoute = public_path('images/defect.jpg');
-    $imgRouteCopy = public_path('images/users/'.$ic.'/defect.jpg');
+    $imgRoute = public_path('images/default/default.jpg');
+    $imgRouteCopy = public_path('images/users/'.$ic.'/default.jpg');
     copy($imgRoute,$imgRouteCopy);
     return [
         'first_name' => $faker->firstname,
@@ -28,7 +29,7 @@ $factory->define(User::class, function (Faker $faker) {
         'identification_card' => $ic,
         'phone' =>$faker->randomNumber(7),
         'password' => bcrypt(1234), // password,
-        'picture' => 'defect.jpg',
+        'picture' => 'default.jpg',
         "rol_id"=>$faker->randomElement([2,3,4])
     ];
 });

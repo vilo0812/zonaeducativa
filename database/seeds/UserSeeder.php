@@ -19,8 +19,8 @@ class UserSeeder extends Seeder
         if (!file_exists($route)) {
             mkdir($route, 0777, true);
         }
-        $imgRoute = public_path('images/defect.jpg');
-        $imgRouteCopy = public_path('images/users/'.'27167028'.'/defect.jpg');
+        $imgRoute = public_path('images/default/default.jpg');
+        $imgRouteCopy = public_path('images/users/27167028/default.jpg');
         copy($imgRoute,$imgRouteCopy);
         User::create([
             "first_name"=>"Gabriel Antonio",
@@ -29,27 +29,27 @@ class UserSeeder extends Seeder
             "email"=>"gabriel.viloria0812@gmail.com",
             "phone"=>"04149017184",
             "password"=>bcrypt("1234"),
-            'picture' => 'defect.jpg',
+            'picture' => 'default.jpg',
             "rol_id"=>1
         ]);
-        $route = public_path('images/users/26666666');
-        if (!file_exists($route)) {
-            mkdir($route, 0777, true);
-        }
-        $imgRoute = public_path('images/defect.jpg');
-        $imgRouteCopy = public_path('images/users/'.'26666666'.'/defect.jpg');
-        copy($imgRoute,$imgRouteCopy);
-        User::create([
-            "first_name"=>"Miguel",
-            "last_name"=>"Padron",
-            "identification_card"=>"26666666",
-            "email"=>"miguelpadron1234@gmail.com",
-            "phone"=>"04149017183",
-            "password"=>bcrypt("1234"),
-            'picture' => 'defect.jpg',
-            "rol_id"=>2
-        ]);
-        factory(User::class, 20)->create();
+        // $route = public_path('images/users/26666666');
+        // if (!file_exists($route)) {
+        //     mkdir($route, 0777, true);
+        // }
+        // $imgRoute = public_path('images/default/default.jpg');
+        // $imgRouteCopy = public_path('images/users/26666666/default.jpg');
+        // copy($imgRoute,$imgRouteCopy);
+        // User::create([
+        //     "first_name"=>"Miguel",
+        //     "last_name"=>"Padron",
+        //     "identification_card"=>"26666666",
+        //     "email"=>"miguelpadron1234@gmail.com",
+        //     "phone"=>"04149017183",
+        //     "password"=>bcrypt("1234"),
+        //     'picture' => 'default.jpg',
+        //     "rol_id"=>2
+        // ]);
+        // factory(User::class, 20)->create();
     	/*end super administrador*/
     }
     /*end creamos a los usuarios*/

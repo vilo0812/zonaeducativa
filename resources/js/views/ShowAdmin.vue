@@ -20,7 +20,7 @@
     	<v-card class="d-inline-block mx-auto" color="grey darken-2" width="600px">
 <v-container fluid>
 	<!-- start imagen, nombre y correo -->
-      <v-img :aspect-ratio="16/9" src="/images/users/defect.jpg">
+      <v-img :aspect-ratio="16/9" :src="urlImgUser">
         <v-row align="end" class="lightbox white--text pa-2 fill-height">
           <v-col class="primary  col-6" border>
           	<!-- start mostramos los datos del nombre y el correo -->
@@ -105,7 +105,7 @@ export default {
 	data () {
 	  return {
 	    drawer:'',
-	    administrador:''
+	    administrador:{}
 	  };
 	},
   props:['id'],
@@ -136,7 +136,7 @@ export default {
     /*end llamamos al api que nos trae toda la informacion de este usuario*/
     },
     editing () {
-      this.$router.push({ name: 'edit-user', params: {id:this.administrador.id}})
+      this.$router.push({ name: 'sign', params: {id:this.administrador.id}})
     },
     remove(){
     	/*start pantalla de evaluar si de verdad se quiere eliminar*/
@@ -187,6 +187,10 @@ export default {
     }
   },
   computed: {
+    urlImgUser(){
+      return './../images/users/' + this.administrador.identification_card + '/' +
+      this.administrador.picture;
+    },
     rol() {
         return this.$store.state.currentUser.rol_id;
       }

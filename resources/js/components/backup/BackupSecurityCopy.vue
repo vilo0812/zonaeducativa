@@ -224,7 +224,7 @@ export default {
           }).then(select=>{
             if(select){
               this.getCopiesData();
-              this.addCopyDialog = false;
+              this.loadingAddCopy = false;
             }
           });
     }).catch(err => {

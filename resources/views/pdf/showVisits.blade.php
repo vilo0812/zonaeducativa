@@ -126,7 +126,7 @@
                 {{$superadmin[0]["identification_card"]}} <br/>  
                 @if($superadmin[0]["sign"])
                 <?php
-                echo '<img  class="img-sing" width="75px" height="75px"src="images/users/'.$superadmin[0]["sign"].'" alt=""><br/>';
+                echo '<img  class="img-sing" width="75px" height="75px"src="images/users/'.$superadmin[0]["identification_card"].'/'.$superadmin[0]["sign"].'" alt=""><br/>';
                 ?>
                 Firma:________________<br/>  
                 @else
@@ -139,7 +139,7 @@
                 {{$user["identification_card"]}}   <br/> 
                 @if($user["sign"])
                 <?php
-                echo '<img  class="img-sing" width="75px" height="75px"src="images/users/'.$user["sign"].'" alt=""><br/>';
+                echo '<img  class="img-sing" width="75px" height="75px"src="images/users/'.$user["identification_card"].'/'.$user["sign"].'" alt=""><br/>';
                 ?>
                 Firma:________________<br/>  
                 @else

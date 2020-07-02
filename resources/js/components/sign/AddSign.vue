@@ -42,6 +42,7 @@
 </template>
 <script>
  export default {
+  props:['id'],
   name: 'AddSign',
   data () {
       return {
@@ -75,7 +76,7 @@
       addSign(){
         let formData = new FormData();
         formData.append('image',this.image)
-        formData.append('id',this.user.id)
+        formData.append('id',this.id)
         axios.post('/api/storeSign',formData)
         .then( res =>{
           this.$store.commit("signSuccess",res.data);

@@ -210,11 +210,13 @@ export const routes = [
       },
       {
       path:'/EditUser/:id/AddSign',
+      props: true,
       component: AddSign,
       name:'add-sign',
       },
       {
       path:'/EditUser/:id/updateSign',
+      props: true,
       component: updateSign,
       name:'update-sign',
       },

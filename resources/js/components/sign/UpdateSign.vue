@@ -42,12 +42,12 @@
 </template>
 <script>
  export default {
+   props:['id','sign'],
   name: 'AddSign',
   data () {
       return {
         image:null,
-        imagenMiniatura: '',
-        user:''
+        imagenMiniatura: ''
       };
     },
   computed: {
@@ -75,8 +75,8 @@
       updateSign(){
         let formData = new FormData();
         formData.append('image',this.image)
-        formData.append('id',this.user.id)
-        formData.append('oldSign',this.user.sign)
+        formData.append('id',this.id)
+        formData.append('oldSign',this.sign)
         axios.post('/api/updateSign',formData)
         .then( res =>{
           this.$store.commit("signSuccess",res.data);
@@ -93,8 +93,5 @@
         })
       },
   },
-   created(){
-    this.user= this.$store.getters.currentUser;
-    }
  }
 </script>
