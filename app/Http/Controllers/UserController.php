@@ -117,16 +117,16 @@ class UserController extends Controller
     public function storeAdmin(RegisterAdminRequest $request){
         $route = public_path('images/users/'.$request['identification_card']);
         if(User::where('identification_card',$request['identification_card'])->count()){
-            // Mail::to($request['email'])
-            // ->send(new UsuarioRegistrado(
-            //     $request['first_name'],
-            //     $request['last_name'],
-            //     $request['identification_card'],
-            //     $request['email'],
-            //     $request['phone'],
-            //     $request['password'],
-            //     2
-            // ));
+            Mail::to($request['email'])
+            ->send(new UsuarioRegistrado(
+                $request['first_name'],
+                $request['last_name'],
+                $request['identification_card'],
+                $request['email'],
+                $request['phone'],
+                $request['password'],
+                2
+            ));
          if (!file_exists($route)) {
              mkdir($route, 0777, true);
          }
@@ -150,16 +150,16 @@ class UserController extends Controller
         $user[0]->save();
         return response()->json(['mensaje'=>'registro exitoso'],200);
         }
-        // Mail::to($request['email'])
-        // ->send(new UsuarioRegistrado(
-        //     $request['first_name'],
-        //     $request['last_name'],
-        //     $request['identification_card'],
-        //     $request['email'],
-        //     $request['phone'],
-        //     $request['password'],
-        //     2
-        // ));
+        Mail::to($request['email'])
+        ->send(new UsuarioRegistrado(
+            $request['first_name'],
+            $request['last_name'],
+            $request['identification_card'],
+            $request['email'],
+            $request['phone'],
+            $request['password'],
+            2
+        ));
          if (!file_exists($route)) {
             mkdir($route, 0777, true);
             $imgRoute = public_path('images/default/default.jpg');
