@@ -195,7 +195,6 @@ class UserController extends Controller
         $user->email=$request->email;
         $user->phone=$request->phone;
         $user->identification_card=$request->identification_card;
-        $user->picture=$request->picture;
         $user->save();
         $bitacore = new BitacoreController();
         $bitacore->store($request->user_id,$request->details,$request->action_id);

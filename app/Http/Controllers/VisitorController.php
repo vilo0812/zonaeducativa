@@ -37,9 +37,11 @@ class VisitorController extends Controller
         $details = "El usuario descargo los registros de visitas en el edificio";
         $bitacore->store($id,$details,5);
         $data=Visitor::showVisitsPdf();
+        $user = User::find($id);
+        $superadmin = User::whereRol_id(1)->get();
         $pdf = App::make('dompdf.wrapper');
         $pdf->setPaper('a4', 'landscape');
-        $pdf->loadView('pdf.showVisits',compact('data'));
+        $pdf->loadView('pdf.showVisits',compact('data','user','superadmin'));
         return $pdf->download();
     }
     /*end que me permtie descargar los pdfs*/
