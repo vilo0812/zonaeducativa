@@ -15,9 +15,10 @@ class CreateVisitorsTable extends Migration
     {
         Schema::create('visitors', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('provenance')->nullable();
             $table->string('belongings')->nullable();//pertenencias
             $table->text('observation')->nullable();//observaiones
-            $table->timestamps();
+            $table->string('code')->nullable();//observaiones
         });
     }
 

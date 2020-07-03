@@ -17,7 +17,6 @@ class CreateFloorsTable extends Migration
             $table->bigIncrements('id');
             $table->string('floor');
             $table->string('letter_code');
-            $table->timestamps();
         });
     }
 

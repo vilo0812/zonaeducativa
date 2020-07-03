@@ -14,7 +14,7 @@ class AddUserIdToVisitorsTable extends Migration
     public function up()
     {
         Schema::table('visitors', function (Blueprint $table) {
-            $table->bigInteger('user_id')->after('handling_ticket_id')->unsigned()->nullable();
+            $table->bigInteger('user_id')->after('id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');        });
     }
 

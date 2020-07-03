@@ -8,6 +8,9 @@ import {routes} from './routes'
 import VueRouter from 'vue-router'
 import vuetify from './plugins/vuetify'
 import App from './App.vue'
+/*start funciones generales*/
+import {initialize} from './helpers/general';
+/*end funciones generales*/
 /*start otras librerias*/
 import swal from 'sweetalert';//para algunas alertas
 /*end otras librerias*/
@@ -21,24 +24,7 @@ const router = new VueRouter({
   routes,
   mode:'history'
 });
-router.beforeEach((to, from, next) => {	
-	let autorizacion = to.matched.some(record => record.meta.authSuperAdmin);
-	if(autorizacion){
-	next()
-	}else{
-	next()
-	}
-	// let autorizacion = to.matched.some(record => record.meta.auth);
-	// let usuario = admin;
-	// let autorizacion = to.matched.some(record => record.meta.autentificado);
-	// if(autorizacion && !usuario){
-	// 	next('/')
-	// } else if(!autorizacion && usuario){
-	// 	next('/')
-	// }else{
-	// 	next()
-	// }
-})
+initialize(store,router);
 const app = new Vue({
   router,
   store,

@@ -1,31 +1,40 @@
 <template>
 	<div>
-		<!-- start nav bar -->
-		<nav-bar></nav-bar>
-		<!-- end nav bar -->
-		<!-- start imagen de fondo -->
-		<!-- src="images/background/vibrante vintage.png"> -->
-		<v-parallax 
-		src="images/background/fondo.jpg"
+		<v-parallax
+		src="images/background/triangulorojo.png"
+		height="700"
 		>
-			<!-- start contenido de la pagina principal -->
-  			<h1 class="display-4 text-center">sistema de seguridad de la zona educativa</h1>	
-  			<!-- start llamamos al componente de iniciar sesion -->
-  			<v-card width="500px" class="ma-auto">
-  				<iniciar-sesion></iniciar-sesion>
-  			</v-card>
-  			<!-- end llamamos al componente de iniciar sesion -->
-			<!-- end contenido de la pagina principal -->
+				<v-col cols="12" >
+					<v-row class="d-flex flex-column flex-md-row">
+			       	<v-col sm="12" md="6" class="d-flex justify-center align-start " height="700">
+			       		<transition
+			       				name="animate.css"
+								enter-active-class="animated fadeInLeftBig"
+								appear
+								>
+			       			<img src="images/icons/zeg.png" alt="" width="500"  >
+						</transition>
+			       	</v-col>
+			       	<v-col  sm="12" md="5">
+			       		<v-card height="700" class="grey lighten-4 d-flex justify-center align-center" >
+			       			<v-col class="mx-7">
+								<router-view/>
+								<!-- <iniciar-sesion></iniciar-sesion> -->
+			       			</v-col>
+			       		</v-card>
+			       	</v-col>
+			       	</v-row>
+				</v-col>
 		</v-parallax>
+
 		<!-- end imagen de fondo -->
 	</div>
 </template>
 
 <script>
-import Nav from '.././partials/home/NavBar.vue'
+import Nav from '.././partials/NavBar.vue'
 import Log from '.././components/home/Login.vue'
 export default {
-
   name: 'Home',
 	components:{
 			'nav-bar':Nav,
@@ -35,7 +44,10 @@ export default {
     return {
 
     }
-  }
+  },
+  created () {
+      this.$vuetify.theme.dark = false
+    },
 }
 </script>
 

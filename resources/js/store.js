@@ -1,26 +1,64 @@
+/*start traemos al usaurio de el local storage si es que existe*/
+import {getLocalUser} from './helpers/auth.js';
+const user = getLocalUser();
+/*end traemos al usaurio de el local storage si es que existe*/
 export default{
     state:{
-      //variables del home
-      registrar:false,
-      login:true,
-      recuperar:false
+        currentUser:user,
+        isLoggedIn: !!user,
+        loading:false,
+        email:''
     },
     mutations:{
-      //mutaciones del home
-      ActivarRegistrar(state){
-      state.registrar = true
-      state.login = false
-      },
-      ActivarLogin(state){
-        state.registrar = false
-        state.recuperar = false
-        state.login = true
-      },
-      ActivarRecuperar(state){
-        state.login = false
-        state.recuperar = true
-      }
+      login(state){
+            state.loading =true;
+            state.auth_error =null;
+        },
+        signDelete(state){
+        state.currentUser.sign = null;
+        localStorage.setItem("user",JSON.stringify(state.currentUser));
+        },
+        signSuccess(state,payload){
+        state.currentUser.sign = payload;
+        localStorage.setItem("user",JSON.stringify(state.currentUser));
+        },
+        pictureSuccess(state,payload){
+        state.currentUser.picture = payload;
+        localStorage.setItem("user",JSON.stringify(state.currentUser));
+        },
+        loginSuccess(state,payload){
+            state.auth_error = null;
+            state.isLoggedIn = true;
+            state.loading = false;
+            state.currentUser = Object.assign({},payload.user,{token: payload.access_token});
+            localStorage.setItem("user",JSON.stringify(state.currentUser));
+        },
+        loginFailed(state, payload){
+            state.loading = false;
+            state.auth_error = payload.error;
+        }
+        ,logout(state){
+            localStorage.removeItem("user");
+            state.isLoggedIn = false;
+            state.currentUser = null;
+        },
+        passwordRecover(state, payload){
+            state.email = payload;
+        },
+        emailNull(state){
+            state.email = null;
+        }
     },
-    getters:{},
+    getters:{
+        isLoading(state){
+            return state.loading;
+        },
+        isLoggedIn(state){
+            return state.isLoggedIn;
+        },
+        currentUser(state){
+            return state.currentUser;
+        },
+    },
     actions:{}
 }
