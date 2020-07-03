@@ -35,8 +35,8 @@ class DatabaseSeeder extends Seeder
         $this->call(TicketSeeder::class);
       $this->call(DirectionTicketsSeeder::class);
       $this->call(ActionSeeder::class);
-      $this->call(VisitorSeeder::class);
-      $this->call(BitacoreSeeder::class);
+      // $this->call(VisitorSeeder::class);
+      // $this->call(BitacoreSeeder::class);
     }
     public function truncateTable(array $tables){
       DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
