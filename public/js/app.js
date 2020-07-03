@@ -2469,13 +2469,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   name: 'AddPicture',
@@ -44093,7 +44086,7 @@ var render = function() {
           },
           [
             _c("v-card-title", { staticClass: "headline" }, [
-              _vm._v("Por Favor Ingrese su Foto de Perfil")
+              _vm._v("Por Favor\nIngrese su Foto de Perfil")
             ]),
             _vm._v(" "),
             _c(
@@ -44167,11 +44160,11 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("\n          cancelar\n        ")]
+                  [_vm._v("\n            cancelar\n          ")]
                 ),
                 _vm._v(" "),
                 _c("v-btn", { attrs: { color: "primary", type: "submit" } }, [
-                  _vm._v("\n          continuar\n        ")
+                  _vm._v("\n            continuar\n          ")
                 ])
               ],
               1
@@ -108078,35 +108071,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ "./resources/js/views/ViewVisits.vue":
-/*!*******************************************!*\
-  !*** ./resources/js/views/ViewVisits.vue ***!
-  \*******************************************/
-=======
 /***/ "./resources/js/views/ShowAdmin.vue":
 /*!******************************************!*\
   !*** ./resources/js/views/ShowAdmin.vue ***!
   \******************************************/
->>>>>>> vilonk
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-<<<<<<< HEAD
-/* harmony import */ var _ViewVisits_vue_vue_type_template_id_5f29636c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ViewVisits.vue?vue&type=template&id=5f29636c& */ "./resources/js/views/ViewVisits.vue?vue&type=template&id=5f29636c&");
-/* harmony import */ var _ViewVisits_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ViewVisits.vue?vue&type=script&lang=js& */ "./resources/js/views/ViewVisits.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
-/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
-/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
-/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
-/* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
-/* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
-=======
 /* harmony import */ var _ShowAdmin_vue_vue_type_template_id_15f8b17a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ShowAdmin.vue?vue&type=template&id=15f8b17a& */ "./resources/js/views/ShowAdmin.vue?vue&type=template&id=15f8b17a&");
 /* harmony import */ var _ShowAdmin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ShowAdmin.vue?vue&type=script&lang=js& */ "./resources/js/views/ShowAdmin.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _ShowAdmin_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ShowAdmin.vue?vue&type=style&index=0&lang=css& */ "./resources/js/views/ShowAdmin.vue?vue&type=style&index=0&lang=css&");
@@ -108121,7 +108094,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/index.js");
 /* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/index.js");
 
->>>>>>> vilonk
 
 
 
@@ -108164,13 +108136,6 @@ component.options.__file = "resources/js/views/ShowAdmin.vue"
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ "./resources/js/views/ViewVisits.vue?vue&type=script&lang=js&":
-/*!********************************************************************!*\
-  !*** ./resources/js/views/ViewVisits.vue?vue&type=script&lang=js& ***!
-  \********************************************************************/
-/*! exports provided: default */
-=======
 /***/ "./resources/js/views/ShowAdmin.vue?vue&type=script&lang=js&":
 /*!*******************************************************************!*\
   !*** ./resources/js/views/ShowAdmin.vue?vue&type=script&lang=js& ***!
@@ -108190,7 +108155,6 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./resources/js/views/ShowAdmin.vue?vue&type=style&index=0&lang=css& ***!
   \***************************************************************************/
 /*! no static exports found */
->>>>>>> vilonk
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
