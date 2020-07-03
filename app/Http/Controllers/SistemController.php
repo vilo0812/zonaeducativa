@@ -190,6 +190,20 @@ class SistemController extends Controller
             ]);
         };
        }
+       $usersBackup = User::all();
+        if(!empty($usersBackup)){
+            foreach ($usersBackup as $item) {
+               $route = public_path('images/users/'.$item['identification_card']);
+                if (!file_exists($route)) {
+                    mkdir($route, 0777, true);
+                }
+                $imgRoute = public_path('images/default/default.jpg');
+                $imgRouteCopy = public_path('images/users/'.$item['identification_card'].'/default.jpg');
+                copy($imgRoute,$imgRouteCopy);
+                $item->picture = 'default.jpg';
+                $item->save();
+            };
+        }
        return response()->json([
             'mensaje'=>'Restauración exitosa'],200);
     }
