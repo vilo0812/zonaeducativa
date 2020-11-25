@@ -211,7 +211,7 @@ import actions from '.././components/viewUsers/actionUsers.vue'
       }
       },
       editing (UserId) {
-      this.$router.push({ name: 'edit-user',params:{id:UserId}})
+      this.$router.push({ name: 'sign0414',params:{id:UserId}})
       // this.$router.push({ name: 'editing-leader-zone', params: {id:UserId}})
       },
       remove(id,index){

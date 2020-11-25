@@ -5,7 +5,7 @@
         <v-card-title class="headline">Por Favor Ingrese su firma Digital</v-card-title>
         <v-card-text>
             <p>
-             Usted es libre de importar una imagen de su firma para firmar automáticamente los documentos pdf de los reportes, se recomienda utilizar una imagen de la firma con formato .png, .jpg o .jpeg que no exceda los 400px por 400px de ancho y alto
+             Usted es libre de importar una imagen de su firma para firmar automáticamente los documentos pdf de los reportes, se recomienda utilizar una imagen de la firma con formato .png, .jpg o .jpeg que no exceda los 400px por 400px de ancho y alto 
             </p>
             <v-file-input show-size counter label="Agregar Firma" accept="image/*" @change="getImage($event)"></v-file-input>
             <v-card v-if="imagen">
@@ -74,6 +74,7 @@
         reader.readAsDataURL(file);
       },
       addSign(){
+        ew
         let formData = new FormData();
         formData.append('image',this.image)
         formData.append('id',this.id)

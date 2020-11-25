@@ -75,7 +75,6 @@
       </v-simple-table>
       <!-- star vemos los datos de la botacora - -->
         </v-container>
-      </v-card>
        <!-- start pagination -->
         <div class="text-center">
                 <v-row justify="center" align="center">
@@ -91,6 +90,7 @@
                 </v-row>
             </div>
         <!--end paginate -->
+      </v-card>
     </content-center>
     <!-- end el main donde ira el contenido principal-->
   </div>
