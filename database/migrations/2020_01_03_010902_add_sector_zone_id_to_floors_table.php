@@ -14,8 +14,8 @@ class AddSectorZoneIdToFloorsTable extends Migration
     public function up()
     {
         Schema::table('floors', function (Blueprint $table) {
-            $table->bigInteger('sector_zone_id')->unsigned()->nullable();
-            $table->foreign('sector_zone_id')->references('id')->on('sectors_zones')->onDelete('cascade');
+            // $table->bigInteger('sector_zone_id')->unsigned()->nullable();
+            // $table->foreign('sector_zone_id')->references('id')->on('sectors_zones')->onDelete('cascade');
         });
     }
 
@@ -27,8 +27,8 @@ class AddSectorZoneIdToFloorsTable extends Migration
     public function down()
     {
         Schema::table('floors', function (Blueprint $table) {
-            $table->dropForeign(['sector_zone_id']);
-            $table->dropColumn('sector_zone_id');
+            // $table->dropForeign(['sector_zone_id']);
+            // $table->dropColumn('sector_zone_id');
         });
     }
 }
