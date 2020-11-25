@@ -13,19 +13,19 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-    	$this->truncateTable([
-    		'rols',
-        'users',
-        'sectors',
-        'zones',
-        'floors',
-        'directions',
-        'tickets',
-        'direction_tickets',
-        'visitors',
-        'actions',
-        'bitacores'
-        ]);
+    	// $this->truncateTable([
+    	// 	'rols',
+     //    'users',
+     //    'sectors',
+     //    'zones',
+     //    'floors',
+     //    'directions',
+     //    'tickets',
+     //    'direction_tickets',
+     //    'visitors',
+     //    'actions',
+     //    'bitacores'
+     //    ]);
         $this->call(RolSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(SectorSeeder::class);
